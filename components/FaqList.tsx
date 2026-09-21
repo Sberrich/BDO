@@ -17,14 +17,20 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
   const [open, setOpen] = useState<string | null>(null);
 
   const groups = useMemo(() => {
-    const q = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const q = query
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
     return data.faq.groupes
       .map((g) => ({
         ...g,
         questions: (g.questions as unknown as Q[]).filter((item) => {
           if (onlyHome && !item.accueil) return false;
           if (!q) return true;
-          const hay = `${item.q} ${item.r}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          const hay = `${item.q} ${item.r}`
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
           return hay.includes(q);
         }),
       }))
@@ -51,8 +57,18 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
             />
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <span
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
+              aria-hidden
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-3.5-3.5" />
               </svg>
@@ -67,7 +83,11 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
             {g.questions.map((item, i) => {
               const isOpen = open === item.id;
               return (
-                <div key={item.id} id={item.id} className={i === 0 ? "" : "border-t border-line"}>
+                <div
+                  key={item.id}
+                  id={item.id}
+                  className={i === 0 ? "" : "border-t border-line"}
+                >
                   <h3 className="m-0">
                     <button
                       type="button"
@@ -87,10 +107,16 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
                   </h3>
                   <div className={`faq-panel ${isOpen ? "is-open" : ""}`}>
                     <div>
-                      <div className="faq-answer space-y-3 px-5 pb-5 text-muted" dangerouslySetInnerHTML={{ __html: rich(item.r) }} />
+                      <div
+                        className="faq-answer space-y-3 px-5 pb-5 text-muted"
+                        dangerouslySetInnerHTML={{ __html: rich(item.r) }}
+                      />
                       {item.lien && (
                         <p className="px-5 pb-5">
-                          <a className="text-sm font-semibold text-blue hover:text-blue-dark" href={appHref(item.lien.href)}>
+                          <a
+                            className="text-sm font-semibold text-blue hover:text-blue-dark"
+                            href={appHref(item.lien.href)}
+                          >
                             {item.lien.texte}
                           </a>
                         </p>
@@ -103,7 +129,11 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
           </div>
         </section>
       ))}
-      {groups.length === 0 && <p className="text-muted">Aucune question ne correspond à votre recherche.</p>}
+      {groups.length === 0 && (
+        <p className="text-muted">
+          Aucune question ne correspond à votre recherche.
+        </p>
+      )}
     </div>
   );
 }

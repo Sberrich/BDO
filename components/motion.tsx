@@ -28,7 +28,10 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px]" aria-hidden>
+    <div
+      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px]"
+      aria-hidden
+    >
       <div
         className="h-full origin-left bg-blue transition-[width] duration-150 ease-out"
         style={{ width: `${p}%` }}
