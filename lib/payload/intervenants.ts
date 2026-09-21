@@ -9,7 +9,7 @@ const data = {
       "photo": "assets/img/zakaria-fahim.jpeg",
       "bio": "Associé gérant de BDO Maroc, Zakaria Fahim accompagne les directions générales et financières des grandes et moyennes entreprises marocaines sur leurs opérations de transformation. Il est à l’origine du Baromètre BDO des DAF et du Trophée BDO, et intervient sur le workshop de management digital et sur le jury de soutenance.",
       "seminaires": [4, 8],
-      "linkedin": "https://www.linkedin.com/"
+      "linkedin": "https://www.linkedin.com/in/zakaria-fahim-97286928"
     },
     {
       "slug": "ismail-lahsini",
@@ -19,7 +19,7 @@ const data = {
       "photo": "assets/img/ismail-lahsini.jpeg",
       "bio": "Ismail Lahsini conseille les directions financières sur la structuration de leurs données et la conduite de leurs projets de transformation. Il coauteur du livre blanc « La Fonction Financière Augmentée » et anime le séminaire consacré aux données et aux indicateurs.",
       "seminaires": [1, 8],
-      "linkedin": "https://www.linkedin.com/"
+      "linkedin": "https://www.linkedin.com/in/lahsini"
     },
     {
       "slug": "antonio-gomes",
@@ -29,7 +29,7 @@ const data = {
       "photo": "assets/img/intervenant-antonio-gomes.jpg",
       "bio": "{{PROV}}Antonio Gomes intervient sur les applications de l’intelligence artificielle dans la chaîne financière : automatisation, prévision, détection d’anomalies et gouvernance des modèles. Il anime le séminaire consacré à l’I.A, de l’apprentissage automatique à l’IA agentique.{{/PROV}}",
       "seminaires": [2],
-      "linkedin": "{{PROV}}https://www.linkedin.com/{{/PROV}}"
+      "linkedin": "https://www.linkedin.com/in/onchainantonio"
     },
     {
       "slug": "intervenant-provisoire-1",

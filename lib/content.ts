@@ -1,17 +1,45 @@
 import calendrier from "@/lib/payload/calendrier";
 import faq from "@/lib/payload/faq";
+import insights from "@/lib/payload/insights";
 import intervenants from "@/lib/payload/intervenants";
 import seminaires from "@/lib/payload/seminaires";
 import site from "@/lib/payload/site";
 import { seminarPath } from "@/lib/text";
 
-export const data = { site, seminaires, faq, calendrier, intervenants };
+export const data = { site, seminaires, faq, calendrier, intervenants, insights };
+
+export const RESOURCES_MENU = [
+  {
+    href: "/ressources/brochure",
+    label: "La brochure du certificat",
+    desc: "Programme, calendrier, tarif et admissions",
+    icon: "brochure" as const,
+  },
+  {
+    href: "/ressources/barometre",
+    label: "Le Baromètre BDO des DAF 2024",
+    desc: "Enquête annuelle — 94 répondants",
+    icon: "barometre" as const,
+  },
+  {
+    href: "/ressources/livre-blanc",
+    label: "La Fonction Financière Augmentée",
+    desc: "Livre blanc BDO × Maltem Africa",
+    icon: "livreblanc" as const,
+  },
+  {
+    href: "/insights",
+    label: "Insights",
+    desc: "Analyses et lectures CFO 4.0",
+    icon: "insights" as const,
+  },
+] as const;
 
 export const NAV = [
   { href: "/programme", label: "Le programme" },
   { href: "/admissions", label: "Admissions" },
   { href: "/intervenants", label: "Intervenants" },
-  { href: "/ressources", label: "Ressources" },
+  { href: "/ressources", label: "Ressources", menu: true },
   { href: "/faq", label: "FAQ" },
 ] as const;
 

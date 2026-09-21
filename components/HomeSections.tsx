@@ -359,7 +359,7 @@ export function HomeSections() {
         <div className="home-band__glow" aria-hidden />
         <Container className="relative grid items-end gap-8 md:grid-cols-[1.2fr_auto]">
           <div>
-            <p className="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-gold">Candidater</p>
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-blue">Candidater</p>
             <h2 className="mt-3 max-w-[20ch] text-[clamp(1.75rem,1.45rem+1.2vw,2.5rem)] font-bold leading-[1.15] tracking-[-0.02em]">
               Prêt à rejoindre la promotion 1 ?
             </h2>

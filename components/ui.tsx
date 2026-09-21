@@ -59,7 +59,7 @@ export function Kicker({ children, light = false }: { children: ReactNode; light
       }`}
     >
       <span
-        className={`h-[3px] w-7 rounded-full ${light ? "bg-gold/80" : "bg-gold"}`}
+        className={`h-[3px] w-7 rounded-full ${light ? "bg-white/70" : "bg-blue"}`}
         aria-hidden
       />
       {children}
@@ -82,7 +82,7 @@ export function SectionHeading({
     <div className="max-w-3xl">
       <div className="flex flex-wrap items-center gap-3">
         {index ? (
-          <span className="font-mono text-sm font-bold tabular-nums text-gold">{index}</span>
+          <span className="font-mono text-sm font-bold tabular-nums text-blue">{index}</span>
         ) : null}
         <Kicker>{kicker}</Kicker>
       </div>
@@ -111,7 +111,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden bg-navy text-white">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_0%,rgba(201,162,39,0.18),transparent_42%),radial-gradient(ellipse_at_90%_20%,rgba(227,6,19,0.16),transparent_40%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_0%,rgba(0, 55, 104, 0.18),transparent_42%),radial-gradient(ellipse_at_90%_20%,rgba(227,6,19,0.16),transparent_40%)]"
         aria-hidden
       />
       <Container className="relative py-[clamp(2.75rem,6vw,4.5rem)]">

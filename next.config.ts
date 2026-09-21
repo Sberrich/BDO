@@ -41,10 +41,12 @@ const nextConfig: NextConfig = {
       },
       { source: "/lp/session-info.html", destination: "/", permanent: true },
       { source: "/lp/session-info", destination: "/", permanent: true },
-      { source: "/lp/livre-blanc.html", destination: "/ressources", permanent: true },
-      { source: "/lp/livre-blanc", destination: "/ressources", permanent: true },
-      { source: "/lp/barometre.html", destination: "/ressources", permanent: true },
-      { source: "/lp/barometre", destination: "/ressources", permanent: true },
+      { source: "/lp/livre-blanc.html", destination: "/ressources/livre-blanc", permanent: true },
+      { source: "/lp/livre-blanc", destination: "/ressources/livre-blanc", permanent: true },
+      { source: "/lp/barometre.html", destination: "/ressources/barometre", permanent: true },
+      { source: "/lp/barometre", destination: "/ressources/barometre", permanent: true },
+      { source: "/lp/brochure.html", destination: "/ressources/brochure", permanent: true },
+      { source: "/lp/brochure", destination: "/ressources/brochure", permanent: true },
     ];
   },
   async headers() {

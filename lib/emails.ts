@@ -5,7 +5,7 @@ export type FormPayload = Record<string, unknown>;
 
 const NAVY = "#00264a";
 const RED = "#e30613";
-const GOLD = "#c9a227";
+const BLUE = "#003768";
 const MUTED = "#5a6b7d";
 const LINE = "#e7eef4";
 const WASH = "#f2f5f8";
@@ -85,7 +85,7 @@ const META: Record<
     badge: "Document",
     title: "Téléchargement de document",
     subject: "Téléchargement",
-    accent: GOLD,
+    accent: BLUE,
     intro: "Une personne a demandé un document du certificat.",
   },
   candidature: {
@@ -142,7 +142,7 @@ function section(title: string, rowsHtml: string) {
   return `
     <tr>
       <td style="padding:28px 32px 8px;">
-        <p style="margin:0 0 8px;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.14em;text-transform:uppercase;color:${GOLD};">
+        <p style="margin:0 0 8px;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.14em;text-transform:uppercase;color:${BLUE};">
           ${esc(title)}
         </p>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
@@ -324,7 +324,7 @@ export function buildFormEmail(type: string, body: FormPayload) {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border-collapse:collapse;">
           <tr>
             <td style="background:${NAVY};padding:28px 32px 24px;">
-              <p style="margin:0 0 10px;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.16em;text-transform:uppercase;color:${GOLD};">
+              <p style="margin:0 0 10px;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.16em;text-transform:uppercase;color:${BLUE};">
                 CFO 4.0 · Groupe ISCAE × BDO Maroc
               </p>
               <p style="margin:0 0 14px;">

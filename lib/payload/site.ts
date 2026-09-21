@@ -272,14 +272,14 @@ const data = {
       {
         "titre": "Le Baromètre BDO des DAF",
         "texte": "L’enquête annuelle de BDO Maroc auprès des directeurs financiers et des leaders financiers. Édition 2024, 94 répondants.",
-        "lien": "ressources.html#barometre",
+        "lien": "/ressources/barometre",
         "action": "Télécharger le baromètre",
         "icone": "finance"
       },
       {
         "titre": "La Fonction Financière Augmentée",
         "texte": "Le livre blanc BDO × Maltem Africa sur la transformation de la fonction finance et l’émergence du CFO 4.0.",
-        "lien": "ressources.html#livre-blanc",
+        "lien": "/ressources/livre-blanc",
         "action": "Télécharger le livre blanc",
         "icone": "brochure"
       },

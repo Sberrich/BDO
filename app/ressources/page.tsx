@@ -1,40 +1,69 @@
 import type { Metadata } from "next";
-import { LeadForm } from "@/components/LeadForm";
-import { Container, PageHero, SectionHeading } from "@/components/ui";
-import { data } from "@/lib/content";
+import Link from "next/link";
+import {
+  IconBarChart,
+  IconBook,
+  IconFileText,
+  IconLayers,
+} from "@/components/icons";
+import { ButtonLink, Container, PageHero } from "@/components/ui";
+import { RESOURCES_MENU } from "@/lib/content";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Ressources",
-  description: "Brochure, Baromètre BDO des DAF et livre blanc du certificat CFO 4.0.",
+  description: "Brochure, Baromètre BDO des DAF, livre blanc et Insights du certificat CFO 4.0.",
 };
 
+function iconFor(icon: (typeof RESOURCES_MENU)[number]["icon"]): ReactNode {
+  switch (icon) {
+    case "brochure":
+      return <IconBook />;
+    case "barometre":
+      return <IconBarChart size={18} />;
+    case "livreblanc":
+      return <IconFileText size={18} />;
+    case "insights":
+      return <IconLayers size={18} />;
+    default:
+      return <IconFileText size={18} />;
+  }
+}
+
 export default function RessourcesPage() {
-  const d = data.site.docs;
   return (
     <>
-      <PageHero kicker="Ressources" title="Les publications qui documentent le programme" />
-      <section id="brochure" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container className="grid items-start gap-10 md:grid-cols-2">
-          <div>
-            <SectionHeading kicker="Brochure 2026" title={d.brochure.titre} lead="Le programme, les huit séminaires, le calendrier, le tarif et le processus d’admission." />
+      <PageHero
+        kicker="Ressources"
+        title="Les publications qui documentent le programme"
+        lead="Brochure, Baromètre, livre blanc et analyses — chaque document a sa page dédiée."
+      />
+      <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
+        <Container>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {RESOURCES_MENU.map((r) => (
+              <li key={r.href}>
+                <Link
+                  href={r.href}
+                  className="group flex h-full gap-4 rounded-md border border-line bg-white p-5 shadow-[var(--shadow-xs)] transition hover:-translate-y-0.5 hover:border-blue/35 hover:shadow-[var(--shadow-md)]"
+                >
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-blue/10 text-blue">
+                    {iconFor(r.icon)}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-lg font-bold text-ink transition group-hover:text-blue">{r.label}</span>
+                    <span className="mt-1 block text-sm text-muted">{r.desc}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <ButtonLink href="/candidater">Candidater</ButtonLink>
+            <ButtonLink href="/faq" variant="secondary">
+              Consulter la FAQ
+            </ButtonLink>
           </div>
-          <div className="rounded-md bg-white p-6 shadow-[var(--shadow-md)] sm:p-8"><LeadForm kind="document" document="brochure" prefix="b" /></div>
-        </Container>
-      </section>
-      <section id="barometre" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container className="grid items-start gap-10 md:grid-cols-2">
-          <div>
-            <SectionHeading kicker="Enquête" title={d.barometre.titre} lead="L’enquête annuelle de BDO Maroc. Édition 2024, 94 répondants." />
-          </div>
-          <div className="rounded-md bg-cream p-6 sm:p-8"><LeadForm kind="document" document="barometre" prefix="a" /></div>
-        </Container>
-      </section>
-      <section id="livre-blanc" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container className="grid items-start gap-10 md:grid-cols-2">
-          <div>
-            <SectionHeading kicker="Publication" title={d.livreBlanc.titre} lead="Le livre blanc BDO × Maltem Africa sur la transformation de la fonction finance." />
-          </div>
-          <div className="rounded-md bg-white p-6 shadow-[var(--shadow-md)] sm:p-8"><LeadForm kind="document" document="livreblanc" prefix="l" /></div>
         </Container>
       </section>
     </>

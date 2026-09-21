@@ -66,6 +66,9 @@ export function Footer() {
                 </li>
               ))}
               <li>
+                <Link href="/insights">Insights</Link>
+              </li>
+              <li>
                 <Link href="/a-propos">À propos</Link>
               </li>
             </ul>

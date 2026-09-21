@@ -219,3 +219,98 @@ export function IconGauge() {
     </svg>
   );
 }
+
+export function IconLinkedIn({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+export function IconSearch({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M16 16l4.5 4.5" />
+    </svg>
+  );
+}
+
+export function IconSort({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M7 5v14" />
+      <path d="M3.5 15.5 7 19l3.5-3.5" />
+      <path d="M17 19V5" />
+      <path d="M13.5 8.5 17 5l3.5 3.5" />
+    </svg>
+  );
+}
+
+export function IconTick({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 12.5 10 17.5 19 7" />
+    </svg>
+  );
+}
+
+export function IconBarChart({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 19V10" />
+      <path d="M12 19V5" />
+      <path d="M19 19v-7" />
+    </svg>
+  );
+}
+
+export function IconFileText({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8z" />
+      <path d="M14 3.5V8h4.5" />
+      <path d="M8.5 12.5h7" />
+      <path d="M8.5 16h5" />
+    </svg>
+  );
+}
+
+export function IconLayers({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="m12 4 8 4.2-8 4.2-8-4.2L12 4z" />
+      <path d="m4 12.2 8 4.2 8-4.2" />
+      <path d="m4 16.4 8 4.2 8-4.2" />
+    </svg>
+  );
+}
+
+export function IconJuryMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 3.5 14.2 9.8 21 10.2 15.8 14.4 17.4 21 12 17.8 6.6 21 8.2 14.4 3 10.2 9.8 9.8 12 3.5z" />
+    </svg>
+  );
+}
+
+export function IconGrid({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="4" y="4" width="6.5" height="6.5" rx="1.2" />
+      <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2" />
+      <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2" />
+      <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2" />
+    </svg>
+  );
+}
+
+export function IconInbox({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 13.5 6.2 5.8A1.5 1.5 0 0 1 7.65 4.75h8.7A1.5 1.5 0 0 1 17.8 5.8L20 13.5" />
+      <path d="M4 13.5h4.2l1.3 2.2h5l1.3-2.2H20V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19v-5.5z" />
+    </svg>
+  );
+}

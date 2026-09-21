@@ -1,7 +1,7 @@
 /**
  * CFO 4.0 Design System — Brand identity
- * ISCAE: navy + gold · BDO: blue + red
- * CTAs = BDO red · Interactive = BDO blue · Depth = ISCAE navy · Prestige accents = ISCAE gold
+ * ISCAE: navy · BDO: blue + red
+ * CTAs = BDO red · Interactive = BDO blue · Depth = ISCAE navy
  */
 
 :root {
@@ -21,11 +21,11 @@
   --brand-navy: #00264a;
   --brand-navy-dark: #001a33;
 
-  /* ISCAE gold — square + arch accent */
-  --brand-gold: #c9a227;
-  --brand-gold-dark: #a6851a;
-  --brand-gold-soft: rgba(201, 162, 39, 0.14);
-  --brand-gold-mid: rgba(201, 162, 39, 0.22);
+  /* Legacy accent alias → BDO blue (gold removed) */
+  --brand-gold: #003768;
+  --brand-gold-dark: #00264a;
+  --brand-gold-soft: rgba(0, 55, 104, 0.08);
+  --brand-gold-mid: rgba(0, 55, 104, 0.14);
 
   /* ——— Surfaces ——— */
   --surface-0: #ffffff;
@@ -50,7 +50,7 @@
   --border-strong: #c5d0db;
   --border-focus: var(--brand-blue);
   --border-accent: rgba(0, 55, 104, 0.32);
-  --border-gold: rgba(201, 162, 39, 0.55);
+  --border-gold: rgba(0, 55, 104, 0.35);
 
   /* ——— Legacy aliases ——— */
   --navy: var(--brand-navy);

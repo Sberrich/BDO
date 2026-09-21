@@ -91,7 +91,7 @@ export default async function SeminairePage({ params }: Props) {
             <p className="mt-4 text-sm text-muted">{detail.actualisation}</p>
           )}
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/ressources#brochure" variant="secondary">Recevoir la brochure</ButtonLink>
+            <ButtonLink href="/ressources/brochure" variant="secondary">Recevoir la brochure</ButtonLink>
             <ButtonLink href="/candidater">Candidater</ButtonLink>
           </div>
           <div className="mt-8 flex justify-between gap-4 text-sm font-bold text-blue">

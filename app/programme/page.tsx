@@ -29,7 +29,7 @@ export default function ProgrammePage() {
             </span>
             <span className="grid justify-items-start gap-1.5">
               <ButtonLink
-                href="/ressources#brochure"
+                href="/ressources/brochure"
                 variant="ghost"
                 className="border-white/35 bg-transparent px-6 py-3 text-white hover:border-white hover:bg-white hover:text-navy"
               >

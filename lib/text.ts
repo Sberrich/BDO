@@ -40,6 +40,15 @@ export function seminarPath(s: { numero: number; slug?: string }) {
   return s.numero === 0 ? "/seminaires/conference-inaugurale" : `/seminaires/${s.numero}`;
 }
 
+/** LinkedIn profile URL, or empty if missing / placeholder homepage only. */
+export function personLinkedIn(url?: string) {
+  const href = plain(url);
+  if (!href) return "";
+  if (/^https?:\/\/([a-z]+\.)?linkedin\.com\/?$/i.test(href)) return "";
+  if (!/^https?:\/\/([a-z]+\.)?linkedin\.com\//i.test(href)) return "";
+  return href;
+}
+
 export function personPhoto(photo?: string, slug?: string) {
   if (slug === "zakaria-fahim" || photo?.toLowerCase().includes("zakaria") || photo?.toLowerCase().includes("fahim")) {
     return "/images/people/Zakaria-Fahim.jpeg";

@@ -85,7 +85,7 @@ export function Hero() {
                     Candidater
                   </ButtonLink>
                   <ButtonLink
-                    href="/ressources#brochure"
+                    href="/ressources/brochure"
                     variant="ghost"
                     className="hero-cinematic__cta-secondary"
                   >
