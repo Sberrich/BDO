@@ -124,7 +124,14 @@ export async function POST(req: Request) {
       if (error) {
         console.error("[submit] resend", error);
         return NextResponse.json(
-          { ok: false, message: "Nous n’avons pas pu envoyer le message." },
+          {
+            ok: false,
+            message: "Nous n’avons pas pu envoyer le message.",
+            // Temporary diagnostic for Vercel/Resend setup (safe: no secrets).
+            detail: error.message || String(error.name || "resend_error"),
+            to: notify,
+            from,
+          },
           { status: 502 },
         );
       }
@@ -134,7 +141,18 @@ export async function POST(req: Request) {
     }
   } catch (err) {
     console.error("[submit] delivery", err);
-    return NextResponse.json({ ok: false, message: "Nous n’avons pas pu envoyer le message." }, { status: 502 });
+    const detail = err instanceof Error ? err.message : "delivery_error";
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "Nous n’avons pas pu envoyer le message.",
+        detail,
+        provider: key ? "resend" : "formsubmit",
+        to: notify,
+        from,
+      },
+      { status: 502 },
+    );
   }
 
   const extra: Record<string, string> = {};
