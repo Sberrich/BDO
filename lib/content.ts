@@ -1,12 +1,10 @@
 import calendrier from "@/lib/payload/calendrier";
 import faq from "@/lib/payload/faq";
-import insights from "@/lib/payload/insights";
-import intervenants from "@/lib/payload/intervenants";
 import seminaires from "@/lib/payload/seminaires";
 import site from "@/lib/payload/site";
 import { seminarPath } from "@/lib/text";
 
-export const data = { site, seminaires, faq, calendrier, intervenants, insights };
+export const data = { site, seminaires, faq, calendrier };
 
 export const RESOURCES_MENU = [
   {

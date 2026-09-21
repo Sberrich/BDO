@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { IconLinkedIn } from "@/components/icons";
 import { ButtonLink, Container, PageHero } from "@/components/ui";
-import { data } from "@/lib/content";
+import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -10,14 +10,16 @@ export const metadata: Metadata = {
   description: "Les associés, professeurs et praticiens qui animent les séminaires.",
 };
 
-export default function IntervenantsPage() {
+export default async function IntervenantsPage() {
+  const [{ chapeau }, intervenants] = await Promise.all([getIntervenantsPage(), getIntervenants()]);
+
   return (
     <>
-      <PageHero kicker="Les intervenants" title="Ils animent les séminaires" lead={data.intervenants.chapeau} />
+      <PageHero kicker="Les intervenants" title="Ils animent les séminaires" lead={chapeau} />
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {data.intervenants.intervenants.map((p) => {
+            {intervenants.map((p) => {
               const linkedin = personLinkedIn(p.linkedin);
               const name = plain(p.nom);
               return (

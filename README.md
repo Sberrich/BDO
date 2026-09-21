@@ -27,4 +27,11 @@ Open [http://localhost:3000](http://localhost:3000) (or the port Next prints).
 - `/` — home
 - `/programme`, `/seminaires/[slug]`
 - `/admissions`, `/candidater`
-- `/intervenants`, `/ressources`, `/faq`, `/a-propos`
+- `/intervenants`, `/insights`, `/ressources`, `/faq`, `/a-propos`
+- `/keystatic` — CMS (Insights + Intervenants), local files under `content/`
+
+## CMS (Keystatic)
+
+Edit Insights and Intervenants at `/keystatic` while `pnpm dev` is running. Changes write YAML into `web/content/` (git-backed).
+
+Protected by HTTP Basic Auth (`KEYSTATIC_USER` / `KEYSTATIC_PASSWORD` in `.env.local`). In production the CMS returns 503 if no password is set.

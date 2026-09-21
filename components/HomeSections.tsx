@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { data } from "@/lib/content";
+import type { Intervenant } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
@@ -10,13 +11,18 @@ import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
 import { IconCert, IconChart, IconGauge, IconJury, IconMap } from "@/components/icons";
 import { appHref, personPhoto, plain } from "@/lib/text";
 
-export function HomeSections() {
+type Props = {
+  speakers: Intervenant[];
+  speakersLead?: string;
+};
+
+export function HomeSections({ speakers, speakersLead }: Props) {
   const site = data.site;
   const c = site.constat;
   const haut = c.chiffres[0];
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
-  const speakers = data.intervenants.intervenants.slice(0, 4);
+  const faculty = speakers.slice(0, 4);
 
   return (
     <>
@@ -215,10 +221,13 @@ export function HomeSections() {
                 La chaire vivante du certificat
               </h2>
             </div>
-            <p className="faculty__lead">{data.intervenants.chapeau}</p>
+            <p className="faculty__lead">
+              {speakersLead ||
+                "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités."}
+            </p>
           </header>
           <ul className="faculty__mosaic">
-            {speakers.map((p, i) => (
+            {faculty.map((p, i) => (
               <Reveal
                 as="li"
                 key={p.slug}

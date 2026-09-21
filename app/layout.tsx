@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer, MobileBar } from "@/components/Footer";
-import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { ScrollProgress } from "@/components/motion";
 import { BRAND, data } from "@/lib/content";
 import "./globals.css";
 
@@ -40,19 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-white text-ink">
-        <a className="skip-link" href="#contenu">
-          Aller au contenu
-        </a>
-        <ScrollProgress />
-        <Header />
-        <main id="contenu" className="flex-1 max-[720px]:pb-20">
-          {children}
-        </main>
-        <Footer />
-        <MobileBar />
-        <WhatsAppFab />
-      </body>
+      <body className="min-h-full bg-white text-ink">{children}</body>
     </html>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InsightsExplorer } from "@/components/InsightsExplorer";
 import { PageHero } from "@/components/ui";
-import { data } from "@/lib/content";
+import { getInsightArticles, getInsightsPage, INSIGHT_CATEGORIES } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Insights",
@@ -9,12 +9,13 @@ export const metadata: Metadata = {
     "Analyses et lectures sur la transformation de la fonction finance — Baromètre BDO des DAF, livre blanc et méthode du certificat CFO 4.0.",
 };
 
-export default function InsightsPage() {
-  const { chapeau, categories, articles } = data.insights;
+export default async function InsightsPage() {
+  const [{ chapeau }, articles] = await Promise.all([getInsightsPage(), getInsightArticles()]);
+
   return (
     <>
       <PageHero kicker="Insights" title="Insights & analyses" lead={chapeau} />
-      <InsightsExplorer categories={categories} articles={articles} />
+      <InsightsExplorer categories={INSIGHT_CATEGORIES} articles={articles} />
     </>
   );
 }

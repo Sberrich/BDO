@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, PageHero } from "@/components/ui";
-import { data } from "@/lib/content";
+import { getInsightArticles, getInsightBySlug } from "@/lib/cms";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,13 +18,14 @@ const DOC_LABEL = {
   livreblanc: "Recevoir le livre blanc",
 } as const;
 
-export function generateStaticParams() {
-  return data.insights.articles.map((a) => ({ slug: a.slug }));
+export async function generateStaticParams() {
+  const articles = await getInsightArticles();
+  return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = data.insights.articles.find((a) => a.slug === slug);
+  const article = await getInsightBySlug(slug);
   if (!article) return { title: "Insight" };
   return {
     title: article.titre,
@@ -34,10 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InsightArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = data.insights.articles.find((a) => a.slug === slug);
+  const article = await getInsightBySlug(slug);
   if (!article) notFound();
 
-  const others = data.insights.articles.filter((a) => a.slug !== slug).slice(0, 3);
+  const others = (await getInsightArticles()).filter((a) => a.slug !== slug).slice(0, 3);
   const doc = article.relatedDoc;
 
   return (

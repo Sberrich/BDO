@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
-import { allSessions, data, sessionBySlug, sessionHref } from "@/lib/content";
+import { getIntervenants } from "@/lib/cms";
+import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -31,7 +32,7 @@ export default async function SeminairePage({ params }: Props) {
   const i = seq.findIndex((x) => x.numero === s.numero);
   const prev = i > 0 ? seq[i - 1] : null;
   const next = i < seq.length - 1 ? seq[i + 1] : null;
-  const people = data.intervenants.intervenants.filter((p) =>
+  const people = (await getIntervenants()).filter((p) =>
     (s as { intervenants?: string[] }).intervenants?.includes(p.slug),
   );
   const inaug = s.numero === 0;

@@ -16,7 +16,7 @@ import {
   IconSort,
 } from "@/components/icons";
 import { ButtonLink, Container } from "@/components/ui";
-import type { InsightArticle, InsightCategory } from "@/lib/payload/insights";
+import type { InsightArticle, InsightCategory } from "@/lib/cms";
 
 type Props = {
   categories: readonly InsightCategory[];
