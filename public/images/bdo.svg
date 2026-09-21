@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80" role="img" aria-label="BDO">
+  <rect width="240" height="80" fill="#FFFFFF"/>
+  <rect x="1" y="1" width="238" height="78" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="120" y="40" dominant-baseline="central" text-anchor="middle"
+        font-family="Mulish, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#333333">BDO</text>
+</svg>

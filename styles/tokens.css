@@ -1,0 +1,145 @@
+/**
+ * CFO 4.0 Design System — Brand identity
+ * ISCAE: navy + gold · BDO: blue + red
+ * CTAs = BDO red · Interactive = BDO blue · Depth = ISCAE navy · Prestige accents = ISCAE gold
+ */
+
+:root {
+  /* ——— Brand (locked to logos) ——— */
+  /* BDO red — L-bracket accent */
+  --brand-red: #e30613;
+  --brand-red-dark: #b8050f;
+  --brand-red-soft: rgba(227, 6, 19, 0.11);
+
+  /* BDO blue — wordmark */
+  --brand-blue: #003768;
+  --brand-blue-dark: #00264a;
+  --brand-blue-soft: rgba(0, 55, 104, 0.08);
+  --brand-blue-mid: rgba(0, 55, 104, 0.14);
+
+  /* ISCAE navy — academic depth (aligned with navy wordmark) */
+  --brand-navy: #00264a;
+  --brand-navy-dark: #001a33;
+
+  /* ISCAE gold — square + arch accent */
+  --brand-gold: #c9a227;
+  --brand-gold-dark: #a6851a;
+  --brand-gold-soft: rgba(201, 162, 39, 0.14);
+  --brand-gold-mid: rgba(201, 162, 39, 0.22);
+
+  /* ——— Surfaces ——— */
+  --surface-0: #ffffff;
+  --surface-1: #f2f5f8;
+  --surface-2: #e7eef4;
+  --surface-inverse: var(--brand-navy);
+  --surface-accent: rgba(0, 55, 104, 0.05);
+
+  /* ——— Text ——— */
+  --text-primary: #0f1c2e;
+  --text-secondary: #5a6b7d;
+  --text-tertiary: #8796a8;
+  --text-inverse: #ffffff;
+  --text-link: var(--brand-blue);
+  --text-link-hover: var(--brand-navy);
+  --text-on-red: #ffffff;
+  --text-on-blue: #ffffff;
+  --text-on-gold: #00264a;
+
+  /* ——— Borders ——— */
+  --border-subtle: #e4e9ee;
+  --border-strong: #c5d0db;
+  --border-focus: var(--brand-blue);
+  --border-accent: rgba(0, 55, 104, 0.32);
+  --border-gold: rgba(201, 162, 39, 0.55);
+
+  /* ——— Legacy aliases ——— */
+  --navy: var(--brand-navy);
+  --navy-dark: var(--brand-navy-dark);
+  --blue: var(--brand-blue);
+  --blue-dark: var(--brand-blue-dark);
+  --red: var(--brand-red);
+  --red-dark: var(--brand-red-dark);
+  --gold: var(--brand-gold);
+  --ink: var(--text-primary);
+  --muted: var(--text-secondary);
+  --line: var(--border-subtle);
+  --cream: var(--surface-1);
+  --bg: var(--surface-0);
+  --wash: var(--brand-blue-soft);
+  --wash-2: var(--brand-blue-mid);
+  --ghost: rgba(0, 55, 104, 0.1);
+
+  /* ——— Radius ——— */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
+  --radius: var(--radius-sm);
+
+  /* ——— Space ——— */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ——— Layout ——— */
+  --container: 1160px;
+  --container-narrow: 760px;
+  --gutter: 1.25rem;
+  --header-h: 84px;
+  --section-y: clamp(3rem, 2.5rem + 2vw, 4.5rem);
+
+  /* ——— Type ——— */
+  --font-sans: var(--font-mulish), "Mulish", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-mulish), "Mulish", Helvetica, Arial, sans-serif;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-body: 1.65;
+  --tracking-tight: -0.025em;
+  --tracking-display: -0.02em;
+  --tracking-kicker: 0.1em;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.375rem, 1.25rem + 0.5vw, 1.625rem);
+  --text-2xl: clamp(1.625rem, 1.45rem + 0.87vw, 2.25rem);
+  --text-3xl: clamp(2.05rem, 1.55rem + 2.2vw, 3.35rem);
+  --text-4xl: clamp(2.15rem, 1.45rem + 2.8vw, 3.6rem);
+  --text-stat: clamp(2.75rem, 2rem + 3vw, 4.75rem);
+
+  /* ——— Elevation ——— */
+  --shadow-xs: 0 1px 2px rgba(15, 28, 46, 0.04);
+  --shadow-sm: 0 1px 2px rgba(15, 28, 46, 0.05), 0 4px 12px rgba(15, 28, 46, 0.06);
+  --shadow-md: 0 2px 4px rgba(15, 28, 46, 0.05), 0 12px 28px rgba(15, 28, 46, 0.1);
+  --shadow-lg: 0 4px 8px rgba(15, 28, 46, 0.05), 0 24px 56px rgba(15, 28, 46, 0.12);
+  --shadow-cta: 0 6px 18px rgba(227, 6, 19, 0.24);
+  --shadow-focus: 0 0 0 3px #fff, 0 0 0 6px var(--brand-blue);
+  --shadow: var(--shadow-sm);
+
+  /* ——— Motion ——— */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 400ms;
+  --duration-enter: 550ms;
+
+  /* ——— Z-index ——— */
+  --z-header: 50;
+  --z-overlay: 60;
+  --z-modal: 80;
+  --z-toast: 90;
+}

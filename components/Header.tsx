@@ -4,107 +4,183 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { site } from "@/content/site";
+import { NAV } from "@/lib/content";
+import { IconPhone } from "@/components/icons";
+
+function isCurrent(href: string, pathname: string) {
+  if (href === "/programme") {
+    return pathname.startsWith("/programme") || pathname.startsWith("/seminaires");
+  }
+  if (href === "/candidater") return pathname.startsWith("/candidater");
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    setOpen(false);
+    queueMicrotask(() => setOpen(false));
   }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    document.body.dataset.nav = open ? "open" : "";
     return () => {
       document.body.style.overflow = "";
+      delete document.body.dataset.nav;
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-[88px] w-full max-w-6xl items-center justify-between gap-6 px-5">
-        <Link href="/#hero" className="flex items-center gap-4" aria-label="Retour à l’accueil">
+    <header className={`site-header sticky top-0 z-50 ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
+      <div className="site-header__bar mx-auto flex w-full max-w-[1160px] items-center justify-between gap-3 px-5">
+        <Link
+          href="/"
+          className="site-header__brand group flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3.5"
+          aria-label="CFO 4.0 — certificat cosigné par le Groupe ISCAE et BDO Maroc, retour à l’accueil"
+        >
           <Image
             src="/images/logo-iscae.png"
             alt="Groupe ISCAE"
-            width={140}
-            height={44}
-            className="h-10 w-auto"
+            width={180}
+            height={56}
+            className="site-header__logo site-header__logo--iscae h-11 w-auto sm:h-12"
             priority
           />
-          <span className="hidden h-8 w-px bg-line sm:block" aria-hidden />
+          <span className="site-header__rule" aria-hidden />
           <Image
             src="/images/logo-bdo.png"
             alt="BDO"
-            width={92}
-            height={32}
-            className="h-8 w-auto"
+            width={120}
+            height={42}
+            className="site-header__logo site-header__logo--bdo h-10 w-auto sm:h-11"
             priority
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
-          {site.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-semibold text-ink/80 transition hover:text-navy"
-            >
-              {item.label}
+        <nav className="site-header__nav ml-auto hidden items-center gap-1 min-[961px]:flex" aria-label="Navigation principale">
+          <ul className="site-header__links m-0 flex list-none items-center gap-0.5 p-0">
+            {NAV.map((item) => {
+              const current = isCurrent(item.href, pathname);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={current ? "page" : undefined}
+                    className={`site-header__link ${current ? "is-current" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="site-header__actions ml-2 flex items-center gap-2 pl-3">
+            <Link href="/admissions#rappel" className="site-header__rappel">
+              <IconPhone />
+              <span className="hidden min-[1100px]:inline">Être rappelé</span>
+              <span className="sr-only min-[1100px]:hidden">Être rappelé</span>
             </Link>
-          ))}
-          <Link
-            href="/inscription"
-            className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-dark"
-          >
-            S’inscrire
-          </Link>
+            <Link
+              href="/candidater"
+              aria-current={isCurrent("/candidater", pathname) ? "page" : undefined}
+              className="site-header__cta"
+            >
+              Candidater
+            </Link>
+          </div>
         </nav>
 
         <button
           type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-navy lg:hidden"
+          className={`site-header__burger ${open ? "is-open" : ""}`}
           aria-expanded={open}
           aria-controls="menu-mobile"
+          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="sr-only">{open ? "Fermer le menu" : "Ouvrir le menu"}</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            )}
-          </svg>
+          <span className="sr-only">{open ? "Fermer" : "Menu"}</span>
+          <span className="site-header__burger-icon" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </span>
         </button>
       </div>
 
       {open && (
-        <div
-          id="menu-mobile"
-          className="border-t border-line bg-white px-5 py-4 lg:hidden"
-        >
-          <nav className="flex flex-col" aria-label="Navigation mobile">
-            {site.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="border-b border-line py-3 text-base font-semibold text-ink"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              href="/inscription"
-              className="mt-4 rounded-full bg-navy px-5 py-3 text-center text-sm font-semibold text-white"
-              onClick={() => setOpen(false)}
-            >
-              S’inscrire
-            </Link>
-          </nav>
-        </div>
+        <>
+          <button
+            type="button"
+            className="nav-overlay fixed inset-0 top-[var(--header-h)] z-40 bg-ink/40 backdrop-blur-[3px] min-[961px]:hidden"
+            aria-label="Fermer le menu"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            id="menu-mobile"
+            className="site-header__panel menu-slide relative z-50 min-[961px]:hidden"
+          >
+            <nav className="site-header__mobile" aria-label="Navigation mobile">
+              <ul className="site-header__mobile-list">
+                {NAV.map((item) => {
+                  const current = isCurrent(item.href, pathname);
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        aria-current={current ? "page" : undefined}
+                        className={`site-header__mobile-link ${current ? "is-current" : ""}`}
+                        onClick={() => setOpen(false)}
+                      >
+                        <span>{item.label}</span>
+                        <svg className="site-header__mobile-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="site-header__mobile-actions">
+                <Link
+                  href="/admissions#rappel"
+                  className="site-header__mobile-rappel"
+                  onClick={() => setOpen(false)}
+                >
+                  <IconPhone />
+                  Être rappelé
+                </Link>
+                <Link
+                  href="/candidater"
+                  className="site-header__mobile-cta"
+                  onClick={() => setOpen(false)}
+                >
+                  Candidater
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </header>
   );

@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/content/site";
+import { BRAND } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  return [
-    { url: `${site.url}/`, lastModified: now, changeFrequency: "monthly", priority: 1 },
-    { url: `${site.url}/inscription`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${site.url}/confidentialite`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-  ];
+  const pages = ["", "/programme", "/admissions", "/intervenants", "/ressources", "/faq", "/candidater", "/a-propos", "/confidentialite"];
+  return pages.map((p) => ({
+    url: `${BRAND.url}${p || "/"}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: p === "" ? 1 : 0.7,
+  }));
 }

@@ -1,38 +1,34 @@
 import type { Metadata } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Mulish } from "next/font/google";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { site } from "@/content/site";
+import { Footer, MobileBar } from "@/components/Footer";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { ScrollProgress } from "@/components/motion";
+import { BRAND, data } from "@/lib/content";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const mulish = Mulish({
+  variable: "--font-mulish",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(BRAND.url),
   title: {
-    default: `${site.title} | ISCAE & BDO Maroc`,
-    template: `%s | ${site.title}`,
+    default: `${data.site.nom} — ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
+    template: `%s | ${data.site.nom}`,
   },
-  description: site.tagline,
+  description: data.site.promesse.sousTitre,
   alternates: { canonical: "/" },
   openGraph: {
-    title: site.title,
-    description: site.tagline,
-    url: site.url,
+    title: data.site.sousTitreOfficiel,
+    description: data.site.promesse.sousTitre,
+    url: BRAND.url,
     locale: "fr_MA",
     type: "website",
-    siteName: "Certificat ISCAE × BDO",
+    siteName: "CFO 4.0 — Certificat ISCAE × BDO",
   },
   icons: { icon: "/favicon.png" },
 };
@@ -43,16 +39,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${syne.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-ink">
+    <html lang="fr" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-white text-ink">
         <a className="skip-link" href="#contenu">
           Aller au contenu
         </a>
+        <ScrollProgress />
         <Header />
-        <main id="contenu" className="flex-1">
+        <main id="contenu" className="flex-1 max-[720px]:pb-20">
           {children}
         </main>
         <Footer />
+        <MobileBar />
+        <WhatsAppFab />
       </body>
     </html>
   );

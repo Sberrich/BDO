@@ -1,30 +1,30 @@
-# Certificat ISCAE × BDO
+# Certificat CFO 4.0 — Groupe ISCAE × BDO Maroc
 
-Site du certificat **Transformation Digitale et Leadership Financier**, inspiré de [certificat.bdo-info.ma](https://certificat.bdo-info.ma/).
+Next.js site for the executive certificate **Transformation Digitale et Leadership Financier**.
 
-Stack : Next.js (App Router), Tailwind CSS, déployé sur Vercel.
-
-## Développement
+## Setup
 
 ```bash
 pnpm install
+cp .env.example .env.local   # then set RESEND_API_KEY
 pnpm dev
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) (or the port Next prints).
 
-## Variables d’environnement
+## Environment
 
-Copier `.env.example` vers `.env.local` :
+| Variable | Purpose |
+|---|---|
+| `RESEND_API_KEY` | Send form notifications via Resend |
+| `NOTIFY_EMAIL` | Inbox that receives submissions |
+| `FROM_EMAIL` | Sender (use `onboarding@resend.dev` until a domain is verified) |
 
-- `RESEND_API_KEY` — envoi des notifications d’inscription
-- `NOTIFY_EMAIL` — destinataire (défaut : tkane@bdo.ma)
-- `FROM_EMAIL` — expéditeur Resend (domaine vérifié)
+`.env.local` is gitignored — never commit API keys.
 
-Sans `RESEND_API_KEY`, le formulaire s’enregistre dans les logs du serveur (utile en local).
+## Main routes
 
-## Pages
-
-- `/` — page d’accueil (une page, navigation par ancres)
-- `/inscription` — formulaire
-- `/confidentialite` — déclaration de confidentialité
+- `/` — home
+- `/programme`, `/seminaires/[slug]`
+- `/admissions`, `/candidater`
+- `/intervenants`, `/ressources`, `/faq`, `/a-propos`

@@ -1,100 +1,136 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { site } from "@/content/site";
+import { ButtonLink, Container } from "@/components/ui";
+import { JourneyPanel } from "@/components/JourneyPanel";
+import { FinancialRoadmap } from "@/components/FinancialRoadmap";
+import { IconArrowRight, IconCal, IconClock, IconDownload, IconMap, IconPhone, IconUsers, IconBook } from "@/components/icons";
+
+/** Easy-to-edit hero facts — update these when dates lock in. */
+const HERO_INFO = {
+  rentree: "30 octobre 2026",
+  candidaturesUntil: "16 octobre 2026",
+  places: "25 places",
+} as const;
+
+const STATS = [
+  { value: "20", label: "jours de formation", Icon: IconCal },
+  { value: "8", label: "séminaires", Icon: IconBook },
+  { value: "5", label: "mois · Rabat", Icon: IconMap },
+  { value: "25", label: "places · promo 1", Icon: IconUsers },
+] as const;
 
 export function Hero() {
-  const [videoOpen, setVideoOpen] = useState(false);
-
   return (
-    <section id="hero" className="bg-white">
-      <div className="mx-auto w-full max-w-4xl px-5 pb-8 pt-10 text-center md:pt-16">
-        <div className="relative mx-auto mb-10 aspect-[16/10] w-full max-w-3xl overflow-hidden rounded-3xl">
+    <>
+      <section id="hero" className="hero-cinematic relative overflow-hidden text-white">
+        <div className="hero-cinematic__atmosphere" aria-hidden="true">
           <Image
-            src="/images/home/hero.png"
-            alt="Équipe autour d’un ordinateur portable"
+            src="/images/home/iscae-entrance.png"
+            alt=""
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 768px"
             priority
+            sizes="100vw"
+            className="hero-cinematic__photo"
           />
-          <button
-            type="button"
-            onClick={() => setVideoOpen(true)}
-            className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg transition hover:scale-105"
-            aria-label="Lire la vidéo de présentation"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M8 5.5v13l11-6.5L8 5.5z" />
-            </svg>
-          </button>
+          <span className="hero-cinematic__smoke" />
+          <span className="hero-cinematic__glow" />
         </div>
 
-        <h1 className="font-display text-4xl font-bold leading-tight text-ink sm:text-5xl">
-          {site.title}
-        </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          {site.tagline}
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a
-            href={site.brochure}
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-navy px-8 py-3 text-sm font-semibold text-white transition hover:bg-navy-dark"
-          >
-            Téléchargez la brochure
-          </a>
-          <Link
-            href="/inscription"
-            className="inline-flex min-h-12 items-center justify-center rounded-full border border-navy px-8 py-3 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white"
-          >
-            Inscrivez-vous maintenant
-          </Link>
-        </div>
+        <Container className="hero-cinematic__inner relative">
+          <div className="hero-cinematic__grid">
+            <div className="hero-enter hero-cinematic__copy">
+              <header className="hero-cinematic__identity">
+                <p className="hero-cinematic__eyebrow">
+                  Certificat exécutif · Groupe ISCAE × BDO Maroc
+                </p>
+                <p className="hero-cinematic__brand">CFO 4.0</p>
+              </header>
 
-        <div className="relative mx-auto mt-14 aspect-[16/10] w-full max-w-xl overflow-hidden rounded-3xl">
-          <Image
-            src="/images/home/campus.png"
-            alt="Entrée du campus Groupe ISCAE"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 576px"
-          />
-        </div>
-      </div>
+              <div className="hero-cinematic__message">
+                <h1 className="hero-cinematic__title">
+                  Pilotez la transformation de votre direction financière.
+                </h1>
+                <p className="hero-cinematic__lead">
+                  20 jours sur 5 mois à Rabat. Un projet appliqué à votre entreprise, défendu devant
+                  un jury ISCAE × BDO.
+                </p>
+              </div>
 
-      {videoOpen && (
-        <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/80 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Vidéo de présentation"
-          onClick={() => setVideoOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="absolute right-3 top-3 z-10 rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-ink"
-              onClick={() => setVideoOpen(false)}
-            >
-              Fermer
-            </button>
-            <div className="aspect-video">
-              <iframe
-                title="Présentation du certificat ISCAE × BDO"
-                src={`https://player.vimeo.com/video/${site.vimeoId}?autoplay=1`}
-                className="h-full w-full"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
+              <ul className="hero-cinematic__facts" aria-label="Informations clés">
+                <li>
+                  <IconCal />
+                  <span>
+                    Rentrée <strong>{HERO_INFO.rentree}</strong>
+                  </span>
+                </li>
+                <li>
+                  <IconClock />
+                  <span>
+                    Clôture <strong>{HERO_INFO.candidaturesUntil}</strong>
+                  </span>
+                </li>
+                <li>
+                  <IconUsers />
+                  <span>
+                    <strong>{HERO_INFO.places}</strong>
+                  </span>
+                </li>
+              </ul>
+
+              <div className="hero-cinematic__actions">
+                <div className="hero-cinematic__ctas">
+                  <ButtonLink href="/candidater" className="hero-cinematic__cta-primary">
+                    <IconArrowRight />
+                    Candidater
+                  </ButtonLink>
+                  <ButtonLink
+                    href="/ressources#brochure"
+                    variant="ghost"
+                    className="hero-cinematic__cta-secondary"
+                  >
+                    <IconDownload />
+                    Recevoir la brochure
+                  </ButtonLink>
+                </div>
+                <a href="/admissions#rappel" className="hero-cinematic__rappel">
+                  <IconPhone />
+                  Être rappelé sous 48&nbsp;h
+                </a>
+              </div>
+            </div>
+
+            <div className="hero-panel-enter relative max-lg:hidden">
+              <FinancialRoadmap />
             </div>
           </div>
+        </Container>
+
+        <div className="hero-cinematic__proof">
+          <Container>
+            <dl className="hero-cinematic__stats">
+              {STATS.map(({ value, label, Icon }, i) => (
+                <div
+                  key={label}
+                  className="hero-cinematic__stat"
+                  style={{ animationDelay: `${0.4 + i * 0.06}s` }}
+                >
+                  <dt className="sr-only">{label}</dt>
+                  <dd>
+                    <span className="hero-cinematic__stat-icon" aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <p className="hero-cinematic__stat-value">{value}</p>
+                    <p className="hero-cinematic__stat-label">{label}</p>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Container>
         </div>
-      )}
-    </section>
+      </section>
+
+      <JourneyPanel />
+    </>
   );
 }
