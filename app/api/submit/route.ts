@@ -57,14 +57,46 @@ async function deliverViaFormSubmit(notify: string, subject: string, lines: stri
       _subject: subject,
       _replyto: replyTo,
       _template: "table",
+      _captcha: "false",
       message: lines,
       email: replyTo,
       from_site: BRAND.url,
     }),
   });
+  const text = await res.text().catch(() => "");
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
     throw new Error(`FormSubmit ${res.status}: ${text.slice(0, 200)}`);
+  }
+  // First submission to a new address requires clicking FormSubmit's activation email.
+  try {
+    const json = JSON.parse(text) as { success?: string | boolean };
+    const msg = String(json.success ?? "");
+    if (/activate|confirm|check your email/i.test(msg)) {
+      console.info("[submit] formsubmit activation required for", notify);
+    }
+  } catch {
+    /* non-JSON ok */
+  }
+}
+
+async function deliverViaResend(
+  key: string,
+  from: string,
+  notify: string,
+  replyTo: string,
+  mail: { subject: string; text: string; html: string },
+) {
+  const resend = new Resend(key);
+  const { error } = await resend.emails.send({
+    from,
+    to: [notify],
+    replyTo,
+    subject: mail.subject,
+    text: mail.text,
+    html: mail.html,
+  });
+  if (error) {
+    throw new Error(error.message || error.name || "resend_error");
   }
 }
 
@@ -105,38 +137,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message: "Cinq ans d’expérience professionnelle au minimum." }, { status: 422 });
   }
 
+  // formsubmit = any inbox (one-time activation email). resend = needs verified domain for third-party to:.
+  const provider = (process.env.EMAIL_PROVIDER || "formsubmit").toLowerCase();
   const notify = process.env.NOTIFY_EMAIL || BRAND.email;
   const from = process.env.FROM_EMAIL || "BDO Certificat <onboarding@resend.dev>";
   const key = process.env.RESEND_API_KEY;
   const mail = buildFormEmail(type, body);
 
   try {
-    if (key) {
-      const resend = new Resend(key);
-      const { error } = await resend.emails.send({
-        from,
-        to: [notify],
-        replyTo: email,
-        subject: mail.subject,
-        text: mail.text,
-        html: mail.html,
-      });
-      if (error) {
-        console.error("[submit] resend", error);
-        return NextResponse.json(
-          {
-            ok: false,
-            message: "Nous n’avons pas pu envoyer le message.",
-            // Temporary diagnostic for Vercel/Resend setup (safe: no secrets).
-            detail: error.message || String(error.name || "resend_error"),
-            to: notify,
-            from,
-          },
-          { status: 502 },
-        );
-      }
+    if (provider === "resend") {
+      if (!key) throw new Error("RESEND_API_KEY manquante");
+      await deliverViaResend(key, from, notify, email, mail);
     } else {
-      console.info("[submit] no RESEND_API_KEY — FormSubmit fallback", mail.text);
       await deliverViaFormSubmit(notify, mail.subject, mail.text, email);
     }
   } catch (err) {
@@ -147,9 +159,8 @@ export async function POST(req: Request) {
         ok: false,
         message: "Nous n’avons pas pu envoyer le message.",
         detail,
-        provider: key ? "resend" : "formsubmit",
+        provider,
         to: notify,
-        from,
       },
       { status: 502 },
     );
