@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #003768;
+  --navy-dark: #00264a;
+  --ink: #0a102f;
+  --muted: #5b6b7c;
+  --line: #e6eaef;
+  --cream: #f6f7f4;
+  --bg: #ffffff;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-cream: var(--cream);
+  --color-bg: var(--bg);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-syne);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), Inter, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Syne, sans-serif;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  color: var(--navy);
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  height: 0;
+  overflow: hidden;
+}
