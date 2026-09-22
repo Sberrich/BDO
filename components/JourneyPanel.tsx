@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useId, useState, type KeyboardEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useState,
+  type KeyboardEvent,
+} from "react";
 import { BRAND } from "@/lib/content";
 import { Container } from "@/components/ui";
 
@@ -115,12 +121,20 @@ function daysUntilDeadline(now: Date) {
 }
 
 function groupByMonth(list: Seminar[]) {
-  const groups: { key: string; label: string; items: { seminar: Seminar; index: number }[] }[] = [];
+  const groups: {
+    key: string;
+    label: string;
+    items: { seminar: Seminar; index: number }[];
+  }[] = [];
   list.forEach((seminar, index) => {
     const key = monthKey(seminar.start);
     const last = groups[groups.length - 1];
     if (!last || last.key !== key) {
-      groups.push({ key, label: MONTH_LABELS[key] ?? key, items: [{ seminar, index }] });
+      groups.push({
+        key,
+        label: MONTH_LABELS[key] ?? key,
+        items: [{ seminar, index }],
+      });
     } else {
       last.items.push({ seminar, index });
     }
@@ -179,9 +193,9 @@ export function JourneyPanel() {
             </h2>
           </div>
           <p className="parcours-intro__lead">
-            Un vendredi et un samedi, environ toutes les deux semaines. Chaque séance ajoute une
-            pièce à votre projet — mené sur votre propre direction financière — jusqu&apos;à la
-            soutenance du 3 avril 2027.
+            Un vendredi et un samedi, environ toutes les deux semaines. Chaque
+            séance ajoute une pièce à votre projet — mené sur votre propre
+            direction financière — jusqu&apos;à la soutenance du 3 avril 2027.
           </p>
         </div>
 
@@ -217,13 +231,20 @@ export function JourneyPanel() {
                         aria-controls={`parcours-panel-${s.n}`}
                         onClick={() => select(i)}
                       >
-                        <span className="parcours-entry__knot" aria-hidden="true" />
+                        <span
+                          className="parcours-entry__knot"
+                          aria-hidden="true"
+                        />
                         <span className="parcours-entry__num">{s.n}</span>
                         <span className="parcours-entry__main">
                           <span className="parcours-entry__tag">{s.tag}</span>
-                          <span className="parcours-entry__name">{s.title}</span>
+                          <span className="parcours-entry__name">
+                            {s.title}
+                          </span>
                         </span>
-                        <span className="parcours-entry__date">{s.shortDate}</span>
+                        <span className="parcours-entry__date">
+                          {s.shortDate}
+                        </span>
                       </button>
 
                       <div
@@ -232,8 +253,12 @@ export function JourneyPanel() {
                         hidden={!isOpen}
                         aria-hidden={!isOpen}
                       >
-                        <p className="parcours-entry__when">{s.longDate} · Rabat</p>
-                        {s.apport ? <p className="parcours-entry__apport">{s.apport}</p> : null}
+                        <p className="parcours-entry__when">
+                          {s.longDate} · Rabat
+                        </p>
+                        {s.apport ? (
+                          <p className="parcours-entry__apport">{s.apport}</p>
+                        ) : null}
                         <a
                           href={BRAND.brochure}
                           className="parcours-entry__pdf"
@@ -277,8 +302,8 @@ export function JourneyPanel() {
               <span aria-hidden="true">→</span>
             </Link>
             <p className="parcours-aside__thread-note">
-              Le fil rouge relie les huit week-ends à un seul projet défendu devant le jury
-              ISCAE × BDO.
+              Le fil rouge relie les huit week-ends à un seul projet défendu
+              devant le jury ISCAE × BDO.
             </p>
           </aside>
         </div>
