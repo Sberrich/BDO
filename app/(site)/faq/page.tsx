@@ -13,23 +13,32 @@ export default function FaqPage() {
   return (
     <>
       <PageHero
+        motif="nodes"
         kicker="FAQ"
         title="Les questions que vous vous posez"
-        lead="Vingt-cinq réponses, regroupées par thème."
+        lead="Vingt-cinq réponses, regroupées par thème — du programme au tarif."
       />
-      <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container>
+      <section className="faq-page">
+        <Container className="faq-page__inner">
           <FaqList />
-          <div className="mt-12 rounded-md border border-line bg-white p-8">
-            <h2 className="text-2xl font-bold">Vous avez la réponse qu’il vous fallait ?</h2>
-            <p className="mt-2 text-muted">
-              La promotion 1 ouvre le 30 octobre 2026. Clôture le {plain(data.site.admission.dateLimite)}.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="/candidater">Candidater</ButtonLink>
-              <ButtonLink href="/admissions#rappel" variant="ghost">Être rappelé</ButtonLink>
+          <aside className="faq-page__cta" aria-labelledby="faq-cta-title">
+            <div className="faq-page__cta-copy">
+              <p className="faq-page__cta-kicker">Prêt à avancer</p>
+              <h2 id="faq-cta-title" className="faq-page__cta-title">
+                Vous avez la réponse qu’il vous fallait ?
+              </h2>
+              <p className="faq-page__cta-lead">
+                La promotion 1 ouvre le 30 octobre 2026. Clôture le{" "}
+                {plain(data.site.admission.dateLimite)}.
+              </p>
             </div>
-          </div>
+            <div className="faq-page__cta-actions">
+              <ButtonLink href="/candidater">Candidater</ButtonLink>
+              <ButtonLink href="/admissions#rappel" variant="ghost">
+                Être rappelé
+              </ButtonLink>
+            </div>
+          </aside>
         </Container>
       </section>
     </>

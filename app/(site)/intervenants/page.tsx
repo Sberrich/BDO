@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { IconLinkedIn } from "@/components/icons";
-import { ButtonLink, Container, PageHero } from "@/components/ui";
+import { IconLinkedIn, IconPin } from "@/components/icons";
+import { IntervenantsHero } from "@/components/IntervenantsHero";
+import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
-import { personLinkedIn, personPhoto, plain } from "@/lib/text";
+import {
+  campusLabel,
+  facultyHasPhoto,
+  facultyPhotoSrc,
+  facultyShowcase,
+} from "@/lib/faculty-roster";
+import { personLinkedIn, plain } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Intervenants",
@@ -11,54 +18,106 @@ export const metadata: Metadata = {
 };
 
 export default async function IntervenantsPage() {
-  const [{ chapeau }, intervenants] = await Promise.all([getIntervenantsPage(), getIntervenants()]);
+  const [{ chapeau }, cms] = await Promise.all([
+    getIntervenantsPage(),
+    getIntervenants(),
+  ]);
+  const intervenants = facultyShowcase(cms);
 
   return (
     <>
-      <PageHero kicker="Les intervenants" title="Ils animent les séminaires" lead={chapeau} />
-      <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {intervenants.map((p) => {
+      <IntervenantsHero
+        title="Ils animent les séminaires"
+        lead={chapeau}
+      />
+
+      <section className="iv-roster" aria-labelledby="iv-roster-title">
+        <Container className="iv-roster__inner">
+          <header className="iv-roster__head">
+            <p className="iv-roster__index">Le corps enseignant</p>
+            <h2 id="iv-roster-title" className="iv-roster__title">
+              Une équipe plurielle
+            </h2>
+            <p className="iv-roster__lead">
+              Associés BDO, praticiens et partenaires — les profils publics croisent
+              aussi le jury du Trophée BDO des CFOs.
+            </p>
+          </header>
+
+          <ul className="iv-grid">
+            {intervenants.map((p, i) => {
               const linkedin = personLinkedIn(p.linkedin);
               const name = plain(p.nom);
+              const photo = facultyHasPhoto(p);
               return (
-                <article key={p.slug} id={p.slug} className="card-lift overflow-hidden rounded-md bg-white shadow-[var(--shadow)]">
-                  <div className="relative aspect-square bg-cream">
-                    <Image src={personPhoto(p.photo, p.slug)} alt="" fill className="object-cover" sizes="33vw" />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="text-lg font-bold text-ink">{name}</p>
-                    <p className="text-sm text-muted">
-                      {plain(p.fonction)} · {plain(p.institution)}
-                    </p>
-                    <p className="mt-3 flex-1 text-sm text-muted">{plain(p.bio)}</p>
-                    {linkedin ? (
-                      <a
-                        href={linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex w-fit items-center gap-2 rounded-md border border-line px-3 py-2 text-sm font-bold text-[#0A66C2] transition hover:border-[#0A66C2] hover:bg-[#0A66C2]/10"
-                        aria-label={`Profil LinkedIn de ${name}`}
-                      >
-                        <IconLinkedIn size={16} />
-                        LinkedIn
-                      </a>
-                    ) : null}
-                  </div>
-                </article>
+                <li key={p.slug}>
+                  <article id={p.slug} className="iv-card">
+                    <div className={`iv-card__media ${photo ? "has-photo" : ""}`}>
+                      {photo ? (
+                        <Image
+                          src={facultyPhotoSrc(p)}
+                          alt=""
+                          fill
+                          className="iv-card__img"
+                          sizes="(min-width: 900px) 20rem, 50vw"
+                        />
+                      ) : (
+                        <span
+                          className={`faculty-mono tone-${p.tone} iv-card__mono`}
+                          aria-hidden
+                        >
+                          {p.initials}
+                        </span>
+                      )}
+                      <span className="iv-card__num" aria-hidden>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <div className="iv-card__body">
+                      <p className="iv-card__campus">
+                        <IconPin />
+                        {campusLabel(p.campus)}
+                      </p>
+                      <h3 className="iv-card__name">{name}</h3>
+                      <p className="iv-card__role">
+                        {plain(p.fonction)}
+                        {p.institution ? ` · ${plain(p.institution)}` : ""}
+                      </p>
+                      {p.bio ? (
+                        <p className="iv-card__bio">{plain(p.bio)}</p>
+                      ) : null}
+                      {linkedin ? (
+                        <a
+                          href={linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="iv-card__li"
+                          aria-label={`Profil LinkedIn de ${name}`}
+                        >
+                          <IconLinkedIn size={16} />
+                          LinkedIn
+                        </a>
+                      ) : null}
+                    </div>
+                  </article>
+                </li>
               );
             })}
-          </div>
-          <div className="mt-12 rounded-md border border-line bg-white p-8">
-            <h2 className="mt-0 text-2xl font-bold">Le jury de soutenance</h2>
-            <p className="mt-2 text-muted">
-              La soutenance se tient devant le jury ISCAE × BDO, au second jour du séminaire 8, le 3 avril 2027.
-            </p>
-            <div className="mt-6">
-              <ButtonLink href="/candidater">Candidater</ButtonLink>
+          </ul>
+
+          <aside className="iv-jury" aria-labelledby="iv-jury-title">
+            <div>
+              <p className="iv-jury__kicker">Soutenance</p>
+              <h2 id="iv-jury-title" className="iv-jury__title">
+                Le jury de soutenance
+              </h2>
+              <p className="iv-jury__text">
+                La soutenance se tient devant le jury ISCAE × BDO, au second jour du
+                séminaire 8, le 3 avril 2027.
+              </p>
             </div>
-          </div>
+            <ButtonLink href="/candidater">Candidater</ButtonLink>
+          </aside>
         </Container>
       </section>
     </>

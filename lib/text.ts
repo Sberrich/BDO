@@ -22,18 +22,33 @@ export function appHref(href: string) {
 }
 
 export function seminarImage(numero: number) {
+  /** Prefer curated campus / professional stills over stock tech art. */
   const map: Record<number, string> = {
-    0: "/images/home/hero.png",
-    1: "/images/team/team-1.png",
-    2: "/images/team/team-2.png",
-    3: "/images/team/team-3.png",
-    4: "/images/team/team-4.png",
-    5: "/images/team/team-5.png",
-    6: "/images/team/team-6.png",
-    7: "/images/team/team-7.png",
-    8: "/images/team/team-8.png",
+    0: "/images/seminaires/0.png",
+    1: "/images/seminaires/1.png",
+    2: "/images/seminaires/2.png",
+    3: "/images/seminaires/3.png",
+    4: "/images/seminaires/4.png",
+    5: "/images/seminaires/5.png",
+    6: "/images/seminaires/6.png",
+    7: "/images/seminaires/7.png",
+    8: "/images/seminaires/8.png",
   };
-  return map[numero] ?? "/images/home/about.png";
+  return map[numero] ?? "/images/home/iscae-entrance.png";
+}
+
+/** Looping hero-card clip per séance — files in `/public/videos/seminaires/{n}.mp4`. */
+export function seminarVideo(numero: number) {
+  const n = Number.isFinite(numero) ? Math.max(0, Math.min(8, Math.trunc(numero))) : 0;
+  return `/videos/seminaires/${n}.mp4`;
+}
+
+/**
+ * Optional custom hero BG — unused for now (heroes stay solid BDO navy).
+ * Drop files at `/public/images/seminaires/{n}.png` for card covers instead.
+ */
+export function seminarHeroBg(numero: number) {
+  return seminarImage(numero);
 }
 
 export function seminarPath(s: { numero: number; slug?: string }) {
@@ -50,14 +65,21 @@ export function personLinkedIn(url?: string) {
 }
 
 export function personPhoto(photo?: string, slug?: string) {
+  if (photo?.startsWith("/")) return photo;
   if (slug === "zakaria-fahim" || photo?.toLowerCase().includes("zakaria") || photo?.toLowerCase().includes("fahim")) {
-    return "/images/people/Zakaria-Fahim.jpeg";
+    return "/images/people/zakaria-fahim.jpg";
   }
   if (slug === "ismail-lahsini" || photo?.toLowerCase().includes("lahsini") || photo?.toLowerCase().includes("lahssini")) {
     return "/images/people/ismail-lahsini.jpeg";
   }
   if (slug === "antonio-gomes" || photo?.includes("antonio-gomes")) {
     return "/images/people/antonio-gomes.jpg";
+  }
+  if (slug === "hanaa-elmardi" || photo?.includes("hanaa")) {
+    return "/images/people/hanaa-elmardi.jpg";
+  }
+  if (slug === "abdeljaouad-benhaddou" || photo?.includes("benhaddou")) {
+    return "/images/people/abdeljaouad-benhaddou.jpg";
   }
   if (slug === "saad-belfakir" || photo?.includes("saad-belfakir")) {
     return "/images/people/saad-belfakir.jpg";

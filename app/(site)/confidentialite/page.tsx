@@ -4,7 +4,7 @@ import { data } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
-  title: "Protection des données",
+  title: "Confidentialité",
   description: "Politique de confidentialité du certificat ISCAE × BDO.",
 };
 
@@ -15,7 +15,7 @@ export default function ConfidentialitePage() {
     <article className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
       <Container className="max-w-3xl">
         <Kicker>Informations légales</Kicker>
-        <h1 className="mt-2 text-[clamp(2rem,1.65rem+1.75vw,3.25rem)] font-bold">Protection des données</h1>
+        <h1 className="mt-2 text-[clamp(2rem,1.65rem+1.75vw,3.25rem)] font-bold">Confidentialité</h1>
         <p className="mt-4 text-lg text-muted">
           Le traitement des données opéré par ce site relève de la {lg.loi}.
         </p>

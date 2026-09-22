@@ -19,7 +19,7 @@ const cases: Record<string, [string, string]> = {
   ],
   rappel: [
     "Votre demande de rappel est enregistrée",
-    "Un membre de l’équipe pédagogique vous appelle sous 48 heures ouvrées.",
+    "Un membre de l’équipe pédagogique vous appelle sous 24 heures ouvrées.",
   ],
   default: ["Votre demande est enregistrée", "Nous revenons vers vous rapidement."],
 };

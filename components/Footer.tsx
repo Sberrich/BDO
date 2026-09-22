@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BRAND, NAV, data } from "@/lib/content";
+import { NAV, data } from "@/lib/content";
 import { IconPhone, IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
@@ -104,34 +104,27 @@ export function Footer() {
                 <strong>{plain(c.nom)}</strong>
                 <span>{plain(c.fonction)}</span>
               </p>
+              <p className="site-footer__contact-note">
+                Coordonnées provisoires — à confirmer.
+              </p>
               <ul className="site-footer__contact-list">
                 <li>
-                  <a href={`mailto:${email}`}>{email}</a>
+                  <span>{email}</span>
                 </li>
                 <li>
-                  <a href={BRAND.phoneHref} className="site-footer__with-icon">
+                  <span className="site-footer__with-icon">
                     <IconPhone />
                     {tel}
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a
-                    href={BRAND.whatsapp}
-                    className="site-footer__wa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <span className="site-footer__wa is-muted">
                     <IconWhatsApp />
                     WhatsApp
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a
-                    href={plain(c.linkedin) || "https://www.linkedin.com/company/bdo-maroc/"}
-                    rel="noopener"
-                  >
-                    LinkedIn
-                  </a>
+                  <span>LinkedIn</span>
                 </li>
               </ul>
             </div>
@@ -146,16 +139,12 @@ export function Footer() {
                 <Link href="/mentions-legales">Mentions légales</Link>
               </li>
               <li>
-                <Link href="/confidentialite">Protection des données</Link>
+                <Link href="/cgu">CGU</Link>
               </li>
               <li>
-                <Link href="/faq#donnees">Vos données, en bref</Link>
+                <Link href="/confidentialite">Confidentialité</Link>
               </li>
             </ul>
-            <p className="site-footer__legal">
-              Traitement déclaré au titre de la {data.site.conformite.loi}.{" "}
-              {plain(data.site.conformite.declaration)}
-            </p>
           </div>
         </div>
       </div>

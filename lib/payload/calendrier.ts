@@ -1,6 +1,6 @@
 const data = {
   "intitule": "Calendrier de la promotion 1",
-  "chapeau": "Rentrée le vendredi 30 octobre 2026. Un week-end sur deux, vendredi et samedi, à Rabat. Vingt jours sur cinq mois.",
+  "chapeau": "Rentrée le vendredi 30 octobre 2026 — dernier week-end d’octobre. Un week-end sur deux, vendredi et samedi, à Rabat. Vingt jours sur cinq mois.",
   "seances": [
     { "seance": "Conférence inaugurale", "dates": "Vendredi 30 octobre 2026", "contenu": "Introduction à la digitalisation dans le domaine économique et financier", "jours": 1, "lien": "seminaires/conference-inaugurale.html" },
     { "seance": "Séminaire 1", "dates": "13 – 14 novembre 2026", "contenu": "Big data & data analytics", "jours": 2, "lien": "seminaires/1.html" },

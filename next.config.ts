@@ -9,6 +9,7 @@ const htmlPages = [
   "candidater",
   "a-propos",
   "mentions-legales",
+  "cgu",
   "confidentialite",
   "merci",
 ];

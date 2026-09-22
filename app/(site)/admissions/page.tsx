@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CalendarTable } from "@/components/CalendarTable";
 import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
+import { PricingBlock, PricingConditions } from "@/components/PricingBlock";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
 import { data } from "@/lib/content";
 import { plain } from "@/lib/text";
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default function AdmissionsPage() {
-  const t = data.site.tarif;
   const a = data.site.admission;
   const c = data.site.contact;
   return (
     <>
       <PageHero
+        motif="rings"
         kicker="Admissions"
         title="Le prix, le calendrier, l’éligibilité, le financement, le processus"
         lead={`Candidatures pour la promotion 1 closes le ${plain(a.dateLimite)}.`}
@@ -47,40 +48,17 @@ export default function AdmissionsPage() {
               variant="ghost"
               className="border-white/35 bg-transparent text-white hover:border-white hover:bg-white hover:text-navy"
             >
-              Être rappelé sous 48 h
+              Être rappelé sous 24 h
             </ButtonLink>
           </div>
       </PageHero>
       <section id="tarif" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <h2 className="text-[clamp(1.625rem,1.45rem+0.87vw,2.25rem)] font-bold leading-[1.2]">Le tarif</h2>
-          <div className="mt-8 overflow-hidden rounded-md border border-line bg-white md:grid md:grid-cols-[minmax(240px,300px)_1fr]">
-            <div className="bg-cream p-8 text-center md:flex md:flex-col md:justify-center">
-              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">Tarif</p>
-              <p className="mt-2 text-[clamp(2rem,1.65rem+1.75vw,3.25rem)] font-bold leading-none text-ink">{t.montant}</p>
-              <p className="mt-2 font-semibold text-muted">dirhams</p>
-              <p className="mt-3 text-sm text-muted">{t.mention}</p>
-            </div>
-            <div className="p-8">
-              <h3 className="text-lg font-bold">Ce que le tarif couvre</h3>
-              <ul className="mt-4 space-y-2 text-muted">
-                {t.couvre.map((x) => (
-                  <li key={x} className="tick flex gap-3">
-                    {x}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mt-8">
+            <PricingBlock />
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {t.conditions.map((cond, i) => (
-              <article key={cond.titre} className="rounded-md bg-white p-6 shadow-[var(--shadow)]">
-                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted">0{i + 1}</p>
-                <h3 className="mt-2 text-lg font-bold">{cond.titre}</h3>
-                <p className="mt-2 text-sm text-muted">{plain(cond.texte)}</p>
-              </article>
-            ))}
-          </div>
+          <PricingConditions />
         </Container>
       </section>
       <section id="calendrier" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
@@ -132,7 +110,7 @@ export default function AdmissionsPage() {
           <div>
             <SectionHeading
               kicker="Parler à quelqu’un"
-              title="Être rappelé sous 48 heures ouvrées"
+              title="Être rappelé sous 24 heures ouvrées"
               lead="Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se règlent mieux au téléphone."
             />
             <p className="mt-4 text-sm">

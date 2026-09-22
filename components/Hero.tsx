@@ -2,9 +2,20 @@
 
 import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
+import { HeroDecor } from "@/components/HeroDecor";
 import { JourneyPanel } from "@/components/JourneyPanel";
 import { FinancialRoadmap } from "@/components/FinancialRoadmap";
-import { IconArrowRight, IconCal, IconClock, IconDownload, IconMap, IconPhone, IconUsers, IconBook } from "@/components/icons";
+import { TypeWrite } from "@/components/motion";
+import {
+  IconArrowRight,
+  IconCal,
+  IconClock,
+  IconDownload,
+  IconMap,
+  IconPhone,
+  IconUsers,
+  IconBook,
+} from "@/components/icons";
 
 /** Easy-to-edit hero facts — update these when dates lock in. */
 const HERO_INFO = {
@@ -16,7 +27,7 @@ const HERO_INFO = {
 const STATS = [
   { value: "20", label: "jours de formation", Icon: IconCal },
   { value: "8", label: "séminaires", Icon: IconBook },
-  { value: "5", label: "mois · Rabat", Icon: IconMap },
+  { value: "5", label: "mois · Rabat · Casa", Icon: IconMap },
   { value: "25", label: "places · promo 1", Icon: IconUsers },
 ] as const;
 
@@ -35,6 +46,8 @@ export function Hero() {
           />
           <span className="hero-cinematic__smoke" />
           <span className="hero-cinematic__glow" />
+          <span className="hero-cinematic__grain" />
+          <HeroDecor motif="globe" />
         </div>
 
         <Container className="hero-cinematic__inner relative">
@@ -44,16 +57,25 @@ export function Hero() {
                 <p className="hero-cinematic__eyebrow">
                   Certificat exécutif · Groupe ISCAE × BDO Maroc
                 </p>
-                <p className="hero-cinematic__brand">CFO 4.0</p>
+                <p className="hero-cinematic__brand">
+                  CFO 4.0
+                  <span className="hero-cinematic__brand-mark" aria-hidden="true" />
+                </p>
               </header>
 
               <div className="hero-cinematic__message">
-                <h1 className="hero-cinematic__title">
-                  Pilotez la transformation de votre direction financière.
-                </h1>
+                <TypeWrite
+                  as="h1"
+                  className="hero-cinematic__title"
+                  text="Pilotez la transformation de votre direction financière."
+                  speed={18}
+                  startDelay={420}
+                  startOnMount
+                />
                 <p className="hero-cinematic__lead">
-                  20 jours sur 5 mois à Rabat. Un projet appliqué à votre entreprise, défendu devant
-                  un jury ISCAE × BDO.
+                  20 jours sur 5 mois à <strong>Rabat</strong> et{" "}
+                  <strong>Casablanca</strong>. Un projet appliqué à votre
+                  entreprise, défendu devant un jury ISCAE × BDO.
                 </p>
               </div>
 
@@ -95,7 +117,7 @@ export function Hero() {
                 </div>
                 <a href="/admissions#rappel" className="hero-cinematic__rappel">
                   <IconPhone />
-                  Être rappelé sous 48&nbsp;h
+                  Être rappelé sous 24&nbsp;h
                 </a>
               </div>
             </div>

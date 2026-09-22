@@ -17,6 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/faq",
     "/candidater",
     "/a-propos",
+    "/mentions-legales",
+    "/cgu",
     "/confidentialite",
   ];
   const insights = await getInsightArticles();

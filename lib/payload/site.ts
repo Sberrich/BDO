@@ -34,15 +34,15 @@ const data = {
       "icone": "lieu"
     },
     {
-      "valeur": "32 000",
-      "unite": "MAD",
-      "libelle": "par participant",
+      "valeur": "24 000",
+      "unite": "DH HT",
+      "libelle": "tarif particulier · dès la promotion 1",
       "icone": "tarif"
     },
     {
       "valeur": "30 oct.",
       "unite": "2026",
-      "libelle": "rentrée de la promotion 1",
+      "libelle": "rentrée · dernier week-end d’octobre",
       "icone": "depart"
     }
   ],
@@ -117,10 +117,29 @@ const data = {
     "prerequis": "Cinq ans d’expérience professionnelle au minimum, dans le secteur privé ou dans le secteur public."
   },
   "tarif": {
-    "montant": "32 000",
-    "devise": "MAD",
-    "devisePhrase": "dirhams",
-    "mention": "Par participant, pour le cycle complet.",
+    "montant": "24 000",
+    "devise": "DH",
+    "devisePhrase": "DH HT",
+    "mention": "Tarifs hors taxes. Les frais d’inscription s’ajoutent au tarif de formation.",
+    "fraisInscription": {
+      "montant": "1 200",
+      "label": "Frais d’inscription",
+      "mention": "DH HT · dus à l’inscription"
+    },
+    "formules": [
+      {
+        "id": "particulier",
+        "titre": "Tarif particulier",
+        "montant": "24 000",
+        "mention": "DH HT · financement personnel"
+      },
+      {
+        "id": "entreprise",
+        "titre": "Tarif entreprise",
+        "montant": "37 000",
+        "mention": "DH HT · prise en charge employeur"
+      }
+    ],
     "couvre": [
       "Vingt jours de formation, dont dix-sept en présentiel à Rabat",
       "Le coaching des équipes projet entre les séminaires",
@@ -130,9 +149,9 @@ const data = {
     ],
     "conditions": [
       {
-        "titre": "Tarif entreprise",
-        "texte": "{{PROV}}Une remise est prévue à partir de trois inscrits d’une même entreprise. Le barème est en cours d’arrêté et vous sera communiqué lors de l’entretien d’admission.{{/PROV}}",
-        "icone": "personnes"
+        "titre": "Frais d’inscription",
+        "texte": "1 200 DH HT, dus à l’inscription, en plus du tarif particulier ou entreprise.",
+        "icone": "dossier"
       },
       {
         "titre": "Échelonnement",
@@ -294,53 +313,77 @@ const data = {
   },
   "partenaires": [
     {
+      "nom": "Groupe ISCAE",
+      "role": "Cosignataire académique",
+      "logo": "/images/partenaires/iscae.png",
+      "lien": "https://www.groupeiscae.ma/",
+    },
+    {
+      "nom": "BDO Maroc",
+      "role": "Cosignataire professionnel",
+      "logo": "/images/partenaires/bdo.png",
+      "lien": "https://bdo.ma/",
+    },
+    {
       "nom": "Maltem Africa",
-      "role": "Coauteur du livre blanc"
+      "role": "Coauteur du livre blanc",
+      "logo": "/images/partenaires/maltem-africa.png",
+      "lien": "https://www.maltem.com/",
     },
-    {
-      "nom": "{{PROV}}Partenaire Trophée 1{{/PROV}}",
-      "role": "{{PROV}}Partenaire du Trophée BDO{{/PROV}}"
-    },
-    {
-      "nom": "{{PROV}}Partenaire Trophée 2{{/PROV}}",
-      "role": "{{PROV}}Partenaire du Trophée BDO{{/PROV}}"
-    },
-    {
-      "nom": "{{PROV}}Partenaire Trophée 3{{/PROV}}",
-      "role": "{{PROV}}Partenaire du Trophée BDO{{/PROV}}"
-    },
-    {
-      "nom": "{{PROV}}Partenaire Trophée 4{{/PROV}}",
-      "role": "{{PROV}}Partenaire du Trophée BDO{{/PROV}}"
-    },
-    {
-      "nom": "{{PROV}}Partenaire Trophée 5{{/PROV}}",
-      "role": "{{PROV}}Partenaire du Trophée BDO{{/PROV}}"
-    }
   ],
   "medias": [
     {
-      "nom": "{{PROV}}Média 1{{/PROV}}"
+      "nom": "Atlantic Radio",
+      "lien": "https://atlanticradio.ma/podcast/lancement-d-un-certificat-de-la-transformation-digitale-et-du-leadership-financier",
+      "logo": "/images/medias/atlantic-radio.png",
+      "domaine": "atlanticradio.ma",
+      "titre": "Lancement d’un certificat de la transformation digitale et du leadership financier",
+      "description": "Invité du matin : Zakaria Fahim, Président de BDO Maroc.",
+      "apercu": "/images/medias/previews/atlantic.jpg",
     },
     {
-      "nom": "{{PROV}}Média 2{{/PROV}}"
+      "nom": "Aujourd’hui le Maroc",
+      "lien": "https://aujourdhui.ma/emploi/lancement-de-la-2e-cohorte-du-certificat-en-transformation-digitale-et-leadership-financier",
+      "logo": "/images/medias/aujourdhui-le-maroc.png",
+      "domaine": "aujourdhui.ma",
+      "titre": "Lancement de la 2e cohorte du certificat en transformation digitale et leadership financier",
+      "description": "Le Groupe ISCAE et BDO Maroc ouvrent une nouvelle promotion du certificat.",
+      "apercu": "/images/medias/previews/aujourdhui.jpg",
     },
     {
-      "nom": "{{PROV}}Média 3{{/PROV}}"
+      "nom": "Finances News Hebdo",
+      "lien": "https://fnh.ma/article/actualite-entreprises/direction-administrative-et-financiere-bdo-lance-un-barometre",
+      "logo": "/images/medias/finances-news-hebdo.png",
+      "domaine": "fnh.ma",
+      "titre": "Direction administrative et financière : BDO lance un baromètre",
+      "description": "À l’ère du tout numérique, les DAF doivent allier expertise financière et compétences digitales.",
+      "apercu": "/images/medias/previews/fnh.jpg",
     },
     {
-      "nom": "{{PROV}}Média 4{{/PROV}}"
+      "nom": "Le Nouvelliste",
+      "lien": "https://www.lenouvelliste.ma/digital-et-finance-collaboration-unique-entre-bdo-et-iscae-casablanca/",
+      "logo": "/images/medias/le-nouvelliste.png",
+      "domaine": "lenouvelliste.ma",
+      "titre": "Digital et finance : collaboration unique entre BDO et ISCAE Casablanca",
+      "description": "BDO et ISCAE Casablanca lancent un programme de certification axé sur la transformation digitale.",
+      "apercu": "/images/medias/previews/nouvelliste.jpg",
     },
     {
-      "nom": "{{PROV}}Média 5{{/PROV}}"
-    }
+      "nom": "L’Économiste",
+      "lien": "https://www.leconomiste.com/",
+      "logo": "/images/medias/leconomiste.png",
+      "domaine": "leconomiste.com",
+      "titre": "L’Économiste — premier quotidien économique du Maroc",
+      "description": "Toute l’actualité économique, financière et business en continu.",
+      "apercu": "/images/medias/previews/leconomiste.jpg",
+    },
   ],
   "contact": {
-    "nom": "Ismail Lahsini",
-    "fonction": "Responsable du programme CFO 4.0",
-    "email": "certificat@bdo-info.ma",
-    "telephone": "+212 661 448 496",
-    "linkedin": "https://www.linkedin.com/company/bdo-maroc/",
+    "nom": "{{PROV}}Prénom Nom{{/PROV}}",
+    "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
+    "email": "{{PROV}}contact@exemple.ma{{/PROV}}",
+    "telephone": "{{PROV}}+212 000 000 000{{/PROV}}",
+    "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
     "lieuFormation": "Rabat — le lieu exact des séminaires est communiqué aux participants admis."
   },
@@ -397,7 +440,7 @@ const data = {
       "note": "Le programme daté, le tarif et le processus, en PDF."
     },
     "rappel": {
-      "libelle": "Être rappelé sous 48 h",
+      "libelle": "Être rappelé sous 24 h",
       "icone": "telephone",
       "note": "Un membre de l’équipe pédagogique vous appelle."
     },

@@ -109,7 +109,7 @@ const data = {
         {
           "id": "faq-calendrier-rentree",
           "q": "Quand commence la promotion 1 ?",
-          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le 3 avril 2027, par la soutenance des projets et la remise des certificats.</p>",
+          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026 — dernier week-end d’octobre. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le 3 avril 2027, par la soutenance des projets et la remise des certificats.</p>",
           "lien": {
             "texte": "Le calendrier complet",
             "href": "admissions.html#calendrier"
@@ -166,7 +166,7 @@ const data = {
         {
           "id": "faq-tarif-montant",
           "q": "Quel est le tarif ?",
-          "r": "<p>32 000 dirhams par participant, pour le cycle complet.</p><p>Le montant couvre la conférence inaugurale, les huit séminaires, le coaching des équipes projet et le jury de certification.</p>",
+          "r": "<p>Trois montants s’appliquent, hors taxes :</p><ul><li>Frais d’inscription : <strong>1 200 DH HT</strong></li><li>Tarif particulier : <strong>24 000 DH HT</strong></li><li>Tarif entreprise : <strong>37 000 DH HT</strong></li></ul><p>Les frais d’inscription s’ajoutent au tarif de formation. Le montant couvre la conférence inaugurale, les huit séminaires, le coaching des équipes projet et le jury de certification.</p>",
           "lien": {
             "texte": "Le détail du tarif",
             "href": "admissions.html#tarif"
@@ -274,7 +274,7 @@ const data = {
   ],
   "relance": {
     "titre": "Votre question n’est pas là ?",
-    "texte": "Un membre de l’équipe pédagogique vous rappelle sous 48 heures ouvrées."
+    "texte": "Un membre de l’équipe pédagogique vous rappelle sous 24 heures ouvrées."
   }
 } as const;
 export default data;

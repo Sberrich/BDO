@@ -10,7 +10,11 @@ export function WhatsAppFab() {
       rel="noopener noreferrer"
       aria-label="Écrire sur WhatsApp"
     >
-      <IconWhatsApp size={28} />
+      <span className="wa-fab__ping" aria-hidden="true" />
+      <span className="wa-fab__ping wa-fab__ping--delay" aria-hidden="true" />
+      <span className="wa-fab__core">
+        <IconWhatsApp size={28} />
+      </span>
     </a>
   );
 }

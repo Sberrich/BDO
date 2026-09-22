@@ -13,6 +13,7 @@ export default function CandidaterPage() {
   return (
     <>
       <PageHero
+        motif="rings"
         kicker="Candidater"
         title="Votre dossier de candidature"
         lead={`Quatre étapes, une vingtaine de minutes. Clôture le ${plain(data.site.admission.dateLimite)}.`}

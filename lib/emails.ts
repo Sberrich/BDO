@@ -72,7 +72,7 @@ const META: Record<
     title: "Demande de rappel",
     subject: "Demande de rappel",
     accent: RED,
-    intro: "Un prospect souhaite être rappelé. Répondez-lui sous 48 h.",
+    intro: "Un prospect souhaite être rappelé. Répondez-lui sous 24 h.",
   },
   session: {
     badge: "Session",

@@ -15,6 +15,7 @@ export default function ProgrammePage() {
   return (
     <>
       <PageHero
+        motif="mesh"
         kicker="Le programme"
         title="Huit séminaires, un projet mené sur votre entreprise"
         lead="Vingt jours sur cinq mois, à Rabat. Une conférence inaugurale, huit séminaires de deux jours le vendredi et le samedi, un week-end sur deux, et trois journées de coaching des équipes projet."
@@ -45,7 +46,7 @@ export default function ProgrammePage() {
               className="btn-icon -ml-3 inline-flex min-h-11 items-center gap-2 rounded-md px-3 py-2 font-bold text-white/80 hover:bg-white/10 hover:text-white"
             >
               <IconPhone />
-              Être rappelé sous 48 h
+              Être rappelé sous 24 h
             </a>
           </p>
       </PageHero>

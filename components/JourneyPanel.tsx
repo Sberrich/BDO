@@ -13,7 +13,7 @@ type Seminar = {
   start: string;
   shortDate: string;
   longDate: string;
-  apport: string;
+  apport?: string;
 };
 
 const SEMINARS: Seminar[] = [
@@ -25,7 +25,6 @@ const SEMINARS: Seminar[] = [
     start: "2026-11-13",
     shortDate: "13–14 nov.",
     longDate: "Vendredi 13 – samedi 14 novembre 2026",
-    apport: "[À compléter]",
   },
   {
     n: "02",
@@ -35,7 +34,6 @@ const SEMINARS: Seminar[] = [
     start: "2026-11-27",
     shortDate: "27–28 nov.",
     longDate: "Vendredi 27 – samedi 28 novembre 2026",
-    apport: "[À compléter]",
   },
   {
     n: "03",
@@ -45,7 +43,6 @@ const SEMINARS: Seminar[] = [
     start: "2026-12-11",
     shortDate: "11–12 déc.",
     longDate: "Vendredi 11 – samedi 12 décembre 2026",
-    apport: "[À compléter]",
   },
   {
     n: "04",
@@ -55,7 +52,6 @@ const SEMINARS: Seminar[] = [
     start: "2027-01-08",
     shortDate: "8–9 janv.",
     longDate: "Vendredi 8 – samedi 9 janvier 2027",
-    apport: "[À compléter]",
   },
   {
     n: "05",
@@ -65,7 +61,6 @@ const SEMINARS: Seminar[] = [
     start: "2027-01-22",
     shortDate: "22–23 janv.",
     longDate: "Vendredi 22 – samedi 23 janvier 2027",
-    apport: "[À compléter]",
   },
   {
     n: "06",
@@ -75,7 +70,6 @@ const SEMINARS: Seminar[] = [
     start: "2027-02-05",
     shortDate: "5–6 févr.",
     longDate: "Vendredi 5 – samedi 6 février 2027",
-    apport: "[À compléter]",
   },
   {
     n: "07",
@@ -85,7 +79,6 @@ const SEMINARS: Seminar[] = [
     start: "2027-03-19",
     shortDate: "19–20 mars",
     longDate: "Vendredi 19 – samedi 20 mars 2027",
-    apport: "[À compléter]",
   },
   {
     n: "08",
@@ -240,10 +233,7 @@ export function JourneyPanel() {
                         aria-hidden={!isOpen}
                       >
                         <p className="parcours-entry__when">{s.longDate} · Rabat</p>
-                        <p className="parcours-entry__apport">
-                          <span>Pour votre projet</span>
-                          {s.apport}
-                        </p>
+                        {s.apport ? <p className="parcours-entry__apport">{s.apport}</p> : null}
                         <a
                           href={BRAND.brochure}
                           className="parcours-entry__pdf"

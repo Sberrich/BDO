@@ -37,87 +37,113 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
       .filter((g) => g.questions.length);
   }, [query, onlyHome]);
 
+  const total = useMemo(
+    () => groups.reduce((n, g) => n + g.questions.length, 0),
+    [groups],
+  );
+
   function onQueryChange(value: string) {
     setQuery(value);
     setOpen(null);
   }
 
   return (
-    <div>
+    <div className={`faq-explorer ${onlyHome ? "is-compact" : ""}`}>
       {!onlyHome && (
-        <form className="mb-8 max-w-lg" onSubmit={(e) => e.preventDefault()}>
-          <label className="block text-sm font-semibold" htmlFor="faq-q">
-            Rechercher dans les questions
-          </label>
-          <div className="relative mt-1">
-            <input
-              id="faq-q"
-              className="w-full rounded-md border border-line bg-white py-3 pl-3.5 pr-10 outline-none transition hover:border-muted focus:border-blue focus:ring-2 focus:ring-blue/20"
-              placeholder="tarif, entreprise, Ramadan…"
-              value={query}
-              onChange={(e) => onQueryChange(e.target.value)}
-            />
-            <span
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
-              aria-hidden
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
-            </span>
-          </div>
-        </form>
+        <div className="faq-explorer__toolbar">
+          <form
+            className="faq-explorer__search"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <label className="faq-explorer__search-label" htmlFor="faq-q">
+              Rechercher dans les questions
+            </label>
+            <div className="faq-explorer__search-field">
+              <input
+                id="faq-q"
+                className="faq-explorer__search-input"
+                placeholder="tarif, entreprise, Ramadan…"
+                value={query}
+                onChange={(e) => onQueryChange(e.target.value)}
+              />
+              <span className="faq-explorer__search-icon" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M20 20l-3.5-3.5" />
+                </svg>
+              </span>
+            </div>
+          </form>
+          <p className="faq-explorer__count" aria-live="polite">
+            {total} question{total > 1 ? "s" : ""}
+            {query.trim() ? " trouvée" + (total > 1 ? "s" : "") : ""}
+          </p>
+        </div>
       )}
-      {groups.map((g) => (
-        <section key={g.id} id={g.id} className="mb-10">
-          {!onlyHome && <h2 className="mb-4 text-2xl font-bold">{g.titre}</h2>}
-          <div className="overflow-hidden rounded-md border border-line bg-white">
-            {g.questions.map((item, i) => {
+
+      {groups.map((g, gi) => (
+        <section key={g.id} id={g.id} className="faq-group">
+          {!onlyHome && (
+            <header className="faq-group__head">
+              <span className="faq-group__index" aria-hidden="true">
+                {String(gi + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h2 className="faq-group__title">{g.titre}</h2>
+                <p className="faq-group__meta">
+                  {g.questions.length} question{g.questions.length > 1 ? "s" : ""}
+                </p>
+              </div>
+            </header>
+          )}
+
+          <div className="faq-accordion">
+            {g.questions.map((item) => {
               const isOpen = open === item.id;
               return (
                 <div
                   key={item.id}
                   id={item.id}
-                  className={i === 0 ? "" : "border-t border-line"}
+                  className={`faq-item ${isOpen ? "is-open" : ""}`}
                 >
-                  <h3 className="m-0">
+                  <h3 className="faq-item__heading">
                     <button
                       type="button"
-                      className={`flex min-h-12 w-full items-start justify-between gap-4 px-5 py-4 text-left font-semibold transition hover:bg-cream/70 hover:text-blue ${isOpen ? "bg-cream/50 text-blue" : ""}`}
+                      className="faq-item__trigger"
                       aria-expanded={isOpen}
+                      aria-controls={`${item.id}-panel`}
                       onClick={() => setOpen(isOpen ? null : item.id)}
                     >
-                      {plain(item.q)}
-                      <span
-                        className={`relative mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-blue transition ${isOpen ? "rotate-45 bg-blue text-white" : "bg-[var(--wash)]"}`}
-                        aria-hidden
-                      >
-                        <span className="absolute h-0.5 w-3 rounded-sm bg-current" />
-                        <span className="absolute h-3 w-0.5 rounded-sm bg-current" />
+                      <span className="faq-item__q">{plain(item.q)}</span>
+                      <span className="faq-item__icon" aria-hidden="true">
+                        <span className="faq-item__icon-h" />
+                        <span className="faq-item__icon-v" />
                       </span>
                     </button>
                   </h3>
-                  <div className={`faq-panel ${isOpen ? "is-open" : ""}`}>
-                    <div>
+                  <div
+                    id={`${item.id}-panel`}
+                    role="region"
+                    className="faq-panel"
+                    aria-hidden={!isOpen}
+                  >
+                    <div className="faq-panel__inner">
                       <div
-                        className="faq-answer space-y-3 px-5 pb-5 text-muted"
+                        className="faq-answer"
                         dangerouslySetInnerHTML={{ __html: rich(item.r) }}
                       />
                       {item.lien && (
-                        <p className="px-5 pb-5">
-                          <a
-                            className="text-sm font-semibold text-blue hover:text-blue-dark"
-                            href={appHref(item.lien.href)}
-                          >
+                        <p className="faq-item__link">
+                          <a href={appHref(item.lien.href)}>
                             {item.lien.texte}
+                            <span aria-hidden="true"> →</span>
                           </a>
                         </p>
                       )}
@@ -129,8 +155,9 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
           </div>
         </section>
       ))}
+
       {groups.length === 0 && (
-        <p className="text-muted">
+        <p className="faq-explorer__empty">
           Aucune question ne correspond à votre recherche.
         </p>
       )}

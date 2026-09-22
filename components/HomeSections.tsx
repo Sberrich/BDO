@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { data } from "@/lib/content";
+import { data, RESOURCE_COVERS } from "@/lib/content";
 import type { Intervenant } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
+import { MediaPressStrip } from "@/components/MediaPressStrip";
+import { PricingBlock } from "@/components/PricingBlock";
+import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { VideoBlock } from "@/components/VideoBlock";
-import { CountUp, Reveal } from "@/components/motion";
+import { CountUp, Reveal, TypeWrite } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
 import { IconCert, IconChart, IconGauge, IconJury, IconMap } from "@/components/icons";
 import { appHref, personPhoto, plain } from "@/lib/text";
@@ -22,7 +25,6 @@ export function HomeSections({ speakers, speakersLead }: Props) {
   const haut = c.chiffres[0];
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
-  const faculty = speakers.slice(0, 4);
 
   return (
     <>
@@ -47,22 +49,28 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <p className="constat-top__lead">{c.chapeau}</p>
           </div>
 
-          <div className="constat-stage" role="group" aria-label="L’écart entre intention et feuille de route">
+          <div
+            className="constat-stage"
+            role="group"
+            aria-label="L’écart entre intention et feuille de route"
+          >
             <p className="constat-stage__watermark" aria-hidden="true">
               écart
             </p>
 
             <Reveal className="constat-stage__col is-high" delay={40}>
-              <p className="constat-stage__kicker">Intention</p>
-              <p className="constat-stage__value">
-                <CountUp value={haut.valeur} suffix="%" />
-              </p>
-              <div
-                className="constat-stage__bar"
-                style={{ ["--pct" as string]: `${haut.valeur}%` }}
-                aria-hidden="true"
-              />
-              <p className="constat-stage__label">{haut.libelle}</p>
+              <div className="constat-stage__panel">
+                <p className="constat-stage__kicker">Intention</p>
+                <p className="constat-stage__value">
+                  <CountUp value={haut.valeur} suffix="%" />
+                </p>
+                <div
+                  className="constat-stage__bar"
+                  style={{ ["--pct" as string]: `${haut.valeur}%` }}
+                  aria-hidden="true"
+                />
+                <p className="constat-stage__label">{haut.libelle}</p>
+              </div>
             </Reveal>
 
             <div className="constat-stage__delta" aria-hidden="true">
@@ -75,16 +83,18 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </div>
 
             <Reveal className="constat-stage__col is-low" delay={120}>
-              <p className="constat-stage__kicker">Feuille de route</p>
-              <p className="constat-stage__value">
-                <CountUp value={bas.valeur} suffix="%" />
-              </p>
-              <div
-                className="constat-stage__bar"
-                style={{ ["--pct" as string]: `${bas.valeur}%` }}
-                aria-hidden="true"
-              />
-              <p className="constat-stage__label">{bas.libelle}</p>
+              <div className="constat-stage__panel">
+                <p className="constat-stage__kicker">Feuille de route</p>
+                <p className="constat-stage__value">
+                  <CountUp value={bas.valeur} suffix="%" />
+                </p>
+                <div
+                  className="constat-stage__bar"
+                  style={{ ["--pct" as string]: `${bas.valeur}%` }}
+                  aria-hidden="true"
+                />
+                <p className="constat-stage__label">{bas.libelle}</p>
+              </div>
             </Reveal>
           </div>
 
@@ -130,6 +140,8 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
 
       <section id="livrable" className="carry" aria-labelledby="livrable-title">
+        <span className="carry__glow" aria-hidden="true" />
+        <span className="carry__grid" aria-hidden="true" />
         <Container className="carry__inner">
           <header className="carry__head">
             <p className="carry__index">02 — Le livrable</p>
@@ -142,20 +154,24 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           </header>
 
           <ol className="carry__stages">
-            {site.livrable.items.map((it, i) => (
-              <Reveal as="li" key={it.titre} delay={i * 100} className={`carry__stage is-${i + 1}`}>
-                <span className="carry__stage-num" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <span className="carry__stage-icon" aria-hidden="true">
-                  {i === 0 ? <IconMap /> : i === 1 ? <IconJury /> : <IconCert />}
-                </span>
-                <div className="carry__stage-body">
-                  <h3 className="carry__stage-title">{it.titre}</h3>
-                  <p className="carry__stage-text">{it.texte}</p>
-                </div>
-              </Reveal>
-            ))}
+            {site.livrable.items.map((it, i) => {
+              const tags = ["Feuille de route", "Jury", "Certificat"];
+              return (
+                <Reveal as="li" key={it.titre} delay={i * 100} className={`carry__stage is-${i + 1}`}>
+                  <span className="carry__stage-num" aria-hidden="true">
+                    0{i + 1}
+                  </span>
+                  <span className="carry__stage-icon" aria-hidden="true">
+                    {i === 0 ? <IconMap /> : i === 1 ? <IconJury /> : <IconCert />}
+                  </span>
+                  <div className="carry__stage-body">
+                    <span className="carry__stage-tag">{tags[i]}</span>
+                    <h3 className="carry__stage-title">{it.titre}</h3>
+                    <p className="carry__stage-text">{it.texte}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </ol>
         </Container>
       </section>
@@ -212,52 +228,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
-      <section id="intervenants" className="faculty" aria-labelledby="intervenants-title">
-        <Container className="faculty__inner">
-          <header className="faculty__head">
-            <div>
-              <p className="faculty__index">05 — Les intervenants</p>
-              <h2 id="intervenants-title" className="faculty__title">
-                La chaire vivante du certificat
-              </h2>
-            </div>
-            <p className="faculty__lead">
-              {speakersLead ||
-                "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités."}
-            </p>
-          </header>
-          <ul className="faculty__mosaic">
-            {faculty.map((p, i) => (
-              <Reveal
-                as="li"
-                key={p.slug}
-                delay={i * 70}
-                id={p.slug}
-                className={`faculty__card ${i === 0 ? "is-lead" : ""}`}
-              >
-                <div className="faculty__photo">
-                  <Image
-                    src={personPhoto(p.photo, p.slug)}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes={i === 0 ? "(max-width: 900px) 100vw, 50vw" : "(max-width: 900px) 50vw, 25vw"}
-                  />
-                  <div className="faculty__caption">
-                    <p className="faculty__name">{plain(p.nom)}</p>
-                    <p className="faculty__role">
-                      {plain(p.fonction)} · {plain(p.institution)}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
-          <Link href="/intervenants" className="faculty__link">
-            Tous les intervenants <span aria-hidden="true">→</span>
-          </Link>
-        </Container>
-      </section>
+      <FacultyShowcase speakers={speakers} lead={speakersLead} />
 
       <section id="temoignages" className="voices" aria-labelledby="temoignages-title">
         <Container className="voices__inner">
@@ -266,47 +237,69 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <h2 id="temoignages-title" className="voices__title">
               Ce que les anciens en ont fait
             </h2>
+            <p className="voices__lead">
+              Des directions financières qui ont transformé le certificat en feuille de route —
+              chiffrée, défendue, mise en œuvre.
+            </p>
           </header>
-          {site.temoignages[0] ? (
-            <Reveal className="voices__featured" delay={40}>
-              <blockquote className="voices__quote">
-                « {plain(site.temoignages[0].citation)} »
-              </blockquote>
-              <div className="voices__meta">
-                <Image
-                  src={personPhoto(
-                    site.temoignages[0].photo,
-                    site.temoignages[0].nom.toLowerCase().includes("saad") ? "saad-belfakir" : undefined,
-                  )}
-                  alt=""
-                  width={56}
-                  height={56}
-                  className="voices__avatar"
+
+          <div className="voices__stage">
+            {site.temoignages[0] ? (
+              <Reveal className="voices__featured" delay={40}>
+                <span className="voices__mark" aria-hidden="true">
+                  “
+                </span>
+                <TypeWrite
+                  as="blockquote"
+                  className="voices__quote"
+                  text={plain(site.temoignages[0].citation)}
                 />
-                <div>
-                  <strong>{plain(site.temoignages[0].nom)}</strong>
-                  <p>
-                    {plain(site.temoignages[0].fonction)} · {plain(site.temoignages[0].entreprise)}
-                  </p>
-                  <p className="voices__projet">
-                    <span>Projet</span> {plain(site.temoignages[0].projet)}
-                  </p>
+                <div className="voices__meta">
+                  <Image
+                    src={personPhoto(
+                      site.temoignages[0].photo,
+                      site.temoignages[0].nom.toLowerCase().includes("saad")
+                        ? "saad-belfakir"
+                        : undefined,
+                    )}
+                    alt=""
+                    width={72}
+                    height={72}
+                    className="voices__avatar"
+                  />
+                  <div>
+                    <strong>{plain(site.temoignages[0].nom)}</strong>
+                    <p>
+                      {plain(site.temoignages[0].fonction)} ·{" "}
+                      {plain(site.temoignages[0].entreprise)}
+                    </p>
+                    <p className="voices__projet">
+                      <span>Projet</span> {plain(site.temoignages[0].projet)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ) : null}
-          <div className="voices__rest">
-            {site.temoignages.slice(1).map((t, i) => (
-              <Reveal as="figure" key={t.nom} delay={100 + i * 80} className="voices__card">
-                <blockquote>« {plain(t.citation)} »</blockquote>
-                <figcaption>
-                  <strong>{plain(t.nom)}</strong>
-                  <span>
-                    {plain(t.fonction)} · {plain(t.entreprise)}
-                  </span>
-                </figcaption>
               </Reveal>
-            ))}
+            ) : null}
+
+            <div className="voices__rest">
+              {site.temoignages.slice(1).map((t, i) => (
+                <Reveal as="figure" key={t.nom} delay={100 + i * 80} className="voices__card">
+                  <span className="voices__card-mark" aria-hidden="true">
+                    “
+                  </span>
+                  <blockquote>{plain(t.citation)}</blockquote>
+                  <figcaption>
+                    <strong>{plain(t.nom)}</strong>
+                    <span>
+                      {plain(t.fonction)} · {plain(t.entreprise)}
+                    </span>
+                    <span className="voices__card-projet">
+                      <span>Projet</span> {plain(t.projet)}
+                    </span>
+                  </figcaption>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
@@ -316,50 +309,36 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="medias" className="bg-cream py-12">
         <Container>
           <Kicker>Ils en ont parlé</Kicker>
-          <div className="logo-marquee mt-6">
-            <ul className="logo-marquee__track">
-              {[...site.medias, ...site.medias].map((m, i) => (
-                <li
-                  key={`${m.nom}-${i}`}
-                  className="flex h-[72px] min-w-[160px] items-center justify-center rounded-md border border-line bg-white px-6 text-sm font-semibold text-muted grayscale opacity-75 transition hover:grayscale-0 hover:opacity-100 hover:text-ink"
-                >
-                  {plain(m.nom)}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-6">
+            <MediaPressStrip items={site.medias} />
           </div>
         </Container>
       </section>
 
-      <section id="calendrier" className="bg-cream py-16 md:py-[4.5rem]">
-        <Container>
-          <SectionHeading index="07" kicker="Calendrier et tarif" title={data.calendrier.intitule} lead={data.calendrier.chapeau} />
-          <div className="mt-8">
+      <section id="calendrier" className="cal-band" aria-labelledby="calendrier-title">
+        <span className="cal-band__glow" aria-hidden="true" />
+        <span className="cal-band__grid" aria-hidden="true" />
+        <Container className="cal-band__inner">
+          <header className="cal-band__head">
+            <div>
+              <p className="cal-band__index">07 — Calendrier et tarif</p>
+              <h2 id="calendrier-title" className="cal-band__title">
+                Calendrier de la promotion 1.
+                <br />
+                <em>Un week-end sur deux.</em>
+              </h2>
+            </div>
+            <p className="cal-band__lead">{data.calendrier.chapeau}</p>
+          </header>
+
+          <div className="cal-band__block">
+            <p className="cal-band__block-label">Le calendrier</p>
             <CalendarTable />
           </div>
-          <div className="mt-10 overflow-hidden rounded-md border border-line bg-white md:grid md:grid-cols-[minmax(240px,300px)_1fr]">
-            <div className="bg-cream p-8 text-center md:flex md:flex-col md:justify-center">
-              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">Tarif</p>
-              <p className="mt-2 text-5xl font-bold leading-none tracking-[-0.03em] text-ink">{site.tarif.montant}</p>
-              <p className="mt-2 font-semibold text-muted">{site.tarif.devisePhrase}</p>
-              <p className="mt-2 text-sm text-muted">{site.tarif.mention}</p>
-            </div>
-            <div className="p-8">
-              <h3 className="text-lg font-bold">Ce que le tarif couvre</h3>
-              <ul className="mt-4 space-y-2 text-muted">
-                {site.tarif.couvre.map((x) => (
-                  <li key={x} className="tick flex gap-3">
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <ButtonLink href="/candidater">Déposer ma candidature</ButtonLink>
-                <ButtonLink href="/admissions" variant="ghost">
-                  Voir les admissions en détail →
-                </ButtonLink>
-              </div>
-            </div>
+
+          <div className="cal-band__block is-tarif" id="tarif">
+            <p className="cal-band__block-label">Le tarif</p>
+            <PricingBlock showCtas />
           </div>
         </Container>
       </section>
@@ -373,7 +352,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
               Prêt à rejoindre la promotion 1 ?
             </h2>
             <p className="mt-3 max-w-xl text-white/75">
-              Commencez votre candidature en quelques minutes. Réponse sous 48&nbsp;h.
+              Commencez votre candidature en quelques minutes. Réponse sous 24&nbsp;h.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 md:justify-end">
@@ -410,13 +389,36 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
-      <section id="video" className="bg-cream py-16 md:py-[4.5rem]">
-        <Container className="grid items-center gap-10 md:grid-cols-2">
-          <div>
-            <SectionHeading kicker="En vidéo" title={site.video.titre} lead={site.video.texte} />
-            <p className="mt-2 text-sm text-muted">Durée : {site.video.duree}.</p>
+      <section id="video" className="videoband" aria-labelledby="video-title">
+        <span className="videoband__glow" aria-hidden="true" />
+        <span className="videoband__grid" aria-hidden="true" />
+        <Container className="videoband__inner">
+          <div className="videoband__copy">
+            <p className="videoband__index">En vidéo</p>
+            <h2 id="video-title" className="videoband__title">
+              Le certificat en{" "}
+              <em>quatre-vingt-dix secondes</em>
+            </h2>
+            <p className="videoband__lead">{site.video.texte}</p>
+            <ul className="videoband__beats" aria-label="Points abordés">
+              <li>
+                <span>01</span> Le cycle
+              </li>
+              <li>
+                <span>02</span> Le projet
+              </li>
+              <li>
+                <span>03</span> La soutenance
+              </li>
+            </ul>
+            <p className="videoband__meta">
+              <span className="videoband__meta-dot" aria-hidden="true" />
+              Durée {site.video.duree}
+            </p>
           </div>
-          <VideoBlock />
+          <Reveal className="videoband__stage" delay={80}>
+            <VideoBlock />
+          </Reveal>
         </Container>
       </section>
 
@@ -424,22 +426,45 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container>
           <SectionHeading kicker="Le dispositif BDO" title={site.dispositif.titre} />
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {site.dispositif.items.map((it) => (
-              <Link
-                key={it.titre}
-                href={appHref(it.lien)}
-                className="card-lift group flex flex-col rounded-md border border-line p-7"
-              >
-                <h3 className="text-lg font-bold">{it.titre}</h3>
-                <p className="mt-3 flex-1 text-muted">{it.texte}</p>
-                <span className="card-more mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue">
-                  {it.action}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
-              </Link>
-            ))}
+            {site.dispositif.items.map((it) => {
+              const cover =
+                it.lien.includes("barometre")
+                  ? RESOURCE_COVERS.barometre
+                  : it.lien.includes("livre-blanc")
+                    ? RESOURCE_COVERS.livreblanc
+                    : null;
+              return (
+                <Link
+                  key={it.titre}
+                  href={appHref(it.lien)}
+                  className={`card-lift group flex flex-col rounded-md border border-line ${
+                    cover ? "overflow-hidden p-0" : "p-7"
+                  }`}
+                >
+                  {cover ? (
+                    <span className="resource-dispositif__cover">
+                      <Image
+                        src={cover}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover object-top"
+                      />
+                    </span>
+                  ) : null}
+                  <span className={cover ? "flex flex-1 flex-col p-6" : "contents"}>
+                    <h3 className="text-lg font-bold">{it.titre}</h3>
+                    <p className="mt-3 flex-1 text-muted">{it.texte}</p>
+                    <span className="card-more mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue">
+                      {it.action}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </span>
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </Container>
       </section>
@@ -450,11 +475,22 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           <div className="logo-marquee mt-6">
             <ul className="logo-marquee__track" style={{ animationDuration: "46s" }}>
               {[...site.partenaires, ...site.partenaires].map((p, i) => (
-                <li
-                  key={`${p.nom}-${i}`}
-                  className="flex h-[72px] min-w-[160px] items-center justify-center rounded-md border border-line bg-white px-6 text-center text-sm font-semibold text-muted grayscale opacity-75 transition hover:grayscale-0 hover:opacity-100 hover:text-ink"
-                >
-                  {plain(p.nom)}
+                <li key={`${p.nom}-${i}`} className="partner-marquee__item">
+                  <a
+                    href={p.lien}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="partner-marquee__link"
+                    aria-label={plain(p.nom)}
+                  >
+                    <Image
+                      src={p.logo}
+                      alt={plain(p.nom)}
+                      width={200}
+                      height={56}
+                      className="partner-marquee__img"
+                    />
+                  </a>
                 </li>
               ))}
             </ul>

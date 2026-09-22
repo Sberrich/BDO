@@ -6,30 +6,40 @@ import { seminarPath } from "@/lib/text";
 
 export const data = { site, seminaires, faq, calendrier };
 
+export const RESOURCE_COVERS = {
+  brochure: "/images/covers/brochure.jpg",
+  barometre: "/images/covers/barometre.jpg",
+  livreblanc: "/images/covers/livre-blanc.jpg",
+} as const;
+
 export const RESOURCES_MENU = [
   {
     href: "/ressources/brochure",
     label: "La brochure du certificat",
     desc: "Programme, calendrier, tarif et admissions",
     icon: "brochure" as const,
+    cover: RESOURCE_COVERS.brochure,
   },
   {
     href: "/ressources/barometre",
     label: "Le Baromètre BDO des DAF 2024",
     desc: "Enquête annuelle — 94 répondants",
     icon: "barometre" as const,
+    cover: RESOURCE_COVERS.barometre,
   },
   {
     href: "/ressources/livre-blanc",
     label: "La Fonction Financière Augmentée",
     desc: "Livre blanc BDO × Maltem Africa",
     icon: "livreblanc" as const,
+    cover: RESOURCE_COVERS.livreblanc,
   },
   {
     href: "/insights",
     label: "Insights",
     desc: "Analyses et lectures CFO 4.0",
     icon: "insights" as const,
+    cover: null,
   },
 ] as const;
 

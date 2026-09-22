@@ -4,20 +4,20 @@ const data = {
     {
       "slug": "zakaria-fahim",
       "nom": "Zakaria Fahim",
-      "fonction": "Managing Partner",
+      "fonction": "Managing Partner – Head of Advisory",
       "institution": "BDO Maroc",
-      "photo": "assets/img/zakaria-fahim.jpeg",
-      "bio": "Associé gérant de BDO Maroc, Zakaria Fahim accompagne les directions générales et financières des grandes et moyennes entreprises marocaines sur leurs opérations de transformation. Il est à l’origine du Baromètre BDO des DAF et du Trophée BDO, et intervient sur le workshop de management digital et sur le jury de soutenance.",
+      "photo": "/images/people/zakaria-fahim.jpg",
+      "bio": "Associé gérant de BDO Maroc, Zakaria Fahim accompagne les directions générales et financières des grandes et moyennes entreprises marocaines sur leurs opérations de transformation. Il est à l’origine du Baromètre BDO des DAF et du Trophée BDO des CFOs, et intervient sur le workshop de management digital et sur le jury de soutenance.",
       "seminaires": [4, 8],
       "linkedin": "https://www.linkedin.com/in/zakaria-fahim-97286928"
     },
     {
       "slug": "ismail-lahsini",
-      "nom": "Ismail Lahsini",
-      "fonction": "Consultant en transformation de la fonction finance",
-      "institution": "LAHSINI & Co",
-      "photo": "assets/img/ismail-lahsini.jpeg",
-      "bio": "Ismail Lahsini conseille les directions financières sur la structuration de leurs données et la conduite de leurs projets de transformation. Il coauteur du livre blanc « La Fonction Financière Augmentée » et anime le séminaire consacré aux données et aux indicateurs.",
+      "nom": "Ismaïl Lahsini",
+      "fonction": "Directeur général",
+      "institution": "Meducate",
+      "photo": "/images/people/ismail-lahsini.jpeg",
+      "bio": "Ismaïl Lahsini dirige Meducate et intervient sur la transformation de la fonction finance. Membre du jury du Trophée BDO des CFOs, il contribue aux séminaires data et à la soutenance du certificat.",
       "seminaires": [1, 8],
       "linkedin": "https://www.linkedin.com/in/lahsini"
     },
@@ -47,7 +47,7 @@ const data = {
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 5, consacré aux crypto-actifs, à la tokenisation et au cadre réglementaire.{{/PROV}}",
+      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 5, consacré aux crypto-actifs.{{/PROV}}",
       "seminaires": [5],
       "linkedin": ""
     },
@@ -57,7 +57,7 @@ const data = {
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 6, consacré au cycle de trésorerie, aux plateformes de cash management et à l’IoT.{{/PROV}}",
+      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 6, consacré au cash management et à l’IoT.{{/PROV}}",
       "seminaires": [6],
       "linkedin": ""
     },
@@ -67,10 +67,11 @@ const data = {
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 7, consacré aux menaces visant la fonction finance, à la loi 09-08 et à la matrice de risques numériques.{{/PROV}}",
+      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 7, consacré à la cybersécurité.{{/PROV}}",
       "seminaires": [7],
       "linkedin": ""
     }
   ]
-} as const;
+};
+
 export default data;

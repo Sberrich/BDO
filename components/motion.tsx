@@ -142,42 +142,90 @@ export function CountUp({
   );
 }
 
-export function AnimatedBar({
-  value,
-  color = "blue",
+export function TypeWrite({
+  text,
+  className = "",
+  as: Tag = "p",
+  speed = 22,
+  startDelay = 280,
+  startOnMount = false,
 }: {
-  value: number;
-  color?: "blue" | "muted";
+  text: string;
+  className?: string;
+  as?: "p" | "blockquote" | "span" | "h1" | "h2";
+  speed?: number;
+  startDelay?: number;
+  startOnMount?: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [w, setW] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+  const [shown, setShown] = useState("");
+  const [done, setDone] = useState(false);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
     if (prefersReducedMotion()) {
-      queueMicrotask(() => setW(value));
+      queueMicrotask(() => {
+        setShown(text);
+        setDone(true);
+      });
       return;
     }
+    if (startOnMount) {
+      queueMicrotask(() => setActive(true));
+      return;
+    }
+    const node = ref.current;
+    if (!node) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          requestAnimationFrame(() => setW(value));
+          setActive(true);
           io.disconnect();
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0.35, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(node);
     return () => io.disconnect();
-  }, [value]);
+  }, [text, startOnMount]);
+
+  useEffect(() => {
+    if (!active || prefersReducedMotion()) return;
+    let i = 0;
+    let timer = 0;
+    let cancelled = false;
+    const start = window.setTimeout(() => {
+      const tick = () => {
+        if (cancelled) return;
+        i += 1;
+        setShown(text.slice(0, i));
+        if (i < text.length) {
+          const ch = text[i - 1];
+          const pause =
+            ch === "." || ch === "," || ch === "—" || ch === ";" ? speed * 6 : speed;
+          timer = window.setTimeout(tick, pause);
+        } else {
+          setDone(true);
+        }
+      };
+      tick();
+    }, startDelay);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(start);
+      window.clearTimeout(timer);
+    };
+  }, [active, text, speed, startDelay]);
 
   return (
-    <div ref={ref} className="mt-4 h-2.5 overflow-hidden rounded-full bg-cream">
-      <div
-        className={`h-full rounded-full transition-[width] duration-1000 ease-out ${color === "blue" ? "bg-blue" : "bg-muted"}`}
-        style={{ width: `${w}%` }}
-      />
-    </div>
+    <Tag ref={ref as never} className={`typewrite ${className}`} aria-label={text}>
+      <span className="typewrite__ghost" aria-hidden="true">
+        {text}
+      </span>
+      <span className="typewrite__live" aria-hidden="true">
+        {shown}
+        <span className={`typewrite__caret ${done ? "is-done" : ""}`} />
+      </span>
+    </Tag>
   );
 }
