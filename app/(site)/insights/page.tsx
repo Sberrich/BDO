@@ -14,7 +14,7 @@ export default async function InsightsPage() {
 
   return (
     <>
-      <PageHero motif="nodes" kicker="Insights" title="Insights & analyses" lead={chapeau} />
+      <PageHero kicker="Insights" title="Insights & analyses" lead={chapeau} />
       <InsightsExplorer categories={INSIGHT_CATEGORIES} articles={articles} />
     </>
   );

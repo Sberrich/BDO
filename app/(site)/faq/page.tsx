@@ -13,7 +13,6 @@ export default function FaqPage() {
   return (
     <>
       <PageHero
-        motif="nodes"
         kicker="FAQ"
         title="Les questions que vous vous posez"
         lead="Vingt-cinq réponses, regroupées par thème — du programme au tarif."

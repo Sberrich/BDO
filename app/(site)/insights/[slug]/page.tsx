@@ -11,7 +11,6 @@ import {
   IconJuryMark,
 } from "@/components/icons";
 import { ButtonLink, Container } from "@/components/ui";
-import { HeroDecor } from "@/components/HeroDecor";
 import { getInsightArticles, getInsightBySlug } from "@/lib/cms";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -73,7 +72,6 @@ export default async function InsightArticlePage({ params }: Props) {
       <header className="insight-hero" aria-labelledby="insight-title">
         <span className="insight-hero__glow" aria-hidden />
         <span className="insight-hero__grid" aria-hidden />
-        <HeroDecor motif="nodes" />
         <Container className="insight-hero__inner">
           <nav className="insight-hero__crumbs" aria-label="Fil d’Ariane">
             <Link href="/">Accueil</Link>

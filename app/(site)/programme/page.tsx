@@ -15,7 +15,6 @@ export default function ProgrammePage() {
   return (
     <>
       <PageHero
-        motif="mesh"
         kicker="Le programme"
         title="Huit séminaires, un projet mené sur votre entreprise"
         lead="Vingt jours sur cinq mois, à Rabat. Une conférence inaugurale, huit séminaires de deux jours le vendredi et le samedi, un week-end sur deux, et trois journées de coaching des équipes projet."

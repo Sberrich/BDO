@@ -69,7 +69,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
 
   return (
     <>
-      <PageHero motif="globe" kicker="Ressources" title={d.title} lead={d.lead} />
+      <PageHero kicker="Ressources" title={d.title} lead={d.lead} />
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="grid items-start gap-10 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)_minmax(0,1.1fr)]">
           <div className="resource-doc__cover-wrap mx-auto w-full max-w-[220px] lg:mx-0">

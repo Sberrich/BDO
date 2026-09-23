@@ -14,7 +14,6 @@ export default function RessourcesPage() {
   return (
     <>
       <PageHero
-        motif="mesh"
         kicker="Ressources"
         title="Les publications qui documentent le programme"
         lead="Brochure, Baromètre, livre blanc et analyses — chaque document a sa page dédiée."

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { WireframeGlobe } from "@/components/WireframeGlobe";
 import { Container } from "@/components/ui";
 
 type Props = {
@@ -27,15 +26,6 @@ export function IntervenantsHero({
           className="iv-hero__bg-img"
         />
         <span className="iv-hero__veil" />
-      </div>
-
-      <div className="iv-hero__orbits" aria-hidden="true">
-        <span className="iv-hero__orb is-left">
-          <WireframeGlobe size={520} intensity={1} />
-        </span>
-        <span className="iv-hero__orb is-right">
-          <WireframeGlobe size={380} reverse intensity={0.85} />
-        </span>
       </div>
 
       <Container className="iv-hero__inner">

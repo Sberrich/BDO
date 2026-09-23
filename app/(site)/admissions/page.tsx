@@ -18,7 +18,6 @@ export default function AdmissionsPage() {
   return (
     <>
       <PageHero
-        motif="rings"
         kicker="Admissions"
         title="Le prix, le calendrier, l’éligibilité, le financement, le processus"
         lead={`Candidatures pour la promotion 1 closes le ${plain(a.dateLimite)}.`}

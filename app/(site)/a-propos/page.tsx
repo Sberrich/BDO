@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { HeroDecor } from "@/components/HeroDecor";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
@@ -35,7 +34,6 @@ export default async function AProposPage() {
       <header className="about-hero" aria-labelledby="about-title">
         <span className="about-hero__glow" aria-hidden />
         <span className="about-hero__grid" aria-hidden />
-        <HeroDecor motif="globe" />
         <Container className="about-hero__inner">
           <p className="about-hero__kicker">À propos</p>
           <h1 id="about-title" className="about-hero__title">

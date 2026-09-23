@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
-import { HeroDecor } from "@/components/HeroDecor";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { SeminarDaysSwitch } from "@/components/SeminarDaysSwitch";
 import { getIntervenants } from "@/lib/cms";
@@ -89,7 +88,6 @@ export default async function SeminairePage({ params }: Props) {
       <section className="sem-hero" aria-labelledby="sem-title">
         <span className="sem-hero__glow" aria-hidden="true" />
         <span className="sem-hero__grid" aria-hidden="true" />
-        <HeroDecor motif="mesh" />
 
         <Container className="sem-hero__inner">
           <nav className="sem-hero__crumbs" aria-label="Fil d’Ariane">

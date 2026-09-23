@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
-import { HeroDecor } from "@/components/HeroDecor";
 import { JourneyPanel } from "@/components/JourneyPanel";
 import { FinancialRoadmap } from "@/components/FinancialRoadmap";
 import { TypeWrite } from "@/components/motion";
@@ -47,7 +46,6 @@ export function Hero() {
           <span className="hero-cinematic__smoke" />
           <span className="hero-cinematic__glow" />
           <span className="hero-cinematic__grain" />
-          <HeroDecor motif="globe" />
         </div>
 
         <Container className="hero-cinematic__inner relative">
