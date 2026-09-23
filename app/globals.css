@@ -6727,6 +6727,40 @@ a.cal__hit:focus-visible .cal__cta svg {
   background: var(--brand-red);
   color: #fff;
 }
+.videoband__player.is-soon {
+  cursor: default;
+}
+.videoband__player.is-soon:hover,
+.videoband__player.is-soon:focus-visible {
+  transform: none;
+  box-shadow: none;
+}
+.videoband__soon {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.5rem;
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 24, 48, 0.72);
+  backdrop-filter: blur(8px);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.videoband__player.is-soon .videoband__live {
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: none;
+}
 .videoband__badge {
   position: absolute;
   z-index: 3;

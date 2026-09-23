@@ -265,8 +265,9 @@ const data = {
     "titre": "Le certificat en quatre-vingt-dix secondes",
     "texte": "Zakaria Fahim et l’équipe pédagogique présentent le cycle, le projet de transformation et la soutenance.",
     "duree": "1 min 30",
-    "fichier": "",
-    "poster": "assets/img/placeholder-video-1280x720.svg"
+    "fichier": "/videos/presentation.mp4",
+    "poster": "/images/people/zakaria-fahim.jpg",
+    "disponible": false
   },
   "sessionInfo": {
     "titre": "Réserver une session d’information",

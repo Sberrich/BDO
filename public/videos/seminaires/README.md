@@ -1,14 +1,16 @@
 # Seminar hero card videos
 #
-# Source set (Downloads) → séance:
-#   0 Presenter_Speaker          → conférence inaugurale
-#   1 Network_Connections        → big data
-#   2 Vertical_Video_Smartphone  → I.A.
-#   3 Cloud_Cloud_Computing      → cloud
-#   4 Blockchain_Technology      → blockchain
-#   5 Digital_Globe              → crypto-actifs
-#   6 Vertical_Video_Finance     → cash / IoT
-#   7 Padlock_Security           → cyber sécurité
-#   8 Presenter_Speaker (reuse)  → présentation des projets
+# Héros : ne pas modifier le code des pages séminaire.
+# Remplacer uniquement ces fichiers quand les nouvelles vidéos sont prêtes :
 #
-# Files: 0.mp4 … 8.mp4
+#   0.mp4 → conférence inaugurale
+#   1.mp4 → big data
+#   2.mp4 → I.A.
+#   3.mp4 → cloud
+#   4.mp4 → blockchain
+#   5.mp4 → crypto-actifs
+#   6.mp4 → cash / IoT
+#   7.mp4 → cyber sécurité
+#   8.mp4 → présentation des projets
+#
+# Voir aussi ../README.md (vidéo d’accueil séparée).
