@@ -65,12 +65,13 @@ export function LeadForm({
         return;
       }
       // Start the PDF download in this user-gesture turn (before navigation).
+      // Use window.document — the `document` prop shadows the DOM global.
       if (json.download && /^\/docs\/[A-Za-z0-9._-]+\.pdf$/.test(json.download)) {
-        const a = document.createElement("a");
+        const a = window.document.createElement("a");
         a.href = json.download;
         a.download = json.download.split("/").pop() || "document.pdf";
         a.rel = "noopener";
-        document.body.appendChild(a);
+        window.document.body.appendChild(a);
         a.click();
         a.remove();
       }
