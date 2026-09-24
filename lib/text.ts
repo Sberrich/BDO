@@ -75,9 +75,6 @@ export function personPhoto(photo?: string, slug?: string) {
   if (slug === "antonio-gomes" || photo?.includes("antonio-gomes")) {
     return "/images/people/antonio-gomes.jpg";
   }
-  if (slug === "hanaa-elmardi" || photo?.includes("hanaa")) {
-    return "/images/people/hanaa-elmardi.jpg";
-  }
   if (slug === "abdeljaouad-benhaddou" || photo?.includes("benhaddou")) {
     return "/images/people/abdeljaouad-benhaddou.png";
   }

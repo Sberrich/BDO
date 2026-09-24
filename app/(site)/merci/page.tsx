@@ -40,9 +40,10 @@ function MerciInner() {
   useEffect(() => {
     if (!fichier || started.current) return;
     started.current = true;
+    const name = fichier.split("/").pop() || "document.pdf";
     const a = document.createElement("a");
     a.href = fichier;
-    a.setAttribute("download", "");
+    a.setAttribute("download", name);
     a.rel = "noopener";
     document.body.appendChild(a);
     a.click();
@@ -59,7 +60,7 @@ function MerciInner() {
             <a
               className="inline-flex min-h-11 items-center rounded-md bg-red px-6 py-3 text-sm font-bold text-white hover:bg-red-dark"
               href={fichier}
-              download
+              download={fichier.split("/").pop() || "document.pdf"}
             >
               Télécharger maintenant
             </a>

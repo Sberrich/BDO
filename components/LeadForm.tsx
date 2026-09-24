@@ -64,6 +64,16 @@ export function LeadForm({
         setSending(false);
         return;
       }
+      // Start the PDF download in this user-gesture turn (before navigation).
+      if (json.download && /^\/docs\/[A-Za-z0-9._-]+\.pdf$/.test(json.download)) {
+        const a = document.createElement("a");
+        a.href = json.download;
+        a.download = json.download.split("/").pop() || "document.pdf";
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
       const q = new URLSearchParams({ type: kind });
       if (json.download) q.set("fichier", json.download);
       router.push(`/merci?${q.toString()}`);
@@ -207,7 +217,9 @@ export function LeadForm({
             ? data.site.cta.rappel.libelle
             : kind === "session"
               ? data.site.cta.session.libelle
-              : "Recevoir le document"}
+              : document === "brochure" || !document
+                ? "Recevoir la brochure"
+                : "Recevoir le document"}
       </Button>
       {status && (
         <p className={`text-sm ${ok ? "text-navy" : "text-red"}`}>{status}</p>
