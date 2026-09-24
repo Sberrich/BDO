@@ -79,7 +79,7 @@ export function personPhoto(photo?: string, slug?: string) {
     return "/images/people/hanaa-elmardi.jpg";
   }
   if (slug === "abdeljaouad-benhaddou" || photo?.includes("benhaddou")) {
-    return "/images/people/abdeljaouad-benhaddou.jpg";
+    return "/images/people/abdeljaouad-benhaddou.png";
   }
   if (slug === "saad-belfakir" || photo?.includes("saad-belfakir")) {
     return "/images/people/saad-belfakir.jpg";

@@ -61,7 +61,7 @@ const ROSTER: FacultyShowcasePerson[] = [
     fonction: "Dirigeant de bSuccess · Chargé de mission auprès du DG",
     institution: "Lydec",
     campus: "Casablanca",
-    photo: "/images/people/abdeljaouad-benhaddou.jpg",
+    photo: "/images/people/abdeljaouad-benhaddou.png",
     bio: "Abdeljaouad Benhaddou, dirigeant de bSuccess et chargé de mission auprès du DG de Lydec, est membre du jury du Trophée BDO des CFOs. Il contribue aux séminaires Blockchain et Crypto-actifs du certificat.",
     initials: "AB",
     tone: "slate",
