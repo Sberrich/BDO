@@ -314,6 +314,12 @@ const data = {
   },
   "partenaires": [
     {
+      "nom": "Ordre des Experts Comptables",
+      "role": "Partenaire institutionnel",
+      "logo": "/images/partenaires/oec.png",
+      "lien": "https://oec.ma/",
+    },
+    {
       "nom": "Groupe ISCAE",
       "role": "Cosignataire académique",
       "logo": "/images/partenaires/iscae.png",
