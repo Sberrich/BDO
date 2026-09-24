@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Container, Kicker } from "@/components/ui";
-import { data } from "@/lib/content";
+import { LegalDoc } from "@/components/LegalDoc";
+import { BRAND, data } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -11,27 +11,70 @@ export const metadata: Metadata = {
 export default function ConfidentialitePage() {
   const lg = data.site.conformite;
   const email = plain(data.site.contact.email);
+
   return (
-    <article className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-      <Container className="max-w-3xl">
-        <Kicker>Informations légales</Kicker>
-        <h1 className="mt-2 text-[clamp(2rem,1.65rem+1.75vw,3.25rem)] font-bold">Confidentialité</h1>
-        <p className="mt-4 text-lg text-muted">
-          Le traitement des données opéré par ce site relève de la {lg.loi}.
-        </p>
-        <h2 className="mt-10 text-2xl font-bold">Données collectées</h2>
-        <p className="mt-3 text-muted">
-          Candidature, demande de rappel, session d’information et téléchargement de publications :
-          identité, fonction, entreprise, e-mail professionnel, et selon le formulaire téléphone,
-          projet de transformation et mode de financement.
-        </p>
-        <h2 className="mt-10 text-2xl font-bold">Vos droits</h2>
-        <p className="mt-3 text-muted">
-          Conformément à la loi 09-08, vous disposez d’un droit d’accès, de rectification et
-          d’opposition. Contact :{" "}
-          <a className="font-semibold text-blue hover:text-blue-dark" href={`mailto:${email}`}>{email}</a>.
-        </p>
-      </Container>
-    </article>
+    <LegalDoc
+      currentPath="/confidentialite"
+      title="Politique de confidentialité"
+      lead={`Le traitement des données opéré par ce site relève de la ${lg.loi}.`}
+      sections={[
+        {
+          id: "cadre",
+          title: "Cadre juridique",
+          body: (
+            <>
+              <p>
+                Les traitements sont opérés conformément à la {lg.loi} ({lg.dahir}, publié au{" "}
+                {lg.bo}).
+              </p>
+              <p>{plain(lg.declaration)}</p>
+              <p>
+                Responsable de traitement : {plain(lg.responsable)}.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "collecte",
+          title: "Données collectées",
+          body: (
+            <p>
+              Candidature, demande de rappel, session d’information et téléchargement de
+              publications : identité, fonction, entreprise, e-mail professionnel, et selon le
+              formulaire téléphone, projet de transformation et mode de financement.
+            </p>
+          ),
+        },
+        {
+          id: "finalites",
+          title: "Finalités",
+          body: (
+            <p>{lg.mention}</p>
+          ),
+        },
+        {
+          id: "conservation",
+          title: "Durée de conservation",
+          body: (
+            <p>
+              Les données sont conservées {lg.conservation}, sauf obligation légale contraire.
+            </p>
+          ),
+        },
+        {
+          id: "droits",
+          title: "Vos droits",
+          body: (
+            <p>
+              Conformément à la loi 09-08, vous disposez d’un droit d’accès, de rectification et
+              d’opposition. Pour l’exercer :{" "}
+              <a href={`mailto:${email}`}>{email}</a>
+              {" · "}
+              <a href={BRAND.phoneHref}>{BRAND.phone}</a>.
+            </p>
+          ),
+        },
+      ]}
+    />
   );
 }

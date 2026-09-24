@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Kicker } from "@/components/ui";
-import { data } from "@/lib/content";
+import Link from "next/link";
+import { LegalDoc } from "@/components/LegalDoc";
+import { BRAND, data } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = { title: "Mentions légales" };
@@ -9,27 +10,66 @@ export default function MentionsPage() {
   const c = data.site.contact;
   const lg = data.site.conformite;
   const email = plain(c.email);
+
   return (
-    <article className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-      <Container className="max-w-3xl">
-        <Kicker>Informations légales</Kicker>
-        <h1 className="mt-2 text-[clamp(2rem,1.65rem+1.75vw,3.25rem)] font-bold">Mentions légales</h1>
-        <h2 className="mt-10 text-2xl font-bold">Éditeur du site</h2>
-        <p className="mt-3 text-muted">
-          Site édité conjointement par le Groupe ISCAE et BDO Maroc, dans le cadre du certificat{" "}
-          {data.site.nom} — {data.site.sousTitreOfficiel}.
-        </p>
-        <p className="mt-3 text-muted">
-          {c.adresseIscae}
-          <br />
-          Contact : <a className="font-semibold text-blue hover:text-blue-dark" href={`mailto:${email}`}>{email}</a>
-        </p>
-        <h2 className="mt-10 text-2xl font-bold">Données personnelles</h2>
-        <p className="mt-3 text-muted">
-          Le traitement relève de la {lg.loi}. {plain(lg.declaration)} Voir la{" "}
-          <a className="font-semibold text-blue hover:text-blue-dark" href="/confidentialite">politique de protection des données</a>.
-        </p>
-      </Container>
-    </article>
+    <LegalDoc
+      currentPath="/mentions-legales"
+      title="Mentions légales"
+      lead="Éditeur, hébergement et cadre juridique du site du certificat CFO 4.0 — Groupe ISCAE × BDO Maroc."
+      sections={[
+        {
+          id: "editeur",
+          title: "Éditeur du site",
+          body: (
+            <>
+              <p>
+                Site édité conjointement par le <strong>Groupe ISCAE</strong> et{" "}
+                <strong>BDO Maroc</strong>, dans le cadre du certificat {data.site.nom} —{" "}
+                {data.site.sousTitreOfficiel}.
+              </p>
+              <p>{c.adresseIscae}</p>
+              <p>
+                Contact :{" "}
+                <a href={`mailto:${email}`}>{email}</a>
+                {" · "}
+                <a href={BRAND.phoneHref}>{plain(c.telephone)}</a>
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "objet",
+          title: "Objet du site",
+          body: (
+            <p>
+              Le site présente le programme, le calendrier, les admissions et les publications
+              associées au certificat. Il permet de candidater, de demander un rappel ou de
+              télécharger la brochure et les documents BDO.
+            </p>
+          ),
+        },
+        {
+          id: "donnees",
+          title: "Données personnelles",
+          body: (
+            <p>
+              Le traitement relève de la {lg.loi}. {plain(lg.declaration)} Consultez la{" "}
+              <Link href="/confidentialite">politique de protection des données</Link>.
+            </p>
+          ),
+        },
+        {
+          id: "propriete",
+          title: "Propriété intellectuelle",
+          body: (
+            <p>
+              Les contenus du site (textes, visuels, marques, documents téléchargeables) restent la
+              propriété de leurs titulaires respectifs. Toute reproduction non autorisée est
+              interdite.
+            </p>
+          ),
+        },
+      ]}
+    />
   );
 }

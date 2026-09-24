@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NAV, data } from "@/lib/content";
+import { BRAND, NAV, data } from "@/lib/content";
 import { IconPhone, IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
@@ -20,8 +20,8 @@ export function Footer() {
               <Image
                 src="/images/logo-iscae.png"
                 alt="Groupe ISCAE"
-                width={220}
-                height={70}
+                width={280}
+                height={90}
                 className="site-footer__logo site-footer__logo--iscae"
                 priority
               />
@@ -29,8 +29,8 @@ export function Footer() {
               <Image
                 src="/images/logo-bdo.png"
                 alt="BDO"
-                width={150}
-                height={52}
+                width={200}
+                height={70}
                 className="site-footer__logo site-footer__logo--bdo"
                 priority
               />
@@ -100,31 +100,26 @@ export function Footer() {
               Contact
             </h2>
             <div className="site-footer__contact">
-              <p className="site-footer__person">
-                <strong>{plain(c.nom)}</strong>
-                <span>{plain(c.fonction)}</span>
-              </p>
-              <p className="site-footer__contact-note">
-                Coordonnées provisoires — à confirmer.
-              </p>
               <ul className="site-footer__contact-list">
                 <li>
-                  <span>{email}</span>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </li>
                 <li>
-                  <span className="site-footer__with-icon">
+                  <a href={BRAND.phoneHref} className="site-footer__with-icon">
                     <IconPhone />
                     {tel}
-                  </span>
+                  </a>
                 </li>
                 <li>
-                  <span className="site-footer__wa is-muted">
+                  <a
+                    href={BRAND.whatsapp}
+                    className="site-footer__wa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <IconWhatsApp />
                     WhatsApp
-                  </span>
-                </li>
-                <li>
-                  <span>LinkedIn</span>
+                  </a>
                 </li>
               </ul>
             </div>

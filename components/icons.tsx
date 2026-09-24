@@ -314,3 +314,12 @@ export function IconInbox({ size = 28 }: { size?: number }) {
     </svg>
   );
 }
+
+export function IconMail({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+      <path d="m5.5 8 6.5 5 6.5-5" />
+    </svg>
+  );
+}

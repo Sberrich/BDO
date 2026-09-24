@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Mulish } from "next/font/google";
 import { BRAND, data } from "@/lib/content";
 import "./globals.css";
@@ -9,6 +9,13 @@ const mulish = Mulish({
   weight: ["400", "600", "700"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#001226",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),

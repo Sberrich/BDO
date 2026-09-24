@@ -48,7 +48,7 @@ export function Container({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={`mx-auto w-full max-w-[1160px] px-5 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-[1160px] px-4 sm:px-5 ${className}`}>{children}</div>;
 }
 
 export function Kicker({ children, light = false }: { children: ReactNode; light?: boolean }) {
