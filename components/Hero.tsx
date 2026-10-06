@@ -71,7 +71,7 @@ export function Hero() {
                   startOnMount
                 />
                 <p className="hero-cinematic__lead">
-                  20 jours sur 5 mois à <strong>Rabat</strong> et{" "}
+                  D’octobre à décembre 2026, à <strong>Rabat</strong> et{" "}
                   <strong>Casablanca</strong>. Un projet appliqué à votre
                   entreprise, défendu devant un jury ISCAE × BDO.
                 </p>

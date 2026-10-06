@@ -113,7 +113,7 @@ export default async function IntervenantsPage() {
               </h2>
               <p className="iv-jury__text">
                 La soutenance se tient devant le jury ISCAE × BDO, au second jour du
-                séminaire 8, le 3 avril 2027.
+                séminaire 8, le 26 décembre 2026.
               </p>
             </div>
             <ButtonLink href="/candidater">Candidater</ButtonLink>

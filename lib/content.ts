@@ -73,7 +73,8 @@ export type Seminaire = {
   titre: string;
   sousTitre: string;
   dates: string;
-  jours?: number;
+  horaire?: string;
+  heures?: number;
   objectif: string;
   jour1?: { matin: string; apresMidi: string };
   jour2?: { matin: string; apresMidi: string };
@@ -103,8 +104,9 @@ export function sessionHref(s: Seminaire) {
 export type CalendarRow = {
   seance: string;
   dates: string;
+  horaire?: string;
   contenu: string;
-  jours: number;
+  heures: number;
   lien?: string;
   pause?: boolean;
 };

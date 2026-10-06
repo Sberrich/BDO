@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
 import { IconArrowRight, IconJury, IconPlay, seminarIcons } from "@/components/icons";
-import { plain, seminarImage } from "@/lib/text";
+import { plain, seminarImage, seminarMediaIndex } from "@/lib/text";
 
 type Props = {
   limit?: number;
@@ -11,12 +11,13 @@ type Props = {
 };
 
 function daysLabel(s: Seminaire) {
-  const n = s.jours ?? (s.numero === 0 ? 1 : 2);
-  return `${n}\u00a0j`;
+  const n = s.heures ?? (s.numero === 0 ? 3 : 6);
+  return `${n}\u00a0h`;
 }
 
 function SeminarGlyph({ numero }: { numero: number }) {
-  const Icon = seminarIcons[Math.max(0, Math.min(seminarIcons.length - 1, numero - 1))];
+  const i = seminarMediaIndex(numero) - 1;
+  const Icon = seminarIcons[Math.max(0, Math.min(seminarIcons.length - 1, i))];
   return Icon ? <Icon /> : null;
 }
 

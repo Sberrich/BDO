@@ -24,7 +24,7 @@ const surfaces = [
 
 const textRoles = [
   { name: "Primary", var: "--text-primary", sample: "Construisez la feuille de route" },
-  { name: "Secondary", var: "--text-secondary", sample: "Vingt jours sur cinq mois, à Rabat." },
+  { name: "Secondary", var: "--text-secondary", sample: "D’octobre à décembre 2026, à Rabat." },
   { name: "Tertiary", var: "--text-tertiary", sample: "Meta · dates · captions" },
   { name: "Link", var: "--text-link", sample: "Être rappelé sous 24 h" },
 ];

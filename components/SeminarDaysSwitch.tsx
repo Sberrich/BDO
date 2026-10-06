@@ -28,8 +28,8 @@ export function SeminarDaysSwitch({ jour1, jour2, livrable }: Props) {
         />
         {(
           [
-            { id: 1 as const, label: "Jour 1", sub: "Vendredi", num: "01" },
-            { id: 2 as const, label: "Jour 2", sub: "Samedi", num: "02" },
+            { id: 1 as const, label: "Partie 1", sub: "Notions clés", num: "01" },
+            { id: 2 as const, label: "Partie 2", sub: "Approfondissement", num: "02" },
           ] as const
         ).map((tab) => (
           <button
@@ -65,7 +65,7 @@ export function SeminarDaysSwitch({ jour1, jour2, livrable }: Props) {
               <span className="sem-days__line" />
             </span>
             <div className="sem-days__slot-body">
-              <p className="sem-days__slot-kicker">Matin</p>
+              <p className="sem-days__slot-kicker">Premier temps</p>
               <p className="sem-days__slot-text">{active.matin}</p>
             </div>
           </li>
@@ -74,7 +74,7 @@ export function SeminarDaysSwitch({ jour1, jour2, livrable }: Props) {
               <span className="sem-days__dot" />
             </span>
             <div className="sem-days__slot-body">
-              <p className="sem-days__slot-kicker">Après-midi</p>
+              <p className="sem-days__slot-kicker">Second temps</p>
               <p className="sem-days__slot-text">{active.apresMidi}</p>
             </div>
           </li>

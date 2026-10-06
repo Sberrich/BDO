@@ -47,7 +47,7 @@ const data = {
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 5, consacré aux crypto-actifs.{{/PROV}}",
+      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 6, consacré aux crypto-actifs.{{/PROV}}",
       "seminaires": [5],
       "linkedin": ""
     },
@@ -57,7 +57,7 @@ const data = {
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 6, consacré au cash management et à l’IoT.{{/PROV}}",
+      "bio": "{{PROV}}Fiche en attente : nom, fonction, institution, biographie de six lignes et accord de publication. L’intervenant anime le séminaire 4, consacré au cash management et à l’IoT.{{/PROV}}",
       "seminaires": [6],
       "linkedin": ""
     },

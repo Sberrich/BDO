@@ -6,7 +6,8 @@ const data = {
     "sousTitre": "Introduction à la digitalisation dans le domaine économique et financier",
     "objectif": "Cette conférence met en relief le développement des technologies digitales et leur impact dans le domaine économique et financier. Elle présente le Baromètre BDO des DAF et le livre blanc « La Fonction Financière Augmentée », et rapproche les participants par secteur en vue de la constitution des équipes projet.",
     "dates": "Vendredi 30 octobre 2026",
-    "jours": 1
+    "horaire": "15 h – 21 h",
+    "heures": 3
   },
   "seminaires": [
     {
@@ -25,7 +26,9 @@ const data = {
       },
       "livrable": "La cartographie des données et le jeu d’indicateurs de votre direction.",
       "actualisation": "Ouverture aux indicateurs du digital et aux indicateurs extra-financiers. Le Baromètre BDO établit que 97 % des DAF jugent les indicateurs classiques insuffisants.",
-      "dates": "13 – 14 novembre 2026",
+      "dates": "Samedi 31 octobre 2026",
+      "horaire": "9 h – 16 h",
+      "heures": 6,
       "intervenants": ["ismail-lahsini"]
     },
     {
@@ -44,7 +47,9 @@ const data = {
       },
       "livrable": "Le cas d’usage d’I.A prioritaire de votre entreprise, dimensionné et assorti de son dispositif de contrôle.",
       "actualisation": "L’IA générative et l’IA agentique rejoignent le séminaire. Le livre blanc établit que 60 % des DAF prévoient d’adopter l’IA générative d’ici 2026.",
-      "dates": "27 – 28 novembre 2026",
+      "dates": "Vendredi 13 novembre 2026",
+      "horaire": "15 h – 21 h",
+      "heures": 6,
       "intervenants": ["antonio-gomes"]
     },
     {
@@ -63,49 +68,13 @@ const data = {
       },
       "livrable": "Le schéma cible de votre système d’information et le plan d’automatisation chiffré de trois processus.",
       "actualisation": "La robotisation des processus, déjà amorcée dans le descriptif d’origine, est développée sur une journée entière.",
-      "dates": "11 – 12 décembre 2026",
+      "dates": "Samedi 14 novembre 2026",
+      "horaire": "9 h – 16 h",
+      "heures": 6,
       "intervenants": ["intervenant-provisoire-1"]
     },
     {
       "numero": 4,
-      "slug": "blockchain",
-      "titre": "Blockchain",
-      "sousTitre": "Transactions de pair-à-pair, et workshop BDO de lancement des projets",
-      "objectif": "La technologie blockchain peut être utilisée pour simplifier les transactions financières, qui deviennent des transactions de pair-à-pair. L’objectif est de présenter cette technologie, son fonctionnement, ses contraintes et ses risques, ainsi que les principales applications qui s’y rapportent.",
-      "jour1": {
-        "matin": "Principes : registre distribué, mécanismes de consensus, chaînes publiques et permissionnées. Ce que la technologie garantit et ce qu’elle ne garantit pas.",
-        "apresMidi": "Contrats intelligents. Applications financières : transactions de pair-à-pair, traçabilité documentaire, certification des pièces comptables, financement du commerce."
-      },
-      "jour2": {
-        "matin": "Workshop BDO — management digital, aspects entrepreneurial et éthique.",
-        "apresMidi": "Suite du workshop : initiation des projets de transformation digitale par sous-groupes, inspirés du cas de l’entreprise ou du secteur de chaque participant."
-      },
-      "livrable": "Le cadrage du projet de transformation de votre sous-groupe, présenté lors du séminaire de clôture.",
-      "actualisation": "Le périmètre est conservé. Le contenu est mis à jour sur les usages réellement déployés et sur le financement du commerce.",
-      "dates": "8 – 9 janvier 2027",
-      "intervenants": ["zakaria-fahim"]
-    },
-    {
-      "numero": 5,
-      "slug": "crypto-actifs",
-      "titre": "Crypto-actifs",
-      "sousTitre": "Crypto-monnaies, tokenisation et questions posées à la direction financière",
-      "objectif": "Les crypto-actifs sont des actifs numériques virtuels qui reposent sur la technologie blockchain et un protocole informatique crypté. L’objectif est de mettre en relief les avantages liés aux crypto-actifs ainsi que les principales possibilités offertes par ce type d’actifs, et notamment les crypto-monnaies.",
-      "jour1": {
-        "matin": "Typologie : crypto-monnaies, jetons utilitaires, jetons de sécurité, stablecoins, monnaies numériques de banque centrale.",
-        "apresMidi": "Les possibilités offertes : paiements, financement, couverture, diversification. Retours d’expérience et limites observées."
-      },
-      "jour2": {
-        "matin": "Tokenisation des créances et des actifs. Comptabilisation, valorisation, fiscalité et contrôle interne. Ce que le commissaire aux comptes attend.",
-        "apresMidi": "Cadre réglementaire marocain et international, lutte contre le blanchiment. Atelier d’évaluation des risques et des opportunités."
-      },
-      "livrable": "La note d’opportunité et de risque sur les actifs numériques, à l’usage de votre comité de direction.",
-      "actualisation": "Le séminaire conserve son créneau. La tokenisation, la comptabilisation et le volet réglementaire y sont ajoutés.",
-      "dates": "22 – 23 janvier 2027",
-      "intervenants": ["intervenant-provisoire-2"]
-    },
-    {
-      "numero": 6,
       "slug": "cash-management-iot",
       "titre": "Digitalisation du cash management avec vue sur IoT",
       "sousTitre": "Flux de trésorerie, stocks et besoin en fonds de roulement",
@@ -120,8 +89,52 @@ const data = {
       },
       "livrable": "Le diagnostic de votre cycle de trésorerie et ses points d’automatisation.",
       "actualisation": "Le séminaire garde sa place entière. La sécurisation des règlements et la prévention de la fraude au virement y sont ajoutées.",
-      "dates": "5 – 6 février 2027",
+      "dates": "Samedi 28 novembre 2026",
+      "horaire": "9 h – 16 h",
+      "heures": 6,
       "intervenants": ["intervenant-provisoire-3"]
+    },
+    {
+      "numero": 5,
+      "slug": "blockchain",
+      "titre": "Blockchain",
+      "sousTitre": "Transactions de pair-à-pair, et workshop BDO de lancement des projets",
+      "objectif": "La technologie blockchain peut être utilisée pour simplifier les transactions financières, qui deviennent des transactions de pair-à-pair. L’objectif est de présenter cette technologie, son fonctionnement, ses contraintes et ses risques, ainsi que les principales applications qui s’y rapportent.",
+      "jour1": {
+        "matin": "Principes : registre distribué, mécanismes de consensus, chaînes publiques et permissionnées. Ce que la technologie garantit et ce qu’elle ne garantit pas.",
+        "apresMidi": "Contrats intelligents. Applications financières : transactions de pair-à-pair, traçabilité documentaire, certification des pièces comptables, financement du commerce."
+      },
+      "jour2": {
+        "matin": "Workshop BDO — management digital, aspects entrepreneurial et éthique.",
+        "apresMidi": "Suite du workshop : initiation des projets de transformation digitale par sous-groupes, inspirés du cas de l’entreprise ou du secteur de chaque participant."
+      },
+      "livrable": "Le cadrage du projet de transformation de votre sous-groupe, présenté lors du séminaire de clôture.",
+      "actualisation": "Le périmètre est conservé. Le contenu est mis à jour sur les usages réellement déployés et sur le financement du commerce.",
+      "dates": "Vendredi 11 décembre 2026",
+      "horaire": "15 h – 21 h",
+      "heures": 6,
+      "intervenants": ["zakaria-fahim"]
+    },
+    {
+      "numero": 6,
+      "slug": "crypto-actifs",
+      "titre": "Crypto-actifs",
+      "sousTitre": "Crypto-monnaies, tokenisation et questions posées à la direction financière",
+      "objectif": "Les crypto-actifs sont des actifs numériques virtuels qui reposent sur la technologie blockchain et un protocole informatique crypté. L’objectif est de mettre en relief les avantages liés aux crypto-actifs ainsi que les principales possibilités offertes par ce type d’actifs, et notamment les crypto-monnaies.",
+      "jour1": {
+        "matin": "Typologie : crypto-monnaies, jetons utilitaires, jetons de sécurité, stablecoins, monnaies numériques de banque centrale.",
+        "apresMidi": "Les possibilités offertes : paiements, financement, couverture, diversification. Retours d’expérience et limites observées."
+      },
+      "jour2": {
+        "matin": "Tokenisation des créances et des actifs. Comptabilisation, valorisation, fiscalité et contrôle interne. Ce que le commissaire aux comptes attend.",
+        "apresMidi": "Cadre réglementaire marocain et international, lutte contre le blanchiment. Atelier d’évaluation des risques et des opportunités."
+      },
+      "livrable": "La note d’opportunité et de risque sur les actifs numériques, à l’usage de votre comité de direction.",
+      "actualisation": "Le séminaire conserve son créneau. La tokenisation, la comptabilisation et le volet réglementaire y sont ajoutés.",
+      "dates": "Vendredi 11 décembre 2026",
+      "horaire": "15 h – 21 h",
+      "heures": 6,
+      "intervenants": ["intervenant-provisoire-2"]
     },
     {
       "numero": 7,
@@ -139,7 +152,9 @@ const data = {
       },
       "livrable": "La matrice de risques numériques de votre direction.",
       "actualisation": "Ajout de la loi 09-08 et de la gouvernance de l’IA. Le livre blanc relève que moins de 30 % des directions intègrent la cybersécurité dans leur matrice de risques.",
-      "dates": "19 – 20 mars 2027",
+      "dates": "Samedi 12 décembre 2026",
+      "horaire": "9 h – 16 h",
+      "heures": 6,
       "intervenants": ["intervenant-provisoire-4"]
     },
     {
@@ -158,7 +173,9 @@ const data = {
       },
       "livrable": "Le projet de transformation digitale de votre direction, soutenu et évalué.",
       "actualisation": "Le séminaire accueille le volet leadership financier et conduite du changement, qui donne son nom au certificat sans être traité jusqu’ici.",
-      "dates": "2 – 3 avril 2027",
+      "dates": "Samedi 26 décembre 2026",
+      "horaire": "9 h – 16 h",
+      "heures": 6,
       "intervenants": ["zakaria-fahim", "ismail-lahsini"]
     }
   ]

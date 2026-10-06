@@ -18,7 +18,7 @@ export default function ProgrammePage() {
       <PageHero
         kicker="Le programme"
         title="Huit séminaires, un projet mené sur votre entreprise"
-        lead="Vingt jours sur cinq mois, à Rabat. Une conférence inaugurale, huit séminaires de deux jours le vendredi et le samedi, un week-end sur deux, et trois journées de coaching des équipes projet."
+        lead="D’octobre à décembre 2026. Une conférence inaugurale, huit séminaires et un workshop, le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, jusqu’à la soutenance du 26 décembre."
       >
           <div className="mt-8 flex flex-wrap items-start gap-x-6 gap-y-5">
             <span className="grid justify-items-start gap-1.5">

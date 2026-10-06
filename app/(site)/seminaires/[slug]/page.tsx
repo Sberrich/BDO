@@ -116,7 +116,7 @@ export default async function SeminairePage({ params }: Props) {
               <ul className="sem-hero__meta" aria-label="Repères">
                 <li>
                   <IconCal />
-                  <span>{inaug ? "1 jour" : "2 jours · ven.–sam."}</span>
+                  <span>{[s.heures ? `${s.heures} h` : null, s.horaire].filter(Boolean).join(" · ")}</span>
                 </li>
                 <li>
                   <IconMap />
@@ -177,12 +177,12 @@ export default async function SeminairePage({ params }: Props) {
           {!inaug && detail.jour1 && detail.jour2 ? (
             <div className="sem-block">
               <header className="sem-block__head">
-                <p className="sem-kicker">Le week-end</p>
+                <p className="sem-kicker">La séance</p>
                 <h2 className="sem-block__title">
-                  Deux jours, <em>un livrable</em>.
+                  Une séance, <em>un livrable</em>.
                 </h2>
                 <p className="sem-block__lead">
-                  Vendredi et samedi — basculez entre les deux journées pour voir le déroulé.
+                  Basculez entre les deux parties de la séance pour voir le déroulé.
                 </p>
               </header>
               <SeminarDaysSwitch

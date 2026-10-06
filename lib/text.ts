@@ -21,7 +21,15 @@ export function appHref(href: string) {
   return hash ? `${p}#${hash}` : p;
 }
 
+/** Media files are named after the original seminar order; map the current number to its file. */
+const MEDIA_FILE: Record<number, number> = { 4: 6, 5: 4, 6: 5 };
+
+export function seminarMediaIndex(numero: number) {
+  return MEDIA_FILE[numero] ?? numero;
+}
+
 export function seminarImage(numero: number) {
+  numero = seminarMediaIndex(numero);
   /** Prefer curated campus / professional stills over stock tech art. */
   const map: Record<number, string> = {
     0: "/images/seminaires/0.png",
@@ -40,7 +48,7 @@ export function seminarImage(numero: number) {
 /** Looping hero-card clip per séance — files in `/public/videos/seminaires/{n}.mp4`. */
 export function seminarVideo(numero: number) {
   const n = Number.isFinite(numero) ? Math.max(0, Math.min(8, Math.trunc(numero))) : 0;
-  return `/videos/seminaires/${n}.mp4`;
+  return `/videos/seminaires/${seminarMediaIndex(n)}.mp4`;
 }
 
 /**

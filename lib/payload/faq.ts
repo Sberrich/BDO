@@ -7,7 +7,7 @@ const data = {
         {
           "id": "faq-programme-definition",
           "q": "En quoi consiste le certificat CFO 4.0 ?",
-          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule sur vingt jours étalés sur cinq mois, à Rabat, en présentiel.</p><p>Le cycle combine huit séminaires thématiques et un projet de transformation mené sur votre propre entreprise. Ce projet est soutenu devant un jury au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
+          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en séance.</p><p>Le cycle combine huit séminaires thématiques et un projet de transformation mené sur votre propre entreprise. Ce projet est soutenu devant un jury au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
           "lien": {
             "texte": "Voir le programme complet",
             "href": "programme.html"
@@ -17,7 +17,7 @@ const data = {
         {
           "id": "faq-programme-seminaires",
           "q": "Quels sont les huit séminaires ?",
-          "r": "<p>Big data &amp; data analytics ; I.A – aspects conceptuels &amp; pratiques ; Cloud ; Blockchain ; Crypto-actifs ; Digitalisation du cash management avec vue sur IoT ; Cybersécurité ; Présentation des projets de transformation digitale.</p><p>Chaque séminaire dure deux jours, le vendredi et le samedi, et produit une pièce de votre projet de transformation. Une conférence inaugurale d’une journée ouvre le cycle.</p>",
+          "r": "<p>Big data &amp; data analytics ; I.A – aspects conceptuels &amp; pratiques ; Cloud ; Digitalisation du cash management avec vue sur IoT ; Blockchain ; Crypto-actifs ; Cybersécurité ; Présentation des projets de transformation digitale.</p><p>Chaque séminaire est une séance de six heures, le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, et produit une pièce de votre projet de transformation. Une conférence inaugurale ouvre le cycle et un workshop de management digital le complète.</p>",
           "lien": {
             "texte": "Le détail de chaque séminaire",
             "href": "programme.html"
@@ -27,7 +27,7 @@ const data = {
         {
           "id": "faq-programme-projet",
           "q": "Qu’est-ce que le projet de transformation et comment se déroule-t-il ?",
-          "r": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du séminaire 4. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. La soutenance se tient au séminaire 8, devant le jury ISCAE × BDO.</p>",
+          "r": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du 27 novembre. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. La soutenance se tient au séminaire 8, devant le jury ISCAE × BDO.</p>",
           "lien": {
             "texte": "Le fil rouge, étape par étape",
             "href": "programme.html#fil-rouge"
@@ -109,7 +109,7 @@ const data = {
         {
           "id": "faq-calendrier-rentree",
           "q": "Quand commence la promotion 1 ?",
-          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026 — dernier week-end d’octobre. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le 3 avril 2027, par la soutenance des projets et la remise des certificats.</p>",
+          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026, de 15 h à 21 h. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le samedi 26 décembre 2026, par la soutenance des projets et la remise des certificats.</p>",
           "lien": {
             "texte": "Le calendrier complet",
             "href": "admissions.html#calendrier"
@@ -119,7 +119,7 @@ const data = {
         {
           "id": "faq-calendrier-rythme",
           "q": "Quel est le rythme des séminaires ?",
-          "r": "<p>Un week-end sur deux, le vendredi et le samedi. Chaque séminaire dure deux jours pleins.</p><p>Le rythme est conçu pour une activité professionnelle à temps plein : vous ne vous absentez qu’un vendredi toutes les deux semaines.</p><p>Le cycle est interrompu pendant le Ramadan, entre le séminaire 6 du 6 février 2027 et le séminaire 7 du 19 mars 2027. {{PROV}}Les dates de Ramadan relèvent du calendrier lunaire et seront confirmées.{{/PROV}}</p>",
+          "r": "<p>Les séances ont lieu le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, souvent groupées sur un même week-end.</p><p>Le rythme est conçu pour une activité professionnelle à temps plein : la séance du vendredi commence en fin d’après-midi.</p><p>Chaque séminaire est complété par une journée de travaux personnels, et trois journées sont consacrées à la préparation du projet de fin de certificat.</p>",
           "lien": {
             "texte": "Le calendrier complet",
             "href": "admissions.html#calendrier"
@@ -176,7 +176,7 @@ const data = {
         {
           "id": "faq-tarif-couverture",
           "q": "Que couvre le tarif ?",
-          "r": "<p>Vingt jours de formation, dont dix-sept en présentiel à Rabat ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la soutenance devant le jury ISCAE × BDO et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement à Rabat restent à votre charge.</p>",
+          "r": "<p>111 heures de formation, dont 51 heures en présentiel ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la soutenance devant le jury ISCAE × BDO et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement à Rabat restent à votre charge.</p>",
           "lien": {
             "texte": "Le détail du tarif",
             "href": "admissions.html#tarif"
@@ -222,7 +222,7 @@ const data = {
         {
           "id": "faq-certification-diplomant",
           "q": "Le certificat est-il diplômant ?",
-          "r": "<p>Non. CFO 4.0 est un certificat de formation exécutive, délivré au titre de la formation continue. Il n’a pas valeur de diplôme national.</p><p>Il atteste d’un parcours de vingt jours, d’un projet de transformation mené sur votre entreprise et de sa soutenance devant un jury.</p>",
+          "r": "<p>Non. CFO 4.0 est un certificat de formation exécutive, délivré au titre de la formation continue. Il n’a pas valeur de diplôme national.</p><p>Il atteste d’un parcours de 111 heures, d’un projet de transformation mené sur votre entreprise et de sa soutenance devant un jury.</p>",
           "lien": null,
           "accueil": false
         },

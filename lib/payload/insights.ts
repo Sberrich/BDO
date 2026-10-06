@@ -55,7 +55,7 @@ const data = {
       resume:
         "Chaque séminaire du certificat CFO 4.0 laisse une trace opératoire sur votre direction financière. Pas un polycopié : une cartographie, un cas d’usage, un schéma cible, une matrice de risques.",
       corps: [
-        "Le programme compte huit séminaires plus la conférence inaugurale, répartis sur cinq mois à Rabat. La logique n’est pas encyclopédique. Elle est cumulative.",
+        "Le programme compte huit séminaires plus la conférence inaugurale, répartis d’octobre à décembre 2026. La logique n’est pas encyclopédique. Elle est cumulative.",
         "Séminaire données : cartographie et indicateurs. Séminaire IA : cas d’usage et gouvernance des modèles. Cloud : schéma cible du SI finance. Blockchain, crypto-actifs, cash management, cybersécurité : chacun ajoute une couche. Le séminaire 8 assemble la feuille de route et la fait soutenir.",
         "À l’issue du cycle, le participant n’emporte pas seulement un certificat cosigné ISCAE × BDO. Il emporte un artefact utilisable en comité de direction — construit sur son propre périmètre, pas sur un cas générique.",
       ],

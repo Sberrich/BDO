@@ -28,73 +28,82 @@ const SEMINARS: Seminar[] = [
     tag: "Data",
     short: "Big data",
     title: "Big data & data analytics",
-    start: "2026-11-13",
-    shortDate: "13–14 nov.",
-    longDate: "Vendredi 13 – samedi 14 novembre 2026",
+    start: "2026-10-31",
+    shortDate: "31 oct.",
+    longDate: "Samedi 31 octobre 2026 · 9 h – 16 h",
   },
   {
     n: "02",
     tag: "IA",
     short: "IA",
     title: "I.A – aspects conceptuels & pratiques",
-    start: "2026-11-27",
-    shortDate: "27–28 nov.",
-    longDate: "Vendredi 27 – samedi 28 novembre 2026",
+    start: "2026-11-13",
+    shortDate: "13 nov.",
+    longDate: "Vendredi 13 novembre 2026 · 15 h – 21 h",
   },
   {
     n: "03",
     tag: "Cloud",
     short: "Cloud",
     title: "Cloud",
-    start: "2026-12-11",
-    shortDate: "11–12 déc.",
-    longDate: "Vendredi 11 – samedi 12 décembre 2026",
+    start: "2026-11-14",
+    shortDate: "14 nov.",
+    longDate: "Samedi 14 novembre 2026 · 9 h – 16 h",
+  },
+  {
+    n: "WS",
+    tag: "Workshop",
+    short: "Workshop",
+    title: "Management digital, aspects entrepreneurial et éthique",
+    start: "2026-11-27",
+    shortDate: "27 nov.",
+    longDate: "Vendredi 27 novembre 2026 · 15 h – 21 h",
   },
   {
     n: "04",
-    tag: "Blockchain",
-    short: "Blockchain",
-    title: "Blockchain",
-    start: "2027-01-08",
-    shortDate: "8–9 janv.",
-    longDate: "Vendredi 8 – samedi 9 janvier 2027",
-  },
-  {
-    n: "05",
-    tag: "Crypto",
-    short: "Crypto-actifs",
-    title: "Crypto-actifs",
-    start: "2027-01-22",
-    shortDate: "22–23 janv.",
-    longDate: "Vendredi 22 – samedi 23 janvier 2027",
-  },
-  {
-    n: "06",
     tag: "Trésorerie",
     short: "Cash management",
     title: "Digitalisation du cash management avec vue sur IoT",
-    start: "2027-02-05",
-    shortDate: "5–6 févr.",
-    longDate: "Vendredi 5 – samedi 6 février 2027",
+    start: "2026-11-28",
+    shortDate: "28 nov.",
+    longDate: "Samedi 28 novembre 2026 · 9 h – 16 h",
+  },
+  {
+    n: "05",
+    tag: "Blockchain",
+    short: "Blockchain",
+    title: "Blockchain",
+    start: "2026-12-11",
+    shortDate: "11 déc.",
+    longDate: "Vendredi 11 décembre 2026 · 15 h – 21 h · séance commune avec les crypto-actifs",
+  },
+  {
+    n: "06",
+    tag: "Crypto",
+    short: "Crypto-actifs",
+    title: "Crypto-actifs",
+    start: "2026-12-11",
+    shortDate: "11 déc.",
+    longDate: "Vendredi 11 décembre 2026 · 15 h – 21 h · séance commune avec la blockchain",
   },
   {
     n: "07",
     tag: "Cyber",
     short: "Cybersécurité",
     title: "Cybersécurité",
-    start: "2027-03-19",
-    shortDate: "19–20 mars",
-    longDate: "Vendredi 19 – samedi 20 mars 2027",
+    start: "2026-12-12",
+    shortDate: "12 déc.",
+    longDate: "Samedi 12 décembre 2026 · 9 h – 16 h",
   },
   {
     n: "08",
     tag: "Jury",
     short: "Projets & jury",
     title: "Présentation des projets de transformation digitale",
-    start: "2027-04-02",
-    shortDate: "2–3 avril",
+    start: "2026-12-26",
+    shortDate: "26 déc.",
     longDate:
-      "Vendredi 2 – samedi 3 avril 2027 · soutenance devant le jury ISCAE × BDO",
+      "Samedi 26 décembre 2026 · 9 h – 16 h · soutenance devant le jury ISCAE × BDO",
     apport:
       "Vous présentez votre feuille de route de transformation et la défendez devant le jury ISCAE × BDO.",
   },
@@ -104,6 +113,7 @@ const DEADLINE = "2026-12-26T23:59:00";
 const PLACES = 25;
 
 const MONTH_LABELS: Record<string, string> = {
+  "2026-10": "Octobre 2026",
   "2026-11": "Novembre 2026",
   "2026-12": "Décembre 2026",
   "2027-01": "Janvier 2027",
@@ -184,7 +194,7 @@ export function JourneyPanel() {
         <div className="parcours-intro">
           <div className="parcours-intro__copy">
             <p className="parcours-intro__meta">
-              Nov. 2026 → avr. 2027 · Rabat · 8 week-ends
+              Oct. → déc. 2026 · Rabat · 9 séances
             </p>
             <h2 id={titleId} className="parcours-intro__title">
               Huit séminaires,
@@ -193,9 +203,9 @@ export function JourneyPanel() {
             </h2>
           </div>
           <p className="parcours-intro__lead">
-            Un vendredi et un samedi, environ toutes les deux semaines. Chaque
+            Le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h. Chaque
             séance ajoute une pièce à votre projet — mené sur votre propre
-            direction financière — jusqu&apos;à la soutenance du 3 avril 2027.
+            direction financière — jusqu&apos;à la soutenance du 26 décembre 2026.
           </p>
         </div>
 
@@ -302,7 +312,7 @@ export function JourneyPanel() {
               <span aria-hidden="true">→</span>
             </Link>
             <p className="parcours-aside__thread-note">
-              Le fil rouge relie les huit week-ends à un seul projet défendu
+              Le fil rouge relie les séances à un seul projet défendu
               devant le jury ISCAE × BDO.
             </p>
           </aside>

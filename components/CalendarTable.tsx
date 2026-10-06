@@ -3,7 +3,7 @@ import { CalendarRow, data } from "@/lib/content";
 import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
 import { appHref, plain } from "@/lib/text";
 
-type Kind = "open" | "pause" | "finale" | "seminar";
+type Kind = "open" | "pause" | "finale" | "seminar" | "workshop";
 
 const MONTHS: Record<string, string> = {
   janvier: "01",
@@ -37,12 +37,13 @@ function sessionKind(row: CalendarRow): Kind {
   if (row.pause) return "pause";
   if (/inaugurale/i.test(row.seance)) return "open";
   if (/Séminaire\s*8/i.test(row.seance)) return "finale";
+  if (/workshop/i.test(row.seance)) return "workshop";
   return "seminar";
 }
 
 function sessionIndex(row: CalendarRow): string | null {
-  const m = row.seance.match(/Séminaire\s*(\d+)/i);
-  if (m) return m[1].padStart(2, "0");
+  const m = row.seance.match(/Séminaires?\s*(\d+)(?:\s*[–-]\s*(\d+))?/i);
+  if (m) return m[2] ? `${m[1]}–${m[2]}` : m[1].padStart(2, "0");
   if (/inaugurale/i.test(row.seance)) return null;
   return null;
 }
@@ -51,6 +52,7 @@ function phaseLabel(kind: Kind): string {
   if (kind === "open") return "Ouverture";
   if (kind === "finale") return "Clôture";
   if (kind === "pause") return "Interruption";
+  if (kind === "workshop") return "Workshop";
   return "Séminaire";
 }
 
@@ -85,9 +87,9 @@ export function CalendarTable() {
   const cal = data.calendrier;
   const rows = cal.seances as unknown as CalendarRow[];
   const groups = groupByMonth(rows);
-  const totalDays = rows.reduce((sum, r) => sum + (r.pause ? 0 : r.jours), 0);
-  const seminarCount = rows.filter((r) => !r.pause && !/inaugurale/i.test(r.seance)).length;
-  const weekends = seminarCount;
+  const totalHours = rows.reduce((sum, r) => sum + (r.pause ? 0 : r.heures), 0);
+  const sessionCount = rows.filter((r) => !r.pause).length;
+  const hasPause = rows.some((r) => r.pause);
 
   return (
     <div className="cal">
@@ -96,7 +98,7 @@ export function CalendarTable() {
         <div className="cal__aside-head">
           <p className="cal__aside-kicker">Promotion 1</p>
           <p className="cal__aside-badge" aria-hidden="true">
-            2026 → 2027
+            Oct. → déc. 2026
           </p>
         </div>
         <p className="cal__aside-title">Le rythme en un coup d’œil</p>
@@ -107,8 +109,8 @@ export function CalendarTable() {
               <IconCal />
             </span>
             <span>
-              <strong>{totalDays}</strong>
-              <span className="cal__stat-label">jours de formation</span>
+              <strong>{totalHours}&nbsp;h</strong>
+              <span className="cal__stat-label">en présentiel</span>
             </span>
           </li>
           <li>
@@ -116,8 +118,8 @@ export function CalendarTable() {
               <IconClock />
             </span>
             <span>
-              <strong>{weekends}</strong>
-              <span className="cal__stat-label">week-ends · ven.–sam.</span>
+              <strong>{sessionCount}</strong>
+              <span className="cal__stat-label">séances · ven. 15 h – 21 h ou sam. 9 h – 16 h</span>
             </span>
           </li>
           <li>
@@ -138,9 +140,11 @@ export function CalendarTable() {
           <li>
             <span className="cal__legend-dot is-seminar" /> Séminaire
           </li>
-          <li>
-            <span className="cal__legend-dot is-pause" /> Pause
-          </li>
+          {hasPause ? (
+            <li>
+              <span className="cal__legend-dot is-pause" /> Pause
+            </li>
+          ) : null}
           <li>
             <span className="cal__legend-dot is-finale" /> Clôture
           </li>
@@ -170,7 +174,8 @@ export function CalendarTable() {
                   const index = sessionIndex(s);
                   const href = s.lien && !s.pause ? appHref(s.lien) : null;
                   const mark =
-                    index ?? (kind === "open" ? "IN" : kind === "finale" ? "08" : "—");
+                    index ??
+                    (kind === "open" ? "IN" : kind === "finale" ? "08" : kind === "workshop" ? "WS" : "—");
                   const isLastOverall =
                     gi === groups.length - 1 && i === group.items.length - 1;
 
@@ -190,12 +195,15 @@ export function CalendarTable() {
                           <span className="cal__phase">{phaseLabel(kind)}</span>
                           {!s.pause ? (
                             <span className="cal__duration">
-                              {s.jours}&nbsp;j
+                              {s.heures}&nbsp;h
                             </span>
                           ) : null}
                         </span>
 
-                        <span className="cal__date">{s.dates}</span>
+                        <span className="cal__date">
+                          {plain(s.dates)}
+                          {s.horaire ? ` · ${s.horaire}` : ""}
+                        </span>
                         <span className="cal__title">{s.contenu}</span>
                         <span className="cal__seance">{s.seance}</span>
 
@@ -212,7 +220,7 @@ export function CalendarTable() {
                   return (
                     <li
                       key={`${s.seance}-${s.dates}`}
-                      className={`cal__session is-${kind}`}
+                      className={`cal__session is-${kind}${kind === "workshop" ? " is-seminar" : ""}`}
                     >
                       {href ? (
                         <Link href={href} className="cal__hit">

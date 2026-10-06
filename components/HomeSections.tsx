@@ -269,7 +269,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
               <h2 id="calendrier-title" className="cal-band__title">
                 Calendrier de la promotion 1.
                 <br />
-                <em>Un week-end sur deux.</em>
+                <em>D’octobre à décembre 2026.</em>
               </h2>
             </div>
             <p className="cal-band__lead">{data.calendrier.chapeau}</p>
