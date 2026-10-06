@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { ButtonLink, Container, Kicker } from "@/components/ui";
+
+export const metadata: Metadata = { title: "Page introuvable", robots: { index: false } };
 
 export default function NotFound() {
   return (

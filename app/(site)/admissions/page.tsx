@@ -53,7 +53,7 @@ export default function AdmissionsPage() {
       </PageHero>
       <section id="tarif" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
-          <h2 className="text-[clamp(1.625rem,1.45rem+0.87vw,2.25rem)] font-bold leading-[1.2]">Le tarif</h2>
+          <SectionHeading kicker="Investissement" title="Le tarif" />
           <div className="mt-8">
             <PricingBlock />
           </div>

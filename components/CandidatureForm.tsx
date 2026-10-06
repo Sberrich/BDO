@@ -163,14 +163,6 @@ export function CandidatureForm() {
           <input className={fieldClass} required={step === 0} name="fonction" />
         </label>
         <label className="block text-sm font-semibold">
-          Entreprise *
-          <input
-            className={fieldClass}
-            required={step === 0}
-            name="entreprise"
-          />
-        </label>
-        <label className="block text-sm font-semibold">
           Secteur *
           <select className={fieldClass} required={step === 0} name="secteur">
             <option value="">Choisissez…</option>
@@ -197,7 +189,7 @@ export function CandidatureForm() {
           </select>
         </label>
         <label className="block text-sm font-semibold">
-          E-mail professionnel *
+          E-mail *
           <input
             className={fieldClass}
             required={step === 0}

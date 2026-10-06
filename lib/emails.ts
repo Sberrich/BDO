@@ -264,7 +264,7 @@ function fieldsFor(type: string, body: FormPayload): string {
 function textFor(type: string, body: FormPayload) {
   const meta = META[type] ?? META.rappel;
   const v = (k: string, max?: number) => val(body, k, max);
-  const lines = [`${meta.title}`, `—`, `Nom : ${v("nom")}`, `Fonction : ${v("fonction")}`, `Entreprise : ${v("entreprise")}`, `E-mail : ${v("email")}`];
+  const lines = [`${meta.title}`, `—`, `Nom : ${v("nom")}`, `Fonction : ${v("fonction")}`, `E-mail : ${v("email")}`];
 
   if (type === "rappel") {
     lines.push(`Téléphone : ${v("telephone")}`, `Créneau : ${labelMap(MOMENT_LABELS, v("moment"))}`, `Question : ${v("sujet", 600)}`);

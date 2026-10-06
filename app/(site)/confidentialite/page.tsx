@@ -40,7 +40,7 @@ export default function ConfidentialitePage() {
           body: (
             <p>
               Candidature, demande de rappel, session d’information et téléchargement de
-              publications : identité, fonction, entreprise, e-mail professionnel, et selon le
+              publications : identité, fonction, e-mail, et selon le
               formulaire téléphone, projet de transformation et mode de financement.
             </p>
           ),

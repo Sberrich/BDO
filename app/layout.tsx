@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
+    <html lang="fr" data-scroll-behavior="smooth" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
       <body className="min-h-full bg-white text-ink">{children}</body>
     </html>
   );

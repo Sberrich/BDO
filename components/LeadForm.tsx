@@ -117,17 +117,7 @@ export function LeadForm({
         />
       </label>
       <label className="block text-sm font-semibold">
-        Entreprise *
-        <input
-          className={fieldClass}
-          required
-          name="entreprise"
-          autoComplete="organization"
-          maxLength={140}
-        />
-      </label>
-      <label className="block text-sm font-semibold">
-        E-mail professionnel *
+        E-mail *
         <span className="mt-0.5 block text-xs font-normal text-muted">
           Nous n’utilisons cette adresse que pour répondre à votre demande.
         </span>

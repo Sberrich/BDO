@@ -63,7 +63,7 @@ const data = {
     },
     {
       "slug": "intervenant-provisoire-4",
-      "nom": "{{PROV}}Intervenant — séminaire Cyber sécurité{{/PROV}}",
+      "nom": "{{PROV}}Intervenant — séminaire Cybersécurité{{/PROV}}",
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",

@@ -19,7 +19,7 @@ import {
 /** Easy-to-edit hero facts — update these when dates lock in. */
 const HERO_INFO = {
   rentree: "30 octobre 2026",
-  candidaturesUntil: "16 octobre 2026",
+  candidaturesUntil: "26 décembre 2026",
   places: "25 places",
 } as const;
 

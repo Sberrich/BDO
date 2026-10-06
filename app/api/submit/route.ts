@@ -36,11 +36,11 @@ function clean(v: unknown, max = 200) {
 }
 
 const required: Record<string, string[]> = {
-  document: ["nom", "fonction", "entreprise", "email", "document"],
-  session: ["nom", "fonction", "entreprise", "email", "creneau"],
-  rappel: ["nom", "fonction", "entreprise", "email", "telephone", "moment"],
+  document: ["nom", "fonction", "email", "document"],
+  session: ["nom", "fonction", "email", "creneau"],
+  rappel: ["nom", "fonction", "email", "telephone", "moment"],
   candidature: [
-    "nom", "fonction", "entreprise", "email", "telephone", "secteur", "effectif",
+    "nom", "fonction", "email", "telephone", "secteur", "effectif",
     "experience", "diplome", "rattachement", "equipe", "projet", "attente",
     "financement", "disponibilite", "consentement",
   ],

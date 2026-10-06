@@ -100,7 +100,7 @@ const SEMINARS: Seminar[] = [
   },
 ];
 
-const DEADLINE = "2026-10-16T23:59:00";
+const DEADLINE = "2026-12-26T23:59:00";
 const PLACES = 25;
 
 const MONTH_LABELS: Record<string, string> = {
@@ -293,7 +293,7 @@ export function JourneyPanel() {
               {closed ? "Candidatures closes" : "avant la clôture"}
             </p>
             <p className="parcours-aside__note">
-              Vendredi 16 octobre 2026
+              Samedi 26 décembre 2026
               <br />
               {PLACES} places · promotion 1
             </p>

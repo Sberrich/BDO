@@ -188,8 +188,8 @@ const data = {
         "icone": "certificat"
       }
     ],
-    "dateLimite": "{{PROV}}vendredi 16 octobre 2026{{/PROV}}",
-    "dateLimiteBrute": "16 octobre 2026",
+    "dateLimite": "{{PROV}}samedi 26 décembre 2026{{/PROV}}",
+    "dateLimiteBrute": "26 décembre 2026",
     "places": "{{PROV}}vingt-cinq{{/PROV}}",
     "delaiReponse": "cinq jours ouvrés"
   },
@@ -237,28 +237,49 @@ const data = {
   ],
   "temoignages": [
     {
+      "nom": "Zakaria Fahim",
+      "fonction": "Managing Partner",
+      "organisation": "BDO Maroc",
+      "statut": "BDO Maroc",
+      "video": "/videos/temoignages/zakaria-fahim.mp4",
+      "poster": "/images/people/zakaria-fahim.jpg",
+      "duree": "1 min 03"
+    },
+    {
+      "nom": "Mouad Laghiti",
+      "fonction": "Directeur administratif et financier",
+      "organisation": "Groupe Finare",
+      "statut": "Participant · 2e cohorte",
+      "video": "/videos/temoignages/mouad-laghiti.mp4",
+      "poster": "/images/temoignages/mouad-laghiti-cover.jpg",
+      "duree": "2 min 34"
+    },
+    {
       "nom": "Saad Belfakir",
-      "fonction": "{{PROV}}Directeur administratif et financier{{/PROV}}",
-      "entreprise": "{{PROV}}Groupe industriel, Casablanca{{/PROV}}",
-      "photo": "assets/img/temoignage-saad-belfakir.jpg",
-      "projet": "{{PROV}}Automatisation de la clôture mensuelle et refonte du reporting de direction.{{/PROV}}",
-      "citation": "{{PROV}}J’étais venu chercher une culture générale du digital. Je suis reparti avec un plan chiffré, validé par ma direction générale, et trois processus automatisés dans l’année qui a suivi.{{/PROV}}"
+      "fonction": "Expert-comptable, commissaire aux comptes",
+      "organisation": "Exco AB Partners",
+      "statut": "Participant · 2e cohorte",
+      "video": "/videos/temoignages/saad-belfakir.mp4",
+      "poster": "/images/temoignages/saad-belfakir-cover.jpg",
+      "duree": "1 min 36"
     },
     {
-      "nom": "{{PROV}}Nadia Bensouda{{/PROV}}",
-      "fonction": "{{PROV}}Contrôleuse de gestion groupe{{/PROV}}",
-      "entreprise": "{{PROV}}Secteur de la distribution, Rabat{{/PROV}}",
-      "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "projet": "{{PROV}}Cartographie des données de gestion et tableau de bord prédictif.{{/PROV}}",
-      "citation": "{{PROV}}Le travail en sous-groupe sur nos propres entreprises change tout. On ne discute pas d’un cas d’école, on discute de son budget et de ses délais de clôture.{{/PROV}}"
+      "nom": "Fouad Machrouh",
+      "fonction": "Directeur",
+      "organisation": "ISCAE Rabat",
+      "statut": "Groupe ISCAE",
+      "video": "/videos/temoignages/fouad-machrouh.mp4",
+      "poster": "/images/temoignages/fouad-machrouh-cover.jpg",
+      "duree": "2 min 01"
     },
     {
-      "nom": "{{PROV}}Youssef El Amrani{{/PROV}}",
-      "fonction": "{{PROV}}Directeur financier{{/PROV}}",
-      "entreprise": "{{PROV}}Établissement public, Rabat{{/PROV}}",
-      "photo": "assets/img/placeholder-portrait-400x400.svg",
-      "projet": "{{PROV}}Sécurisation de la chaîne de règlement et matrice de risques numériques.{{/PROV}}",
-      "citation": "{{PROV}}La soutenance devant le jury oblige à une rigueur que l’on n’a pas quand on rend une note interne. C’est ce qui m’a le plus servi ensuite.{{/PROV}}"
+      "nom": "Antonio Gomes",
+      "fonction": "General Partner",
+      "organisation": "Blockchain Education Network",
+      "statut": "Intervenant",
+      "video": "/videos/temoignages/antonio-gomes.mp4",
+      "poster": "/images/temoignages/antonio-gomes-cover.jpg",
+      "duree": "2 min 11"
     }
   ],
   "video": {

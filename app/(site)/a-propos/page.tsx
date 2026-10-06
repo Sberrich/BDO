@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
@@ -88,7 +87,7 @@ export default async function AProposPage() {
       <section className="about-inst" aria-labelledby="about-inst-title">
         <Container className="about-inst__inner">
           <header className="about-inst__head">
-            <p className="about-inst__index">01 — Les institutions</p>
+            <p className="about-inst__index">Les institutions</p>
             <h2 id="about-inst-title" className="about-inst__title">
               Qui porte le certificat
             </h2>
@@ -132,10 +131,15 @@ export default async function AProposPage() {
               les directions financières les plus engagées dans leur transformation.
               Les lauréats bénéficient de conditions particulières pour le certificat.
             </p>
-            <Link href="/ressources/barometre" className="about-trophee__link">
-              Découvrir le Baromètre BDO des DAF
+            <a
+              href="https://www.tropheebdo.ma/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-trophee__link"
+            >
+              Découvrir le Trophée
               <IconArrowRight />
-            </Link>
+            </a>
           </div>
         </Container>
       </section>

@@ -107,7 +107,7 @@ const data = {
     {
       "numero": 6,
       "slug": "cash-management-iot",
-      "titre": "Digitalisation du cash management avec vue sur IOT",
+      "titre": "Digitalisation du cash management avec vue sur IoT",
       "sousTitre": "Flux de trésorerie, stocks et besoin en fonds de roulement",
       "objectif": "Ce module est conçu pour aider les professionnels à comprendre et à exploiter les technologies numériques afin d’optimiser la gestion des flux de trésorerie au sein de leur entreprise. Zoom sur l’IoT : appréhender comment les objets connectés permettent à l’entreprise de mieux gérer ses stocks, son besoin en fonds de roulement, ses liquidités et sa trésorerie.",
       "jour1": {
@@ -126,7 +126,7 @@ const data = {
     {
       "numero": 7,
       "slug": "cyber-securite",
-      "titre": "Cyber sécurité",
+      "titre": "Cybersécurité",
       "sousTitre": "Protection des données, du matériel, des réseaux et des logiciels",
       "objectif": "Si la digitalisation ouvre des possibilités considérables aux directions financières, elle offre également des opportunités à la cybercriminalité. Le but consiste à identifier les principales mesures idoines à mettre en place au niveau des données, du matériel, des réseaux et des logiciels que l’entreprise cherche à protéger.",
       "jour1": {

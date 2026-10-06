@@ -5,7 +5,7 @@ import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import { data } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: `${data.site.nom} — ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
+  title: { absolute: `${data.site.nom} — ${data.site.sousTitreOfficiel} | ISCAE × BDO` },
   description: data.site.promesse.sousTitre,
 };
 

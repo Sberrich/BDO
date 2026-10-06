@@ -48,7 +48,7 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
         </ol>
       ) : null}
 
-      <div className="prog-board__body">
+      <div className={`prog-board__body ${opening ? "" : "is-solo"}`}>
         {opening ? (
           <Link href={sessionHref(opening)} className="prog-board__open">
             <span className="prog-board__open-media" aria-hidden="true">

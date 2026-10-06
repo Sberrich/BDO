@@ -1,8 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef } from "react";
-import { ButtonLink, Container } from "@/components/ui";
+import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
+import { ButtonLink, Container, Kicker } from "@/components/ui";
+
+const NEXT_STEPS = [
+  { href: "/programme", label: "Parcourir les huit séminaires" },
+  { href: "/admissions#calendrier", label: "Vérifier le calendrier" },
+  { href: "/ressources", label: "Télécharger les publications" },
+];
 
 const cases: Record<string, [string, string]> = {
   candidature: [
@@ -51,37 +59,39 @@ function MerciInner() {
   }, [fichier]);
 
   return (
-    <section className="bg-cream py-16">
-      <Container className="max-w-2xl">
-        <h1 className="font-display text-4xl font-bold">{pair[0]}</h1>
-        <p className="mt-4 text-lg text-muted">{pair[1]}</p>
+    <section className="bg-cream py-[clamp(3rem,7vw,5.5rem)]">
+      <Container className="max-w-3xl">
+        <span className="merci__badge" aria-hidden>
+          <IconTick size={26} />
+        </span>
+        <div className="mt-6">
+          <Kicker>Confirmation</Kicker>
+        </div>
+        <h1 className="mt-3 text-[clamp(2.05rem,1.5rem+2.2vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.025em]">
+          {pair[0]}
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{pair[1]}</p>
         {fichier && (
           <p className="mt-6">
             <a
-              className="inline-flex min-h-11 items-center rounded-md bg-red px-6 py-3 text-sm font-bold text-white hover:bg-red-dark"
+              className="btn-icon inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-red px-6 py-3 text-sm font-bold text-white shadow-[var(--shadow-cta)] hover:bg-red-dark"
               href={fichier}
               download={fichier.split("/").pop() || "document.pdf"}
             >
+              <IconDownload />
               Télécharger maintenant
             </a>
           </p>
         )}
-        <ul className="mt-10 list-disc space-y-2 pl-5 text-muted">
-          <li>
-            <a className="text-blue" href="/programme">
-              Parcourir les huit séminaires
-            </a>
-          </li>
-          <li>
-            <a className="text-blue" href="/admissions#calendrier">
-              Vérifier le calendrier
-            </a>
-          </li>
-          <li>
-            <a className="text-blue" href="/ressources">
-              Télécharger les publications
-            </a>
-          </li>
+        <ul className="mt-10 grid gap-3 sm:grid-cols-3">
+          {NEXT_STEPS.map((step) => (
+            <li key={step.href}>
+              <Link href={step.href} className="merci__step card-lift">
+                {step.label}
+                <IconArrowRight />
+              </Link>
+            </li>
+          ))}
         </ul>
         <div className="mt-8 flex flex-wrap gap-3">
           <ButtonLink href="/candidater">Candidater</ButtonLink>

@@ -5,6 +5,7 @@ import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
 import { IconBook, IconPhone, IconPlay } from "@/components/icons";
 import { data } from "@/lib/content";
+import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Le programme",
@@ -51,7 +52,7 @@ export default function ProgrammePage() {
       </PageHero>
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
-          <h2 className="text-[clamp(1.625rem,1.45rem+0.87vw,2.25rem)] font-bold leading-[1.2]">Les séances</h2>
+          <SectionHeading kicker="Le cycle" title="Les séances" />
           <div className="mt-8">
             <ProgrammeGrid />
           </div>
@@ -84,9 +85,17 @@ export default function ProgrammePage() {
         </Container>
       </section>
       <section id="session-information" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container className="grid gap-10 md:grid-cols-2">
+        <Container className="grid items-start gap-10 md:grid-cols-2">
           <div>
             <SectionHeading kicker="Session d’information" title={data.site.sessionInfo.titre} lead={data.site.sessionInfo.texte} />
+            <ul className="mt-4 space-y-2 text-muted">
+              {data.site.sessionInfo.creneaux.map((slot) => (
+                <li key={slot.id} className="tick flex gap-3">
+                  {plain(slot.libelle)}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-sm text-muted">{plain(data.site.sessionInfo.replay)}</p>
           </div>
           <div className="rounded-md bg-cream p-6 sm:p-8">
             <LeadForm kind="session" prefix="ps" submitVariant="secondary" />

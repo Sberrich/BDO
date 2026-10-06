@@ -254,7 +254,7 @@ export default async function SeminairePage({ params }: Props) {
       <section className="sem-calband" aria-labelledby="sem-calband-title">
         <Container className="sem-calband__inner">
           <div>
-            <p className="sem-calband__index">07 — Calendrier et tarif</p>
+            <p className="sem-calband__index">Calendrier et tarif</p>
             <h2 id="sem-calband-title" className="sem-calband__title">
               Dates, rythme et investissement.
             </h2>

@@ -9,10 +9,11 @@ import { PricingBlock } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { VideoBlock } from "@/components/VideoBlock";
-import { CountUp, Reveal, TypeWrite } from "@/components/motion";
+import { VoicesVideos } from "@/components/VoicesVideos";
+import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
 import { IconCert, IconChart, IconGauge, IconJury, IconMap } from "@/components/icons";
-import { appHref, personPhoto, plain } from "@/lib/text";
+import { appHref, plain } from "@/lib/text";
 
 type Props = {
   speakers: Intervenant[];
@@ -235,72 +236,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           <header className="voices__head">
             <p className="voices__index">06 — Les témoignages</p>
             <h2 id="temoignages-title" className="voices__title">
-              Ce que les anciens en ont fait
+              Ils racontent le certificat
             </h2>
             <p className="voices__lead">
-              Des directions financières qui ont transformé le certificat en feuille de route —
-              chiffrée, défendue, mise en œuvre.
+              Participants de la deuxième cohorte, direction de l’ISCAE, BDO Maroc et
+              intervenants : le certificat raconté en vidéo.
             </p>
           </header>
 
-          <div className="voices__stage">
-            {site.temoignages[0] ? (
-              <Reveal className="voices__featured" delay={40}>
-                <span className="voices__mark" aria-hidden="true">
-                  “
-                </span>
-                <TypeWrite
-                  as="blockquote"
-                  className="voices__quote"
-                  text={plain(site.temoignages[0].citation)}
-                />
-                <div className="voices__meta">
-                  <Image
-                    src={personPhoto(
-                      site.temoignages[0].photo,
-                      site.temoignages[0].nom.toLowerCase().includes("saad")
-                        ? "saad-belfakir"
-                        : undefined,
-                    )}
-                    alt=""
-                    width={72}
-                    height={72}
-                    className="voices__avatar"
-                  />
-                  <div>
-                    <strong>{plain(site.temoignages[0].nom)}</strong>
-                    <p>
-                      {plain(site.temoignages[0].fonction)} ·{" "}
-                      {plain(site.temoignages[0].entreprise)}
-                    </p>
-                    <p className="voices__projet">
-                      <span>Projet</span> {plain(site.temoignages[0].projet)}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ) : null}
-
-            <div className="voices__rest">
-              {site.temoignages.slice(1).map((t, i) => (
-                <Reveal as="figure" key={t.nom} delay={100 + i * 80} className="voices__card">
-                  <span className="voices__card-mark" aria-hidden="true">
-                    “
-                  </span>
-                  <blockquote>{plain(t.citation)}</blockquote>
-                  <figcaption>
-                    <strong>{plain(t.nom)}</strong>
-                    <span>
-                      {plain(t.fonction)} · {plain(t.entreprise)}
-                    </span>
-                    <span className="voices__card-projet">
-                      <span>Projet</span> {plain(t.projet)}
-                    </span>
-                  </figcaption>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <VoicesVideos />
         </Container>
       </section>
 
@@ -437,9 +381,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 <Link
                   key={it.titre}
                   href={appHref(it.lien)}
-                  className={`card-lift group flex flex-col rounded-md border border-line ${
-                    cover ? "overflow-hidden p-0" : "p-7"
-                  }`}
+                  className="card-lift group flex flex-col overflow-hidden rounded-md border border-line p-0"
                 >
                   {cover ? (
                     <span className="resource-dispositif__cover">
@@ -451,8 +393,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                         className="object-cover object-top"
                       />
                     </span>
-                  ) : null}
-                  <span className={cover ? "flex flex-1 flex-col p-6" : "contents"}>
+                  ) : (
+                    <span className="resource-dispositif__cover resource-dispositif__cover--brand" aria-hidden>
+                      <span className="resource-dispositif__emblem">
+                        <IconCert />
+                      </span>
+                      <span className="resource-dispositif__brand-label">BDO Maroc</span>
+                    </span>
+                  )}
+                  <span className="flex flex-1 flex-col p-6">
                     <h3 className="text-lg font-bold">{it.titre}</h3>
                     <p className="mt-3 flex-1 text-muted">{it.texte}</p>
                     <span className="card-more mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue">

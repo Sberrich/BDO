@@ -54,7 +54,7 @@ export function FinancialRoadmap() {
   }, []);
 
   useEffect(() => {
-    setReduce(prefersReducedMotion());
+    queueMicrotask(() => setReduce(prefersReducedMotion()));
   }, []);
 
   useEffect(() => {

@@ -17,7 +17,7 @@ const data = {
         {
           "id": "faq-programme-seminaires",
           "q": "Quels sont les huit séminaires ?",
-          "r": "<p>Big data &amp; data analytics ; I.A – aspects conceptuels &amp; pratiques ; Cloud ; Blockchain ; Crypto-actifs ; Digitalisation du cash management avec vue sur IOT ; Cyber sécurité ; Présentation des projets de transformation digitale.</p><p>Chaque séminaire dure deux jours, le vendredi et le samedi, et produit une pièce de votre projet de transformation. Une conférence inaugurale d’une journée ouvre le cycle.</p>",
+          "r": "<p>Big data &amp; data analytics ; I.A – aspects conceptuels &amp; pratiques ; Cloud ; Blockchain ; Crypto-actifs ; Digitalisation du cash management avec vue sur IoT ; Cybersécurité ; Présentation des projets de transformation digitale.</p><p>Chaque séminaire dure deux jours, le vendredi et le samedi, et produit une pièce de votre projet de transformation. Une conférence inaugurale d’une journée ouvre le cycle.</p>",
           "lien": {
             "texte": "Le détail de chaque séminaire",
             "href": "programme.html"
@@ -83,7 +83,7 @@ const data = {
         {
           "id": "faq-profil-date-limite",
           "q": "Quelle est la date limite de candidature ?",
-          "r": "<p>Les candidatures pour la promotion 1 sont closes le {{PROV}}vendredi 16 octobre 2026{{/PROV}}. Les entretiens d’admission se tiennent la semaine suivante.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
+          "r": "<p>Les candidatures pour la promotion 1 sont closes le {{PROV}}samedi 26 décembre 2026{{/PROV}}. Les entretiens d’admission se tiennent la semaine suivante.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
           "lien": {
             "texte": "Candidater maintenant",
             "href": "candidater.html"

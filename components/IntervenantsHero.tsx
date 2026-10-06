@@ -34,9 +34,6 @@ export function IntervenantsHero({
           {title}
         </h1>
         {lead ? <p className="iv-hero__lead">{lead}</p> : null}
-        <p className="iv-hero__credit">
-          Esthétique inspirée du Trophée BDO des CFOs
-        </p>
       </Container>
     </header>
   );
