@@ -1976,31 +1976,6 @@ body[data-nav="open"] .mobile-bar {
   background: #fff !important;
   color: var(--brand-navy) !important;
 }
-.hero-cinematic__help {
-  margin: 1.25rem 0 0;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-.hero-cinematic__rappel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.35);
-  text-underline-offset: 4px;
-  transition: text-decoration-color 0.18s ease;
-}
-.hero-cinematic__rappel:hover,
-.hero-cinematic__rappel:focus-visible {
-  text-decoration-color: #fff;
-}
-.hero-cinematic__rappel svg {
-  width: 0.85rem;
-  height: 0.85rem;
-  flex-shrink: 0;
-}
 .hero-cinematic__proof {
   position: relative;
   z-index: 1;

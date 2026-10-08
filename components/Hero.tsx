@@ -90,13 +90,6 @@ export function Hero() {
                 </ButtonLink>
               </div>
 
-              <p className="hero-cinematic__help">
-                Une question&nbsp;?{" "}
-                <a href="/admissions#rappel" className="hero-cinematic__rappel">
-                  Être rappelé sous 24&nbsp;h
-                  <IconArrowRight />
-                </a>
-              </p>
             </div>
 
             <div className="hero-panel-enter relative max-lg:hidden">
