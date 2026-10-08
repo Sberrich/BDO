@@ -34,4 +34,4 @@ Open [http://localhost:3000](http://localhost:3000) (or the port Next prints).
 
 Edit Insights and Intervenants at `/keystatic` while `pnpm dev` is running. Changes write YAML into `web/content/` (git-backed).
 
-Protected by HTTP Basic Auth (`KEYSTATIC_USER` / `KEYSTATIC_PASSWORD` in `.env.local`). In production the CMS returns 503 if no password is set.
+Protected by a login page at `/cms-login` (`KEYSTATIC_USER` / `KEYSTATIC_PASSWORD` in `.env.local`, 8 h session cookie). Log out at `/api/cms-logout`. In production the CMS returns 503 if no password is set.

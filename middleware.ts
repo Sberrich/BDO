@@ -1,38 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CMS_COOKIE, cmsCredentials, verifySession } from "@/lib/cms-session";
 
-const USER = process.env.KEYSTATIC_USER || "admin";
-const PASS = process.env.KEYSTATIC_PASSWORD || "";
-
-export function middleware(request: NextRequest) {
-  if (!PASS) {
+export async function middleware(request: NextRequest) {
+  if (!cmsCredentials().pass) {
     if (process.env.NODE_ENV === "production") {
       return new NextResponse("CMS password not configured.", { status: 503 });
     }
     return NextResponse.next();
   }
 
-  const header = request.headers.get("authorization");
-  if (header?.startsWith("Basic ")) {
-    try {
-      const decoded = atob(header.slice(6));
-      const i = decoded.indexOf(":");
-      const user = decoded.slice(0, i);
-      const pass = decoded.slice(i + 1);
-      if (user === USER && pass === PASS) {
-        return NextResponse.next();
-      }
-    } catch {
-      /* fall through to challenge */
-    }
+  if (await verifySession(request.cookies.get(CMS_COOKIE)?.value)) {
+    return NextResponse.next();
   }
 
-  return new NextResponse("Authentication required.", {
-    status: 401,
-    headers: {
-      "WWW-Authenticate": 'Basic realm="CFO 4.0 CMS"',
-      "Cache-Control": "no-store",
-    },
-  });
+  const { pathname, search } = request.nextUrl;
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = "/cms-login";
+  url.search = `?next=${encodeURIComponent(pathname + search)}`;
+  return NextResponse.redirect(url);
 }
 
 export const config = {
