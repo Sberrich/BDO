@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { BRAND, NAV, RESOURCES_MENU } from "@/lib/content";
-import { IconArrowRight, IconFileText, IconLayers, IconWhatsApp } from "@/components/icons";
+import { NAV, RESOURCES_MENU } from "@/lib/content";
+import { IconArrowRight, IconFileText, IconLayers, IconPhone } from "@/components/icons";
 
 function isCurrent(href: string, pathname: string) {
   if (href === "/programme") {
@@ -214,16 +214,14 @@ export function Header() {
                 </ul>
 
                 <div className="site-header__mobile-actions">
-                  <a
-                    href={BRAND.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/admissions#rappel"
                     className="site-header__mobile-rappel"
                     onClick={closeMobile}
                   >
-                    <IconWhatsApp />
+                    <IconPhone />
                     Être rappelé
-                  </a>
+                  </Link>
                   <Link
                     href="/candidater"
                     className="site-header__mobile-cta"
@@ -348,16 +346,14 @@ export function Header() {
           </ul>
 
           <div className="site-header__actions flex items-center">
-            <a
-              href={BRAND.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/admissions#rappel"
               className="site-header__rappel"
-              aria-label="Être rappelé sur WhatsApp"
+              aria-label="Être rappelé"
             >
-              <IconWhatsApp />
+              <IconPhone />
               <span className="site-header__rappel-label">Être rappelé</span>
-            </a>
+            </Link>
             <Link
               href="/candidater"
               aria-current={isCurrent("/candidater", pathname) ? "page" : undefined}

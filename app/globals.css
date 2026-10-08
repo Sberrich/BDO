@@ -1334,7 +1334,7 @@ input[type="radio"] {
   width: 1.05rem;
   height: 1.05rem;
   flex-shrink: 0;
-  color: #25d366;
+  color: var(--brand-navy);
   transition: color var(--duration-fast) var(--ease-out);
 }
 .site-header__rappel:hover,
@@ -1648,7 +1648,7 @@ body[data-nav="open"] .mobile-bar {
   width: 1.1rem;
   height: 1.1rem;
   flex-shrink: 0;
-  color: #25d366;
+  color: var(--brand-navy);
 }
 .site-header__mobile-rappel:hover,
 .site-header__mobile-rappel:focus-visible {
