@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
-import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
+import { Container } from "@/components/ui";
+import { IconTick } from "@/components/icons";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
 type DocKind = "brochure" | "barometre" | "livreblanc";
@@ -19,6 +20,8 @@ const DOCS: Record<
     formBg: "white" | "cream";
     prefix: string;
     cover: string;
+    contents: string[];
+    formTitle: string;
   }
 > = {
   brochure: {
@@ -31,6 +34,13 @@ const DOCS: Record<
     formBg: "white",
     prefix: "b",
     cover: RESOURCE_COVERS.brochure,
+    contents: [
+      "Le programme et les huit séminaires",
+      "Le calendrier de la promotion 1",
+      "Le tarif et les conditions",
+      "Le processus d’admission",
+    ],
+    formTitle: "Recevoir la brochure",
   },
   barometre: {
     path: "/ressources/barometre",
@@ -42,6 +52,12 @@ const DOCS: Record<
     formBg: "cream",
     prefix: "a",
     cover: RESOURCE_COVERS.barometre,
+    contents: [
+      "L’enquête annuelle de BDO Maroc",
+      "Édition 2024",
+      "94 directeurs financiers et leaders financiers interrogés",
+    ],
+    formTitle: "Recevoir le baromètre",
   },
   livreblanc: {
     path: "/ressources/livre-blanc",
@@ -53,6 +69,12 @@ const DOCS: Record<
     formBg: "white",
     prefix: "l",
     cover: RESOURCE_COVERS.livreblanc,
+    contents: [
+      "Un livre blanc BDO × Maltem Africa",
+      "La transformation de la fonction finance",
+      "L’émergence du CFO 4.0",
+    ],
+    formTitle: "Recevoir le livre blanc",
   },
 };
 
@@ -69,76 +91,91 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
 
   return (
     <>
-      <PageHero kicker="Ressources" title={d.title} lead={d.lead} />
-      <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container className="grid items-start gap-10 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)_minmax(0,1.1fr)]">
-          <div className="resource-doc__cover-wrap mx-auto w-full max-w-[220px] lg:mx-0">
-            <div className="resource-doc__cover">
-              <Image
-                src={d.cover}
-                alt={`Couverture — ${d.title}`}
-                width={440}
-                height={620}
-                className="h-auto w-full"
-                priority
-                sizes="220px"
-              />
+      <section className="doc-hero" aria-labelledby="doc-title">
+        <Container className="doc-hero__inner">
+          <nav className="doc-hero__crumbs" aria-label="Fil d’Ariane">
+            <Link href="/ressources">Ressources</Link>
+            <span aria-hidden="true">/</span>
+            <span>{d.title}</span>
+          </nav>
+          <div className="doc-hero__grid">
+            <div className="doc-hero__copy">
+              <p className="doc-hero__kicker">{d.kicker}</p>
+              <h1 id="doc-title" className="doc-hero__title">
+                {d.title}
+              </h1>
+              <p className="doc-hero__lead">{d.lead}</p>
+
+              <div className="doc-hero__preview">
+                <div className="doc-hero__cover">
+                  <Image
+                    src={d.cover}
+                    alt={`Couverture — ${d.title}`}
+                    width={440}
+                    height={620}
+                    priority
+                    sizes="180px"
+                  />
+                </div>
+                <div>
+                  <p className="doc-hero__list-title">Ce que vous y trouverez</p>
+                  <ul className="doc-hero__list">
+                    {d.contents.map((x) => (
+                      <li key={x}>
+                        <span className="doc-hero__tick" aria-hidden="true">
+                          <IconTick />
+                        </span>
+                        {x}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="doc-hero__format">
+                    PDF envoyé par e-mail, téléchargeable immédiatement après l’envoi.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <SectionHeading kicker={d.kicker} title={d.title} lead={d.lead} />
-            <p className="mt-6 text-sm text-muted">
-              Remplissez le formulaire pour recevoir le PDF par e-mail. Vous pourrez aussi le
-              télécharger immédiatement après l’envoi.
-            </p>
-            <div className="mt-8">
-              <Link href="/ressources" className="text-sm font-bold text-blue hover:text-blue-dark">
-                ← Toutes les ressources
-              </Link>
+
+            <div className="doc-form">
+              <p className="doc-form__title">{d.formTitle}</p>
+              <p className="doc-form__lead">Trois champs, et le document est à vous.</p>
+              <LeadForm kind="document" document={kind} prefix={d.prefix} />
             </div>
-          </div>
-          <div
-            className={`rounded-md p-6 sm:p-8 ${
-              d.formBg === "white" ? "bg-white shadow-[var(--shadow-md)]" : "bg-white border border-line"
-            }`}
-          >
-            <LeadForm kind="document" document={kind} prefix={d.prefix} />
           </div>
         </Container>
       </section>
 
       {others.length ? (
-        <section className="border-t border-line bg-white py-[clamp(2rem,4vw,3rem)]">
-          <Container>
-            <h2 className="text-xl font-bold text-ink">Autres publications</h2>
-            <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+        <section className="doc-others" aria-labelledby="doc-others-title">
+          <Container className="doc-others__inner">
+            <div className="doc-others__head">
+              <h2 id="doc-others-title" className="doc-others__title">
+                Autres publications
+              </h2>
+              <Link href="/insights" className="doc-others__all">
+                Voir les Insights <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <ul className="doc-others__grid">
               {others.map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className="resource-card resource-card--compact group">
-                    <span className="resource-card__cover" aria-hidden>
+                  <Link href={r.href} className="doc-card">
+                    <span className="doc-card__cover" aria-hidden>
                       {r.cover ? (
-                        <Image
-                          src={r.cover}
-                          alt=""
-                          fill
-                          sizes="96px"
-                          className="object-cover object-top"
-                        />
+                        <Image src={r.cover} alt="" fill sizes="120px" className="object-cover object-top" />
                       ) : null}
                     </span>
-                    <span className="resource-card__body">
-                      <span className="resource-card__title">{r.label}</span>
-                      <span className="resource-card__desc">{r.desc}</span>
+                    <span className="doc-card__body">
+                      <span className="doc-card__title">{r.label}</span>
+                      <span className="doc-card__desc">{r.desc}</span>
+                      <span className="doc-card__more">
+                        Recevoir le document <span aria-hidden="true">→</span>
+                      </span>
                     </span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-8">
-              <ButtonLink href="/insights" variant="secondary">
-                Voir les Insights
-              </ButtonLink>
-            </div>
           </Container>
         </section>
       ) : null}

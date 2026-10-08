@@ -4,9 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
-import { SeminarDaysSwitch } from "@/components/SeminarDaysSwitch";
 import { getIntervenants } from "@/lib/cms";
-import { allSessions, SHOW, sessionBySlug, sessionHref } from "@/lib/content";
+import { allSessions, data, sessionBySlug, sessionHref } from "@/lib/content";
 import {
   facultyHasPhoto,
   facultyPhotoSrc,
@@ -14,7 +13,7 @@ import {
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
 import { plain, seminarImage, seminarVideo } from "@/lib/text";
-import { IconArrowRight, IconCal, IconMap } from "@/components/icons";
+import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -76,6 +75,7 @@ export default async function SeminairePage({ params }: Props) {
     actualisation?: string;
     objectif: string;
   };
+  const tarif = data.site.tarif;
   const cover = seminarImage(s.numero);
   const clip = seminarVideo(s.numero);
   const indexLabel = inaug
@@ -85,8 +85,6 @@ export default async function SeminairePage({ params }: Props) {
   return (
     <>
       <section className="sem-hero" aria-labelledby="sem-title">
-        <span className="sem-hero__glow" aria-hidden="true" />
-        <span className="sem-hero__grid" aria-hidden="true" />
 
         <Container className="sem-hero__inner">
           <nav className="sem-hero__crumbs" aria-label="Fil d’Ariane">
@@ -99,14 +97,9 @@ export default async function SeminairePage({ params }: Props) {
 
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
-              <p className="sem-hero__eyebrow">
-                <span className="sem-hero__eyebrow-dot" aria-hidden="true" />
-                Groupe ISCAE × BDO Maroc
-              </p>
               <p className="sem-hero__index">
-                {indexLabel}
-                <span aria-hidden="true"> · </span>
-                {s.dates}
+                <span className="sem-hero__badge">{indexLabel}</span>
+                {inaug ? "Ouverture du cycle" : `${s.numero} sur 8`}
               </p>
               <h1 id="sem-title" className="sem-hero__title">
                 {plain(s.titre)}
@@ -115,11 +108,15 @@ export default async function SeminairePage({ params }: Props) {
               <ul className="sem-hero__meta" aria-label="Repères">
                 <li>
                   <IconCal />
-                  <span>{[s.heures ? `${s.heures} h` : null, s.horaire].filter(Boolean).join(" · ")}</span>
+                  <span>{s.dates}</span>
+                </li>
+                <li>
+                  <IconClock />
+                  <span>{[s.horaire, s.heures ? `${s.heures} h` : null].filter(Boolean).join(" · ")}</span>
                 </li>
                 <li>
                   <IconMap />
-                  <span>Rabat · Casablanca</span>
+                  <span>Casablanca</span>
                 </li>
               </ul>
               <div className="sem-hero__ctas">
@@ -165,119 +162,160 @@ export default async function SeminairePage({ params }: Props) {
       </section>
 
       <section className="sem-body">
-        <Container className="sem-body__inner">
-          <div className="sem-objectif">
-            <div className="sem-objectif__head">
+        <Container className="sem-body__layout">
+          <div className="sem-body__main">
+            <div className="sem-objectif">
               <p className="sem-kicker">Objectif</p>
+              <p className="sem-objectif__text">{plain(detail.objectif)}</p>
             </div>
-            <p className="sem-objectif__text">{plain(detail.objectif)}</p>
-          </div>
 
-          {!inaug && detail.jour1 && detail.jour2 ? (
-            <div className="sem-block">
-              <header className="sem-block__head">
-                <p className="sem-kicker">La séance</p>
-                <h2 className="sem-block__title">
-                  Une séance, <em>un livrable</em>.
+            {!inaug && detail.jour1 && detail.jour2 ? (
+              <div className="sem-block">
+                <h2 className="sem-block__title">Le déroulé de la séance</h2>
+                <ol className="sem-parts">
+                  {[
+                    { n: "01", label: "Notions clés", day: detail.jour1 },
+                    { n: "02", label: "Approfondissement", day: detail.jour2 },
+                  ].map((part) => (
+                    <li key={part.n} className="sem-part">
+                      <p className="sem-part__head">
+                        <span className="sem-part__num">{part.n}</span>
+                        Partie {Number(part.n)} · {part.label}
+                      </p>
+                      <dl className="sem-part__steps">
+                        <div>
+                          <dt>Premier temps</dt>
+                          <dd>{part.day.matin}</dd>
+                        </div>
+                        <div>
+                          <dt>Second temps</dt>
+                          <dd>{part.day.apresMidi}</dd>
+                        </div>
+                      </dl>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
+
+            {detail.livrable ? (
+              <aside className="sem-livrable">
+                <p className="sem-livrable__kicker">Ce que vous produisez</p>
+                <p className="sem-livrable__text">{detail.livrable}</p>
+              </aside>
+            ) : null}
+
+            {detail.actualisation ? (
+              <p className="sem-note">{detail.actualisation}</p>
+            ) : null}
+
+            {people.length > 0 ? (
+              <div className="sem-block" aria-labelledby="sem-faculty-title">
+                <h2 id="sem-faculty-title" className="sem-block__title">
+                  {people.length > 1 ? "Les intervenants" : "L’intervenant"}
                 </h2>
-                <p className="sem-block__lead">
-                  Basculez entre les deux parties de la séance pour voir le déroulé.
-                </p>
-              </header>
-              <SeminarDaysSwitch
-                jour1={detail.jour1}
-                jour2={detail.jour2}
-                livrable={detail.livrable}
-              />
-            </div>
-          ) : detail.livrable ? (
-            <aside className="sem-livrable">
-              <p className="sem-livrable__kicker">Livrable</p>
-              <p className="sem-livrable__text">{detail.livrable}</p>
-            </aside>
-          ) : null}
+                <ul className="sem-faculty__grid">
+                  {people.map((p) => (
+                    <SpeakerCard key={p.slug} person={p} />
+                  ))}
+                </ul>
+              </div>
+            ) : null}
 
-          {detail.actualisation ? (
-            <p className="sem-note">{detail.actualisation}</p>
-          ) : null}
-
-          <div className="sem-actions">
-            <ButtonLink href="/ressources/brochure" variant="secondary" className="sem-actions__ghost">
-              Recevoir la brochure
-            </ButtonLink>
-            <ButtonLink href="/candidater" className="sem-actions__primary">
-              Candidater
-              <IconArrowRight />
-            </ButtonLink>
+            <nav className="sem-pager" aria-label="Séances adjacentes">
+              {prev ? (
+                <Link href={sessionHref(prev)} className="sem-pager__link is-prev">
+                  <span>← Séance précédente</span>
+                  <strong>{plain(prev.titre)}</strong>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <Link href={sessionHref(next)} className="sem-pager__link is-next">
+                  <span>Séance suivante →</span>
+                  <strong>{plain(next.titre)}</strong>
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
           </div>
 
-          <nav className="sem-pager" aria-label="Séances adjacentes">
-            {prev ? (
-              <Link href={sessionHref(prev)} className="sem-pager__link is-prev">
-                <span>Précédent</span>
-                <strong>← {plain(prev.titre)}</strong>
-              </Link>
-            ) : (
-              <span />
-            )}
-            {next ? (
-              <Link href={sessionHref(next)} className="sem-pager__link is-next">
-                <span>Suivant</span>
-                <strong>{plain(next.titre)} →</strong>
-              </Link>
-            ) : (
-              <span />
-            )}
-          </nav>
+          <aside className="sem-side" aria-label="En bref">
+            <div className="sem-side__card">
+              <p className="sem-side__title">En bref</p>
+              <dl className="sem-side__facts">
+                <div>
+                  <dt>Date</dt>
+                  <dd>{s.dates}</dd>
+                </div>
+                {s.horaire ? (
+                  <div>
+                    <dt>Horaire</dt>
+                    <dd>{s.horaire}</dd>
+                  </div>
+                ) : null}
+                {s.heures ? (
+                  <div>
+                    <dt>Durée</dt>
+                    <dd>{s.heures}&nbsp;h</dd>
+                  </div>
+                ) : null}
+                <div>
+                  <dt>Lieu</dt>
+                  <dd>Casablanca</dd>
+                </div>
+              </dl>
+              <div className="sem-side__ctas">
+                <ButtonLink href="/candidater" className="sem-side__primary">
+                  Candidater
+                  <IconArrowRight />
+                </ButtonLink>
+                <ButtonLink
+                  href="/ressources/brochure"
+                  variant="ghost"
+                  className="sem-side__secondary"
+                >
+                  Recevoir la brochure
+                </ButtonLink>
+              </div>
+              <p className="sem-side__note">
+                Candidatures ouvertes jusqu’au 30 octobre 2026.
+              </p>
+            </div>
+          </aside>
         </Container>
       </section>
 
-      {people.length > 0 ? (
-        <section className="sem-faculty" aria-labelledby="sem-faculty-title">
-          <Container>
-            <header className="sem-faculty__head">
-              <p className="sem-kicker">Intervenant{people.length > 1 ? "s" : ""}</p>
-              <h2 id="sem-faculty-title" className="sem-faculty__title">
-                Qui anime ce séminaire
-              </h2>
-            </header>
-            <ul className="sem-faculty__grid">
-              {people.map((p) => (
-                <SpeakerCard key={p.slug} person={p} />
-              ))}
-            </ul>
-          </Container>
-        </section>
-      ) : null}
-
-      <section className="sem-calband" aria-labelledby="sem-calband-title">
-        <Container className="sem-calband__inner">
+      <section className="sem-price" aria-labelledby="sem-price-title">
+        <Container className="sem-price__inner">
           <div>
-            <p className="sem-calband__index">{SHOW.calendrier ? "Calendrier et tarif" : "Tarif"}</p>
-            <h2 id="sem-calband-title" className="sem-calband__title">
-              {SHOW.calendrier ? "Dates, rythme et investissement." : "L’investissement."}
+            <p className="sem-price__kicker">Tarif de la promotion 1</p>
+            <h2 id="sem-price-title" className="sem-price__title">
+              Les huit séminaires, un seul tarif.
             </h2>
-            <p className="sem-calband__lead">
-              {SHOW.calendrier
-                ? "Retrouvez le calendrier complet de la promotion 1 et le tarif du certificat."
-                : "Retrouvez le tarif du certificat."}
-            </p>
           </div>
-          <div className="sem-calband__ctas">
-            {SHOW.calendrier ? (
-              <Link href="/#calendrier" className="sem-calband__cta is-primary">
-                Voir le calendrier
-                <IconArrowRight />
-              </Link>
-            ) : null}
-            <Link
-              href="/#tarif"
-              className={`sem-calband__cta ${SHOW.calendrier ? "" : "is-primary"}`}
-            >
-              Voir le tarif
-              <IconArrowRight />
-            </Link>
-          </div>
+          <dl className="sem-price__list">
+            {tarif.formules.map((f) => (
+              <div key={f.id}>
+                <dt>{f.titre}</dt>
+                <dd>
+                  {f.montant} <span>{tarif.devisePhrase}</span>
+                </dd>
+              </div>
+            ))}
+            <div>
+              <dt>{tarif.fraisInscription.label}</dt>
+              <dd>
+                {tarif.fraisInscription.montant} <span>{tarif.devisePhrase}</span>
+              </dd>
+            </div>
+          </dl>
+          <Link href="/admissions#tarif" className="sem-price__link">
+            Détail du tarif
+            <IconArrowRight />
+          </Link>
         </Container>
       </section>
 
