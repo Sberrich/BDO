@@ -231,22 +231,21 @@ export function InsightsExplorer({ categories, articles }: Props) {
         </Container>
       </section>
 
-      <section className="insights-band" aria-labelledby="insights-band-title">
-        <Container className="insights-band__inner">
+      <section className="cta-band" aria-labelledby="insights-band-title">
+        <Container className="cta-band__inner">
           <div>
-            <p className="insights-band__kicker">Suite du parcours</p>
-            <h2 id="insights-band-title" className="insights-band__title">
-              Restez informé
+            <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+            <h2 id="insights-band-title" className="cta-band__title">
+              De l’analyse à la feuille de route de votre direction.
             </h2>
-            <p className="insights-band__lead">
-              Une question sur nos analyses ou sur le prochain cycle CFO 4.0 ?
-              Écrivez-nous ou déposez votre candidature.
-            </p>
           </div>
-          <div className="insights-band__actions">
-            <ButtonLink href="/a-propos#contact">Nous contacter</ButtonLink>
-            <ButtonLink href="/candidater" variant="secondary">
+          <div className="cta-band__actions">
+            <ButtonLink href="/candidater" className="sem-hero__cta-primary">
               Candidater
+              <IconArrowRight />
+            </ButtonLink>
+            <ButtonLink href="/a-propos#contact" variant="ghost" className="sem-hero__cta-secondary">
+              Nous contacter
             </ButtonLink>
           </div>
         </Container>

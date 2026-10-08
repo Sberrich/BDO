@@ -184,15 +184,15 @@ export default async function IntervenantsPage() {
         </Container>
       </section>
 
-      <section className="iv-cta" aria-labelledby="iv-cta-title">
-        <Container className="iv-cta__inner">
+      <section className="cta-band" aria-labelledby="cta-band-title">
+        <Container className="cta-band__inner">
           <div>
-            <p className="iv-cta__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
-            <h2 id="iv-cta-title" className="iv-cta__title">
+            <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+            <h2 id="cta-band-title" className="cta-band__title">
               Travaillez votre projet avec eux, séminaire après séminaire.
             </h2>
           </div>
-          <div className="iv-cta__actions">
+          <div className="cta-band__actions">
             <ButtonLink href="/candidater" className="sem-hero__cta-primary">
               Candidater
               <IconArrowRight />

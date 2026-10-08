@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
@@ -30,19 +31,32 @@ export default async function AProposPage() {
 
   return (
     <>
-      <header className="about-hero" aria-labelledby="about-title">
-        <span className="about-hero__glow" aria-hidden />
-        <span className="about-hero__glow is-red" aria-hidden />
-        <span className="about-hero__grid" aria-hidden />
-        <Container className="about-hero__inner">
-          <div className="about-hero__layout">
-            <div className="about-hero__copy">
-              <p className="about-hero__kicker">À propos</p>
-              <h1 id="about-title" className="about-hero__title">
-                Deux institutions,{" "}
-                <em>une signature commune</em>
+      <section className="sem-hero about-hero2" aria-labelledby="about-title">
+        <Container className="sem-hero__inner">
+          <nav className="sem-hero__crumbs" aria-label="Fil d’Ariane">
+            <Link href="/">Accueil</Link>
+            <span aria-hidden="true">/</span>
+            <span>À propos</span>
+          </nav>
+          <div className="sem-hero__grid-layout">
+            <div className="sem-hero__copy">
+              <p className="sem-hero__index">
+                <span className="sem-hero__badge">À propos</span>
+                Groupe ISCAE × BDO Maroc
+              </p>
+              <h1 id="about-title" className="sem-hero__title">
+                Deux institutions, une signature commune
               </h1>
-              <p className="about-hero__lead">{data.site.cosignature}.</p>
+              <p className="sem-hero__lead">{data.site.cosignature}.</p>
+              <div className="sem-hero__ctas">
+                <ButtonLink href="#contact" className="sem-hero__cta-primary">
+                  Écrire à l’équipe
+                  <IconArrowRight />
+                </ButtonLink>
+                <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
+                  Voir le programme
+                </ButtonLink>
+              </div>
             </div>
 
             <div className="about-hero__partners" aria-label="Institutions cosignataires">
@@ -82,7 +96,7 @@ export default async function AProposPage() {
             </div>
           </div>
         </Container>
-      </header>
+      </section>
 
       <section className="about-inst" aria-labelledby="about-inst-title">
         <Container className="about-inst__inner">
