@@ -29,26 +29,9 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
   const seminars = items.filter((s) => s.numero > 0);
   const finale = seminars.find((s) => s.numero === 8);
   const main = seminars.filter((s) => s.numero !== 8);
-  const steps = items.filter((s) => s.numero >= 0);
 
   return (
     <div className="prog-board">
-      {steps.length > 1 ? (
-        <ol className="prog-board__steps" aria-label="Les étapes du cycle">
-          {steps.map((s) => (
-            <li key={`step-${s.numero}`}>
-              <Link
-                href={sessionHref(s)}
-                className={`prog-board__step ${s.numero === 0 ? "is-open" : ""} ${s.numero === 8 ? "is-finale" : ""}`}
-                title={plain(s.titre)}
-              >
-                {s.numero === 0 ? "IN" : String(s.numero).padStart(2, "0")}
-              </Link>
-            </li>
-          ))}
-        </ol>
-      ) : null}
-
       <div className={`prog-board__body ${opening ? "" : "is-solo"}`}>
         {opening ? (
           <Link href={sessionHref(opening)} className="prog-board__open">
