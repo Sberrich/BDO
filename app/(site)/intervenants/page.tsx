@@ -73,13 +73,18 @@ export default async function IntervenantsPage() {
                 </ButtonLink>
               </div>
             </div>
-            <div className="iv-faces" aria-hidden="true">
+            <ul className="iv-faces" aria-label="Quelques intervenants">
               {faces.map((p, i) => (
-                <span key={p.slug} className={`iv-faces__item is-${i + 1}`}>
-                  <Image src={facultyPhotoSrc(p)} alt="" fill sizes="180px" className="iv-faces__img" />
-                </span>
+                <li key={p.slug} className={`iv-faces__item is-${i + 1}`}>
+                  <a href={`#${p.slug}`} className="iv-faces__link" aria-label={plain(p.nom)}>
+                    <Image src={facultyPhotoSrc(p)} alt="" fill sizes="180px" className="iv-faces__img" />
+                    <span className="iv-faces__name" aria-hidden>
+                      {plain(p.nom)}
+                    </span>
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </Container>
       </section>
