@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
+import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { getIntervenants } from "@/lib/cms";
-import { allSessions, data, sessionBySlug, sessionHref } from "@/lib/content";
+import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
 import {
   facultyHasPhoto,
   facultyPhotoSrc,
@@ -75,8 +76,7 @@ export default async function SeminairePage({ params }: Props) {
     actualisation?: string;
     objectif: string;
   };
-  const tarif = data.site.tarif;
-  const cover = seminarImage(s.numero);
+    const cover = seminarImage(s.numero);
   const clip = seminarVideo(s.numero);
   const indexLabel = inaug
     ? "Conférence inaugurale"
@@ -288,36 +288,7 @@ export default async function SeminairePage({ params }: Props) {
         </Container>
       </section>
 
-      <section className="sem-price" aria-labelledby="sem-price-title">
-        <Container className="sem-price__inner">
-          <div>
-            <p className="sem-price__kicker">Tarif de la promotion 1</p>
-            <h2 id="sem-price-title" className="sem-price__title">
-              Les huit séminaires, un seul tarif.
-            </h2>
-          </div>
-          <dl className="sem-price__list">
-            {tarif.formules.map((f) => (
-              <div key={f.id}>
-                <dt>{f.titre}</dt>
-                <dd>
-                  {f.montant} <span>{tarif.devisePhrase}</span>
-                </dd>
-              </div>
-            ))}
-            <div>
-              <dt>{tarif.fraisInscription.label}</dt>
-              <dd>
-                {tarif.fraisInscription.montant} <span>{tarif.devisePhrase}</span>
-              </dd>
-            </div>
-          </dl>
-          <Link href="/admissions#tarif" className="sem-price__link">
-            Détail du tarif
-            <IconArrowRight />
-          </Link>
-        </Container>
-      </section>
+      <PriceBand />
 
       <section className="sem-others">
         <Container>

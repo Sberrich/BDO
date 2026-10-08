@@ -62,7 +62,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
               <input
                 id="faq-q"
                 className="faq-explorer__search-input"
-                placeholder="tarif, calendrier, soutenance…"
+                placeholder="tarif, calendrier, admission…"
                 value={query}
                 onChange={(e) => onQueryChange(e.target.value)}
               />

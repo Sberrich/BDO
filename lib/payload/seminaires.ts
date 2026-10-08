@@ -171,7 +171,7 @@ const data = {
         "matin": "Répétition des présentations, revue croisée entre sous-groupes, coaching des associés BDO.",
         "apresMidi": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
       },
-      "livrable": "Le projet de transformation digitale de votre direction, soutenu et évalué.",
+      "livrable": "Le projet de transformation digitale de votre direction, présenté et évalué.",
       "actualisation": "Le séminaire accueille le volet leadership financier et conduite du changement, qui donne son nom au certificat sans être traité jusqu’ici.",
       "dates": "Samedi 26 décembre 2026",
       "horaire": "9 h – 16 h",

@@ -15,7 +15,7 @@ function hoursLabel(s: Seminaire) {
 }
 
 /** "Samedi 31 octobre 2026" → { weekday: "Sam.", day: "31", month: "octobre" } */
-function splitDate(dates: string) {
+export function splitDate(dates: string) {
   const [weekday = "", day = "", month = "", year = ""] = dates.split(" ");
   return { weekday: `${weekday.slice(0, 3)}.`, day, month, year };
 }
