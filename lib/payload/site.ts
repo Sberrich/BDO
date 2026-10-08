@@ -228,11 +228,11 @@ const data = {
     },
     {
       "etape": "Séminaire 8, jour 1",
-      "texte": "Dossier d’investissement, plan de conduite du changement, répétition des soutenances."
+      "texte": "Dossier d’investissement, plan de conduite du changement, répétition des présentations."
     },
     {
       "etape": "Séminaire 8, jour 2",
-      "texte": "Soutenance devant le jury du Groupe ISCAE et de BDO. Remise des certificats."
+      "texte": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
     }
   ],
   "temoignages": [
@@ -413,7 +413,7 @@ const data = {
     "telephone": "+212 661 448 496",
     "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
-    "lieuFormation": "Rabat — le lieu exact des séminaires est communiqué aux participants admis."
+    "lieuFormation": "Casablanca — le lieu exact des séminaires est communiqué aux participants admis."
   },
   "institutions": [
     {

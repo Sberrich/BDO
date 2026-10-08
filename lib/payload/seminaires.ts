@@ -161,15 +161,15 @@ const data = {
       "numero": 8,
       "slug": "projets-transformation",
       "titre": "Présentation des projets de transformation digitale",
-      "sousTitre": "Leadership financier, conduite du changement et soutenance devant jury",
+      "sousTitre": "Leadership financier, conduite du changement et présentation des projets",
       "objectif": "Ce séminaire est dédié à la présentation, par chaque groupe formé, de son projet de transformation digitale, qui met en relief les dimensions entrepreneuriale, stratégique, technologique, financière, managériale et éthique.",
       "jour1": {
         "matin": "Construire le dossier d’investissement : chiffrage, retour attendu, indicateurs de suivi, scénarios et points de sortie.",
         "apresMidi": "Conduite du changement : parties prenantes, montée en compétences de l’équipe, séquençage des chantiers, traitement des résistances."
       },
       "jour2": {
-        "matin": "Répétition des soutenances, revue croisée entre sous-groupes, coaching des associés BDO.",
-        "apresMidi": "Soutenance devant le jury du Groupe ISCAE et de BDO. Remise des certificats."
+        "matin": "Répétition des présentations, revue croisée entre sous-groupes, coaching des associés BDO.",
+        "apresMidi": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
       },
       "livrable": "Le projet de transformation digitale de votre direction, soutenu et évalué.",
       "actualisation": "Le séminaire accueille le volet leadership financier et conduite du changement, qui donne son nom au certificat sans être traité jusqu’ici.",

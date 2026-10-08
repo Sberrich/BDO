@@ -20,29 +20,26 @@ export default function RessourcesPage() {
       />
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
-          <ul className="resource-grid">
+          <ul className="doc-others__grid">
             {RESOURCES_MENU.map((r) => (
               <li key={r.href}>
-                <Link href={r.href} className="resource-card group">
-                  <span className="resource-card__cover" aria-hidden>
+                <Link href={r.href} className="doc-card doc-card--lg">
+                  <span className="doc-card__cover" aria-hidden>
                     {r.cover ? (
-                      <Image
-                        src={r.cover}
-                        alt=""
-                        fill
-                        sizes="(max-width: 640px) 40vw, 180px"
-                        className="object-cover object-top"
-                      />
+                      <Image src={r.cover} alt="" fill sizes="140px" className="object-cover object-top" />
                     ) : (
                       <span className="resource-card__cover-fallback">
                         <IconLayers size={28} />
                       </span>
                     )}
                   </span>
-                  <span className="resource-card__body">
-                    <span className="resource-card__title">{r.label}</span>
-                    <span className="resource-card__desc">{r.desc}</span>
-                    <span className="resource-card__cta">Consulter →</span>
+                  <span className="doc-card__body">
+                    <span className="doc-card__title">{r.label}</span>
+                    <span className="doc-card__desc">{r.desc}</span>
+                    <span className="doc-card__more">
+                      {r.href.startsWith("/insights") ? "Lire les analyses" : "Recevoir le document"}{" "}
+                      <span aria-hidden="true">→</span>
+                    </span>
                   </span>
                 </Link>
               </li>

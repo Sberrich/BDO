@@ -7013,7 +7013,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .sem-hero__inner {
   position: relative;
-  padding-top: clamp(5.5rem, 8vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 3.75rem);
   padding-bottom: clamp(3rem, 5vw, 4.25rem);
 }
 .sem-hero__crumbs {
@@ -10593,7 +10593,7 @@ a.about-contact__card:focus-visible {
   }
 }
 .doc-hero__inner {
-  padding-top: clamp(5.5rem, 8vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 3.75rem);
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 .doc-hero__crumbs {
@@ -10835,4 +10835,46 @@ a.about-contact__card:focus-visible {
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--brand-red);
+}
+.doc-card {
+  background: #fff;
+}
+.doc-card--lg {
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  padding: 1.25rem;
+}
+.doc-card__more span {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+.doc-card:hover .doc-card__more span {
+  transform: translateX(3px);
+}
+@media (max-width: 480px) {
+  .doc-card--lg {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+}
+
+/* Opacity only: a transform here would break sticky and fixed descendants. */
+.page-enter {
+  animation: page-enter 0.32s ease-out both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+img {
+  -webkit-user-drag: none;
 }

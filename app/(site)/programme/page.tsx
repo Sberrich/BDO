@@ -3,7 +3,7 @@ import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
-import { IconBook, IconPhone, IconPlay } from "@/components/icons";
+import { IconBook, IconPlay } from "@/components/icons";
 import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
@@ -18,7 +18,7 @@ export default function ProgrammePage() {
       <PageHero
         kicker="Le programme"
         title="Huit séminaires, un projet mené sur votre entreprise"
-        lead="D’octobre à décembre 2026. Une conférence inaugurale, huit séminaires et un workshop, le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, jusqu’à la soutenance du 26 décembre."
+        lead="D’octobre à décembre 2026. Une conférence inaugurale, huit séminaires et un workshop, le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, jusqu’à la présentation des projets du 26 décembre."
       >
           <div className="mt-8 flex flex-wrap items-start gap-x-6 gap-y-5">
             <span className="grid justify-items-start gap-1.5">
@@ -51,15 +51,6 @@ export default function ProgrammePage() {
               <span className="text-xs text-white/55">Le programme daté, le tarif et le processus, en PDF.</span>
             </span>
           </div>
-          <p className="mt-4">
-            <a
-              href="/admissions#rappel"
-              className="btn-icon -ml-3 inline-flex min-h-11 items-center gap-2 rounded-md px-3 py-2 font-bold text-white/80 hover:bg-white/10 hover:text-white"
-            >
-              <IconPhone />
-              Être rappelé sous 24 h
-            </a>
-          </p>
       </PageHero>
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
@@ -69,6 +60,7 @@ export default function ProgrammePage() {
           </div>
         </Container>
       </section>
+      {SHOW.parcours ? (
       <section id="fil-rouge" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="Le fil rouge" title="De la candidature au jury" />
@@ -87,6 +79,7 @@ export default function ProgrammePage() {
           </ol>
         </Container>
       </section>
+      ) : null}
       {SHOW.calendrier ? (
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
