@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
 import { JourneyPanel } from "@/components/JourneyPanel";
+import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { FinancialRoadmap } from "@/components/FinancialRoadmap";
 import { SHOW } from "@/lib/content";
 import { TypeWrite } from "@/components/motion";
@@ -11,7 +12,6 @@ import { IconArrowRight, IconDownload } from "@/components/icons";
 /** Easy-to-edit hero facts — update these when dates lock in. */
 const HERO_INFO = {
   rentree: "30 octobre 2026",
-  candidaturesUntil: "26 décembre 2026",
 } as const;
 
 const PARTNERS = [
@@ -93,14 +93,16 @@ export function Hero() {
                   <dd>{HERO_INFO.rentree}</dd>
                 </div>
                 <div>
-                  <dt>Clôture</dt>
-                  <dd>{HERO_INFO.candidaturesUntil}</dd>
-                </div>
-                <div>
                   <dt>Format</dt>
                   <dd>111&nbsp;h · 9 séances</dd>
                 </div>
+                <div>
+                  <dt>Promotion 1</dt>
+                  <dd>25 places</dd>
+                </div>
               </dl>
+
+              <DeadlineCountdown className="hero-cinematic__countdown" />
 
               <div className="hero-cinematic__actions">
                 <ButtonLink href="/candidater" className="hero-cinematic__cta-primary">

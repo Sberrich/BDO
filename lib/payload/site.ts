@@ -188,8 +188,8 @@ const data = {
         "icone": "certificat"
       }
     ],
-    "dateLimite": "{{PROV}}samedi 26 décembre 2026{{/PROV}}",
-    "dateLimiteBrute": "26 décembre 2026",
+    "dateLimite": "{{PROV}}vendredi 30 octobre 2026{{/PROV}}",
+    "dateLimiteBrute": "30 octobre 2026",
     "places": "{{PROV}}vingt-cinq{{/PROV}}",
     "delaiReponse": "cinq jours ouvrés"
   },
