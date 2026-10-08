@@ -51,7 +51,7 @@ export function PricingBlock({ showCovered = true, showCtas = false }: Props) {
         <div className="pricing__cover">
           <div className="pricing__cover-head">
             <h3 className="pricing__cover-title">Ce que le tarif couvre</h3>
-            <p className="pricing__cover-lead">Tout est inclus pour dérouler le cycle jusqu’au jury.</p>
+            <p className="pricing__cover-lead">Tout est inclus, de la conférence inaugurale au certificat.</p>
           </div>
           <ul className="pricing__cover-list">
             {t.couvre.map((x) => (

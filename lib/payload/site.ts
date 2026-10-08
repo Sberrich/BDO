@@ -124,27 +124,27 @@ const data = {
     "fraisInscription": {
       "montant": "1 200",
       "label": "Frais d’inscription",
-      "mention": "DH HT · dus à l’inscription"
+      "mention": "Dus à l’inscription"
     },
     "formules": [
       {
         "id": "particulier",
         "titre": "Tarif particulier",
         "montant": "24 000",
-        "mention": "DH HT · financement personnel"
+        "mention": "Financement personnel"
       },
       {
         "id": "entreprise",
         "titre": "Tarif entreprise",
         "montant": "37 000",
-        "mention": "DH HT · prise en charge employeur"
+        "mention": "Prise en charge par l’employeur"
       }
     ],
     "couvre": [
       "111 heures de formation, dont 51 heures en présentiel",
       "Le coaching des équipes projet entre les séminaires",
       "Les supports de séminaire et les publications BDO",
-      "La soutenance devant le jury ISCAE × BDO et le certificat cosigné",
+      "Le certificat cosigné ISCAE × BDO",
       "La restauration des journées de séminaire"
     ],
     "conditions": [

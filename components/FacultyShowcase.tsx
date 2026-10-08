@@ -104,7 +104,7 @@ export function FacultyShowcase({ speakers, lead }: Props) {
 
         <ul className="faculty-home">
           {people.map((p, i) => (
-            <PersonCard key={p.slug} person={p} featured={i === 0} delay={i * 70} />
+            <PersonCard key={p.slug} person={p} delay={i * 70} />
           ))}
         </ul>
 

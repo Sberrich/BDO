@@ -50,6 +50,7 @@ export const SHOW = {
   sessionInfo: false,
   video: false,
   parcours: false,
+  partenaires: false,
 } as const;
 
 export const NAV = [

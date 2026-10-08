@@ -40,7 +40,7 @@ export function Footer() {
           <div className="site-footer__cta-block">
             <p className="site-footer__cta-label">Prochaine session</p>
             <p className="site-footer__cta-text">
-              Candidatures ouvertes — cycle à Rabat, jury ISCAE × BDO.
+              Candidatures ouvertes jusqu’au 30 octobre 2026.
             </p>
             <div className="site-footer__cta-row">
               <Link href="/candidater" className="site-footer__btn site-footer__btn--primary">

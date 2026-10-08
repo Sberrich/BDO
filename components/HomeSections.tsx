@@ -10,6 +10,7 @@ import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
+import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
 import { IconCert } from "@/components/icons";
@@ -217,10 +218,12 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="profil" className="who" aria-labelledby="profil-title">
         <Container className="who__inner">
           <header className="who__head">
-            <p className="who__index">04 — Le profil</p>
-            <h2 id="profil-title" className="who__title">
-              {site.profil.titre}
-            </h2>
+            <div>
+              <p className="who__index">04 — Le profil</p>
+              <h2 id="profil-title" className="who__title">
+                {site.profil.titre}
+              </h2>
+            </div>
             <p className="who__lead">{site.profil.chapeau}</p>
           </header>
           <ul className="who__panels">
@@ -229,14 +232,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 <span className="who__panel-num" aria-hidden="true">
                   0{i + 1}
                 </span>
+                <span className="who__panel-rule" aria-hidden="true" />
                 <h3 className="who__panel-title">{p.titre}</h3>
                 <p className="who__panel-text">{p.texte}</p>
               </Reveal>
             ))}
           </ul>
           <p className="who__prereq">
-            <span>Prérequis</span>
-            {site.profil.prerequis}
+            <span className="who__prereq-tag">Prérequis</span>
+            <span>{site.profil.prerequis}</span>
           </p>
         </Container>
       </section>
@@ -262,12 +266,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
 
 
-      <section id="medias" className="bg-cream py-12">
-        <Container>
-          <Kicker>Ils en ont parlé</Kicker>
-          <div className="mt-6">
-            <MediaPressStrip items={site.medias} />
+      <section id="medias" className="press-band" aria-labelledby="medias-title">
+        <Container className="press-band__inner">
+          <div className="press-band__head">
+            <h2 id="medias-title" className="press-band__title">
+              Ils en ont parlé
+            </h2>
+            <p className="press-band__hint">Survolez un média pour lire l’article.</p>
           </div>
+          <MediaPressStrip items={site.medias} />
         </Container>
       </section>
 
@@ -316,32 +323,6 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
-      <section className="home-band relative overflow-hidden bg-navy py-16 text-white md:py-[4.5rem]">
-        <div className="home-band__glow" aria-hidden />
-        <Container className="relative grid items-end gap-8 md:grid-cols-[1.2fr_auto]">
-          <div>
-            <p className="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-blue">Candidater</p>
-            <h2 className="mt-3 max-w-[20ch] text-[clamp(1.75rem,1.45rem+1.2vw,2.5rem)] font-bold leading-[1.15] tracking-[-0.02em]">
-              Prêt à rejoindre la promotion 1 ?
-            </h2>
-            <p className="mt-3 max-w-xl text-white/75">
-              Commencez votre candidature en quelques minutes. Réponse sous 24&nbsp;h.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 md:justify-end">
-            <ButtonLink href="/candidater" className="px-5 py-3">
-              Postuler maintenant
-            </ButtonLink>
-            <ButtonLink
-              href="/admissions#rappel"
-              variant="ghost"
-              className="border-white/35 bg-transparent px-5 py-3 text-white hover:border-white hover:bg-white hover:text-navy"
-            >
-              Nous contacter
-            </ButtonLink>
-          </div>
-        </Container>
-      </section>
 
       {SHOW.sessionInfo ? (
       <section id="session-information" className="bg-white py-16 md:py-[4.5rem]">
@@ -401,10 +382,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       </section>
       ) : null}
 
-      <section id="dispositif" className="bg-white py-16 md:py-[4.5rem]">
-        <Container>
-          <SectionHeading kicker="Le dispositif BDO" title={site.dispositif.titre} />
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <section id="dispositif" className="dispo" aria-labelledby="dispositif-title">
+        <Container className="dispo__inner">
+          <header className="dispo__head">
+            <p className="dispo__index">08 — Le dispositif BDO</p>
+            <h2 id="dispositif-title" className="dispo__title">
+              {site.dispositif.titre}
+            </h2>
+          </header>
+          <div className="dispo__grid">
             {site.dispositif.items.map((it) => {
               const cover =
                 it.lien.includes("barometre")
@@ -416,7 +402,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 <Link
                   key={it.titre}
                   href={appHref(it.lien)}
-                  className="card-lift group flex flex-col overflow-hidden rounded-md border border-line p-0"
+                  className="dispo-card group"
                 >
                   {cover ? (
                     <span className="resource-dispositif__cover">
@@ -436,10 +422,10 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                       <span className="resource-dispositif__brand-label">BDO Maroc</span>
                     </span>
                   )}
-                  <span className="flex flex-1 flex-col p-6">
-                    <h3 className="text-lg font-bold">{it.titre}</h3>
-                    <p className="mt-3 flex-1 text-muted">{it.texte}</p>
-                    <span className="card-more mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue">
+                  <span className="dispo-card__body">
+                    <h3 className="dispo-card__title">{it.titre}</h3>
+                    <p className="dispo-card__text">{it.texte}</p>
+                    <span className="dispo-card__more">
                       {it.action}
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                         <path d="M5 12h14M13 6l6 6-6 6" />
@@ -453,6 +439,37 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
+      <section className="final-cta" aria-labelledby="final-cta-title">
+        <Container>
+          <div className="final-cta__card">
+            <div className="final-cta__copy">
+              <p className="final-cta__kicker">Promotion 1 · 25 places</p>
+              <h2 id="final-cta-title" className="final-cta__title">
+                Prêt à rejoindre la promotion&nbsp;1&nbsp;?
+              </h2>
+              <p className="final-cta__lead">
+                Une candidature d’une vingtaine de minutes. Réponse sous 24&nbsp;h.
+              </p>
+              <div className="final-cta__actions">
+                <ButtonLink href="/candidater" className="final-cta__primary">
+                  Candidater
+                  <span aria-hidden="true">→</span>
+                </ButtonLink>
+                <ButtonLink
+                  href="/admissions#rappel"
+                  variant="ghost"
+                  className="final-cta__secondary"
+                >
+                  Être rappelé
+                </ButtonLink>
+              </div>
+            </div>
+            <DeadlineCountdown className="final-cta__countdown" />
+          </div>
+        </Container>
+      </section>
+
+      {SHOW.partenaires ? (
       <section id="partenaires" className="bg-cream py-12">
         <Container>
           <Kicker>Avec le concours de</Kicker>
@@ -481,6 +498,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           </div>
         </Container>
       </section>
+      ) : null}
     </>
   );
 }
