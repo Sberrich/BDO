@@ -5,20 +5,12 @@ import { ButtonLink, Container } from "@/components/ui";
 import { JourneyPanel } from "@/components/JourneyPanel";
 import { FinancialRoadmap } from "@/components/FinancialRoadmap";
 import { TypeWrite } from "@/components/motion";
-import {
-  IconArrowRight,
-  IconCal,
-  IconClock,
-  IconDownload,
-  IconPhone,
-  IconUsers,
-} from "@/components/icons";
+import { IconArrowRight, IconDownload } from "@/components/icons";
 
 /** Easy-to-edit hero facts — update these when dates lock in. */
 const HERO_INFO = {
   rentree: "30 octobre 2026",
   candidaturesUntil: "26 décembre 2026",
-  places: "25 places",
 } as const;
 
 const STATS = [
@@ -42,79 +34,69 @@ export function Hero() {
             className="hero-cinematic__photo"
           />
           <span className="hero-cinematic__smoke" />
-          <span className="hero-cinematic__glow" />
-          <span className="hero-cinematic__grain" />
         </div>
 
         <Container className="hero-cinematic__inner relative">
           <div className="hero-cinematic__grid">
             <div className="hero-enter hero-cinematic__copy">
-              <header className="hero-cinematic__identity">
-                <p className="hero-cinematic__eyebrow">
-                  Certificat exécutif · Groupe ISCAE × BDO Maroc
-                </p>
-                <p className="hero-cinematic__brand">
-                  CFO 4.0
-                </p>
-              </header>
+              <p className="hero-cinematic__eyebrow">
+                <span className="hero-cinematic__badge">Certificat exécutif</span>
+                Groupe ISCAE × BDO Maroc
+              </p>
 
-              <div className="hero-cinematic__message">
-                <TypeWrite
-                  as="h1"
-                  className="hero-cinematic__title"
-                  text="Pilotez la transformation de votre direction financière."
-                  speed={18}
-                  startDelay={420}
-                  startOnMount
-                />
-                <p className="hero-cinematic__lead">
-                  D’octobre à décembre 2026, à <strong>Rabat</strong> et{" "}
-                  <strong>Casablanca</strong>. Un projet appliqué à votre
-                  entreprise, défendu devant un jury ISCAE × BDO.
-                </p>
-              </div>
+              <p className="hero-cinematic__brand">CFO 4.0</p>
 
-              <ul className="hero-cinematic__facts" aria-label="Informations clés">
-                <li>
-                  <IconCal />
-                  <span>
-                    Rentrée <strong>{HERO_INFO.rentree}</strong>
-                  </span>
-                </li>
-                <li>
-                  <IconClock />
-                  <span>
-                    Clôture <strong>{HERO_INFO.candidaturesUntil}</strong>
-                  </span>
-                </li>
-                <li>
-                  <IconUsers />
-                  <span>
-                    <strong>{HERO_INFO.places}</strong>
-                  </span>
-                </li>
-              </ul>
+              <TypeWrite
+                as="h1"
+                className="hero-cinematic__title"
+                text="Pilotez la transformation de votre direction financière."
+                speed={18}
+                startDelay={420}
+                startOnMount
+              />
+
+              <p className="hero-cinematic__lead">
+                D’octobre à décembre 2026, un projet appliqué à votre
+                entreprise, du diagnostic à la mise en œuvre.
+              </p>
+
+              <dl className="hero-cinematic__facts">
+                <div>
+                  <dt>Rentrée</dt>
+                  <dd>{HERO_INFO.rentree}</dd>
+                </div>
+                <div>
+                  <dt>Clôture</dt>
+                  <dd>{HERO_INFO.candidaturesUntil}</dd>
+                </div>
+                <div>
+                  <dt>Lieux</dt>
+                  <dd>Rabat · Casablanca</dd>
+                </div>
+              </dl>
 
               <div className="hero-cinematic__actions">
-                <div className="hero-cinematic__ctas">
-                  <ButtonLink href="/candidater" className="hero-cinematic__cta-primary">
-                    <IconArrowRight />
-                    Candidater
-                  </ButtonLink>
-                  <ButtonLink
-                    href="/ressources/brochure"
-                    variant="ghost"
-                    className="hero-cinematic__cta-secondary"
-                  >
-                    <IconDownload />
-                    Recevoir la brochure
-                  </ButtonLink>
-                </div>
-                <a href="/admissions#rappel" className="hero-cinematic__rappel">
-                  <IconPhone />
-                  Être rappelé sous 24&nbsp;h
-                </a>
+                <ButtonLink href="/candidater" className="hero-cinematic__cta-primary">
+                  Candidater
+                  <IconArrowRight />
+                </ButtonLink>
+                <ButtonLink
+                  href="/ressources/brochure"
+                  variant="ghost"
+                  className="hero-cinematic__cta-secondary"
+                >
+                  <IconDownload />
+                  Recevoir la brochure
+                </ButtonLink>
               </div>
+
+              <p className="hero-cinematic__help">
+                Une question&nbsp;?{" "}
+                <a href="/admissions#rappel" className="hero-cinematic__rappel">
+                  Être rappelé sous 24&nbsp;h
+                  <IconArrowRight />
+                </a>
+              </p>
             </div>
 
             <div className="hero-panel-enter relative max-lg:hidden">

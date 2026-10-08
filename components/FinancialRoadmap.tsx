@@ -27,8 +27,8 @@ const STEPS = [
   },
   {
     label: "Performance",
-    note: "jury & indicateurs",
-    detail: "Mesurer, défendre et ancrer les gains devant le jury.",
+    note: "indicateurs & gains",
+    detail: "Mesurer et ancrer durablement les gains de la transformation.",
   },
 ] as const;
 
@@ -46,8 +46,6 @@ export function FinancialRoadmap() {
   const [paused, setPaused] = useState(false);
   const [reduce, setReduce] = useState(false);
   const timerRef = useRef<number | null>(null);
-  const step = STEPS[active];
-  const progress = ((active + 1) / STEPS.length) * 100;
 
   const goTo = useCallback((index: number) => {
     setActive(((index % STEPS.length) + STEPS.length) % STEPS.length);
@@ -99,85 +97,66 @@ export function FinancialRoadmap() {
       onKeyDown={onKeyDown}
     >
       <div className="hero-parcours__head">
-        <div>
-          <p id={labelId} className="hero-parcours__title">
-            Votre parcours
-          </p>
-          <p className="hero-parcours__subtitle">En 4 étapes</p>
-        </div>
+        <p id={labelId} className="hero-parcours__title">
+          Votre parcours en 4 étapes
+        </p>
         <a href="#programme" className="hero-parcours__cta">
           Programme
           <span aria-hidden="true">→</span>
         </a>
       </div>
 
-      <div
-        className="hero-parcours__track"
+      <ol
+        className="hero-parcours__list"
         role="tablist"
+        aria-orientation="vertical"
         aria-label="Étapes du parcours"
       >
-        <span className="hero-parcours__line" aria-hidden="true">
-          <span
-            className="hero-parcours__line-fill"
-            style={{ width: `${(active / (STEPS.length - 1)) * 100}%` }}
-          />
-        </span>
         {STEPS.map((s, i) => {
           const selected = i === active;
-          const done = i < active;
           return (
-            <button
+            <li
               key={s.label}
-              type="button"
-              role="tab"
-              id={`hero-step-tab-${i}`}
-              aria-selected={selected}
-              aria-controls="hero-step-panel"
-              tabIndex={selected ? 0 : -1}
-              className={`hero-parcours__node ${selected ? "is-active" : ""} ${done ? "is-done" : ""}`}
-              onClick={() => goTo(i)}
+              role="presentation"
+              className={`hero-parcours__item${selected ? " is-active" : ""}${i < active ? " is-done" : ""}`}
             >
-              <span className="hero-parcours__node-ring" aria-hidden="true" />
-              <span className="hero-parcours__node-core">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            </button>
+              <button
+                type="button"
+                role="tab"
+                id={`hero-step-tab-${i}`}
+                aria-selected={selected}
+                aria-controls={`hero-step-panel-${i}`}
+                tabIndex={selected ? 0 : -1}
+                className="hero-parcours__step"
+                onClick={() => goTo(i)}
+              >
+                <span className="hero-parcours__num">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="hero-parcours__label">{s.label}</span>
+                <span className="hero-parcours__note">{s.note}</span>
+              </button>
+              {selected ? (
+                <div
+                  className="hero-parcours__panel"
+                  role="tabpanel"
+                  id={`hero-step-panel-${i}`}
+                  aria-labelledby={`hero-step-tab-${i}`}
+                >
+                  <p className="hero-parcours__detail">{s.detail}</p>
+                  {!reduce ? (
+                    <span
+                      className={`hero-parcours__timer${paused ? " is-paused" : ""}`}
+                      style={{ animationDuration: `${INTERVAL_MS}ms` }}
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                </div>
+              ) : null}
+            </li>
           );
         })}
-      </div>
-
-      <div
-        className="hero-parcours__stage"
-        role="tabpanel"
-        id="hero-step-panel"
-        aria-labelledby={`hero-step-tab-${active}`}
-        key={step.label}
-      >
-        <div className="hero-parcours__stage-top">
-          <p className="hero-parcours__stage-index">
-            Étape {active + 1}
-            <span> / {STEPS.length}</span>
-          </p>
-          <span className="hero-parcours__stage-mark" aria-hidden="true">
-            {String(active + 1).padStart(2, "0")}
-          </span>
-        </div>
-        <p className="hero-parcours__stage-label">{step.label}</p>
-        <p className="hero-parcours__stage-note">{step.note}</p>
-        <p className="hero-parcours__stage-detail">{step.detail}</p>
-      </div>
-
-      <div className="hero-parcours__footer" aria-hidden="true">
-        <div className="hero-parcours__meter">
-          <span
-            className="hero-parcours__meter-bar"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <p className="hero-parcours__hint">
-          {paused ? "En pause" : "Défile automatiquement"}
-        </p>
-      </div>
+      </ol>
     </div>
   );
 }
