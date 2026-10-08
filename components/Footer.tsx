@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
-import { IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
 export function Footer() {
   const c = data.site.contact;
   const seminars = data.seminaires.seminaires.slice(0, 4);
   const email = plain(c.email);
-  const tel = plain(c.telephone);
   const year = new Date().getFullYear();
 
   return (
@@ -105,12 +104,6 @@ export function Footer() {
                   <a href={`mailto:${email}`}>{email}</a>
                 </li>
                 <li>
-                  <a href={BRAND.phoneHref} className="site-footer__with-icon">
-                    <IconPhone />
-                    {tel}
-                  </a>
-                </li>
-                <li>
                   <a
                     href={BRAND.whatsapp}
                     className="site-footer__wa"
@@ -118,7 +111,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                   >
                     <IconWhatsApp />
-                    WhatsApp
+                    +212 679 724 416
                   </a>
                 </li>
               </ul>
