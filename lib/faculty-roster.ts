@@ -54,7 +54,7 @@ const ROSTER: FacultyShowcasePerson[] = [
     nom: "Youssef El Maddarsi",
     fonction: "Group CEO",
     institution: "Naoris Consulting",
-    photo: "/images/people/youssef-el-maddarsi-red.jpg",
+    photo: "/images/people/youssef-el-maddarsi-red-v2.jpg",
     bio: "Plus de 10 ans d’expérience en développement stratégique, transformation digitale, cybersécurité et innovation technologique. Il pilote chez Naoris Consulting des projets de croissance internationale et de cybersécurité décentralisée, en s’appuyant sur la blockchain et l’architecture post-quantique. Il intervient sur le séminaire Cybersécurité.",
     initials: "YM",
     tone: "blue",
