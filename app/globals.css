@@ -13208,3 +13208,37 @@ img {
   text-align: center;
   color: var(--text-tertiary);
 }
+
+/* ——— CMS toolbar (inside Keystatic) ——— */
+.cms-toolbar {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  background: #00264a;
+  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.5);
+  font-family: system-ui, sans-serif;
+}
+.cms-toolbar__link {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+.cms-toolbar__link:hover,
+.cms-toolbar__link:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+}
+.cms-toolbar__link.is-out {
+  background: #e30613;
+}
+.cms-toolbar__link.is-out:hover,
+.cms-toolbar__link.is-out:focus-visible {
+  background: #b5000e;
+}
