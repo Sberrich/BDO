@@ -37,6 +37,14 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
       .filter((g) => g.questions.length);
   }, [query, onlyHome]);
 
+  const sections = useMemo(
+    () =>
+      onlyHome
+        ? [{ ...groups[0], id: "faq-essentiel", questions: groups.flatMap((g) => g.questions) }]
+        : groups,
+    [groups, onlyHome],
+  );
+
   const total = useMemo(
     () => groups.reduce((n, g) => n + g.questions.length, 0),
     [groups],
@@ -88,7 +96,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
         </div>
       )}
 
-      {groups.map((g, gi) => (
+      {sections.map((g, gi) => (
         <section key={g.id} id={g.id} className="faq-group">
           {!onlyHome && (
             <header className="faq-group__head">

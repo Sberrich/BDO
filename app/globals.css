@@ -11389,3 +11389,84 @@ img {
   border-radius: 20px !important;
   box-shadow: 0 24px 48px -30px rgba(0, 32, 64, 0.4);
 }
+
+/* Compact FAQ: one list of separate cards */
+.faq-explorer.is-compact .faq-accordion {
+  display: grid;
+  gap: 0.6rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.faq-explorer.is-compact .faq-item {
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  background: #fff;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.faq-explorer.is-compact .faq-item:first-child {
+  border-top: 1px solid var(--border-subtle);
+}
+.faq-explorer.is-compact .faq-item:hover {
+  border-color: rgba(0, 32, 64, 0.2);
+}
+.faq-explorer.is-compact .faq-item.is-open {
+  border-color: rgba(0, 32, 64, 0.22);
+  box-shadow: 0 18px 36px -24px rgba(0, 32, 64, 0.35);
+}
+
+/* Admissions FAQ */
+.adm-faq {
+  padding: clamp(3rem, 7vw, 5.5rem) 0;
+  background: #fff;
+}
+.adm-faq__inner {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .adm-faq__inner {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    gap: 4rem;
+    align-items: start;
+  }
+  .adm-faq__head {
+    position: sticky;
+    top: 7rem;
+  }
+}
+.adm-faq__ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+.adm-faq__all {
+  min-height: 48px;
+  padding-inline: 1.35rem !important;
+  border-radius: 999px !important;
+  gap: 0.5rem;
+}
+.adm-faq__all svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.adm-faq__rappel {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.faq-explorer.is-compact .faq-item__trigger {
+  align-items: center;
+}
+.faq-explorer.is-compact .faq-item__icon {
+  margin-top: 0;
+}

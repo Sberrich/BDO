@@ -184,11 +184,27 @@ export default function AdmissionsPage() {
         </Container>
       </section>
 
-      <section className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container>
-          <SectionHeading kicker="FAQ" title="Les questions fréquentes" />
-          <div className="mt-8"><FaqList onlyHome /></div>
-          <div className="mt-8"><ButtonLink href="/faq" variant="secondary">Voir toutes les questions</ButtonLink></div>
+      <section className="adm-faq" aria-labelledby="adm-faq-title">
+        <Container className="adm-faq__inner">
+          <header className="adm-faq__head">
+            <p className="sem-kicker">FAQ</p>
+            <h2 id="adm-faq-title" className="adm-head__title">
+              Les questions fréquentes
+            </h2>
+            <p className="adm-head__lead">
+              Les réponses aux questions que l’on nous pose le plus sur l’admission, le tarif et le financement.
+            </p>
+            <div className="adm-faq__ctas">
+              <ButtonLink href="/faq" variant="ghost" className="adm-faq__all">
+                Voir toutes les questions
+                <IconArrowRight />
+              </ButtonLink>
+              <a href="#rappel" className="adm-faq__rappel">
+                Une autre question ? Être rappelé
+              </a>
+            </div>
+          </header>
+          <FaqList onlyHome />
         </Container>
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">
