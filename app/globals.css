@@ -11698,17 +11698,30 @@ img {
 }
 
 .cta-band {
-  background: var(--brand-navy);
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  background: var(--surface-1, #f4f6f9);
   color: #fff;
 }
 .cta-band__inner {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem 2.5rem;
-  padding-top: clamp(2.75rem, 6vw, 4rem);
-  padding-bottom: clamp(2.75rem, 6vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 24px;
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(232, 0, 18, 0.22), transparent 55%),
+    var(--brand-navy);
+  box-shadow: 0 24px 48px -28px rgba(0, 32, 77, 0.55);
+}
+@media (max-width: 639px) {
+  .cta-band__actions > * {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 }
 .cta-band__kicker {
   margin: 0;

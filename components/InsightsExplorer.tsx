@@ -232,21 +232,23 @@ export function InsightsExplorer({ categories, articles }: Props) {
       </section>
 
       <section className="cta-band" aria-labelledby="insights-band-title">
-        <Container className="cta-band__inner">
-          <div>
-            <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
-            <h2 id="insights-band-title" className="cta-band__title">
-              De l’analyse à la feuille de route de votre direction.
-            </h2>
-          </div>
-          <div className="cta-band__actions">
-            <ButtonLink href="/candidater" className="sem-hero__cta-primary">
-              Candidater
-              <IconArrowRight />
-            </ButtonLink>
-            <ButtonLink href="/a-propos#contact" variant="ghost" className="sem-hero__cta-secondary">
-              Nous contacter
-            </ButtonLink>
+        <Container>
+          <div className="cta-band__inner">
+            <div>
+              <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+              <h2 id="insights-band-title" className="cta-band__title">
+                De l’analyse à la feuille de route de votre direction.
+              </h2>
+            </div>
+            <div className="cta-band__actions">
+              <ButtonLink href="/candidater" className="sem-hero__cta-primary">
+                Candidater
+                <IconArrowRight />
+              </ButtonLink>
+              <ButtonLink href="/a-propos#contact" variant="ghost" className="sem-hero__cta-secondary">
+                Nous contacter
+              </ButtonLink>
+            </div>
           </div>
         </Container>
       </section>
