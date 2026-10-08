@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { IconLinkedIn } from "@/components/icons";
-import { IntervenantsHero } from "@/components/IntervenantsHero";
+import Link from "next/link";
+import { IconArrowRight, IconLinkedIn } from "@/components/icons";
 import { ButtonLink, Container } from "@/components/ui";
-import { SHOW } from "@/lib/content";
+import { data, SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
   facultyHasPhoto,
@@ -17,31 +17,75 @@ export const metadata: Metadata = {
   description: "Les associés, professeurs et praticiens qui animent les séminaires.",
 };
 
+function seminarsBySpeaker() {
+  const map = new Map<string, { numero: number; titre: string }[]>();
+  for (const s of data.seminaires.seminaires) {
+    for (const slug of s.intervenants as readonly string[]) {
+      const list = map.get(slug) ?? [];
+      list.push({ numero: s.numero, titre: plain(s.titre) });
+      map.set(slug, list);
+    }
+  }
+  return map;
+}
+
 export default async function IntervenantsPage() {
   const [{ chapeau }, cms] = await Promise.all([
     getIntervenantsPage(),
     getIntervenants(),
   ]);
   const intervenants = facultyShowcase(cms);
+  const bySpeaker = seminarsBySpeaker();
+  const faces = intervenants.filter((p) => facultyHasPhoto(p)).slice(0, 6);
 
   return (
     <>
-      <IntervenantsHero
-        title="Ils animent les séminaires"
-        lead={chapeau}
-      />
+      <section className="sem-hero iv-hero2" aria-labelledby="iv-title">
+        <Container className="sem-hero__inner">
+          <nav className="sem-hero__crumbs" aria-label="Fil d’Ariane">
+            <Link href="/">Accueil</Link>
+            <span aria-hidden="true">/</span>
+            <span>Intervenants</span>
+          </nav>
+          <div className="sem-hero__grid-layout">
+            <div className="sem-hero__copy">
+              <p className="sem-hero__index">
+                <span className="sem-hero__badge">Les intervenants</span>
+                {intervenants.length} experts · 8 séminaires
+              </p>
+              <h1 id="iv-title" className="sem-hero__title">
+                Ils animent les séminaires
+              </h1>
+              {chapeau ? <p className="sem-hero__lead">{chapeau}</p> : null}
+              <div className="sem-hero__ctas">
+                <ButtonLink href="#equipe" className="sem-hero__cta-primary">
+                  Découvrir l’équipe
+                  <IconArrowRight />
+                </ButtonLink>
+                <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
+                  Voir le programme
+                </ButtonLink>
+              </div>
+            </div>
+            <div className="iv-faces" aria-hidden="true">
+              {faces.map((p, i) => (
+                <span key={p.slug} className={`iv-faces__item is-${i + 1}`}>
+                  <Image src={facultyPhotoSrc(p)} alt="" fill sizes="180px" className="iv-faces__img" />
+                </span>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
 
-      <section className="iv-roster" aria-labelledby="iv-roster-title">
+      <section id="equipe" className="iv-roster" aria-labelledby="iv-roster-title">
         <Container className="iv-roster__inner">
           <header className="iv-roster__head">
             <p className="iv-roster__index">Le corps enseignant</p>
             <h2 id="iv-roster-title" className="iv-roster__title">
               Une équipe plurielle
             </h2>
-            <p className="iv-roster__lead">
-              Associés BDO, praticiens et partenaires — les profils publics croisent
-              aussi le jury du Trophée BDO des CFOs.
-            </p>
+            <p className="iv-roster__lead">Associés BDO, praticiens et partenaires.</p>
           </header>
 
           <ul className="iv-grid">
@@ -49,6 +93,7 @@ export default async function IntervenantsPage() {
               const linkedin = personLinkedIn(p.linkedin);
               const name = plain(p.nom);
               const photo = facultyHasPhoto(p);
+              const teaches = bySpeaker.get(p.slug) ?? [];
               return (
                 <li key={p.slug}>
                   <article id={p.slug} className="iv-card">
@@ -79,8 +124,28 @@ export default async function IntervenantsPage() {
                         {plain(p.fonction)}
                         {p.institution ? ` · ${plain(p.institution)}` : ""}
                       </p>
+                      {teaches.length ? (
+                        <div className="iv-card__teaches">
+                          <span className="iv-card__teaches-label">Intervient sur</span>
+                          <ul>
+                            {teaches.map((t) => (
+                              <li key={t.numero}>
+                                <Link href={`/seminaires/${t.numero}`} className="iv-card__sem">
+                                  <span>S{t.numero}</span>
+                                  {t.titre}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
                       {p.bio ? (
-                        <p className="iv-card__bio">{plain(p.bio)}</p>
+                        <details className="iv-bio">
+                          <summary>
+                            <span className="iv-card__bio">{plain(p.bio)}</span>
+                            <span className="iv-bio__toggle" aria-hidden="true" />
+                          </summary>
+                        </details>
                       ) : null}
                       {linkedin ? (
                         <a
@@ -116,6 +181,26 @@ export default async function IntervenantsPage() {
             <ButtonLink href="/candidater">Candidater</ButtonLink>
           </aside>
           ) : null}
+        </Container>
+      </section>
+
+      <section className="iv-cta" aria-labelledby="iv-cta-title">
+        <Container className="iv-cta__inner">
+          <div>
+            <p className="iv-cta__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+            <h2 id="iv-cta-title" className="iv-cta__title">
+              Travaillez votre projet avec eux, séminaire après séminaire.
+            </h2>
+          </div>
+          <div className="iv-cta__actions">
+            <ButtonLink href="/candidater" className="sem-hero__cta-primary">
+              Candidater
+              <IconArrowRight />
+            </ButtonLink>
+            <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
+              Voir le programme
+            </ButtonLink>
+          </div>
         </Container>
       </section>
     </>
