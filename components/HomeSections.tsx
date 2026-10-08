@@ -8,12 +8,13 @@ import { MediaPressStrip } from "@/components/MediaPressStrip";
 import { PricingBlock } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
+import { PubCard } from "@/components/PubCard";
 import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
-import { IconCert } from "@/components/icons";
+import { IconTrophy } from "@/components/icons";
 import { appHref, plain } from "@/lib/text";
 
 type Props = {
@@ -392,47 +393,21 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           </header>
           <div className="dispo__grid">
             {site.dispositif.items.map((it) => {
-              const cover =
-                it.lien.includes("barometre")
-                  ? RESOURCE_COVERS.barometre
-                  : it.lien.includes("livre-blanc")
-                    ? RESOURCE_COVERS.livreblanc
-                    : null;
+              const baro = it.lien.includes("barometre");
+              const livre = it.lien.includes("livre-blanc");
               return (
-                <Link
+                <PubCard
                   key={it.titre}
                   href={appHref(it.lien)}
-                  className="dispo-card group"
-                >
-                  {cover ? (
-                    <span className="resource-dispositif__cover">
-                      <Image
-                        src={cover}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover object-top"
-                      />
-                    </span>
-                  ) : (
-                    <span className="resource-dispositif__cover resource-dispositif__cover--brand" aria-hidden>
-                      <span className="resource-dispositif__emblem">
-                        <IconCert />
-                      </span>
-                      <span className="resource-dispositif__brand-label">BDO Maroc</span>
-                    </span>
-                  )}
-                  <span className="dispo-card__body">
-                    <h3 className="dispo-card__title">{it.titre}</h3>
-                    <p className="dispo-card__text">{it.texte}</p>
-                    <span className="dispo-card__more">
-                      {it.action}
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                        <path d="M5 12h14M13 6l6 6-6 6" />
-                      </svg>
-                    </span>
-                  </span>
-                </Link>
+                  type={baro ? "Enquête · 2024" : livre ? "Livre blanc" : "Événement annuel"}
+                  title={it.titre}
+                  text={it.texte}
+                  action={it.action}
+                  cover={baro ? RESOURCE_COVERS.barometre : livre ? RESOURCE_COVERS.livreblanc : null}
+                  landscape={baro}
+                  emblem={<IconTrophy />}
+                  emblemLabel="BDO Maroc"
+                />
               );
             })}
           </div>

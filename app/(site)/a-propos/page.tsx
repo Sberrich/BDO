@@ -7,7 +7,7 @@ import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
-import { IconArrowRight, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -18,16 +18,6 @@ const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: numbe
   "Groupe ISCAE": { src: "/images/logo-iscae.png", alt: "Groupe ISCAE", w: 160, h: 50, role: "Excellence académique" },
   "BDO Maroc": { src: "/images/logo-bdo.png", alt: "BDO", w: 120, h: 42, role: "Expertise terrain" },
 };
-
-function IconTrophy() {
-  return (
-    <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M15 7h18v11a9 9 0 0 1-18 0V7Z" />
-      <path d="M15 11H8v3a7 7 0 0 0 7 7M33 11h7v3a7 7 0 0 1-7 7" />
-      <path d="M24 27v7M17 41h14M19 34h10v7H19z" />
-    </svg>
-  );
-}
 
 export default async function AProposPage() {
   const c = data.site.contact;

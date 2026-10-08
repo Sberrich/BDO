@@ -323,3 +323,13 @@ export function IconMail({ size = 18 }: { size?: number }) {
     </svg>
   );
 }
+
+export function IconTrophy() {
+  return (
+    <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M15 7h18v11a9 9 0 0 1-18 0V7Z" />
+      <path d="M15 11H8v3a7 7 0 0 0 7 7M33 11h7v3a7 7 0 0 1-7 7" />
+      <path d="M24 27v7M17 41h14M19 34h10v7H19z" />
+    </svg>
+  );
+}
