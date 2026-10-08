@@ -1,64 +1,70 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
-import { IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconMail, IconPhone, IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
 export function Footer() {
   const c = data.site.contact;
-  const seminars = data.seminaires.seminaires.slice(0, 4);
+  const seminars = data.seminaires.seminaires;
   const email = plain(c.email);
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
-      <div className="site-footer__inner">
-        <div className="site-footer__top">
-          <div className="site-footer__brand">
-            <div className="site-footer__logos">
-              <Image
-                src="/images/logo-iscae.png"
-                alt="Groupe ISCAE"
-                width={280}
-                height={90}
-                className="site-footer__logo site-footer__logo--iscae"
-                priority
-              />
-              <span className="site-footer__rule" aria-hidden />
-              <Image
-                src="/images/logo-bdo.png"
-                alt="BDO"
-                width={200}
-                height={70}
-                className="site-footer__logo site-footer__logo--bdo"
-                priority
-              />
-            </div>
-            <p className="site-footer__tag">{data.site.cosignature}.</p>
-          </div>
-
-          <div className="site-footer__cta-block">
-            <p className="site-footer__cta-label">Prochaine session</p>
-            <p className="site-footer__cta-text">
-              Candidatures ouvertes jusqu’au 30 octobre 2026.
+    <footer className="foot">
+      <div className="foot__inner">
+        <div className="foot__hero">
+          <div>
+            <p className="foot__wordmark">
+              CFO <span>4.0</span>
             </p>
-            <div className="site-footer__cta-row">
-              <Link href="/candidater" className="site-footer__btn site-footer__btn--primary">
+            <p className="foot__tagline">{data.site.sousTitreOfficiel}</p>
+          </div>
+          <div className="foot__cta">
+            <p className="foot__cta-note">
+              <span className="foot__dot" aria-hidden="true" />
+              Candidatures ouvertes jusqu’au 30 octobre 2026
+            </p>
+            <div className="foot__cta-row">
+              <Link href="/candidater" className="foot__btn is-primary">
                 Candidater
+                <IconArrowRight />
               </Link>
-              <Link href="/ressources" className="site-footer__btn site-footer__btn--ghost">
+              <Link href="/ressources/brochure" className="foot__btn is-ghost">
                 Recevoir la brochure
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="site-footer__grid">
-          <nav className="site-footer__col" aria-labelledby="footer-cert">
-            <h2 id="footer-cert" className="site-footer__heading">
+        <div className="foot__grid">
+          <div className="foot__brand">
+            <div className="foot__logos">
+              <Image
+                src="/images/logo-iscae-header.png"
+                alt="Groupe ISCAE"
+                width={351}
+                height={184}
+                className="foot__logo is-iscae"
+              />
+              <span className="foot__logo-rule" aria-hidden="true" />
+              <Image
+                src="/images/logo-bdo-header.png"
+                alt="BDO Maroc"
+                width={418}
+                height={161}
+                className="foot__logo is-bdo"
+              />
+            </div>
+            <p className="foot__brand-text">{data.site.cosignature}.</p>
+            <address className="foot__address">{plain(c.adresseIscae)}</address>
+          </div>
+
+          <nav className="foot__col" aria-labelledby="footer-cert">
+            <h2 id="footer-cert" className="foot__heading">
               Le certificat
             </h2>
-            <ul className="site-footer__list">
+            <ul className="foot__list">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href}>{item.label}</Link>
@@ -73,76 +79,86 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav className="site-footer__col" aria-labelledby="footer-sem">
-            <h2 id="footer-sem" className="site-footer__heading">
+          <nav className="foot__col" aria-labelledby="footer-sem">
+            <h2 id="footer-sem" className="foot__heading">
               Les séminaires
             </h2>
-            <ul className="site-footer__list site-footer__list--sem">
+            <ul className="foot__list is-sem">
               {seminars.map((s) => (
                 <li key={s.numero}>
                   <Link href={`/seminaires/${s.numero}`}>
-                    <span className="site-footer__n" aria-hidden="true">
+                    <span className="foot__n" aria-hidden="true">
                       {String(s.numero).padStart(2, "0")}
                     </span>
-                    <span>{plain(s.titre)}</span>
+                    {plain(s.titre)}
                   </Link>
                 </li>
               ))}
             </ul>
-            <Link href="/programme" className="site-footer__more">
-              Les huit séminaires <span aria-hidden="true">→</span>
-            </Link>
           </nav>
 
-          <div className="site-footer__col" aria-labelledby="footer-contact">
-            <h2 id="footer-contact" className="site-footer__heading">
+          <div className="foot__col" aria-labelledby="footer-contact">
+            <h2 id="footer-contact" className="foot__heading">
               Contact
             </h2>
-            <div className="site-footer__contact">
-              <ul className="site-footer__contact-list">
-                <li>
-                  <a href={`mailto:${email}`}>{email}</a>
-                </li>
-                <li>
-                  <a
-                    href={BRAND.whatsapp}
-                    className="site-footer__wa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+            <ul className="foot__contact">
+              <li>
+                <a href={`mailto:${email}`} className="foot__contact-link">
+                  <span className="foot__contact-icon" aria-hidden="true">
+                    <IconMail />
+                  </span>
+                  <span>
+                    <span className="foot__contact-label">E-mail</span>
+                    {email}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={BRAND.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="foot__contact-link is-wa"
+                >
+                  <span className="foot__contact-icon" aria-hidden="true">
                     <IconWhatsApp />
+                  </span>
+                  <span>
+                    <span className="foot__contact-label">WhatsApp</span>
                     +212 679 724 416
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="site-footer__col" aria-labelledby="footer-legal">
-            <h2 id="footer-legal" className="site-footer__heading">
-              Informations légales
-            </h2>
-            <ul className="site-footer__list">
-              <li>
-                <Link href="/mentions-legales">Mentions légales</Link>
+                  </span>
+                </a>
               </li>
               <li>
-                <Link href="/cgu">CGU</Link>
-              </li>
-              <li>
-                <Link href="/confidentialite">Confidentialité</Link>
+                <Link href="/admissions#rappel" className="foot__contact-link">
+                  <span className="foot__contact-icon" aria-hidden="true">
+                    <IconPhone />
+                  </span>
+                  <span>
+                    <span className="foot__contact-label">Rappel</span>
+                    Être rappelé sous 24&nbsp;h
+                  </span>
+                </Link>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div className="site-footer__bar">
-        <div className="site-footer__bar-inner">
-          <p>© {year} Groupe ISCAE — BDO Maroc</p>
-          <p>
-            {data.site.nom} · {data.site.sousTitreOfficiel}
-          </p>
+      <div className="foot__bar">
+        <div className="foot__bar-inner">
+          <p>© {year} Groupe ISCAE · BDO Maroc</p>
+          <ul className="foot__legal">
+            <li>
+              <Link href="/mentions-legales">Mentions légales</Link>
+            </li>
+            <li>
+              <Link href="/cgu">CGU</Link>
+            </li>
+            <li>
+              <Link href="/confidentialite">Confidentialité</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>
