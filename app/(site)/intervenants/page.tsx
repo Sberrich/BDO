@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { IconLinkedIn, IconPin } from "@/components/icons";
+import { IconLinkedIn } from "@/components/icons";
 import { IntervenantsHero } from "@/components/IntervenantsHero";
 import { ButtonLink, Container } from "@/components/ui";
 import { SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
-  campusLabel,
   facultyHasPhoto,
   facultyPhotoSrc,
   facultyShowcase,
@@ -75,12 +74,6 @@ export default async function IntervenantsPage() {
                       </span>
                     </div>
                     <div className="iv-card__body">
-                      {p.campus ? (
-                        <p className="iv-card__campus">
-                          <IconPin />
-                          {campusLabel(p.campus)}
-                        </p>
-                      ) : null}
                       <h3 className="iv-card__name">{name}</h3>
                       <p className="iv-card__role">
                         {plain(p.fonction)}

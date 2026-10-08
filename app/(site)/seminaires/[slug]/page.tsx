@@ -55,7 +55,6 @@ export default async function SeminairePage({ params }: Props) {
         nom: fromCms.nom,
         fonction: fromCms.fonction,
         institution: fromCms.institution,
-        campus: "Casablanca" as const,
         photo: fromCms.photo,
         linkedin: fromCms.linkedin,
         bio: fromCms.bio,

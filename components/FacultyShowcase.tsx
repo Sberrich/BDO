@@ -5,7 +5,6 @@ import { Reveal } from "@/components/motion";
 import { Container } from "@/components/ui";
 import { IconLinkedIn } from "@/components/icons";
 import {
-  campusLabel,
   facultyHasPhoto,
   facultyHome,
   facultyPhotoSrc,
@@ -54,9 +53,6 @@ function PersonCard({
         <span className="faculty-card__veil" />
       </div>
       <div className="faculty-card__body">
-        {person.campus ? (
-          <span className="faculty-card__campus">{campusLabel(person.campus)}</span>
-        ) : null}
         <p className="faculty-card__name">{name}</p>
         <p className="faculty-card__role">
           {plain(person.fonction)}
