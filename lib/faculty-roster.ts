@@ -67,16 +67,6 @@ const ROSTER: FacultyShowcasePerson[] = [
     tone: "slate",
   },
   {
-    slug: "hanaa-elmardi",
-    nom: "Hanaa El Mardi",
-    fonction: "Fondatrice et dirigeante",
-    institution: "ADLES",
-    campus: "Casablanca",
-    bio: "Hanaa El Mardi, fondatrice et dirigeante d’ADLES, siège au jury du Trophée BDO des CFOs. Elle apporte au certificat une expertise de conduite du changement et de transformation digitale.",
-    initials: "HE",
-    tone: "blue",
-  },
-  {
     slug: "nasser-kettani",
     nom: "Nasser Kettani",
     fonction: "Associé · Cloud & automatisation financière",
