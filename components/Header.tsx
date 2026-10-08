@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NAV, RESOURCES_MENU } from "@/lib/content";
-import { IconFileText, IconLayers, IconPhone } from "@/components/icons";
+import { IconFileText, IconLayers } from "@/components/icons";
 
 function isCurrent(href: string, pathname: string) {
   if (href === "/programme") {
@@ -215,14 +215,6 @@ export function Header() {
 
                 <div className="site-header__mobile-actions">
                   <Link
-                    href="/admissions#rappel"
-                    className="site-header__mobile-rappel"
-                    onClick={closeMobile}
-                  >
-                    <IconPhone />
-                    Être rappelé
-                  </Link>
-                  <Link
                     href="/candidater"
                     className="site-header__mobile-cta"
                     onClick={closeMobile}
@@ -244,25 +236,25 @@ export function Header() {
       <div className="site-header__bar mx-auto flex w-full max-w-[1160px] items-center justify-between gap-3 px-5">
         <Link
           href="/"
-          className="site-header__brand group flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3.5"
+          className="site-header__brand flex min-w-0 shrink-0 items-center"
           aria-label="CFO 4.0 — certificat cosigné par le Groupe ISCAE et BDO Maroc, retour à l’accueil"
           onClick={closeMobile}
         >
           <Image
-            src="/images/logo-iscae.png"
+            src="/images/logo-iscae-header.png"
             alt="Groupe ISCAE"
-            width={180}
-            height={56}
-            className="site-header__logo site-header__logo--iscae h-9 w-auto sm:h-12"
+            width={351}
+            height={184}
+            className="site-header__logo site-header__logo--iscae"
             priority
           />
           <span className="site-header__rule" aria-hidden />
           <Image
-            src="/images/logo-bdo.png"
+            src="/images/logo-bdo-header.png"
             alt="BDO"
-            width={120}
-            height={42}
-            className="site-header__logo site-header__logo--bdo h-8 w-auto sm:h-11"
+            width={418}
+            height={161}
+            className="site-header__logo site-header__logo--bdo"
             priority
           />
         </Link>
@@ -346,11 +338,6 @@ export function Header() {
           </ul>
 
           <div className="site-header__actions ml-2 flex items-center gap-2 pl-3">
-            <Link href="/admissions#rappel" className="site-header__rappel">
-              <IconPhone />
-              <span className="hidden min-[1100px]:inline">Être rappelé</span>
-              <span className="sr-only min-[1100px]:hidden">Être rappelé</span>
-            </Link>
             <Link
               href="/candidater"
               aria-current={isCurrent("/candidater", pathname) ? "page" : undefined}

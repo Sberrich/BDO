@@ -4,7 +4,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
 import { IconBook, IconPhone, IconPlay } from "@/components/icons";
-import { data } from "@/lib/content";
+import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -22,11 +22,22 @@ export default function ProgrammePage() {
       >
           <div className="mt-8 flex flex-wrap items-start gap-x-6 gap-y-5">
             <span className="grid justify-items-start gap-1.5">
-              <ButtonLink href="#session-information" className="px-6 py-3">
-                <IconPlay />
-                Réserver ma place
-              </ButtonLink>
-              <span className="text-xs text-white/55">Une heure en ligne, questions en direct.</span>
+              {SHOW.sessionInfo ? (
+                <>
+                  <ButtonLink href="#session-information" className="px-6 py-3">
+                    <IconPlay />
+                    Réserver ma place
+                  </ButtonLink>
+                  <span className="text-xs text-white/55">Une heure en ligne, questions en direct.</span>
+                </>
+              ) : (
+                <>
+                  <ButtonLink href="/candidater" className="px-6 py-3">
+                    Candidater
+                  </ButtonLink>
+                  <span className="text-xs text-white/55">Réponse sous 24 h.</span>
+                </>
+              )}
             </span>
             <span className="grid justify-items-start gap-1.5">
               <ButtonLink
@@ -76,6 +87,7 @@ export default function ProgrammePage() {
           </ol>
         </Container>
       </section>
+      {SHOW.calendrier ? (
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="Calendrier" title={data.calendrier.intitule} lead={data.calendrier.chapeau} />
@@ -84,6 +96,8 @@ export default function ProgrammePage() {
           </div>
         </Container>
       </section>
+      ) : null}
+      {SHOW.sessionInfo ? (
       <section id="session-information" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="grid items-start gap-10 md:grid-cols-2">
           <div>
@@ -102,6 +116,7 @@ export default function ProgrammePage() {
           </div>
         </Container>
       </section>
+      ) : null}
     </>
   );
 }

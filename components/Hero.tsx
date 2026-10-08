@@ -10,10 +10,8 @@ import {
   IconCal,
   IconClock,
   IconDownload,
-  IconMap,
   IconPhone,
   IconUsers,
-  IconBook,
 } from "@/components/icons";
 
 /** Easy-to-edit hero facts — update these when dates lock in. */
@@ -24,10 +22,10 @@ const HERO_INFO = {
 } as const;
 
 const STATS = [
-  { value: "20", label: "jours de formation", Icon: IconCal },
-  { value: "8", label: "séminaires", Icon: IconBook },
-  { value: "5", label: "mois · Rabat · Casa", Icon: IconMap },
-  { value: "25", label: "places · promo 1", Icon: IconUsers },
+  { value: "111", label: "heures de formation" },
+  { value: "8", label: "séminaires + workshop" },
+  { value: "9", label: "séances, d’octobre à décembre" },
+  { value: "25", label: "places · promo 1" },
 ] as const;
 
 export function Hero() {
@@ -57,7 +55,6 @@ export function Hero() {
                 </p>
                 <p className="hero-cinematic__brand">
                   CFO 4.0
-                  <span className="hero-cinematic__brand-mark" aria-hidden="true" />
                 </p>
               </header>
 
@@ -129,7 +126,7 @@ export function Hero() {
         <div className="hero-cinematic__proof">
           <Container>
             <dl className="hero-cinematic__stats">
-              {STATS.map(({ value, label, Icon }, i) => (
+              {STATS.map(({ value, label }, i) => (
                 <div
                   key={label}
                   className="hero-cinematic__stat"
@@ -137,9 +134,6 @@ export function Hero() {
                 >
                   <dt className="sr-only">{label}</dt>
                   <dd>
-                    <span className="hero-cinematic__stat-icon" aria-hidden="true">
-                      <Icon />
-                    </span>
                     <p className="hero-cinematic__stat-value">{value}</p>
                     <p className="hero-cinematic__stat-label">{label}</p>
                   </dd>

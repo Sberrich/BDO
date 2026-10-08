@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IconLinkedIn, IconPin } from "@/components/icons";
 import { IntervenantsHero } from "@/components/IntervenantsHero";
 import { ButtonLink, Container } from "@/components/ui";
+import { SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
   campusLabel,
@@ -105,6 +106,7 @@ export default async function IntervenantsPage() {
             })}
           </ul>
 
+          {SHOW.soutenance ? (
           <aside className="iv-jury" aria-labelledby="iv-jury-title">
             <div>
               <p className="iv-jury__kicker">Soutenance</p>
@@ -118,6 +120,7 @@ export default async function IntervenantsPage() {
             </div>
             <ButtonLink href="/candidater">Candidater</ButtonLink>
           </aside>
+          ) : null}
         </Container>
       </section>
     </>

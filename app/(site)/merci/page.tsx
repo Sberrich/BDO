@@ -8,7 +8,6 @@ import { ButtonLink, Container, Kicker } from "@/components/ui";
 
 const NEXT_STEPS = [
   { href: "/programme", label: "Parcourir les huit séminaires" },
-  { href: "/admissions#calendrier", label: "Vérifier le calendrier" },
   { href: "/ressources", label: "Télécharger les publications" },
 ];
 

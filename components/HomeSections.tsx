@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { data, RESOURCE_COVERS } from "@/lib/content";
+import { data, RESOURCE_COVERS, SHOW } from "@/lib/content";
 import type { Intervenant } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
@@ -259,29 +259,46 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
-      <section id="calendrier" className="cal-band" aria-labelledby="calendrier-title">
+      <section
+        id={SHOW.calendrier ? "calendrier" : "tarif"}
+        className="cal-band"
+        aria-labelledby="calendrier-title"
+      >
         <span className="cal-band__glow" aria-hidden="true" />
         <span className="cal-band__grid" aria-hidden="true" />
         <Container className="cal-band__inner">
-          <header className="cal-band__head">
-            <div>
-              <p className="cal-band__index">07 — Calendrier et tarif</p>
-              <h2 id="calendrier-title" className="cal-band__title">
-                Calendrier de la promotion 1.
-                <br />
-                <em>D’octobre à décembre 2026.</em>
-              </h2>
-            </div>
-            <p className="cal-band__lead">{data.calendrier.chapeau}</p>
-          </header>
+          {SHOW.calendrier ? (
+            <>
+              <header className="cal-band__head">
+                <div>
+                  <p className="cal-band__index">07 — Calendrier et tarif</p>
+                  <h2 id="calendrier-title" className="cal-band__title">
+                    Calendrier de la promotion 1.
+                    <br />
+                    <em>D’octobre à décembre 2026.</em>
+                  </h2>
+                </div>
+                <p className="cal-band__lead">{data.calendrier.chapeau}</p>
+              </header>
 
-          <div className="cal-band__block">
-            <p className="cal-band__block-label">Le calendrier</p>
-            <CalendarTable />
-          </div>
+              <div className="cal-band__block">
+                <p className="cal-band__block-label">Le calendrier</p>
+                <CalendarTable />
+              </div>
+            </>
+          ) : (
+            <header className="cal-band__head">
+              <div>
+                <p className="cal-band__index">07 — Le tarif</p>
+                <h2 id="calendrier-title" className="cal-band__title">
+                  Tarif de la promotion 1.
+                </h2>
+              </div>
+            </header>
+          )}
 
-          <div className="cal-band__block is-tarif" id="tarif">
-            <p className="cal-band__block-label">Le tarif</p>
+          <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
+            {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
             <PricingBlock showCtas />
           </div>
         </Container>
@@ -314,6 +331,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
+      {SHOW.sessionInfo ? (
       <section id="session-information" className="bg-white py-16 md:py-[4.5rem]">
         <Container className="grid items-start gap-10 md:grid-cols-2">
           <div>
@@ -332,6 +350,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           </div>
         </Container>
       </section>
+      ) : null}
 
       <section id="video" className="videoband" aria-labelledby="video-title">
         <span className="videoband__glow" aria-hidden="true" />
@@ -351,9 +370,11 @@ export function HomeSections({ speakers, speakersLead }: Props) {
               <li>
                 <span>02</span> Le projet
               </li>
-              <li>
-                <span>03</span> La soutenance
-              </li>
+              {SHOW.soutenance ? (
+                <li>
+                  <span>03</span> La soutenance
+                </li>
+              ) : null}
             </ul>
             <p className="videoband__meta">
               <span className="videoband__meta-dot" aria-hidden="true" />

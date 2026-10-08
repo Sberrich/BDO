@@ -6,7 +6,7 @@ import { ButtonLink, Container } from "@/components/ui";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { SeminarDaysSwitch } from "@/components/SeminarDaysSwitch";
 import { getIntervenants } from "@/lib/cms";
-import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
+import { allSessions, SHOW, sessionBySlug, sessionHref } from "@/lib/content";
 import {
   facultyHasPhoto,
   facultyPhotoSrc,
@@ -254,20 +254,27 @@ export default async function SeminairePage({ params }: Props) {
       <section className="sem-calband" aria-labelledby="sem-calband-title">
         <Container className="sem-calband__inner">
           <div>
-            <p className="sem-calband__index">Calendrier et tarif</p>
+            <p className="sem-calband__index">{SHOW.calendrier ? "Calendrier et tarif" : "Tarif"}</p>
             <h2 id="sem-calband-title" className="sem-calband__title">
-              Dates, rythme et investissement.
+              {SHOW.calendrier ? "Dates, rythme et investissement." : "L’investissement."}
             </h2>
             <p className="sem-calband__lead">
-              Retrouvez le calendrier complet de la promotion 1 et le tarif du certificat.
+              {SHOW.calendrier
+                ? "Retrouvez le calendrier complet de la promotion 1 et le tarif du certificat."
+                : "Retrouvez le tarif du certificat."}
             </p>
           </div>
           <div className="sem-calband__ctas">
-            <Link href="/#calendrier" className="sem-calband__cta is-primary">
-              Voir le calendrier
-              <IconArrowRight />
-            </Link>
-            <Link href="/#tarif" className="sem-calband__cta">
+            {SHOW.calendrier ? (
+              <Link href="/#calendrier" className="sem-calband__cta is-primary">
+                Voir le calendrier
+                <IconArrowRight />
+              </Link>
+            ) : null}
+            <Link
+              href="/#tarif"
+              className={`sem-calband__cta ${SHOW.calendrier ? "" : "is-primary"}`}
+            >
               Voir le tarif
               <IconArrowRight />
             </Link>

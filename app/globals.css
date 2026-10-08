@@ -1049,50 +1049,78 @@ input[type="radio"] {
 }
 
 .site-header {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: saturate(1.2) blur(16px);
-  -webkit-backdrop-filter: saturate(1.2) blur(16px);
-  border-bottom: 1px solid transparent;
-  transition:
-    background var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out),
-    border-color var(--duration-base) var(--ease-out);
+  /* ISCAE height drives the lockup; BDO is ~0.72× so both wordmarks share a cap height. */
+  --logo-iscae: 2rem;
+  --logo-bdo: 1.45rem;
+  --logo-gap: 0.85rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background var(--duration-base) var(--ease-out);
+}
+@media (min-width: 400px) {
+  .site-header {
+    --logo-iscae: 2.25rem;
+    --logo-bdo: 1.625rem;
+    --logo-gap: 1rem;
+  }
+}
+@media (min-width: 640px) {
+  .site-header {
+    --logo-iscae: 2.6rem;
+    --logo-bdo: 1.875rem;
+    --logo-gap: 1.25rem;
+  }
+}
+@media (min-width: 1100px) {
+  .site-header {
+    --logo-iscae: 2.9rem;
+    --logo-bdo: 2.1rem;
+    --logo-gap: 1.4rem;
+  }
 }
 .site-header.is-scrolled,
 .site-header.is-open {
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom-color: var(--border-subtle);
-  box-shadow: 0 10px 30px rgba(26, 35, 50, 0.07);
+  background: #fff;
+}
+.site-header.is-scrolled {
+  --logo-iscae: 2rem;
+  --logo-bdo: 1.45rem;
+}
+@media (min-width: 640px) {
+  .site-header.is-scrolled {
+    --logo-iscae: 2.35rem;
+    --logo-bdo: 1.7rem;
+  }
 }
 .site-header__bar {
   min-height: var(--header-h);
   transition: min-height var(--duration-base) var(--ease-out);
 }
 .site-header.is-scrolled .site-header__bar {
-  min-height: 72px;
+  min-height: 68px;
+}
+.site-header__brand {
+  gap: var(--logo-gap);
 }
 .site-header__logo {
-  transition: transform var(--duration-base) var(--ease-out);
+  display: block;
+  width: auto;
+  transition: height var(--duration-base) var(--ease-out);
 }
-.site-header__brand:hover .site-header__logo {
-  transform: scale(1.02);
+.site-header__logo--iscae {
+  height: var(--logo-iscae);
+}
+.site-header__logo--bdo {
+  height: var(--logo-bdo);
 }
 .site-header__rule {
   width: 1px;
-  height: 2.5rem;
+  height: calc(var(--logo-iscae) * 0.78);
   flex-shrink: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--brand-blue) 18%,
-    var(--brand-blue) 82%,
-    transparent
-  );
-}
-@media (min-width: 640px) {
-  .site-header__rule {
-    height: 2.75rem;
-  }
+  background: var(--border-strong);
+  transition: height var(--duration-base) var(--ease-out);
 }
 .site-header__link {
   position: relative;
@@ -1109,32 +1137,12 @@ input[type="radio"] {
     color var(--duration-fast) var(--ease-out),
     background var(--duration-fast) var(--ease-out);
 }
-.site-header__link::after {
-  content: "";
-  position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.2rem;
-  height: 2px;
-  border-radius: 1px;
-  background: var(--brand-red);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--duration-base) var(--ease-out);
-}
 .site-header__link:hover,
 .site-header__link:focus-visible {
   color: var(--brand-navy);
-  background: var(--brand-blue-soft);
-}
-.site-header__link:hover::after,
-.site-header__link:focus-visible::after,
-.site-header__link.is-current::after {
-  transform: scaleX(1);
 }
 .site-header__link.is-current {
   color: var(--brand-navy);
-  font-weight: 700;
 }
 .site-header__dd {
   position: relative;
@@ -1354,18 +1362,14 @@ input[type="radio"] {
   font-weight: 700;
   letter-spacing: 0.01em;
   text-decoration: none;
-  box-shadow: var(--shadow-cta);
   transition:
     background var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
+    border-color var(--duration-fast) var(--ease-out);
 }
 .site-header__cta:hover,
 .site-header__cta:focus-visible {
   background: var(--brand-red-dark);
   border-color: var(--brand-red-dark);
-  box-shadow: 0 8px 22px rgba(232, 26, 59, 0.28);
-  transform: translateY(-1px);
 }
 .site-header__burger {
   display: inline-flex;
@@ -1844,14 +1848,6 @@ body[data-nav="open"] .mobile-bar {
   color: rgba(255, 255, 255, 0.78);
   line-height: 1.45;
 }
-.hero-cinematic__eyebrow::before {
-  content: "";
-  width: 0.55rem;
-  height: 0.55rem;
-  flex-shrink: 0;
-  background: var(--brand-red);
-  box-shadow: 0 0 0 4px rgba(227, 6, 19, 0.22);
-}
 .hero-cinematic__brand {
   position: relative;
   margin: 0;
@@ -1862,15 +1858,6 @@ body[data-nav="open"] .mobile-bar {
   line-height: 0.92;
   letter-spacing: -0.045em;
   color: #fff;
-}
-.hero-cinematic__brand-mark {
-  position: absolute;
-  left: 0;
-  bottom: -0.2rem;
-  width: 42%;
-  height: 0.22rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--brand-red), rgba(227, 6, 19, 0.15));
 }
 .hero-cinematic__message {
   margin-top: 1.5rem;
@@ -1977,7 +1964,7 @@ body[data-nav="open"] .mobile-bar {
   border-color: var(--brand-red) !important;
   background: var(--brand-red) !important;
   color: #fff !important;
-  box-shadow: 0 12px 28px rgba(227, 6, 19, 0.32) !important;
+  box-shadow: none !important;
 }
 .hero-cinematic__cta-primary:hover,
 .hero-cinematic__cta-primary:focus-visible {
@@ -2053,33 +2040,14 @@ body[data-nav="open"] .mobile-bar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.45rem;
+  gap: 0.35rem;
   min-height: 100%;
-  padding: 1.05rem 1.1rem 1.1rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-}
-.hero-cinematic__stat-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 9px;
-  background: rgba(0, 98, 184, 0.28);
-  color: #fff;
-  border: 1px solid rgba(158, 197, 234, 0.28);
-}
-.hero-cinematic__stat-icon svg {
-  width: 1rem;
-  height: 1rem;
+  padding: 0.2rem 0 0.2rem 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
 }
 .hero-cinematic__stat-value {
-  margin: 0.2rem 0 0;
-  font-size: clamp(1.55rem, 1.25rem + 0.9vw, 2rem);
+  margin: 0;
+  font-size: clamp(1.9rem, 1.4rem + 1.4vw, 2.6rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -10304,13 +10272,6 @@ a.about-contact__card:focus-visible {
   .site-header.is-scrolled .site-header__bar {
     min-height: 58px;
   }
-  .site-header__logo--iscae {
-    height: 2.15rem !important;
-  }
-  .site-header__logo--bdo {
-    height: 1.85rem !important;
-  }
-
   .hero-cinematic__inner {
     padding-top: 4.25rem;
     padding-bottom: 1.75rem;
@@ -10746,4 +10707,17 @@ a.about-contact__card:focus-visible {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* "Être rappelé" band: soft vertical fade + lifted form card */
+.rappel-band {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-1) 0%, #fff 70%);
+  box-shadow: inset 0 18px 24px -22px rgba(0, 30, 60, 0.18);
+}
+.rappel-band__card {
+  border: 1px solid var(--border-subtle);
+  box-shadow:
+    0 1px 2px rgba(0, 30, 60, 0.04),
+    0 28px 48px -32px rgba(0, 30, 60, 0.3);
 }

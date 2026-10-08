@@ -43,6 +43,13 @@ export const RESOURCES_MENU = [
   },
 ] as const;
 
+/** Set a flag back to true to show the section again everywhere on the site. */
+export const SHOW = {
+  calendrier: false,
+  soutenance: false,
+  sessionInfo: false,
+} as const;
+
 export const NAV = [
   { href: "/programme", label: "Le programme" },
   { href: "/admissions", label: "Admissions" },

@@ -4,12 +4,12 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock, PricingConditions } from "@/components/PricingBlock";
 import { ButtonLink, Container, PageHero, SectionHeading } from "@/components/ui";
-import { data } from "@/lib/content";
+import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Admissions",
-  description: "Tarif, calendrier, éligibilité et processus d’admission du certificat CFO 4.0.",
+  description: "Tarif, éligibilité, financement et processus d’admission du certificat CFO 4.0.",
 };
 
 export default function AdmissionsPage() {
@@ -19,13 +19,17 @@ export default function AdmissionsPage() {
     <>
       <PageHero
         kicker="Admissions"
-        title="Le prix, le calendrier, l’éligibilité, le financement, le processus"
+        title={
+          SHOW.calendrier
+            ? "Le prix, le calendrier, l’éligibilité, le financement, le processus"
+            : "Le prix, l’éligibilité, le financement, le processus"
+        }
         lead={`Candidatures pour la promotion 1 closes le ${plain(a.dateLimite)}.`}
       >
           <ul className="mt-6 flex flex-wrap gap-2">
             {[
               ["#tarif", "Le tarif"],
-              ["#calendrier", "Le calendrier"],
+              ...(SHOW.calendrier ? [["#calendrier", "Le calendrier"]] : []),
               ["#profil", "L’éligibilité"],
               ["#processus", "Le processus"],
               ["#rappel", "Être rappelé"],
@@ -60,12 +64,14 @@ export default function AdmissionsPage() {
           <PricingConditions />
         </Container>
       </section>
-      <section id="calendrier" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
-        <Container>
-          <SectionHeading kicker="Calendrier" title={data.calendrier.intitule} lead={data.calendrier.chapeau} />
-          <div className="mt-8"><CalendarTable /></div>
-        </Container>
-      </section>
+      {SHOW.calendrier ? (
+        <section id="calendrier" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
+          <Container>
+            <SectionHeading kicker="Calendrier" title={data.calendrier.intitule} lead={data.calendrier.chapeau} />
+            <div className="mt-8"><CalendarTable /></div>
+          </Container>
+        </section>
+      ) : null}
       <section id="profil" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="L’éligibilité" title={data.site.profil.titre} lead={data.site.profil.chapeau} />
@@ -104,7 +110,7 @@ export default function AdmissionsPage() {
           <div className="mt-8"><ButtonLink href="/faq" variant="secondary">Voir toutes les questions</ButtonLink></div>
         </Container>
       </section>
-      <section id="rappel" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
+      <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="grid gap-10 md:grid-cols-2">
           <div>
             <SectionHeading
@@ -117,7 +123,7 @@ export default function AdmissionsPage() {
               <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
             </p>
           </div>
-          <div className="rounded-md bg-cream p-6 sm:p-8">
+          <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
             <LeadForm kind="rappel" prefix="r" submitVariant="secondary" />
           </div>
         </Container>
