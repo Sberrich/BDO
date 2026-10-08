@@ -89,6 +89,12 @@ const DOCS: Record<
   },
 };
 
+const PUB_TYPE: Record<string, string> = {
+  brochure: "Brochure · PDF",
+  barometre: "Enquête · PDF",
+  livreblanc: "Livre blanc · PDF",
+};
+
 export function resourceMetadata(kind: DocKind): Metadata {
   const d = DOCS[kind];
   return { title: d.metaTitle, description: d.metaDesc };
@@ -197,24 +203,29 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
               <h2 id="doc-others-title" className="doc-others__title">
                 Autres publications
               </h2>
-              <Link href="/insights" className="doc-others__all">
-                Voir les Insights <span aria-hidden="true">→</span>
+              <Link href="/ressources" className="doc-others__all">
+                Toutes les ressources
+                <IconArrowRight />
               </Link>
             </div>
             <ul className="doc-others__grid">
               {others.map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className="doc-card">
-                    <span className="doc-card__cover" aria-hidden>
+                  <Link href={r.href} className="doc-pub">
+                    <span className="doc-pub__visual" aria-hidden>
                       {r.cover ? (
-                        <Image src={r.cover} alt="" fill sizes="120px" className="object-cover object-top" />
+                        <span className="doc-pub__book">
+                          <Image src={r.cover} alt="" width={320} height={420} sizes="160px" />
+                        </span>
                       ) : null}
                     </span>
-                    <span className="doc-card__body">
-                      <span className="doc-card__title">{r.label}</span>
-                      <span className="doc-card__desc">{r.desc}</span>
-                      <span className="doc-card__more">
-                        Recevoir le document <span aria-hidden="true">→</span>
+                    <span className="doc-pub__body">
+                      <span className="doc-pub__type">{PUB_TYPE[r.icon] ?? "Publication"}</span>
+                      <span className="doc-pub__title">{r.label}</span>
+                      <span className="doc-pub__desc">{r.desc}</span>
+                      <span className="doc-pub__more">
+                        Recevoir le document
+                        <IconArrowRight />
                       </span>
                     </span>
                   </Link>
