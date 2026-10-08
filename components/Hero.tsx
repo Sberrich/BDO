@@ -14,11 +14,10 @@ const HERO_INFO = {
   candidaturesUntil: "26 décembre 2026",
 } as const;
 
-const STATS = [
-  { value: "111", label: "heures de formation" },
-  { value: "8", label: "séminaires + workshop" },
-  { value: "9", label: "séances, d’octobre à décembre" },
-  { value: "25", label: "places · promo 1" },
+const PARTNERS = [
+  { name: "Ordre des Experts Comptables", src: "/images/partenaires/oec.png", w: 368, h: 262, size: "is-oec" },
+  { name: "Groupe ISCAE", src: "/images/logo-iscae-header.png", w: 351, h: 184, size: "is-iscae" },
+  { name: "BDO Maroc", src: "/images/logo-bdo-header.png", w: 418, h: 161, size: "is-bdo" },
 ] as const;
 
 export function Hero() {
@@ -100,22 +99,15 @@ export function Hero() {
         </Container>
 
         <div className="hero-cinematic__proof">
-          <Container>
-            <dl className="hero-cinematic__stats">
-              {STATS.map(({ value, label }, i) => (
-                <div
-                  key={label}
-                  className="hero-cinematic__stat"
-                  style={{ animationDelay: `${0.4 + i * 0.06}s` }}
-                >
-                  <dt className="sr-only">{label}</dt>
-                  <dd>
-                    <p className="hero-cinematic__stat-value">{value}</p>
-                    <p className="hero-cinematic__stat-label">{label}</p>
-                  </dd>
-                </div>
+          <Container className="hero-cinematic__partners">
+            <p className="hero-cinematic__partners-label">En partenariat avec</p>
+            <ul className="hero-cinematic__logos">
+              {PARTNERS.map((p) => (
+                <li key={p.name} className={`hero-cinematic__logo ${p.size}`}>
+                  <Image src={p.src} alt={p.name} width={p.w} height={p.h} />
+                </li>
               ))}
-            </dl>
+            </ul>
           </Container>
         </div>
       </section>

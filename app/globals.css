@@ -1979,56 +1979,80 @@ body[data-nav="open"] .mobile-bar {
 .hero-cinematic__proof {
   position: relative;
   z-index: 1;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 14, 32, 0.6);
+  background: #fff;
+  border-bottom: 1px solid var(--border-subtle);
 }
-.hero-cinematic__stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin: 0;
-  padding: 1.25rem 0 1.4rem;
-}
-@media (min-width: 720px) {
-  .hero-cinematic__stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    padding: 1.6rem 0;
-  }
-  .hero-cinematic__stat + .hero-cinematic__stat dd {
-    border-left: 1px solid rgba(255, 255, 255, 0.14);
-  }
-}
-.hero-cinematic__stat {
-  margin: 0;
-  animation: hero-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.hero-cinematic__stat dd {
-  margin: 0;
+.hero-cinematic__partners {
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  min-height: 100%;
-  padding: 0.15rem 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2.5rem;
+  padding-block: 1.5rem;
 }
-.hero-cinematic__stat:first-child dd {
-  padding-left: 0;
-}
-.hero-cinematic__stat-value {
+.hero-cinematic__partners-label {
   margin: 0;
-  font-size: clamp(1.9rem, 1.4rem + 1.2vw, 2.4rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-  color: #fff;
-}
-.hero-cinematic__stat-label {
-  margin: 0;
-  max-width: 11rem;
   font-size: 0.8125rem;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.66);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.hero-cinematic__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 0;
+}
+.hero-cinematic__logo {
+  display: flex;
+  align-items: center;
+  padding-inline: clamp(1.25rem, 3vw, 2.75rem);
+}
+.hero-cinematic__logo + .hero-cinematic__logo {
+  border-left: 1px solid var(--border-subtle);
+}
+.hero-cinematic__logo:last-child {
+  padding-right: 0;
+}
+.hero-cinematic__logo img {
+  display: block;
+  width: auto;
+}
+.hero-cinematic__logo.is-oec img {
+  height: 4rem;
+}
+.hero-cinematic__logo.is-iscae img {
+  height: 3.4rem;
+}
+.hero-cinematic__logo.is-bdo img {
+  height: 2.35rem;
+}
+@media (max-width: 640px) {
+  .hero-cinematic__partners {
+    justify-content: center;
+    padding-block: 1.25rem;
+  }
+  .hero-cinematic__logos {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hero-cinematic__logo {
+    padding-inline: 0;
+  }
+  .hero-cinematic__logo + .hero-cinematic__logo {
+    border-left: 0;
+  }
+  .hero-cinematic__logo.is-oec img {
+    height: 2.6rem;
+  }
+  .hero-cinematic__logo.is-iscae img {
+    height: 2.2rem;
+  }
+  .hero-cinematic__logo.is-bdo img {
+    height: 1.5rem;
+  }
 }
 
 /* Parcours card — vertical step list */
@@ -5866,7 +5890,6 @@ body[data-nav="open"] .mobile-bar {
   .hero-enter > *,
   .hero-panel-enter,
   .hero-journey-enter,
-  .hero-cinematic__stat,
   .hero-parcours__panel,
   .hero-parcours__timer,
   .home-band__glow,
@@ -10183,21 +10206,7 @@ a.about-contact__card:focus-visible {
     width: 100%;
     min-height: 50px;
   }
-  .hero-cinematic__stats {
-    gap: 1rem 0.75rem;
-    padding: 1.1rem 0 1.25rem;
-  }
-  .hero-cinematic__stat dd {
-    flex-direction: column;
-    gap: 0.3rem;
-    padding: 0;
-  }
-  .hero-cinematic__stat-value {
-    font-size: 1.6rem;
-  }
-  .hero-cinematic__stat-label {
-    font-size: 0.75rem;
-  }
+
 
   .page-hero .relative.z-\[1\],
   .page-hero [class*="max-w"] {
