@@ -11912,3 +11912,142 @@ img {
   font-weight: 700;
   line-height: 1.2;
 }
+
+/* ——— À propos: facts strip ——— */
+.about-facts {
+  background: #fff;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.about-facts__list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+}
+.about-facts__item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.25rem;
+  padding: 1.5rem 1.25rem;
+  border-left: 1px solid var(--border-subtle);
+}
+.about-facts__item:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.about-facts__item dt {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+.about-facts__item dd {
+  margin: 0;
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--brand-navy);
+}
+@media (max-width: 899px) {
+  .about-facts__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-facts__item,
+  .about-facts__item:first-child {
+    padding: 1rem 0.75rem;
+    border-left: 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .about-facts__item:nth-child(-n + 2) {
+    border-top: 0;
+  }
+  .about-facts__item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ——— À propos: institution role ——— */
+.about-card__role {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 55, 104, 0.07);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-navy);
+}
+
+/* ——— À propos: trophée two columns ——— */
+.about-trophee__inner {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 860px) {
+  .about-trophee__inner {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: stretch;
+  }
+}
+.about-trophee__perk {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 18px;
+  color: #fff;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(232, 0, 18, 0.28), transparent 55%),
+    var(--brand-navy);
+  box-shadow: 0 20px 40px -26px rgba(0, 32, 77, 0.6);
+}
+.about-trophee__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: auto;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffd27a;
+}
+.about-trophee__icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+.about-trophee__perk-kicker {
+  margin: 1.25rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ec5ea;
+}
+.about-trophee__perk-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.about-trophee__perk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+.about-trophee__perk-link svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform 0.18s ease;
+}
+.about-trophee__perk-link:hover svg {
+  transform: translateX(3px);
+}

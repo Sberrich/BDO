@@ -4,7 +4,8 @@ import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
-import { BRAND, data } from "@/lib/content";
+import { allSessions, BRAND, data } from "@/lib/content";
+import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
 import { IconArrowRight, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
@@ -13,13 +14,31 @@ export const metadata: Metadata = {
   description: "Le Groupe ISCAE, BDO Maroc et le dispositif du certificat CFO 4.0.",
 };
 
-const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number }> = {
-  "Groupe ISCAE": { src: "/images/logo-iscae.png", alt: "Groupe ISCAE", w: 160, h: 50 },
-  "BDO Maroc": { src: "/images/logo-bdo.png", alt: "BDO", w: 120, h: 42 },
+const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number; role: string }> = {
+  "Groupe ISCAE": { src: "/images/logo-iscae.png", alt: "Groupe ISCAE", w: 160, h: 50, role: "Excellence académique" },
+  "BDO Maroc": { src: "/images/logo-bdo.png", alt: "BDO", w: 120, h: 42, role: "Expertise terrain" },
 };
+
+function IconTrophy() {
+  return (
+    <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M15 7h18v11a9 9 0 0 1-18 0V7Z" />
+      <path d="M15 11H8v3a7 7 0 0 0 7 7M33 11h7v3a7 7 0 0 1-7 7" />
+      <path d="M24 27v7M17 41h14M19 34h10v7H19z" />
+    </svg>
+  );
+}
 
 export default async function AProposPage() {
   const c = data.site.contact;
+  const seminarCount = allSessions().filter((s) => s.numero > 0).length;
+  const facts = [
+    { value: String(seminarCount), label: "séminaires" },
+    { value: String(facultyShowcase().length), label: "intervenants" },
+    { value: "25", label: "places par promotion" },
+    { value: "Oct → déc.", label: "calendrier 2026" },
+    { value: "Casablanca", label: "lieu de formation" },
+  ];
   const speakers = await getIntervenants();
   const zakaria =
     speakers.find((p) => p.slug === "zakaria-fahim") ||
@@ -98,6 +117,19 @@ export default async function AProposPage() {
         </Container>
       </section>
 
+      <section className="about-facts" aria-label="Le certificat en bref">
+        <Container>
+          <dl className="about-facts__list">
+            {facts.map((f) => (
+              <div key={f.label} className="about-facts__item">
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
+
       <section className="about-inst" aria-labelledby="about-inst-title">
         <Container className="about-inst__inner">
           <header className="about-inst__head">
@@ -124,6 +156,7 @@ export default async function AProposPage() {
                       />
                     </div>
                   ) : null}
+                  {logo ? <p className="about-card__role">{logo.role}</p> : null}
                   <h3 className="about-card__title">{x.nom}</h3>
                   <p className="about-card__text">{x.texte}</p>
                 </article>
@@ -155,6 +188,17 @@ export default async function AProposPage() {
               <IconArrowRight />
             </a>
           </div>
+          <aside className="about-trophee__perk" aria-label="Avantage lauréats">
+            <span className="about-trophee__icon">
+              <IconTrophy />
+            </span>
+            <p className="about-trophee__perk-kicker">Lauréats du Trophée</p>
+            <p className="about-trophee__perk-title">Conditions particulières pour le certificat</p>
+            <Link href="/admissions#tarif" className="about-trophee__perk-link">
+              Voir le tarif
+              <IconArrowRight />
+            </Link>
+          </aside>
         </Container>
       </section>
 
