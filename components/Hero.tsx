@@ -82,8 +82,8 @@ export function Hero() {
               />
 
               <p className="hero-cinematic__lead">
-                D’octobre à décembre 2026, à <strong>Rabat</strong> et{" "}
-                <strong>Casablanca</strong>&nbsp;: un projet appliqué à votre
+                D’octobre à décembre 2026, à <strong>Casablanca</strong>&nbsp;: un
+                projet appliqué à votre
                 entreprise, du diagnostic à la mise en œuvre.
               </p>
 
