@@ -86,26 +86,6 @@ const ROSTER: FacultyShowcasePerson[] = [
     initials: "NK",
     tone: "blue",
   },
-  {
-    slug: "saad-mohamed",
-    nom: "Saad Mohamed",
-    fonction: "Expert · Cash management & IoT",
-    institution: "BDO Maroc",
-    campus: "Casablanca",
-    bio: "Saad Mohamed conseille les directions financières sur l’optimisation du cycle de trésorerie, les plateformes de cash management et l’apport de l’IoT au besoin en fonds de roulement.",
-    initials: "SM",
-    tone: "navy",
-  },
-  {
-    slug: "jawad-benheddou",
-    nom: "Jawad Benheddou",
-    fonction: "Expert · Cybersécurité financière",
-    institution: "Naoris",
-    campus: "Casablanca",
-    bio: "Jawad Benheddou intervient sur les menaces visant la fonction finance, la sécurisation des règlements et la construction de matrices de risques numériques. Il représente l’expertise Naoris au sein du certificat.",
-    initials: "JB",
-    tone: "red",
-  },
 ];
 
 function mergeCms(person: FacultyShowcasePerson, cms: Intervenant[]): FacultyShowcasePerson {
