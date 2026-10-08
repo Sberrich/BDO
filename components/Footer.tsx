@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
-import { IconArrowRight, IconMail, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
 export function Footer() {
   const c = data.site.contact;
   const seminars = data.seminaires.seminaires;
+  const inaugurale = data.seminaires.inaugurale;
   const email = plain(c.email);
   const year = new Date().getFullYear();
 
@@ -39,6 +40,7 @@ export function Footer() {
 
         <div className="foot__grid">
           <div className="foot__brand">
+            <div className="foot__brand-card">
             <div className="foot__logos">
               <Image
                 src="/images/logo-iscae-header.png"
@@ -57,7 +59,13 @@ export function Footer() {
               />
             </div>
             <p className="foot__brand-text">{data.site.cosignature}.</p>
-            <address className="foot__address">{plain(c.adresseIscae)}</address>
+            </div>
+            <address className="foot__address">
+              <span className="foot__address-icon" aria-hidden="true">
+                <IconPin />
+              </span>
+              {plain(c.adresseIscae)}
+            </address>
           </div>
 
           <nav className="foot__col" aria-labelledby="footer-cert">
@@ -84,6 +92,14 @@ export function Footer() {
               Les séminaires
             </h2>
             <ul className="foot__list is-sem">
+              <li>
+                <Link href={`/seminaires/${inaugurale.slug}`}>
+                  <span className="foot__n is-in" aria-hidden="true">
+                    IN
+                  </span>
+                  {plain(inaugurale.titre)}
+                </Link>
+              </li>
               {seminars.map((s) => (
                 <li key={s.numero}>
                   <Link href={`/seminaires/${s.numero}`}>
@@ -111,6 +127,7 @@ export function Footer() {
                     <span className="foot__contact-label">E-mail</span>
                     {email}
                   </span>
+                  <IconArrowRight />
                 </a>
               </li>
               <li>
@@ -127,6 +144,7 @@ export function Footer() {
                     <span className="foot__contact-label">WhatsApp</span>
                     +212 679 724 416
                   </span>
+                  <IconArrowRight />
                 </a>
               </li>
               <li>
@@ -138,6 +156,7 @@ export function Footer() {
                     <span className="foot__contact-label">Rappel</span>
                     Être rappelé sous 24&nbsp;h
                   </span>
+                  <IconArrowRight />
                 </Link>
               </li>
             </ul>
@@ -159,6 +178,10 @@ export function Footer() {
               <Link href="/confidentialite">Confidentialité</Link>
             </li>
           </ul>
+          <a href="#contenu" className="foot__top">
+            Haut de page
+            <span aria-hidden="true">↑</span>
+          </a>
         </div>
       </div>
     </footer>
