@@ -48,6 +48,7 @@ export const SHOW = {
   calendrier: false,
   soutenance: false,
   sessionInfo: false,
+  video: false,
 } as const;
 
 export const NAV = [

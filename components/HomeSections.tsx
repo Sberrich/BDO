@@ -352,6 +352,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       </section>
       ) : null}
 
+      {SHOW.video ? (
       <section id="video" className="videoband" aria-labelledby="video-title">
         <span className="videoband__glow" aria-hidden="true" />
         <span className="videoband__grid" aria-hidden="true" />
@@ -386,6 +387,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           </Reveal>
         </Container>
       </section>
+      ) : null}
 
       <section id="dispositif" className="bg-white py-16 md:py-[4.5rem]">
         <Container>
