@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
 import { JourneyPanel } from "@/components/JourneyPanel";
 import { FinancialRoadmap } from "@/components/FinancialRoadmap";
+import { SHOW } from "@/lib/content";
 import { TypeWrite } from "@/components/motion";
 import { IconArrowRight, IconDownload } from "@/components/icons";
 
@@ -119,7 +120,7 @@ export function Hero() {
         </div>
       </section>
 
-      <JourneyPanel />
+      {SHOW.parcours ? <JourneyPanel /> : null}
     </>
   );
 }
