@@ -15,9 +15,30 @@ const HERO_INFO = {
 } as const;
 
 const PARTNERS = [
-  { name: "Ordre des Experts Comptables", src: "/images/partenaires/oec.png", w: 368, h: 262, size: "is-oec" },
-  { name: "Groupe ISCAE", src: "/images/logo-iscae-header.png", w: 351, h: 184, size: "is-iscae" },
-  { name: "BDO Maroc", src: "/images/logo-bdo-header.png", w: 418, h: 161, size: "is-bdo" },
+  {
+    name: "Groupe ISCAE",
+    role: "Cosignataire académique",
+    src: "/images/logo-iscae-header.png",
+    w: 351,
+    h: 184,
+    size: "is-iscae",
+  },
+  {
+    name: "BDO Maroc",
+    role: "Cosignataire professionnel",
+    src: "/images/logo-bdo-header.png",
+    w: 418,
+    h: 161,
+    size: "is-bdo",
+  },
+  {
+    name: "Ordre des Experts Comptables",
+    role: "Partenaire institutionnel",
+    src: "/images/partenaires/oec.png",
+    w: 368,
+    h: 262,
+    size: "is-oec",
+  },
 ] as const;
 
 export function Hero() {
@@ -40,11 +61,16 @@ export function Hero() {
           <div className="hero-cinematic__grid">
             <div className="hero-enter hero-cinematic__copy">
               <p className="hero-cinematic__eyebrow">
-                <span className="hero-cinematic__badge">Certificat exécutif</span>
-                Groupe ISCAE × BDO Maroc
+                <span className="hero-cinematic__badge">
+                  <span className="hero-cinematic__badge-dot" aria-hidden="true" />
+                  Candidatures ouvertes
+                </span>
+                Certificat exécutif · Groupe ISCAE × BDO Maroc
               </p>
 
-              <p className="hero-cinematic__brand">CFO 4.0</p>
+              <p className="hero-cinematic__brand">
+                CFO <span>4.0</span>
+              </p>
 
               <TypeWrite
                 as="h1"
@@ -56,7 +82,8 @@ export function Hero() {
               />
 
               <p className="hero-cinematic__lead">
-                D’octobre à décembre 2026, un projet appliqué à votre
+                D’octobre à décembre 2026, à <strong>Rabat</strong> et{" "}
+                <strong>Casablanca</strong>&nbsp;: un projet appliqué à votre
                 entreprise, du diagnostic à la mise en œuvre.
               </p>
 
@@ -70,8 +97,8 @@ export function Hero() {
                   <dd>{HERO_INFO.candidaturesUntil}</dd>
                 </div>
                 <div>
-                  <dt>Lieux</dt>
-                  <dd>Rabat · Casablanca</dd>
+                  <dt>Format</dt>
+                  <dd>111&nbsp;h · 9 séances</dd>
                 </div>
               </dl>
 
@@ -99,15 +126,31 @@ export function Hero() {
         </Container>
 
         <div className="hero-cinematic__proof">
-          <Container className="hero-cinematic__partners">
-            <p className="hero-cinematic__partners-label">En partenariat avec</p>
-            <ul className="hero-cinematic__logos">
-              {PARTNERS.map((p) => (
-                <li key={p.name} className={`hero-cinematic__logo ${p.size}`}>
-                  <Image src={p.src} alt={p.name} width={p.w} height={p.h} />
-                </li>
-              ))}
-            </ul>
+          <Container>
+            <div className="hero-cosign">
+              <div className="hero-cosign__intro">
+                <p className="hero-cosign__kicker">Un certificat cosigné</p>
+                <p className="hero-cosign__text">
+                  Délivré par le Groupe ISCAE et BDO Maroc, en partenariat avec
+                  l’Ordre des Experts Comptables.
+                </p>
+              </div>
+              <ul className="hero-cosign__logos">
+                {PARTNERS.map((p, i) => (
+                  <li key={p.name} className="hero-cosign__item">
+                    {i === 1 ? (
+                      <span className="hero-cosign__x" aria-hidden="true">
+                        ×
+                      </span>
+                    ) : null}
+                    <span className={`hero-cosign__logo ${p.size}`}>
+                      <Image src={p.src} alt={p.name} width={p.w} height={p.h} />
+                    </span>
+                    <span className="hero-cosign__role">{p.role}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Container>
         </div>
       </section>

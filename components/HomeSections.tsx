@@ -12,7 +12,7 @@ import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
-import { IconCert, IconChart, IconGauge, IconJury, IconMap } from "@/components/icons";
+import { IconCert, IconJury, IconMap } from "@/components/icons";
 import { appHref, plain } from "@/lib/text";
 
 type Props = {
@@ -50,90 +50,84 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <p className="constat-top__lead">{c.chapeau}</p>
           </div>
 
-          <div
-            className="constat-stage"
-            role="group"
-            aria-label="L’écart entre intention et feuille de route"
-          >
-            <p className="constat-stage__watermark" aria-hidden="true">
-              écart
-            </p>
-
-            <Reveal className="constat-stage__col is-high" delay={40}>
-              <div className="constat-stage__panel">
-                <p className="constat-stage__kicker">Intention</p>
-                <p className="constat-stage__value">
+          <Reveal className="gap-chart" delay={40}>
+            <div
+              className="gap-chart__rows"
+              role="group"
+              aria-label="L’écart entre intention et feuille de route"
+            >
+              <div className="gap-chart__row is-high">
+                <p className="gap-chart__value">
                   <CountUp value={haut.valeur} suffix="%" />
                 </p>
-                <div
-                  className="constat-stage__bar"
-                  style={{ ["--pct" as string]: `${haut.valeur}%` }}
-                  aria-hidden="true"
-                />
-                <p className="constat-stage__label">{haut.libelle}</p>
+                <div className="gap-chart__meta">
+                  <p className="gap-chart__kicker">Intention</p>
+                  <p className="gap-chart__label">{haut.libelle}</p>
+                </div>
+                <div className="gap-chart__track" aria-hidden="true">
+                  <span
+                    className="gap-chart__fill"
+                    style={{ ["--pct" as string]: `${haut.valeur}%` }}
+                  />
+                </div>
               </div>
-            </Reveal>
 
-            <div className="constat-stage__delta" aria-hidden="true">
-              <span className="constat-stage__delta-line" />
-              <span className="constat-stage__delta-pill">
-                −{haut.valeur - bas.valeur}&nbsp;pts
-              </span>
-              <span className="constat-stage__delta-line" />
-              <span className="constat-stage__mais">mais</span>
-            </div>
-
-            <Reveal className="constat-stage__col is-low" delay={120}>
-              <div className="constat-stage__panel">
-                <p className="constat-stage__kicker">Feuille de route</p>
-                <p className="constat-stage__value">
+              <div className="gap-chart__row is-low">
+                <p className="gap-chart__value">
                   <CountUp value={bas.valeur} suffix="%" />
                 </p>
-                <div
-                  className="constat-stage__bar"
-                  style={{ ["--pct" as string]: `${bas.valeur}%` }}
-                  aria-hidden="true"
-                />
-                <p className="constat-stage__label">{bas.libelle}</p>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="constat-signals">
-            <p className="constat-signals__title">Deux signaux supplémentaires</p>
-            <ul className="constat-signals__list">
-              {extras.map((x, i) => (
-                <Reveal as="li" key={x.libelle} delay={90 + i * 80} className="constat-signal">
+                <div className="gap-chart__meta">
+                  <p className="gap-chart__kicker">Feuille de route</p>
+                  <p className="gap-chart__label">{bas.libelle}</p>
+                </div>
+                <div className="gap-chart__track" aria-hidden="true">
                   <span
-                    className="constat-signal__ring"
-                    style={{ ["--pct" as string]: String(x.valeur) }}
-                    aria-hidden="true"
+                    className="gap-chart__fill"
+                    style={{ ["--pct" as string]: `${bas.valeur}%` }}
+                  />
+                  <span
+                    className="gap-chart__gap"
+                    style={{
+                      ["--from" as string]: `${bas.valeur}%`,
+                      ["--to" as string]: `${haut.valeur}%`,
+                    }}
                   >
-                    <span className="constat-signal__ring-num">
-                      <CountUp value={x.valeur} />
+                    <span className="gap-chart__gap-tag">
+                      −{haut.valeur - bas.valeur}&nbsp;pts
                     </span>
                   </span>
-                  <span className="constat-signal__body">
-                    <span className="constat-signal__icon" aria-hidden="true">
-                      {i === 0 ? <IconGauge /> : <IconChart />}
-                    </span>
-                    <span className="constat-signal__text">{x.libelle}</span>
-                  </span>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
+                </div>
+              </div>
+            </div>
+            <p className="gap-chart__caption">
+              <span className="gap-chart__swatch" aria-hidden="true" />
+              L’écart à combler&nbsp;: {haut.valeur - bas.valeur}&nbsp;points entre
+              l’intention et la feuille de route.
+            </p>
+          </Reveal>
 
-          <Reveal className="constat-resolve" delay={140}>
-            <div className="constat-resolve__copy">
+          <div className="constat-bottom">
+            {extras.map((x, i) => (
+              <Reveal key={x.libelle} delay={90 + i * 80} className="constat-signal">
+                <p className="constat-signal__kicker">
+                  {i === 0 ? "Pilotage prédictif" : "Indicateurs"}
+                </p>
+                <p className="constat-signal__value">
+                  <CountUp value={x.valeur} suffix="%" />
+                </p>
+                <p className="constat-signal__text">{x.libelle}</p>
+              </Reveal>
+            ))}
+
+            <Reveal className="constat-resolve" delay={200}>
               <p className="constat-resolve__eyebrow">Pourquoi ce certificat</p>
               <p className="constat-resolve__text">{c.conclusion}</p>
-            </div>
-            <Link href="/candidater" className="constat-resolve__cta">
-              Combler l&apos;écart
-              <span aria-hidden="true">→</span>
-            </Link>
-          </Reveal>
+              <Link href="/candidater" className="constat-resolve__cta">
+                Combler l&apos;écart
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Reveal>
+          </div>
 
           <p className="constat-source">{c.source}</p>
         </Container>

@@ -71,7 +71,7 @@ const data = {
         "accent": false
       }
     ],
-    "conclusion": "L’écart entre 78 % et 32 % est la raison d’être de ce certificat. Il produit exactement ce qui manque : une feuille de route, construite sur votre propre entreprise, et soutenue devant un jury.",
+    "conclusion": "L’écart entre 78 % et 32 % est la raison d’être de ce certificat. Il produit exactement ce qui manque : une feuille de route, construite sur votre propre entreprise.",
     "source": "Sources : Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants ; La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025."
   },
   "livrable": {
