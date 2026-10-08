@@ -83,13 +83,13 @@ const data = {
         "icone": "feuille-de-route"
       },
       {
-        "titre": "Un dossier d’investissement défendu devant un jury",
-        "texte": "Chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement. La soutenance se tient devant le jury du Groupe ISCAE et de BDO, au dernier séminaire.",
+        "titre": "Un dossier d’investissement",
+        "texte": "Chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement, présentés au dernier séminaire.",
         "icone": "jury"
       },
       {
         "titre": "Un certificat cosigné ISCAE × BDO",
-        "texte": "Délivré aux participants qui réunissent un taux d’assiduité d’au moins 80 % et la réussite des évaluations de mi-parcours et de fin de cycle, soutenance comprise.",
+        "texte": "Délivré aux participants qui réunissent un taux d’assiduité d’au moins 80 % et la réussite des évaluations de mi-parcours et de fin de cycle.",
         "icone": "certificat"
       }
     ]

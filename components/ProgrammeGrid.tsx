@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
-import { IconArrowRight, IconJury, IconPlay, seminarIcons } from "@/components/icons";
-import { plain, seminarImage, seminarMediaIndex } from "@/lib/text";
+import { IconArrowRight, IconPlay } from "@/components/icons";
+import { plain } from "@/lib/text";
 
 type Props = {
   limit?: number;
@@ -10,15 +9,15 @@ type Props = {
   excludeNumero?: number;
 };
 
-function daysLabel(s: Seminaire) {
+function hoursLabel(s: Seminaire) {
   const n = s.heures ?? (s.numero === 0 ? 3 : 6);
   return `${n}\u00a0h`;
 }
 
-function SeminarGlyph({ numero }: { numero: number }) {
-  const i = seminarMediaIndex(numero) - 1;
-  const Icon = seminarIcons[Math.max(0, Math.min(seminarIcons.length - 1, i))];
-  return Icon ? <Icon /> : null;
+/** "Samedi 31 octobre 2026" → { weekday: "Sam.", day: "31", month: "octobre" } */
+function splitDate(dates: string) {
+  const [weekday = "", day = "", month = "", year = ""] = dates.split(" ");
+  return { weekday: `${weekday.slice(0, 3)}.`, day, month, year };
 }
 
 export function ProgrammeGrid({ limit, excludeNumero }: Props) {
@@ -27,8 +26,14 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
     .slice(0, limit);
   const opening = items.find((s) => s.numero === 0);
   const seminars = items.filter((s) => s.numero > 0);
-  const finale = seminars.find((s) => s.numero === 8);
-  const main = seminars.filter((s) => s.numero !== 8);
+
+  const months: { month: string; year: string; sessions: Seminaire[] }[] = [];
+  for (const s of seminars) {
+    const { month, year } = splitDate(plain(s.dates));
+    const last = months[months.length - 1];
+    if (last && last.month === month) last.sessions.push(s);
+    else months.push({ month, year, sessions: [s] });
+  }
 
   return (
     <div className="prog-board">
@@ -49,84 +54,68 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
               </video>
             </span>
             <span className="prog-board__open-veil" aria-hidden="true" />
-            <span className="prog-board__open-pattern" aria-hidden="true" />
-            <span className="prog-board__open-glow" aria-hidden="true" />
-            <span className="prog-board__open-accent" aria-hidden="true" />
-            <span className="prog-board__open-mark" aria-hidden="true">
-              <IconPlay />
-            </span>
             <span className="prog-board__open-top">
-              <span className="prog-board__open-tag">Ouverture</span>
-              <span className="prog-board__open-badge">00</span>
+              <span className="prog-board__open-tag">Ouverture du cycle</span>
+              <span className="prog-board__open-mark" aria-hidden="true">
+                <IconPlay />
+              </span>
             </span>
-            <span className="prog-board__open-date">{opening.dates}</span>
-            <h3 className="prog-board__open-title">{plain(opening.titre)}</h3>
-            <p className="prog-board__open-sub">{plain(opening.sousTitre)}</p>
-            <span className="prog-board__open-go">
-              Voir la séance
-              <IconArrowRight />
+            <span className="prog-board__open-bottom">
+              <span className="prog-board__open-date">
+                {opening.dates}
+                {opening.horaire ? ` · ${opening.horaire}` : ""}
+              </span>
+              <h3 className="prog-board__open-title">{plain(opening.titre)}</h3>
+              <span className="prog-board__open-sub">{plain(opening.sousTitre)}</span>
+              <span className="prog-board__open-go">
+                Voir la séance
+                <IconArrowRight />
+              </span>
             </span>
           </Link>
         ) : null}
 
         <div className="prog-board__rail">
-          <p className="prog-board__rail-label">Les séminaires</p>
-          <ol className="prog-board__list">
-            {main.map((s) => (
-              <li key={s.numero}>
-                <Link href={sessionHref(s)} className="prog-board__row">
-                  <span className="prog-board__thumb" aria-hidden="true">
-                    <Image
-                      src={seminarImage(s.numero)}
-                      alt=""
-                      width={56}
-                      height={56}
-                      className="prog-board__thumb-img"
-                    />
-                    <span className="prog-board__thumb-icon">
-                      <SeminarGlyph numero={s.numero} />
-                    </span>
-                  </span>
-                  <span className="prog-board__main">
-                    <span className="prog-board__meta">
-                      <span className="prog-board__n-inline">{String(s.numero).padStart(2, "0")}</span>
-                      <span className="prog-board__date">{s.dates}</span>
-                      <span className="prog-board__days">{daysLabel(s)}</span>
-                    </span>
-                    <span className="prog-board__name">{plain(s.titre)}</span>
-                  </span>
-                  <span className="prog-board__arrow" aria-hidden="true">
-                    <IconArrowRight />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-
-          {finale ? (
-            <Link href={sessionHref(finale)} className="prog-board__finale">
-              <span className="prog-board__finale-media" aria-hidden="true">
-                <Image
-                  src={seminarImage(8)}
-                  alt=""
-                  fill
-                  sizes="120px"
-                  className="prog-board__finale-img"
-                />
-              </span>
-              <span className="prog-board__finale-tag">Clôture · jury</span>
-              <span className="prog-board__finale-n" aria-hidden="true">
-                <IconJury />
-              </span>
-              <span className="prog-board__finale-body">
-                <span className="prog-board__finale-date">{finale.dates}</span>
-                <span className="prog-board__finale-name">{plain(finale.titre)}</span>
-              </span>
-              <span className="prog-board__finale-go" aria-hidden="true">
-                <IconArrowRight />
-              </span>
-            </Link>
-          ) : null}
+          {months.map((m) => (
+            <div key={m.month} className="prog-board__month">
+              <p className="prog-board__month-label">
+                {m.month} {m.year}
+              </p>
+              <ol className="prog-board__list">
+                {m.sessions.map((s) => {
+                  const d = splitDate(plain(s.dates));
+                  const finale = s.numero === 8;
+                  return (
+                    <li key={s.numero}>
+                      <Link
+                        href={sessionHref(s)}
+                        className={`prog-board__row${finale ? " is-finale" : ""}`}
+                      >
+                        <span className="prog-board__day" aria-hidden="true">
+                          <span className="prog-board__day-num">{d.day}</span>
+                          <span className="prog-board__day-name">{d.weekday}</span>
+                        </span>
+                        <span className="prog-board__main">
+                          <span className="prog-board__meta">
+                            {finale
+                              ? "Clôture du cycle"
+                              : `Séminaire ${String(s.numero).padStart(2, "0")}`}
+                            <span aria-hidden="true">·</span>
+                            {hoursLabel(s)}
+                          </span>
+                          <span className="prog-board__name">{plain(s.titre)}</span>
+                          <span className="sr-only">{s.dates}</span>
+                        </span>
+                        <span className="prog-board__arrow" aria-hidden="true">
+                          <IconArrowRight />
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          ))}
         </div>
       </div>
     </div>

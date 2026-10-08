@@ -12,7 +12,7 @@ import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
-import { IconCert, IconJury, IconMap } from "@/components/icons";
+import { IconCert } from "@/components/icons";
 import { appHref, plain } from "@/lib/text";
 
 type Props = {
@@ -135,35 +135,55 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
 
       <section id="livrable" className="carry" aria-labelledby="livrable-title">
-        <span className="carry__glow" aria-hidden="true" />
-        <span className="carry__grid" aria-hidden="true" />
         <Container className="carry__inner">
           <header className="carry__head">
-            <p className="carry__index">02 — Le livrable</p>
-            <h2 id="livrable-title" className="carry__title">
-              {site.livrable.titre}
-            </h2>
+            <div>
+              <p className="carry__index">02 — Le livrable</p>
+              <h2 id="livrable-title" className="carry__title">
+                {site.livrable.titre}
+              </h2>
+            </div>
             <p className="carry__lead">
-              Trois acquis concrets. Un seul fil : votre entreprise.
+              Trois acquis concrets. Un seul fil&nbsp;: votre entreprise.
             </p>
           </header>
 
           <ol className="carry__stages">
             {site.livrable.items.map((it, i) => {
-              const tags = ["Feuille de route", "Jury", "Certificat"];
+              const tags = ["Feuille de route", "Dossier d’investissement", "Certificat"];
               return (
-                <Reveal as="li" key={it.titre} delay={i * 100} className={`carry__stage is-${i + 1}`}>
-                  <span className="carry__stage-num" aria-hidden="true">
-                    0{i + 1}
-                  </span>
-                  <span className="carry__stage-icon" aria-hidden="true">
-                    {i === 0 ? <IconMap /> : i === 1 ? <IconJury /> : <IconCert />}
-                  </span>
-                  <div className="carry__stage-body">
-                    <span className="carry__stage-tag">{tags[i]}</span>
-                    <h3 className="carry__stage-title">{it.titre}</h3>
-                    <p className="carry__stage-text">{it.texte}</p>
+                <Reveal as="li" key={it.titre} delay={i * 100} className="carry__stage">
+                  <div className={`carry__art is-${i + 1}`} aria-hidden="true">
+                    {i === 0 ? (
+                      <span className="carry__gantt">
+                        <span style={{ ["--x" as string]: "0%", ["--w" as string]: "38%" }} />
+                        <span style={{ ["--x" as string]: "22%", ["--w" as string]: "42%" }} />
+                        <span style={{ ["--x" as string]: "46%", ["--w" as string]: "34%" }} />
+                        <span className="is-red" style={{ ["--x" as string]: "64%", ["--w" as string]: "36%" }} />
+                      </span>
+                    ) : i === 1 ? (
+                      <span className="carry__bars">
+                        <span style={{ ["--h" as string]: "34%" }} />
+                        <span style={{ ["--h" as string]: "48%" }} />
+                        <span style={{ ["--h" as string]: "62%" }} />
+                        <span style={{ ["--h" as string]: "78%" }} />
+                        <span className="is-red" style={{ ["--h" as string]: "96%" }} />
+                      </span>
+                    ) : (
+                      <span className="carry__cert">
+                        <span className="carry__cert-line is-title" />
+                        <span className="carry__cert-line" />
+                        <span className="carry__cert-line is-short" />
+                        <span className="carry__cert-seal" />
+                      </span>
+                    )}
                   </div>
+                  <p className="carry__stage-tag">
+                    <span>0{i + 1}</span>
+                    {tags[i]}
+                  </p>
+                  <h3 className="carry__stage-title">{it.titre}</h3>
+                  <p className="carry__stage-text">{it.texte}</p>
                 </Reveal>
               );
             })}
@@ -177,15 +197,13 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <header>
               <p className="prog__index">03 — Le programme</p>
               <h2 id="programme-title" className="prog__title">
-                Huit séminaires.
-                <br />
-                <em>Une feuille de route.</em>
+                Huit séminaires. <em>Une feuille de route.</em>
               </h2>
             </header>
             <div className="prog__aside">
               <p>
-                Chaque week-end produit une pièce de votre transformation. La conférence inaugurale
-                ouvre le cycle ; le jury le clôture.
+                Chaque séance produit une pièce de votre transformation. La conférence
+                inaugurale ouvre le cycle, la présentation des projets le clôture.
               </p>
               <Link href="/programme" className="prog__cta">
                 Programme complet <span aria-hidden="true">→</span>
