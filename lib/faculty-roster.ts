@@ -95,7 +95,7 @@ const ROSTER: FacultyShowcasePerson[] = [
     nom: "Nasser Kettani",
     fonction: "Expert cloud",
     institution: "",
-    photo: "/images/people/nasser-kettani-blue.jpg",
+    photo: "/images/people/nasser-kettani-blue-v2.jpg",
     bio: "Expert international avec plus de 35 ans d’expérience dans les technologies de l’information et la transformation digitale. Délégué à la protection des données certifié (RGPD), il a mené de nombreuses missions en cloud computing, sécurité de l’information, conformité et gouvernance IT, et a occupé des postes de direction dans de grands groupes internationaux. Il intervient sur le séminaire Cloud.",
     initials: "NK",
     tone: "blue",
