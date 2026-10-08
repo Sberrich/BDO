@@ -12,6 +12,8 @@ import {
 } from "@/lib/faculty-roster";
 import { personLinkedIn, plain } from "@/lib/text";
 
+const SECOND_SLUG = "ismail-lahsini";
+
 export const metadata: Metadata = {
   title: "Intervenants",
   description: "Les associés, professeurs et praticiens qui animent les séminaires.",
@@ -34,7 +36,11 @@ export default async function IntervenantsPage() {
     getIntervenantsPage(),
     getIntervenants(),
   ]);
-  const intervenants = facultyShowcase(cms);
+  const roster = facultyShowcase(cms);
+  const featured = roster.find((p) => p.slug === SECOND_SLUG);
+  const intervenants = featured
+    ? [...roster.filter((p) => p !== featured).slice(0, 1), featured, ...roster.filter((p) => p !== featured).slice(1)]
+    : roster;
   const bySpeaker = seminarsBySpeaker();
   const faces = intervenants.filter((p) => facultyHasPhoto(p)).slice(0, 6);
 
