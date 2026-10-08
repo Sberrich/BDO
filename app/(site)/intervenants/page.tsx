@@ -42,7 +42,9 @@ export default async function IntervenantsPage() {
     ? [...roster.filter((p) => p !== featured).slice(0, 1), featured, ...roster.filter((p) => p !== featured).slice(1)]
     : roster;
   const bySpeaker = seminarsBySpeaker();
-  const faces = intervenants.filter((p) => facultyHasPhoto(p)).slice(0, 6);
+  const withPhoto = intervenants.filter((p) => facultyHasPhoto(p));
+  const faces = withPhoto.slice(0, 8);
+  const hidden = intervenants.length - faces.length;
 
   return (
     <>
@@ -84,6 +86,14 @@ export default async function IntervenantsPage() {
                   </a>
                 </li>
               ))}
+              <li className="iv-faces__item">
+                <a href="#equipe" className="iv-faces__link iv-faces__more">
+                  <span className="iv-faces__more-n">{hidden > 0 ? `+${hidden}` : intervenants.length}</span>
+                  <span className="iv-faces__more-label">
+                    {hidden > 0 ? "Voir toute l’équipe" : "Toute l’équipe"}
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
         </Container>

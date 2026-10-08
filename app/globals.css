@@ -11602,7 +11602,7 @@ img {
 .iv-faces__link {
   position: relative;
   display: block;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
@@ -11882,4 +11882,33 @@ img {
 }
 .about-inst .about-card.is-2 .about-card__logo img {
   height: 2.25rem;
+}
+
+.iv-faces__more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  background: var(--brand-red);
+  border-color: transparent;
+}
+.iv-faces__more:hover,
+.iv-faces__more:focus-visible {
+  background: var(--brand-red-dark);
+  border-color: transparent;
+}
+.iv-faces__more-n {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.iv-faces__more-label {
+  padding: 0 0.4rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
