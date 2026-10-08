@@ -54,12 +54,18 @@ function PersonCard({
         <span className="faculty-card__veil" />
       </div>
       <div className="faculty-card__body">
-        <span className="faculty-card__campus">{campusLabel(person.campus)}</span>
+        {person.campus ? (
+          <span className="faculty-card__campus">{campusLabel(person.campus)}</span>
+        ) : null}
         <p className="faculty-card__name">{name}</p>
         <p className="faculty-card__role">
           {plain(person.fonction)}
-          <span aria-hidden="true"> · </span>
-          {plain(person.institution)}
+          {person.institution ? (
+            <>
+              <span aria-hidden="true"> · </span>
+              {plain(person.institution)}
+            </>
+          ) : null}
         </p>
         {linkedin ? (
           <a

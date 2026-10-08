@@ -29,7 +29,7 @@ const data = {
       "dates": "Samedi 31 octobre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["ismail-lahsini"]
+      "intervenants": ["zayed-fahim"]
     },
     {
       "numero": 2,
@@ -50,7 +50,7 @@ const data = {
       "dates": "Vendredi 13 novembre 2026",
       "horaire": "15 h – 21 h",
       "heures": 6,
-      "intervenants": ["antonio-gomes"]
+      "intervenants": ["zouheir-lakhdissi"]
     },
     {
       "numero": 3,
@@ -71,7 +71,7 @@ const data = {
       "dates": "Samedi 14 novembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["intervenant-provisoire-1"]
+      "intervenants": ["nasser-kettani"]
     },
     {
       "numero": 4,
@@ -92,7 +92,7 @@ const data = {
       "dates": "Samedi 28 novembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["intervenant-provisoire-3"]
+      "intervenants": ["zayed-fahim"]
     },
     {
       "numero": 5,
@@ -113,7 +113,7 @@ const data = {
       "dates": "Vendredi 11 décembre 2026",
       "horaire": "15 h – 21 h",
       "heures": 6,
-      "intervenants": ["zakaria-fahim"]
+      "intervenants": ["zakaria-fahim", "abdeljaouad-benhaddou"]
     },
     {
       "numero": 6,
@@ -155,7 +155,7 @@ const data = {
       "dates": "Samedi 12 décembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["intervenant-provisoire-4"]
+      "intervenants": ["david-carvalho", "youssef-el-maddarsi"]
     },
     {
       "numero": 8,

@@ -317,7 +317,8 @@ function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
       <div className="sem-speaker__body">
         <p className="sem-speaker__name">{plain(person.nom)}</p>
         <p className="sem-speaker__role">
-          {plain(person.fonction)} · {plain(person.institution)}
+          {plain(person.fonction)}
+          {person.institution ? ` · ${plain(person.institution)}` : ""}
         </p>
         {person.bio ? <p className="sem-speaker__bio">{plain(person.bio)}</p> : null}
         {person.linkedin ? (

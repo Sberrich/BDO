@@ -75,10 +75,12 @@ export default async function IntervenantsPage() {
                       </span>
                     </div>
                     <div className="iv-card__body">
-                      <p className="iv-card__campus">
-                        <IconPin />
-                        {campusLabel(p.campus)}
-                      </p>
+                      {p.campus ? (
+                        <p className="iv-card__campus">
+                          <IconPin />
+                          {campusLabel(p.campus)}
+                        </p>
+                      ) : null}
                       <h3 className="iv-card__name">{name}</h3>
                       <p className="iv-card__role">
                         {plain(p.fonction)}
