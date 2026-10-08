@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { Container } from "@/components/ui";
-import { IconTick } from "@/components/icons";
+import { IconArrowRight, IconTick } from "@/components/icons";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
 type DocKind = "brochure" | "barometre" | "livreblanc";
@@ -20,8 +20,10 @@ const DOCS: Record<
     formBg: "white" | "cream";
     prefix: string;
     cover: string;
+    coverSize: [number, number];
     contents: string[];
     formTitle: string;
+    online?: { label: string; desc: string; href: string }[];
   }
 > = {
   brochure: {
@@ -34,6 +36,7 @@ const DOCS: Record<
     formBg: "white",
     prefix: "b",
     cover: RESOURCE_COVERS.brochure,
+    coverSize: [636, 900],
     contents: [
       "Le programme et les huit séminaires",
       "Le calendrier de la promotion 1",
@@ -41,6 +44,12 @@ const DOCS: Record<
       "Le processus d’admission",
     ],
     formTitle: "Recevoir la brochure",
+    online: [
+      { label: "Le programme", desc: "Les huit séminaires et leurs livrables", href: "/programme#seances" },
+      { label: "Le calendrier", desc: "Les dates de la promotion 1, d’octobre à décembre 2026", href: "/programme" },
+      { label: "Le tarif", desc: "Les formules et les conditions", href: "/admissions#tarif" },
+      { label: "L’admission", desc: "Le processus, étape par étape", href: "/admissions#processus" },
+    ],
   },
   barometre: {
     path: "/ressources/barometre",
@@ -52,6 +61,7 @@ const DOCS: Record<
     formBg: "cream",
     prefix: "a",
     cover: RESOURCE_COVERS.barometre,
+    coverSize: [1011, 715],
     contents: [
       "L’enquête annuelle de BDO Maroc",
       "Édition 2024",
@@ -69,6 +79,7 @@ const DOCS: Record<
     formBg: "white",
     prefix: "l",
     cover: RESOURCE_COVERS.livreblanc,
+    coverSize: [409, 571],
     contents: [
       "Un livre blanc BDO × Maltem Africa",
       "La transformation de la fonction finance",
@@ -85,6 +96,7 @@ export function resourceMetadata(kind: DocKind): Metadata {
 
 export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
   const d = DOCS[kind];
+  const landscape = d.coverSize[0] > d.coverSize[1];
   const others = RESOURCES_MENU.filter(
     (r) => r.href !== d.path && r.href !== "/insights" && r.cover,
   ).slice(0, 2);
@@ -106,16 +118,20 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
               </h1>
               <p className="doc-hero__lead">{d.lead}</p>
 
-              <div className="doc-hero__preview">
-                <div className="doc-hero__cover">
-                  <Image
-                    src={d.cover}
-                    alt={`Couverture — ${d.title}`}
-                    width={440}
-                    height={620}
-                    priority
-                    sizes="180px"
-                  />
+              <div className={`doc-hero__preview ${landscape ? "is-landscape" : ""}`}>
+                <div className="doc-book">
+                  <span className="doc-book__glow" aria-hidden />
+                  <div className="doc-book__page">
+                    <Image
+                      src={d.cover}
+                      alt={`Couverture — ${d.title}`}
+                      width={d.coverSize[0]}
+                      height={d.coverSize[1]}
+                      priority
+                      sizes={landscape ? "(min-width: 1024px) 22rem, 70vw" : "(min-width: 1024px) 15rem, 45vw"}
+                    />
+                  </div>
+                  <span className="doc-book__tag">PDF · {d.kicker}</span>
                 </div>
                 <div>
                   <p className="doc-hero__list-title">Ce que vous y trouverez</p>
@@ -144,6 +160,35 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
           </div>
         </Container>
       </section>
+
+      {d.online ? (
+        <section className="doc-online" aria-labelledby="doc-online-title">
+          <Container className="doc-online__inner">
+            <div className="doc-online__head">
+              <p className="doc-online__kicker">Sans attendre le PDF</p>
+              <h2 id="doc-online-title" className="doc-online__title">
+                Le contenu de la brochure, déjà en ligne
+              </h2>
+            </div>
+            <ol className="doc-online__grid">
+              {d.online.map((o, i) => (
+                <li key={o.href}>
+                  <Link href={o.href} className="doc-online__card">
+                    <span className="doc-online__n" aria-hidden>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="doc-online__label">{o.label}</span>
+                    <span className="doc-online__desc">{o.desc}</span>
+                    <span className="doc-online__go" aria-hidden>
+                      <IconArrowRight />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
+      ) : null}
 
       {others.length ? (
         <section className="doc-others" aria-labelledby="doc-others-title">
