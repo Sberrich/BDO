@@ -48,7 +48,7 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const resourcesRef = useRef<HTMLLIElement>(null);
-  const scrollYRef = useRef(0);
+  const headerRef = useRef<HTMLElement>(null);
   const resourcesMenuId = useId();
   const mobileMenuId = useId();
 
@@ -65,27 +65,20 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    if (open) {
-      scrollYRef.current = window.scrollY;
-      document.body.dataset.nav = "open";
-      document.body.style.top = `-${scrollYRef.current}px`;
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
-    } else {
-      const y = scrollYRef.current;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      delete document.body.dataset.nav;
-      if (y) window.scrollTo(0, y);
-    }
+    if (!open) return;
+    const root = document.documentElement;
+    const syncTop = () => {
+      const bottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      root.style.setProperty("--nav-top", `${Math.max(0, Math.round(bottom))}px`);
+    };
+    syncTop();
+    root.style.overflow = "hidden";
+    document.body.dataset.nav = "open";
+    window.addEventListener("resize", syncTop);
     return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
+      window.removeEventListener("resize", syncTop);
+      root.style.overflow = "";
+      root.style.removeProperty("--nav-top");
       delete document.body.dataset.nav;
     };
   }, [open]);
@@ -239,6 +232,7 @@ export function Header() {
 
   return (
     <header
+      ref={headerRef}
       className={`site-header sticky top-0 z-[70] ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}
     >
       <div className="site-header__bar mx-auto flex w-full max-w-[1160px] items-center justify-between gap-3 px-5">

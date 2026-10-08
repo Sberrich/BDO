@@ -1500,7 +1500,7 @@ input[type="radio"] {
 .site-header__scrim {
   position: fixed;
   inset: 0;
-  top: var(--header-h);
+  top: var(--nav-top, var(--header-h));
   z-index: 65;
   border: 0;
   padding: 0;
@@ -1512,7 +1512,7 @@ input[type="radio"] {
 }
 .site-header__drawer {
   position: fixed;
-  top: var(--header-h);
+  top: var(--nav-top, var(--header-h));
   left: 0;
   right: 0;
   bottom: 0;
