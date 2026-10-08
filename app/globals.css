@@ -12372,3 +12372,107 @@ img {
     left: 1.5rem;
   }
 }
+
+/* ——— Seminar page v2 ——— */
+.sem-steps {
+  margin-top: 1.5rem;
+}
+.sem-steps ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.sem-steps__dot {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.sem-steps__dot.is-past {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.55);
+}
+.sem-steps__dot:hover,
+.sem-steps__dot:focus-visible {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+.sem-steps__dot.is-current {
+  border-color: var(--brand-red);
+  background: var(--brand-red);
+  color: #fff;
+}
+
+.sem-pager__link em {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-style: normal;
+  color: var(--text-tertiary);
+}
+
+.sem-side__people {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: 0.5rem;
+}
+.sem-side__person {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem;
+  margin: -0.4rem;
+  border-radius: 12px;
+  color: var(--brand-navy);
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+}
+.sem-side__person:hover,
+.sem-side__person:focus-visible {
+  background: var(--surface-1, #f4f6f9);
+}
+.sem-side__avatar {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.sem-side__avatar.is-mono {
+  display: grid;
+  place-items: center;
+  background: rgba(0, 55, 104, 0.08);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+.sem-side__person-label {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+}
+.sem-side__person-name {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.sem-speaker__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}

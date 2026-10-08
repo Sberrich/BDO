@@ -38,12 +38,13 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
     else months.push({ month, year, sessions: [s] });
   }
 
-  const all = opening ? [opening, ...seminars] : seminars;
+  const all = allSessions();
+  const cycle = all.filter((s) => s.numero > 0);
   const first = all[0] ? splitDate(plain(all[0].dates)) : null;
   const last = all.length ? splitDate(plain(all[all.length - 1].dates)) : null;
   const slots = [
     ...new Set(
-      seminars
+      cycle
         .filter((s) => s.horaire)
         .map(
           (s) =>
@@ -53,8 +54,8 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
   ];
   const stats = [
     {
-      value: String(seminars.length),
-      label: seminars.length > 1 ? "séminaires" : "séminaire",
+      value: String(cycle.length),
+      label: cycle.length > 1 ? "séminaires" : "séminaire",
     },
     {
       value: `${all.reduce((n, s) => n + hours(s), 0)} h`,

@@ -14,7 +14,12 @@ import {
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
 import { plain, seminarImage, seminarVideo } from "@/lib/text";
-import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
+import {
+  IconArrowRight,
+  IconCal,
+  IconClock,
+  IconMap,
+} from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,7 +48,8 @@ export default async function SeminairePage({ params }: Props) {
   const next = i < seq.length - 1 ? seq[i + 1] : null;
   const cmsPeople = await getIntervenants();
   const roster = facultyShowcase(cmsPeople);
-  const speakerSlugs = ((s as { intervenants?: string[] }).intervenants ?? []) as string[];
+  const speakerSlugs = ((s as { intervenants?: string[] }).intervenants ??
+    []) as string[];
   const people = speakerSlugs
     .map((slug) => {
       const fromRoster = roster.find((p) => p.slug === slug);
@@ -76,7 +82,7 @@ export default async function SeminairePage({ params }: Props) {
     actualisation?: string;
     objectif: string;
   };
-    const cover = seminarImage(s.numero);
+  const cover = seminarImage(s.numero);
   const clip = seminarVideo(s.numero);
   const indexLabel = inaug
     ? "Conférence inaugurale"
@@ -85,7 +91,6 @@ export default async function SeminairePage({ params }: Props) {
   return (
     <>
       <section className="sem-hero" aria-labelledby="sem-title">
-
         <Container className="sem-hero__inner">
           <nav className="sem-hero__crumbs" aria-label="Fil d’Ariane">
             <Link href="/">Accueil</Link>
@@ -105,6 +110,26 @@ export default async function SeminairePage({ params }: Props) {
                 {plain(s.titre)}
               </h1>
               <p className="sem-hero__lead">{plain(s.sousTitre)}</p>
+              <nav className="sem-steps" aria-label="Toutes les séances">
+                <ol>
+                  {seq.map((x) => {
+                    const current = x.numero === s.numero;
+                    return (
+                      <li key={x.numero}>
+                        <Link
+                          href={sessionHref(x)}
+                          className={`sem-steps__dot${current ? " is-current" : ""}${x.numero < s.numero ? " is-past" : ""}`}
+                          aria-current={current ? "page" : undefined}
+                          title={plain(x.titre)}
+                        >
+                          {x.numero === 0 ? "IN" : x.numero}
+                          <span className="sr-only"> — {plain(x.titre)}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </nav>
               <ul className="sem-hero__meta" aria-label="Repères">
                 <li>
                   <IconCal />
@@ -112,7 +137,11 @@ export default async function SeminairePage({ params }: Props) {
                 </li>
                 <li>
                   <IconClock />
-                  <span>{[s.horaire, s.heures ? `${s.heures} h` : null].filter(Boolean).join(" · ")}</span>
+                  <span>
+                    {[s.horaire, s.heures ? `${s.heures} h` : null]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
                 </li>
                 <li>
                   <IconMap />
@@ -120,7 +149,10 @@ export default async function SeminairePage({ params }: Props) {
                 </li>
               </ul>
               <div className="sem-hero__ctas">
-                <ButtonLink href="/candidater" className="sem-hero__cta-primary">
+                <ButtonLink
+                  href="/candidater"
+                  className="sem-hero__cta-primary"
+                >
                   Candidater
                   <IconArrowRight />
                 </ButtonLink>
@@ -224,17 +256,35 @@ export default async function SeminairePage({ params }: Props) {
 
             <nav className="sem-pager" aria-label="Séances adjacentes">
               {prev ? (
-                <Link href={sessionHref(prev)} className="sem-pager__link is-prev">
+                <Link
+                  href={sessionHref(prev)}
+                  className="sem-pager__link is-prev"
+                >
                   <span>← Séance précédente</span>
                   <strong>{plain(prev.titre)}</strong>
+                  <em>
+                    {prev.numero === 0
+                      ? "Conférence inaugurale"
+                      : `Séminaire ${String(prev.numero).padStart(2, "0")}`}{" "}
+                    · {prev.dates}
+                  </em>
                 </Link>
               ) : (
                 <span />
               )}
               {next ? (
-                <Link href={sessionHref(next)} className="sem-pager__link is-next">
+                <Link
+                  href={sessionHref(next)}
+                  className="sem-pager__link is-next"
+                >
                   <span>Séance suivante →</span>
                   <strong>{plain(next.titre)}</strong>
+                  <em>
+                    {next.numero === 8
+                      ? "Clôture du cycle"
+                      : `Séminaire ${String(next.numero).padStart(2, "0")}`}{" "}
+                    · {next.dates}
+                  </em>
                 </Link>
               ) : (
                 <span />
@@ -267,6 +317,43 @@ export default async function SeminairePage({ params }: Props) {
                   <dd>Casablanca</dd>
                 </div>
               </dl>
+              {people.length ? (
+                <ul className="sem-side__people" aria-label="Intervenants">
+                  {people.map((p) => (
+                    <li key={p.slug}>
+                      <Link
+                        href={`/intervenants#${p.slug}`}
+                        className="sem-side__person"
+                      >
+                        {facultyHasPhoto(p) ? (
+                          <Image
+                            src={facultyPhotoSrc(p)}
+                            alt=""
+                            width={40}
+                            height={40}
+                            className="sem-side__avatar"
+                          />
+                        ) : (
+                          <span
+                            className="sem-side__avatar is-mono"
+                            aria-hidden
+                          >
+                            {p.initials}
+                          </span>
+                        )}
+                        <span>
+                          <span className="sem-side__person-label">
+                            Intervenant
+                          </span>
+                          <span className="sem-side__person-name">
+                            {plain(p.nom)}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               <div className="sem-side__ctas">
                 <ButtonLink href="/candidater" className="sem-side__primary">
                   Candidater
@@ -328,18 +415,29 @@ function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
           {plain(person.fonction)}
           {person.institution ? ` · ${plain(person.institution)}` : ""}
         </p>
-        {person.bio ? <p className="sem-speaker__bio">{plain(person.bio)}</p> : null}
-        {person.linkedin ? (
-          <a
-            href={person.linkedin}
-            className="sem-speaker__li"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-            <IconArrowRight />
-          </a>
+        {person.bio ? (
+          <p className="sem-speaker__bio">{plain(person.bio)}</p>
         ) : null}
+        <div className="sem-speaker__links">
+          <Link
+            href={`/intervenants#${person.slug}`}
+            className="sem-speaker__li"
+          >
+            Voir le profil
+            <IconArrowRight />
+          </Link>
+          {person.linkedin ? (
+            <a
+              href={person.linkedin}
+              className="sem-speaker__li"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+              <IconArrowRight />
+            </a>
+          ) : null}
+        </div>
       </div>
     </li>
   );
