@@ -194,7 +194,7 @@ export function JourneyPanel() {
         <div className="parcours-intro">
           <div className="parcours-intro__copy">
             <p className="parcours-intro__meta">
-              Oct. → déc. 2026 · Rabat · 9 séances
+              Oct. → déc. 2026 · Casablanca · 9 séances
             </p>
             <h2 id={titleId} className="parcours-intro__title">
               Huit séminaires,
@@ -264,7 +264,7 @@ export function JourneyPanel() {
                         aria-hidden={!isOpen}
                       >
                         <p className="parcours-entry__when">
-                          {s.longDate} · Rabat
+                          {s.longDate} · Casablanca
                         </p>
                         {s.apport ? (
                           <p className="parcours-entry__apport">{s.apport}</p>

@@ -127,7 +127,7 @@ export function CalendarTable() {
               <IconMap />
             </span>
             <span>
-              <strong>Rabat · Casablanca</strong>
+              <strong>Casablanca</strong>
               <span className="cal__stat-label">présentiel + coaching</span>
             </span>
           </li>

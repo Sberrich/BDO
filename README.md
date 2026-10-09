@@ -10,7 +10,7 @@ The site presents the programme (opening conference, 8 seminars, closing session
 | **Repository** | <https://github.com/Sberrich/BDO> (branch `main`) |
 | **Stack** | Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 + BEM CSS · Keystatic CMS |
 | **Runtime** | Node.js ≥ 20.9 (developed on Node 24) |
-| **Package manager** | pnpm 8+ (`pnpm-lock.yaml` is the source of truth) |
+| **Package manager** | pnpm 8.15.0, pinned in `package.json` (`packageManager`); lockfile format v6 — use `corepack enable` to get the right version |
 | **Language of the site** | French |
 
 ---
@@ -219,7 +219,7 @@ Pick **one** of the options below.
 # 1. Install Node 22 LTS + pnpm + pm2
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs nginx
-sudo npm i -g pnpm pm2
+sudo npm i -g pnpm@8.15.0 pm2
 
 # 2. Get the code
 sudo mkdir -p /var/www && cd /var/www
@@ -357,8 +357,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 8 }
+      - uses: pnpm/action-setup@v4   # reads the version from package.json "packageManager"
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile

@@ -7,7 +7,7 @@ const data = {
         {
           "id": "faq-programme-definition",
           "q": "En quoi consiste le certificat CFO 4.0 ?",
-          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en séance.</p><p>Le cycle combine huit séminaires thématiques et un projet de transformation mené sur votre propre entreprise. Ce projet est soutenu devant un jury au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
+          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en séance.</p><p>Le cycle combine huit séminaires thématiques et un projet de transformation mené sur votre propre entreprise. Ce projet est présenté au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
           "lien": {
             "texte": "Voir le programme complet",
             "href": "programme.html"
@@ -27,7 +27,7 @@ const data = {
         {
           "id": "faq-programme-projet",
           "q": "Qu’est-ce que le projet de transformation et comment se déroule-t-il ?",
-          "r": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du 27 novembre. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. La soutenance se tient au séminaire 8, devant le jury ISCAE × BDO.</p>",
+          "r": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du 27 novembre. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. Les projets sont présentés et évalués au séminaire 8.</p>",
           "lien": {
             "texte": "Le fil rouge, étape par étape",
             "href": "programme.html#fil-rouge"
@@ -37,7 +37,7 @@ const data = {
         {
           "id": "faq-programme-animation",
           "q": "Qui anime les séminaires ?",
-          "r": "<p>Des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités. Chaque intervenant enseigne sur son terrain d’exercice.</p><p>{{PROV}}La liste complète des intervenants de la promotion 1 est en cours de publication. Zakaria Fahim, Managing Partner de BDO Maroc, et Ismail Lahsini interviennent sur le workshop de management digital et sur le jury de soutenance.{{/PROV}}</p>",
+          "r": "<p>Des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités. Chaque intervenant enseigne sur son terrain d’exercice.</p><p>{{PROV}}La liste complète des intervenants de la promotion 1 est en cours de publication. Zakaria Fahim, Managing Partner de BDO Maroc, et Ismail Lahsini interviennent sur le workshop de management digital.{{/PROV}}</p>",
           "lien": {
             "texte": "Voir les intervenants",
             "href": "intervenants.html"
@@ -109,7 +109,7 @@ const data = {
         {
           "id": "faq-calendrier-rentree",
           "q": "Quand commence la promotion 1 ?",
-          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026, de 15 h à 21 h. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le samedi 26 décembre 2026, par la soutenance des projets et la remise des certificats.</p>",
+          "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026, de 15 h à 21 h. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le samedi 26 décembre 2026, par la présentation des projets et la remise des certificats.</p>",
           "lien": {
             "texte": "Le calendrier complet",
             "href": "admissions.html#calendrier"
@@ -129,7 +129,7 @@ const data = {
         {
           "id": "faq-calendrier-lieu",
           "q": "Où se déroulent les séminaires ?",
-          "r": "<p>À Rabat, en présentiel. {{PROV}}Le lieu exact est communiqué aux participants admis avec leur convocation.{{/PROV}}</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
+          "r": "<p>À Casablanca, en présentiel. {{PROV}}Le lieu exact est communiqué aux participants admis avec leur convocation.{{/PROV}}</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
           "lien": null,
           "accueil": false
         },
@@ -166,7 +166,7 @@ const data = {
         {
           "id": "faq-tarif-montant",
           "q": "Quel est le tarif ?",
-          "r": "<p>Trois montants s’appliquent, hors taxes :</p><ul><li>Frais d’inscription : <strong>1 200 DH HT</strong></li><li>Tarif particulier : <strong>24 000 DH HT</strong></li><li>Tarif entreprise : <strong>37 000 DH HT</strong></li></ul><p>Les frais d’inscription s’ajoutent au tarif de formation. Le montant couvre la conférence inaugurale, les huit séminaires, le coaching des équipes projet et le jury de certification.</p>",
+          "r": "<p>Trois montants s’appliquent, hors taxes :</p><ul><li>Frais d’inscription : <strong>1 200 DH HT</strong></li><li>Tarif particulier : <strong>24 000 DH HT</strong></li><li>Tarif entreprise : <strong>37 000 DH HT</strong></li></ul><p>Les frais d’inscription s’ajoutent au tarif de formation. Le montant couvre la conférence inaugurale, les huit séminaires et le coaching des équipes projet.</p>",
           "lien": {
             "texte": "Le détail du tarif",
             "href": "admissions.html#tarif"
@@ -176,7 +176,7 @@ const data = {
         {
           "id": "faq-tarif-couverture",
           "q": "Que couvre le tarif ?",
-          "r": "<p>111 heures de formation, dont 51 heures en présentiel ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la soutenance devant le jury ISCAE × BDO et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement à Rabat restent à votre charge.</p>",
+          "r": "<p>111 heures de formation, dont 51 heures en présentiel ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la présentation du projet et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement à Casablanca restent à votre charge.</p>",
           "lien": {
             "texte": "Le détail du tarif",
             "href": "admissions.html#tarif"
@@ -222,7 +222,7 @@ const data = {
         {
           "id": "faq-certification-diplomant",
           "q": "Le certificat est-il diplômant ?",
-          "r": "<p>Non. CFO 4.0 est un certificat de formation exécutive, délivré au titre de la formation continue. Il n’a pas valeur de diplôme national.</p><p>Il atteste d’un parcours de 111 heures, d’un projet de transformation mené sur votre entreprise et de sa soutenance devant un jury.</p>",
+          "r": "<p>Non. CFO 4.0 est un certificat de formation exécutive, délivré au titre de la formation continue. Il n’a pas valeur de diplôme national.</p><p>Il atteste d’un parcours de 111 heures, d’un projet de transformation mené sur votre entreprise et de sa présentation.</p>",
           "lien": null,
           "accueil": false
         },
@@ -239,7 +239,7 @@ const data = {
         {
           "id": "faq-certification-conditions",
           "q": "Quelles sont les conditions de délivrance ?",
-          "r": "<p>Deux conditions, cumulatives : un taux d’assiduité d’au moins 80 % sur l’ensemble du cycle, et la réussite des évaluations de mi-parcours et de fin de cycle, soutenance du projet comprise.</p>",
+          "r": "<p>Deux conditions, cumulatives : un taux d’assiduité d’au moins 80 % sur l’ensemble du cycle, et la réussite des évaluations de mi-parcours et de fin de cycle, présentation du projet comprise.</p>",
           "lien": null,
           "accueil": false
         }

@@ -5,8 +5,8 @@ const data = {
   "domaine": "certificat.bdo-info.ma",
   "baseUrl": "https://certificat.bdo-info.ma",
   "promesse": {
-    "titre": "Construisez la feuille de route de transformation de votre direction financière, et défendez-la devant un jury.",
-    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Rabat. Huit séminaires, un projet mené sur votre propre entreprise, un certificat cosigné."
+    "titre": "Construisez la feuille de route de transformation de votre direction financière.",
+    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Huit séminaires, un projet mené sur votre propre entreprise, un certificat cosigné."
   },
   "faits": [
     {
@@ -28,7 +28,7 @@ const data = {
       "icone": "modules"
     },
     {
-      "valeur": "Rabat",
+      "valeur": "Casablanca",
       "unite": "",
       "libelle": "en présentiel",
       "icone": "lieu"

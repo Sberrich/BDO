@@ -152,15 +152,15 @@ export async function POST(req: Request) {
       await deliverViaFormSubmit(notify, mail.subject, mail.text, email);
     }
   } catch (err) {
-    console.error("[submit] delivery", err);
-    const detail = err instanceof Error ? err.message : "delivery_error";
+    console.error("[submit] delivery failed", {
+      type,
+      provider,
+      error: err instanceof Error ? err.message : String(err),
+    });
     return NextResponse.json(
       {
         ok: false,
-        message: "Nous n’avons pas pu envoyer le message.",
-        detail,
-        provider,
-        to: notify,
+        message: `Votre demande n’a pas pu être envoyée. Merci de réessayer dans quelques minutes ou de nous écrire à ${BRAND.email}.`,
       },
       { status: 502 },
     );
