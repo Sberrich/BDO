@@ -10534,13 +10534,37 @@ a.about-contact__card:focus-visible {
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
 }
-.foot__legal a {
+.foot__legal a,
+.foot__cookies {
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
 }
+.foot__cookies {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
 .foot__legal a:hover,
-.foot__legal a:focus-visible {
+.foot__legal a:focus-visible,
+.foot__cookies:hover,
+.foot__cookies:focus-visible {
   color: #fff;
+}
+
+/* BDO consent widget: reopen icon is injected by cookies.bdomaroc.com. */
+#cmp-floating-icon {
+  left: max(1rem, env(safe-area-inset-left)) !important;
+  bottom: max(1.25rem, env(safe-area-inset-bottom)) !important;
+}
+@media (max-width: 720px) {
+  #cmp-floating-icon {
+    bottom: calc(5.25rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+body[data-nav="open"] #cmp-floating-icon {
+  visibility: hidden;
 }
 @media (max-width: 640px) {
   .foot__cta-row {

@@ -176,6 +176,7 @@ pnpm dev  ──►  edit in http://localhost:3000/keystatic  ──►  git com
 All forms post to `POST /api/submit`, which:
 
 - validates the required fields for each form type (`candidature`, `document`, `session`, `rappel`),
+- for `candidature` (sent as `multipart/form-data`): checks the CV (required, PDF/DOC/DOCX) and photo (optional, JPG/PNG) — 5 MB each, extension **and** file signature, sanitised file names; options and upload rules live in `lib/candidature.ts`,
 - rate-limits to **12 submissions per IP per hour** (in memory, per instance — reads `X-Forwarded-For`),
 - sends a formatted e-mail to `NOTIFY_EMAIL`,
 - answers JSON (`200` ok, `400`/`422` invalid input, `429` rate-limited); the form then sends the visitor to `/merci` (with the PDF link for document requests).
@@ -183,6 +184,7 @@ All forms post to `POST /api/submit`, which:
 **Providers**
 
 - `formsubmit` (default): no account needed. ⚠️ The **first** submission triggers an *activation e-mail* from FormSubmit to `NOTIFY_EMAIL` — someone must click the confirmation link once, otherwise nothing is delivered. Do this right after go-live (see §8).
+- **Attachments (CV, photo of the application form)** are only forwarded with `resend`. With `formsubmit`, the e-mail lists the files and warns that they must be requested from the candidate.
 - `resend`: more reliable and branded. Verify the `iscae.bdomaroc.com` domain in Resend (DKIM/SPF DNS records in the `bdomaroc.com` zone), then set `EMAIL_PROVIDER=resend`, `RESEND_API_KEY` and `FROM_EMAIL`.
 
 The server must be able to reach `https://formsubmit.co` or `https://api.resend.com` over outbound HTTPS.
@@ -309,7 +311,7 @@ server {
     ssl_certificate     /etc/letsencrypt/live/iscae.bdomaroc.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/iscae.bdomaroc.com/privkey.pem;
 
-    client_max_body_size 2m;
+    client_max_body_size 12m;   # application form uploads (CV + photo, 5 MB each)
     gzip on;
     gzip_types text/css application/javascript application/json image/svg+xml;
 

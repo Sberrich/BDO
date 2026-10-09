@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { BRAND } from "@/lib/content";
-import { buildFormEmail } from "@/lib/emails";
+import { buildFormEmail, type AttachmentInfo } from "@/lib/emails";
+import {
+  AUTRE_FIELDS,
+  MAX_REQUEST_BYTES,
+  UPLOADS,
+  extensionOf,
+  matchesSignature,
+  safeFilename,
+} from "@/lib/candidature";
 
 const DOCS: Record<string, string> = {
   brochure: "/docs/CFO-4-0-brochure.pdf",
@@ -40,9 +48,8 @@ const required: Record<string, string[]> = {
   session: ["nom", "fonction", "email", "creneau"],
   rappel: ["nom", "fonction", "email", "telephone", "moment"],
   candidature: [
-    "nom", "fonction", "email", "telephone", "secteur", "effectif",
-    "experience", "diplome", "rattachement", "equipe", "projet", "attente",
-    "financement", "disponibilite", "consentement",
+    "nom", "email", "telephone", "ville", "participation", "secteur",
+    "niveau", "diplome", "decouverte", "interet", "consentement",
   ],
 };
 
@@ -79,12 +86,42 @@ async function deliverViaFormSubmit(notify: string, subject: string, lines: stri
   }
 }
 
+type Upload = AttachmentInfo & { content: Buffer };
+
+async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string }> {
+  const files: Upload[] = [];
+  for (const rule of UPLOADS) {
+    const entry = form.get(rule.field);
+    const file = entry instanceof File && entry.size > 0 ? entry : null;
+    if (!file) {
+      if (rule.required) return { files, error: `Merci de joindre votre ${rule.label} (${rule.hint}).` };
+      continue;
+    }
+    const ext = extensionOf(file.name);
+    if (!rule.extensions.includes(ext) || file.size > rule.maxBytes) {
+      return { files, error: `${rule.label} : ${rule.hint}.` };
+    }
+    const content = Buffer.from(await file.arrayBuffer());
+    if (!matchesSignature(ext, content.subarray(0, 8))) {
+      return { files, error: `${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).` };
+    }
+    files.push({
+      label: rule.label,
+      filename: safeFilename(file.name, rule.field),
+      size: file.size,
+      content,
+    });
+  }
+  return { files };
+}
+
 async function deliverViaResend(
   key: string,
   from: string,
   notify: string,
   replyTo: string,
   mail: { subject: string; text: string; html: string },
+  files: Upload[],
 ) {
   const resend = new Resend(key);
   const { error } = await resend.emails.send({
@@ -94,6 +131,9 @@ async function deliverViaResend(
     subject: mail.subject,
     text: mail.text,
     html: mail.html,
+    attachments: files.length
+      ? files.map((f) => ({ filename: f.filename, content: f.content }))
+      : undefined,
   });
   if (error) {
     throw new Error(error.message || error.name || "resend_error");
@@ -101,9 +141,23 @@ async function deliverViaResend(
 }
 
 export async function POST(req: Request) {
+  const isMultipart = (req.headers.get("content-type") || "").includes("multipart/form-data");
+  if (isMultipart && Number(req.headers.get("content-length") || 0) > MAX_REQUEST_BYTES) {
+    return NextResponse.json({ ok: false, message: "Les fichiers envoyés sont trop volumineux (5 Mo maximum chacun)." }, { status: 413 });
+  }
+
   let body: Record<string, unknown>;
+  let form: FormData | null = null;
   try {
-    body = (await req.json()) as Record<string, unknown>;
+    if (isMultipart) {
+      form = await req.formData();
+      body = {};
+      for (const [key, value] of form.entries()) {
+        if (typeof value === "string") body[key] = value;
+      }
+    } else {
+      body = (await req.json()) as Record<string, unknown>;
+    }
   } catch {
     return NextResponse.json({ ok: false, message: "Requête invalide." }, { status: 400 });
   }
@@ -133,8 +187,24 @@ export async function POST(req: Request) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, message: "L’adresse e-mail n’est pas valide." }, { status: 422 });
   }
-  if (type === "candidature" && Number(body.experience) < 5) {
-    return NextResponse.json({ ok: false, message: "Cinq ans d’expérience professionnelle au minimum." }, { status: 422 });
+  if (type === "candidature") {
+    for (const name of AUTRE_FIELDS) {
+      if (clean(body[name], 30) === "autre" && !clean(body[`${name}_autre`], 200)) {
+        return NextResponse.json({ ok: false, message: "Merci de préciser votre réponse « Autre »." }, { status: 422 });
+      }
+    }
+  }
+
+  let files: Upload[] = [];
+  if (type === "candidature") {
+    if (!form) {
+      return NextResponse.json({ ok: false, message: "Merci de joindre votre CV." }, { status: 422 });
+    }
+    const uploads = await readUploads(form);
+    if (uploads.error) {
+      return NextResponse.json({ ok: false, message: uploads.error }, { status: 422 });
+    }
+    files = uploads.files;
   }
 
   // formsubmit = any inbox (one-time activation email). resend = needs verified domain for third-party to:.
@@ -142,13 +212,18 @@ export async function POST(req: Request) {
   const notify = process.env.NOTIFY_EMAIL || BRAND.email;
   const from = process.env.FROM_EMAIL || "BDO Certificat <onboarding@resend.dev>";
   const key = process.env.RESEND_API_KEY;
-  const mail = buildFormEmail(type, body);
+  const canAttach = provider === "resend";
+  const mail = buildFormEmail(type, body, {
+    attachments: files.map(({ label, filename, size }) => ({ label, filename, size })),
+    attachmentsNotSent: files.length > 0 && !canAttach,
+  });
 
   try {
     if (provider === "resend") {
       if (!key) throw new Error("RESEND_API_KEY manquante");
-      await deliverViaResend(key, from, notify, email, mail);
+      await deliverViaResend(key, from, notify, email, mail, files);
     } else {
+      if (files.length) console.warn("[submit] attachments not forwarded: provider has no attachment support", { provider });
       await deliverViaFormSubmit(notify, mail.subject, mail.text, email);
     }
   } catch (err) {

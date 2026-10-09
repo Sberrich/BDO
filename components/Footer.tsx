@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
+import { CookieSettingsLink } from "@/components/CookieSettingsLink";
 import { IconArrowRight, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
 import { plain } from "@/lib/text";
 
@@ -176,6 +177,9 @@ export function Footer() {
             </li>
             <li>
               <Link href="/confidentialite">Confidentialité</Link>
+            </li>
+            <li>
+              <CookieSettingsLink />
             </li>
           </ul>
           <a href="#contenu" className="foot__top">

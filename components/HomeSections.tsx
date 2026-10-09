@@ -423,7 +423,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 Prêt à rejoindre la promotion&nbsp;1&nbsp;?
               </h2>
               <p className="final-cta__lead">
-                Une candidature d’une vingtaine de minutes. Réponse sous 24&nbsp;h.
+                Une candidature en quelques minutes. Réponse sous 24&nbsp;h.
               </p>
               <div className="final-cta__actions">
                 <ButtonLink href="/candidater" className="final-cta__primary">

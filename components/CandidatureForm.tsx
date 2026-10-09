@@ -1,19 +1,38 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
+import {
+  DECOUVERTES,
+  NIVEAUX,
+  PARTICIPATIONS,
+  SECTEURS,
+  UPLOADS,
+  checkUpload,
+  type Option,
+  type UploadRule,
+} from "@/lib/candidature";
 
-const steps = ["Identité et fonction", "Parcours", "Projet", "Financement"];
+const steps = ["Coordonnées", "Inscription", "Fonction et parcours", "Motivation"];
 const KEY = "cfo40-candidature";
+const CV_STEP = 0;
+
+type Choices = { participation: string; secteur: string; niveau: string; decouverte: string };
+const EMPTY: Choices = { participation: "", secteur: "", niveau: "", decouverte: "" };
+
+const fileClass = `${fieldClass} cursor-pointer text-sm file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-white`;
 
 export function CandidatureForm() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
+  const [choices, setChoices] = useState<Choices>(EMPTY);
+  const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
 
@@ -31,32 +50,54 @@ export function CandidatureForm() {
       Object.entries(saved).forEach(([key, value]) => {
         if (key === "_step") return;
         const el = form.elements.namedItem(key);
-        if (
-          el instanceof HTMLInputElement ||
-          el instanceof HTMLSelectElement ||
-          el instanceof HTMLTextAreaElement
-        ) {
-          if (el.type === "checkbox") {
-            (el as HTMLInputElement).checked = value === "oui";
-          } else {
-            el.value = value;
-          }
+        if (el instanceof RadioNodeList) {
+          el.value = value;
+        } else if (el instanceof HTMLInputElement) {
+          if (el.type === "file") return;
+          if (el.type === "checkbox") el.checked = value === "oui";
+          else el.value = value;
+        } else if (el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+          el.value = value;
         }
       });
-      if (saved._step) {
-        const next = Math.min(Number(saved._step) || 0, steps.length - 1);
-        queueMicrotask(() => setStep(next));
-      }
+      const restored = Object.fromEntries(
+        Object.keys(EMPTY).map((k) => [k, saved[k] || ""]),
+      ) as Choices;
+      const next = saved._step ? Math.min(Number(saved._step) || 0, steps.length - 1) : 0;
+      queueMicrotask(() => {
+        setChoices(restored);
+        if (next) setStep(next);
+      });
     } catch {}
   }, []);
 
   function persist(form: HTMLFormElement, nextStep = step) {
-    const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries()) as Record<string, string>;
+    const payload: Record<string, string> = {};
+    new FormData(form).forEach((value, key) => {
+      if (typeof value === "string") payload[key] = value;
+    });
     payload._step = String(nextStep);
     try {
       localStorage.setItem(KEY, JSON.stringify(payload));
     } catch {}
+  }
+
+  function onFormChange(e: FormEvent<HTMLFormElement>) {
+    const target = e.target as HTMLElement;
+    if (target instanceof HTMLInputElement && target.type === "radio" && target.name in choices) {
+      setChoices((c) => ({ ...c, [target.name]: target.value }));
+    }
+    persist(e.currentTarget);
+  }
+
+  function onFile(rule: UploadRule) {
+    return (e: ChangeEvent<HTMLInputElement>) => {
+      const input = e.currentTarget;
+      const file = input.files?.[0];
+      const message = file ? checkUpload(rule, file) : "";
+      input.setCustomValidity(message);
+      setFileErrors((errs) => ({ ...errs, [rule.field]: message }));
+    };
   }
 
   function next(e: FormEvent) {
@@ -74,18 +115,23 @@ export function CandidatureForm() {
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (step < steps.length - 1) return next(e);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const cv = fd.get("cv");
+    if (!(cv instanceof File) || cv.size === 0) {
+      setStep(CV_STEP);
+      setStatus(`Merci de joindre votre CV à l’étape « ${steps[CV_STEP]} ».`);
+      return;
+    }
     setSending(true);
-    const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
-    payload.type = "candidature";
-    payload._ts = String(openedAt.current || Math.floor(Date.now() / 1000));
-    payload.consentement = fd.get("consentement") ? "oui" : "";
+    setStatus("");
+    const photo = fd.get("photo");
+    if (photo instanceof File && photo.size === 0) fd.delete("photo");
+    fd.set("type", "candidature");
+    fd.set("_ts", String(openedAt.current || Math.floor(Date.now() / 1000)));
+    fd.set("consentement", fd.get("consentement") ? "oui" : "");
     try {
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch("/api/submit", { method: "POST", body: fd });
       const json = (await res.json()) as { ok: boolean; message: string };
       if (!res.ok || !json.ok) {
         setStatus(json.message);
@@ -102,11 +148,48 @@ export function CandidatureForm() {
     }
   }
 
+  const cards = (name: keyof Choices, s: number, question: string, options: Option[]) => (
+    <div role="radiogroup" aria-label={question}>
+      <p className="text-sm font-semibold">{question} *</p>
+      <div className="mt-2 grid gap-2">
+        {options.map((o) => {
+          const checked = choices[name] === o.value;
+          return (
+            <label
+              key={o.value}
+              className={`flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white px-4 py-3 text-sm transition hover:border-muted ${
+                checked ? "border-blue ring-2 ring-blue/20" : "border-line"
+              }`}
+            >
+              <input
+                type="radio"
+                name={name}
+                value={o.value}
+                required={step === s}
+                className="h-4 w-4 shrink-0 accent-blue"
+              />
+              {o.label}
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  const autre = (name: keyof Choices, s: number, label: string) =>
+    choices[name] === "autre" ? (
+      <label className="block text-sm font-semibold">
+        {label} *
+        <input className={fieldClass} required={step === s} name={`${name}_autre`} maxLength={200} />
+      </label>
+    ) : null;
+
   return (
     <form
       ref={formRef}
       onSubmit={onSubmit}
-      onChange={(e) => persist(e.currentTarget)}
+      onChange={onFormChange}
+      encType="multipart/form-data"
       className="space-y-6"
     >
       <div>
@@ -140,7 +223,8 @@ export function CandidatureForm() {
           />
         </div>
         <p className="mt-2 text-xs text-muted">
-          Brouillon conservé sur cet appareil. Vous pouvez reprendre plus tard.
+          Brouillon conservé sur cet appareil. Vous pouvez reprendre plus tard ; les fichiers
+          (CV, photo) sont à joindre à nouveau.
         </p>
       </div>
 
@@ -149,44 +233,9 @@ export function CandidatureForm() {
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 0}>
-        <label className="block text-sm font-semibold">
+        <label className="block text-sm font-semibold sm:col-span-2">
           Nom et prénom *
-          <input
-            className={fieldClass}
-            required={step === 0}
-            name="nom"
-            autoComplete="name"
-          />
-        </label>
-        <label className="block text-sm font-semibold">
-          Fonction exacte *
-          <input className={fieldClass} required={step === 0} name="fonction" />
-        </label>
-        <label className="block text-sm font-semibold">
-          Secteur *
-          <select className={fieldClass} required={step === 0} name="secteur">
-            <option value="">Choisissez…</option>
-            <option value="banque-assurance">Banque, assurance, finance</option>
-            <option value="industrie">Industrie</option>
-            <option value="distribution">Distribution, commerce</option>
-            <option value="services">Services</option>
-            <option value="btp-immobilier">BTP, immobilier</option>
-            <option value="telecoms-tech">Télécoms, technologies</option>
-            <option value="energie-mines">Énergie, mines</option>
-            <option value="transport-logistique">Transport, logistique</option>
-            <option value="secteur-public">Secteur public</option>
-            <option value="autre">Autre</option>
-          </select>
-        </label>
-        <label className="block text-sm font-semibold">
-          Effectif *
-          <select className={fieldClass} required={step === 0} name="effectif">
-            <option value="">Choisissez…</option>
-            <option value="moins-50">Moins de 50</option>
-            <option value="50-199">50 à 199</option>
-            <option value="200-999">200 à 999</option>
-            <option value="1000-plus">1 000 et plus</option>
-          </select>
+          <input className={fieldClass} required={step === 0} name="nom" autoComplete="name" />
         </label>
         <label className="block text-sm font-semibold">
           E-mail *
@@ -195,155 +244,114 @@ export function CandidatureForm() {
             required={step === 0}
             type="email"
             name="email"
+            autoComplete="email"
           />
         </label>
         <label className="block text-sm font-semibold">
-          Téléphone *
+          GSM *
           <input
             className={fieldClass}
             required={step === 0}
             type="tel"
             name="telephone"
+            autoComplete="tel"
           />
         </label>
-      </fieldset>
-
-      <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 1}>
-        <label className="block text-sm font-semibold">
-          Années d’expérience en finance *
+        <label className="block text-sm font-semibold sm:col-span-2">
+          Ville *
           <input
             className={fieldClass}
-            required={step === 1}
-            type="number"
-            min={5}
-            name="experience"
+            required={step === 0}
+            name="ville"
+            autoComplete="address-level2"
+          />
+        </label>
+        {UPLOADS.map((rule) => (
+          <label key={rule.field} className="block text-sm font-semibold">
+            {rule.label}
+            {rule.required ? " *" : " (facultatif)"}
+            <input
+              className={fileClass}
+              type="file"
+              name={rule.field}
+              accept={rule.accept}
+              required={rule.required && step === 0}
+              onChange={onFile(rule)}
+            />
+            <span
+              className={`mt-1 block text-xs font-normal ${fileErrors[rule.field] ? "text-red" : "text-muted"}`}
+            >
+              {fileErrors[rule.field] || `Fichiers acceptés : ${rule.hint}`}
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className="space-y-5" hidden={step !== 1}>
+        {cards("participation", 1, "Demande d’inscription formulée pour :", PARTICIPATIONS)}
+        {cards("secteur", 1, "Dans quel secteur d’activité travaillez-vous ?", SECTEURS)}
+        {autre("secteur", 1, "Précisez votre secteur")}
+      </fieldset>
+
+      <fieldset className="space-y-5" hidden={step !== 2}>
+        {cards("niveau", 2, "Quelle est votre fonction ?", NIVEAUX)}
+        {autre("niveau", 2, "Précisez votre fonction")}
+        <label className="block text-sm font-semibold">
+          Diplômes obtenus *
+          <textarea
+            className={`${fieldClass} min-h-28`}
+            required={step === 2}
+            maxLength={800}
+            name="diplome"
           />
         </label>
         <label className="block text-sm font-semibold">
-          Dernier diplôme *
-          <input className={fieldClass} required={step === 1} name="diplome" />
-        </label>
-        <label className="block text-sm font-semibold">
-          Rattachement hiérarchique *
-          <input
-            className={fieldClass}
-            required={step === 1}
-            name="rattachement"
-          />
-        </label>
-        <label className="block text-sm font-semibold">
-          Équipe encadrée *
-          <select className={fieldClass} required={step === 1} name="equipe">
-            <option value="">Choisissez…</option>
-            <option value="0">Aucune</option>
-            <option value="1-5">1 à 5</option>
-            <option value="6-20">6 à 20</option>
-            <option value="21-plus">Plus de 20</option>
-          </select>
+          Études complémentaires non sanctionnées par un diplôme
+          <textarea className={`${fieldClass} min-h-28`} maxLength={800} name="etudes" />
         </label>
       </fieldset>
 
-      <fieldset className="space-y-4" hidden={step !== 2}>
-        <p className="text-sm text-muted">
-          Ces réponses servent à constituer les sous-groupes dès la conférence
-          inaugurale.
-        </p>
+      <fieldset className="space-y-5" hidden={step !== 3}>
+        {cards("decouverte", 3, "Comment avez-vous découvert le certificat BDO ISCAE ?", DECOUVERTES)}
+        {autre("decouverte", 3, "Précisez")}
         <label className="block text-sm font-semibold">
-          Le chantier de transformation visé *
+          En quelques lignes, merci d’expliquer l’intérêt pour la formation objet de cette
+          demande *
           <textarea
             className={`${fieldClass} min-h-32`}
-            required={step === 2}
-            maxLength={800}
-            name="projet"
+            required={step === 3}
+            maxLength={1500}
+            name="interet"
           />
         </label>
-        <label className="block text-sm font-semibold">
-          Ce que votre entreprise attend *
-          <textarea
-            className={`${fieldClass} min-h-32`}
-            required={step === 2}
-            maxLength={800}
-            name="attente"
-          />
-        </label>
-      </fieldset>
-
-      <fieldset className="space-y-4" hidden={step !== 3}>
-        <label className="block text-sm font-semibold">
-          Mode de financement *
-          <select
-            className={fieldClass}
-            required={step === 3}
-            name="financement"
-          >
-            <option value="">Choisissez…</option>
-            <option value="entreprise">Prise en charge entreprise</option>
-            <option value="personnel">Financement personnel</option>
-            <option value="mixte">Mixte</option>
-            <option value="indecis">À déterminer</option>
-          </select>
-        </label>
-        <label className="block text-sm font-semibold">
-          Contact RH (facultatif)
-          <input className={fieldClass} name="contact_rh" />
-        </label>
-        <label className="block text-sm font-semibold">
-          Disponibilité *
-          <select
-            className={fieldClass}
-            required={step === 3}
-            name="disponibilite"
-          >
-            <option value="">Choisissez…</option>
-            <option value="oui">Oui, sur l’ensemble du calendrier</option>
-            <option value="partiel">
-              Oui, avec une ou deux indisponibilités
-            </option>
-            <option value="non">Non, je souhaite en discuter</option>
-          </select>
-        </label>
-        <label className="flex items-start gap-3 text-sm">
+        <label className="flex items-start gap-3 rounded-[10px] bg-cream px-4 py-3 text-sm">
           <input
             type="checkbox"
             required={step === 3}
             name="consentement"
             value="oui"
-            className="mt-1"
+            className="mt-0.5 h-4 w-4 accent-blue"
           />
           <span>
-            J’accepte que ce dossier soit traité par le Groupe ISCAE et BDO
-            Maroc pour instruire ma candidature. *
+            J’accepte les{" "}
+            <Link href="/cgu" target="_blank" className="font-semibold text-blue underline">
+              conditions générales
+            </Link>{" "}
+            avant de soumettre ma candidature. *
           </span>
-        </label>
-        <label className="flex items-start gap-3 text-sm">
-          <input
-            type="checkbox"
-            name="prospection"
-            value="oui"
-            className="mt-1"
-          />
-          <span>J’accepte de recevoir les publications du programme.</span>
         </label>
       </fieldset>
 
       <div className="flex flex-wrap justify-between gap-3">
         {step > 0 ? (
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => setStep((s) => s - 1)}
-          >
-            Étape précédente
+          <Button type="button" variant="ghost" onClick={() => setStep((s) => s - 1)}>
+            Retour
           </Button>
         ) : (
           <span />
         )}
         <Button type="submit" disabled={sending}>
-          {sending
-            ? "Envoi…"
-            : step === steps.length - 1
-              ? "Envoyer ma candidature"
-              : "Étape suivante"}
+          {sending ? "Envoi…" : step === steps.length - 1 ? "Envoyer" : "Suivant"}
         </Button>
       </div>
       {status && <p className="text-sm text-red">{status}</p>}

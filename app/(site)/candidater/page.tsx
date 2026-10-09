@@ -15,7 +15,7 @@ export default function CandidaterPage() {
       <PageHero
         kicker="Candidater"
         title="Votre dossier de candidature"
-        lead={`Quatre étapes, une vingtaine de minutes. Clôture le ${plain(data.site.admission.dateLimite)}.`}
+        lead={`Quatre étapes, quelques minutes. Clôture le ${plain(data.site.admission.dateLimite)}.`}
       />
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="max-w-3xl">

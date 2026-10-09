@@ -43,6 +43,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" data-scroll-behavior="smooth" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
+      <head>
+        <script
+          src="https://cookies.bdomaroc.com/static/widget/widget.js"
+          data-site-id="site_9u8iidbnDr0"
+          async
+        />
+      </head>
       <body className="min-h-full bg-white text-ink">{children}</body>
     </html>
   );
