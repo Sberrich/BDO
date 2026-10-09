@@ -2,8 +2,8 @@ const data = {
   "nom": "CFO 4.0",
   "sousTitreOfficiel": "Certificat Transformation Digitale et Leadership Financier",
   "cosignature": "Certificat cosigné par le Groupe ISCAE et BDO Maroc",
-  "domaine": "certificat.bdo-info.ma",
-  "baseUrl": "https://certificat.bdo-info.ma",
+  "domaine": "iscae.bdomaroc.com",
+  "baseUrl": "https://iscae.bdomaroc.com",
   "promesse": {
     "titre": "Construisez la feuille de route de transformation de votre direction financière.",
     "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Huit séminaires, un projet mené sur votre propre entreprise, un certificat cosigné."

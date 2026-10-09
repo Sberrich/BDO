@@ -6,7 +6,7 @@ The site presents the programme (opening conference, 8 seminars, closing session
 
 | | |
 |---|---|
-| **Production URL** | `https://certificat.bdo-info.ma` |
+| **Production URL** | `https://iscae.bdomaroc.com` |
 | **Repository** | <https://github.com/Sberrich/BDO> (branch `main`) |
 | **Stack** | Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 + BEM CSS · Keystatic CMS |
 | **Runtime** | Node.js ≥ 20.9 (developed on Node 24) |
@@ -63,7 +63,7 @@ Copy `.env.example` to `.env.local` for local work. In production, set the same 
 | `EMAIL_PROVIDER` | yes | `formsubmit` | `formsubmit` (works with any inbox, no domain setup) or `resend` (needs a verified sending domain) |
 | `NOTIFY_EMAIL` | yes | `certificat@bdo-info.ma` | Inbox that receives every form submission |
 | `RESEND_API_KEY` | only if `resend` | `re_xxxxxxxx` | Resend API key |
-| `FROM_EMAIL` | only if `resend` | `BDO Certificat <noreply@bdo-info.ma>` | Sender address (must belong to the verified domain) |
+| `FROM_EMAIL` | only if `resend` | `CFO 4.0 <noreply@iscae.bdomaroc.com>` | Sender address (must belong to the verified domain) |
 | `KEYSTATIC_USER` | yes in prod | `admin` | CMS login user name |
 | `KEYSTATIC_PASSWORD` | **yes in prod** | *strong password* | CMS login password. If missing in production, `/keystatic` answers **503** |
 | `KEYSTATIC_SECRET` | recommended | 64 random chars | Signs the CMS session cookie. Generate with `openssl rand -hex 32` |
@@ -183,7 +183,7 @@ All forms post to `POST /api/submit`, which:
 **Providers**
 
 - `formsubmit` (default): no account needed. ⚠️ The **first** submission triggers an *activation e-mail* from FormSubmit to `NOTIFY_EMAIL` — someone must click the confirmation link once, otherwise nothing is delivered. Do this right after go-live (see §8).
-- `resend`: more reliable and branded. Verify the `bdo-info.ma` domain in Resend (SPF/DKIM DNS records), then set `EMAIL_PROVIDER=resend`, `RESEND_API_KEY` and `FROM_EMAIL`.
+- `resend`: more reliable and branded. Verify the `iscae.bdomaroc.com` domain in Resend (DKIM/SPF DNS records in the `bdomaroc.com` zone), then set `EMAIL_PROVIDER=resend`, `RESEND_API_KEY` and `FROM_EMAIL`.
 
 The server must be able to reach `https://formsubmit.co` or `https://api.resend.com` over outbound HTTPS.
 
@@ -211,7 +211,7 @@ Pick **one** of the options below.
 1. Import the GitHub repo in Vercel (framework detected automatically, root directory = repository root).
 2. Add the environment variables from §2 (Production + Preview).
 3. Set the production branch to `main` → every merge deploys automatically, and every PR gets a preview URL.
-4. Add the domain `certificat.bdo-info.ma` and create the DNS record Vercel shows (CNAME to `cname.vercel-dns.com`).
+4. Add the domain `iscae.bdomaroc.com` and create the DNS record Vercel shows (CNAME to `cname.vercel-dns.com`).
 
 ### 7.2 Option B — Linux VM with PM2 + Nginx
 
@@ -298,16 +298,16 @@ Secrets go in `--env-file` (or the orchestrator's secret store), never in the im
 ```nginx
 server {
     listen 80;
-    server_name certificat.bdo-info.ma;
+    server_name iscae.bdomaroc.com;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name certificat.bdo-info.ma;
+    server_name iscae.bdomaroc.com;
 
-    ssl_certificate     /etc/letsencrypt/live/certificat.bdo-info.ma/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/certificat.bdo-info.ma/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/iscae.bdomaroc.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/iscae.bdomaroc.com/privkey.pem;
 
     client_max_body_size 2m;
     gzip on;
@@ -331,7 +331,7 @@ server {
 }
 ```
 
-Certificate: `sudo apt install certbot python3-certbot-nginx && sudo certbot --nginx -d certificat.bdo-info.ma`.
+Certificate: `sudo apt install certbot python3-certbot-nginx && sudo certbot --nginx -d iscae.bdomaroc.com`.
 
 The `X-Forwarded-*` headers are required: the rate limiter uses the client IP, and the CMS cookie is `Secure` (HTTPS only) in production.
 
@@ -373,14 +373,14 @@ Deploy on merge to `main`: either Vercel's Git integration, or an SSH step that 
 ## 8. Go-live checklist
 
 - [ ] Production environment variables set (§2), with a strong `KEYSTATIC_PASSWORD` and a `KEYSTATIC_SECRET`
-- [ ] DNS `certificat.bdo-info.ma` → server / Vercel; HTTPS certificate valid; HTTP → HTTPS redirect
+- [ ] DNS `iscae.bdomaroc.com` → server / Vercel; HTTPS certificate valid; HTTP → HTTPS redirect
 - [ ] `pnpm build` passes on the server / in CI
 - [ ] Home, programme, a seminar page, admissions and candidater open on desktop and mobile
 - [ ] Videos play and the PDFs download (`/docs/CFO-4-0-brochure.pdf`)
 - [ ] Test submission of each form → e-mail received at `NOTIFY_EMAIL`
 - [ ] **FormSubmit activation link clicked** (first submission only)
 - [ ] `/keystatic` asks for login (or returns 404 if blocked at the proxy)
-- [ ] `https://certificat.bdo-info.ma/sitemap.xml` and `/robots.txt` respond
+- [ ] `https://iscae.bdomaroc.com/sitemap.xml` and `/robots.txt` respond
 - [ ] Legacy URLs redirect (e.g. `/programme.html` → `/programme`, `/lp/brochure` → `/ressources/brochure`)
 - [ ] Uptime monitor on `GET /`
 

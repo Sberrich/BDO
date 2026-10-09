@@ -66,7 +66,7 @@ const WA_TEXT = encodeURIComponent(
 );
 
 export const BRAND = {
-  url: "https://certificat.bdo-info.ma",
+  url: "https://iscae.bdomaroc.com",
   email: "certificat@bdo-info.ma",
   phone: "+212 661 448 496",
   phoneHref: "tel:+212661448496",
