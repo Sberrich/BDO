@@ -73,7 +73,7 @@ const data = {
         {
           "id": "faq-profil-processus",
           "q": "Comment se déroule l’admission ?",
-          "r": "<p>En quatre temps : vous déposez un dossier en ligne ; le comité pédagogique ISCAE × BDO l’examine ; un entretien de trente minutes est organisé, en présentiel à Rabat ou en visioconférence ; la réponse vous est donnée sous cinq jours ouvrés après l’entretien.</p><p>L’inscription est confirmée par le règlement ou par l’accord de prise en charge de votre employeur.</p>",
+          "r": "<p>L’admission se fait sur étude du dossier. Les candidats sont invités à transmettre leur CV afin d’évaluer l’adéquation de leur profil avec les prérequis du programme. Après examen de leur candidature, les profils correspondant aux critères d’éligibilité seront retenus pour participer au certificat.</p>",
           "lien": {
             "texte": "Déposer une candidature",
             "href": "candidater.html"

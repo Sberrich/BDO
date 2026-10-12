@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 import { Resend } from "resend";
 import { BRAND } from "@/lib/content";
 import { buildFormEmail, type AttachmentInfo } from "@/lib/emails";
@@ -140,6 +141,35 @@ async function deliverViaResend(
   }
 }
 
+async function deliverViaSmtp(
+  from: string,
+  notify: string,
+  replyTo: string,
+  mail: { subject: string; text: string; html: string },
+  files: Upload[],
+) {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASSWORD;
+  if (!host || !user || !pass) throw new Error("SMTP_HOST / SMTP_USER / SMTP_PASSWORD manquants");
+  const port = Number(process.env.SMTP_PORT || 465);
+  const transport = nodemailer.createTransport({
+    host,
+    port,
+    secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465,
+    auth: { user, pass },
+  });
+  await transport.sendMail({
+    from,
+    to: notify,
+    replyTo,
+    subject: mail.subject,
+    text: mail.text,
+    html: mail.html,
+    attachments: files.map((f) => ({ filename: f.filename, content: f.content })),
+  });
+}
+
 export async function POST(req: Request) {
   const isMultipart = (req.headers.get("content-type") || "").includes("multipart/form-data");
   if (isMultipart && Number(req.headers.get("content-length") || 0) > MAX_REQUEST_BYTES) {
@@ -207,19 +237,23 @@ export async function POST(req: Request) {
     files = uploads.files;
   }
 
-  // formsubmit = any inbox (one-time activation email). resend = needs verified domain for third-party to:.
+  // smtp = own mailbox. formsubmit = any inbox (one-time activation email). resend = needs verified domain for third-party to:.
   const provider = (process.env.EMAIL_PROVIDER || "formsubmit").toLowerCase();
   const notify = process.env.NOTIFY_EMAIL || BRAND.email;
-  const from = process.env.FROM_EMAIL || "BDO Certificat <onboarding@resend.dev>";
+  const from =
+    process.env.FROM_EMAIL ||
+    (provider === "smtp" ? `CFO 4.0 <${process.env.SMTP_USER}>` : "BDO Certificat <onboarding@resend.dev>");
   const key = process.env.RESEND_API_KEY;
-  const canAttach = provider === "resend";
+  const canAttach = provider === "resend" || provider === "smtp";
   const mail = buildFormEmail(type, body, {
     attachments: files.map(({ label, filename, size }) => ({ label, filename, size })),
     attachmentsNotSent: files.length > 0 && !canAttach,
   });
 
   try {
-    if (provider === "resend") {
+    if (provider === "smtp") {
+      await deliverViaSmtp(from, notify, email, mail, files);
+    } else if (provider === "resend") {
       if (!key) throw new Error("RESEND_API_KEY manquante");
       await deliverViaResend(key, from, notify, email, mail, files);
     } else {

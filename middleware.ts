@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { CMS_COOKIE, cmsCredentials, verifySession } from "@/lib/cms-session";
+import { CMS_COOKIE, cmsCredentials, publicUrl, verifySession } from "@/lib/cms-session";
 
 export async function middleware(request: NextRequest) {
   if (!cmsCredentials().pass) {
@@ -18,9 +18,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   }
 
-  const url = request.nextUrl.clone();
-  url.pathname = "/cms-login";
-  url.search = `?next=${encodeURIComponent(pathname + search)}`;
+  const url = publicUrl("/cms-login", request);
+  url.searchParams.set("next", pathname + search);
   return NextResponse.redirect(url);
 }
 

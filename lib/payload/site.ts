@@ -410,7 +410,7 @@ const data = {
     "nom": "{{PROV}}Prénom Nom{{/PROV}}",
     "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
     "email": "certificat@bdo-info.ma",
-    "telephone": "+212 661 448 496",
+    "telephone": "+212 679 724 416",
     "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
     "lieuFormation": "Casablanca — le lieu exact des séminaires est communiqué aux participants admis."

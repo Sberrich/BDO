@@ -68,8 +68,8 @@ const WA_TEXT = encodeURIComponent(
 export const BRAND = {
   url: "https://iscae.bdomaroc.com",
   email: "certificat@bdo-info.ma",
-  phone: "+212 661 448 496",
-  phoneHref: "tel:+212661448496",
+  phone: "+212 679 724 416",
+  phoneHref: "tel:+212679724416",
   whatsapp: `https://wa.me/212679724416?text=${WA_TEXT}`,
   vimeoId: "899489038",
   brochure: "/docs/CFO-4-0-brochure.pdf",
