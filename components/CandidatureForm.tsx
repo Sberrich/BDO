@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
@@ -234,10 +235,8 @@ export function CandidatureForm() {
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 0}>
-        <label className="block text-sm font-semibold sm:col-span-2">
-          Nom et prénom *
-          <input className={fieldClass} required={step === 0} name="nom" autoComplete="name" />
-        </label>
+        <NameInput kind="prenom" required={step === 0} />
+        <NameInput kind="nom" required={step === 0} />
         <label className="block text-sm font-semibold">
           E-mail *
           <input

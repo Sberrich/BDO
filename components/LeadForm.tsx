@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
@@ -42,10 +43,12 @@ export function LeadForm({
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const phone = form.elements.namedItem("telephone");
-    if (phone instanceof HTMLInputElement && !phone.checkValidity()) {
-      phone.focus();
-      return;
+    for (const name of ["prenom", "nom", "telephone"]) {
+      const input = form.elements.namedItem(name);
+      if (input instanceof HTMLInputElement && !input.checkValidity()) {
+        input.focus();
+        return;
+      }
     }
     setSending(true);
     setStatus("");
@@ -102,16 +105,10 @@ export function LeadForm({
           autoComplete="off"
         />
       </div>
-      <label className="block text-sm font-semibold">
-        Nom et prénom *
-        <input
-          className={fieldClass}
-          required
-          name="nom"
-          autoComplete="name"
-          maxLength={120}
-        />
-      </label>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <NameInput kind="prenom" required />
+        <NameInput kind="nom" required />
+      </div>
       <label className="block text-sm font-semibold">
         Fonction *
         <input

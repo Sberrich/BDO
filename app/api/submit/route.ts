@@ -12,6 +12,7 @@ import {
   safeFilename,
 } from "@/lib/candidature";
 import { publicUrl } from "@/lib/cms-session";
+import { cleanName, nameError } from "@/lib/names";
 import { PHONE_ERROR, normalizePhone } from "@/lib/phone";
 import { pushToSheet } from "@/lib/sheets";
 import { saveSubmission, type Submission } from "@/lib/submissions";
@@ -49,11 +50,11 @@ function clean(v: unknown, max = 200) {
 }
 
 const required: Record<string, string[]> = {
-  document: ["nom", "fonction", "email", "document"],
-  session: ["nom", "fonction", "email", "creneau"],
-  rappel: ["nom", "fonction", "email", "telephone", "moment"],
+  document: ["prenom", "nom", "fonction", "email", "document"],
+  session: ["prenom", "nom", "fonction", "email", "creneau"],
+  rappel: ["prenom", "nom", "fonction", "email", "telephone", "moment"],
   candidature: [
-    "nom", "email", "telephone", "ville", "participation", "secteur",
+    "prenom", "nom", "email", "telephone", "ville", "participation", "secteur",
     "niveau", "diplome", "decouverte", "interet", "consentement",
   ],
 };
@@ -221,6 +222,11 @@ export async function POST(req: Request) {
   const email = clean(body.email, 160);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, message: "L’adresse e-mail n’est pas valide." }, { status: 422 });
+  }
+  for (const kind of ["prenom", "nom"] as const) {
+    const message = nameError(kind, clean(body[kind], 200));
+    if (message) return NextResponse.json({ ok: false, message }, { status: 422 });
+    body[kind] = cleanName(clean(body[kind], 200));
   }
   if (clean(body.telephone, 40)) {
     const phone = normalizePhone(clean(body.telephone, 40));

@@ -1,4 +1,5 @@
 import { BRAND, data } from "@/lib/content";
+import { fullName } from "@/lib/names";
 import { plain } from "@/lib/text";
 import { DECOUVERTES, NIVEAUX, PARTICIPATIONS, SECTEURS, labelOf } from "@/lib/candidature";
 
@@ -148,6 +149,7 @@ function fieldsFor(type: string, body: FormPayload, extras?: EmailExtras): strin
       section(
         "Coordonnées",
         [
+          row("Prénom", v("prenom")),
           row("Nom", v("nom")),
           row("Fonction", v("fonction")),
           row("Entreprise", v("entreprise")),
@@ -171,6 +173,7 @@ function fieldsFor(type: string, body: FormPayload, extras?: EmailExtras): strin
       section(
         "Coordonnées",
         [
+          row("Prénom", v("prenom")),
           row("Nom", v("nom")),
           row("Fonction", v("fonction")),
           row("Entreprise", v("entreprise")),
@@ -192,6 +195,7 @@ function fieldsFor(type: string, body: FormPayload, extras?: EmailExtras): strin
       section(
         "Coordonnées",
         [
+          row("Prénom", v("prenom")),
           row("Nom", v("nom")),
           row("Fonction", v("fonction")),
           row("Entreprise", v("entreprise")),
@@ -213,7 +217,8 @@ function fieldsFor(type: string, body: FormPayload, extras?: EmailExtras): strin
     section(
       "Coordonnées",
       [
-        row("Nom et prénom", v("nom")),
+        row("Prénom", v("prenom")),
+        row("Nom", v("nom")),
         row("E-mail", v("email"), { href: `mailto:${v("email")}` }),
         row("GSM", v("telephone"), { href: `tel:${v("telephone").replace(/\s/g, "")}` }),
         row("Ville", v("ville")),
@@ -259,7 +264,8 @@ export function readableFields(type: string, body: FormPayload): ReadableField[]
   const v = (k: string, max = 2000) => val(body, k, max);
   const yesNo = (k: string) => (v(k) === "oui" ? "Oui" : "Non");
   const contact = [
-    { key: "nom", label: type === "candidature" ? "Nom et prénom" : "Nom", value: v("nom") },
+    { key: "prenom", label: "Prénom", value: v("prenom") },
+    { key: "nom", label: "Nom", value: v("nom") },
     { key: "email", label: "E-mail", value: v("email") },
     { key: "telephone", label: type === "candidature" ? "GSM" : "Téléphone", value: v("telephone") },
   ];
@@ -307,7 +313,7 @@ function subtitleOf(type: string, body: FormPayload) {
 function textFor(type: string, body: FormPayload, extras?: EmailExtras) {
   const meta = META[type] ?? META.rappel;
   const v = (k: string, max?: number) => val(body, k, max);
-  const lines = [`${meta.title}`, `—`, `Nom : ${v("nom")}`, `Fonction : ${subtitleOf(type, body)}`, `E-mail : ${v("email")}`];
+  const lines = [`${meta.title}`, `—`, `Nom : ${fullName(body)}`, `Fonction : ${subtitleOf(type, body)}`, `E-mail : ${v("email")}`];
 
   if (type === "rappel") {
     lines.push(`Téléphone : ${v("telephone")}`, `Créneau : ${labelMap(MOMENT_LABELS, v("moment"))}`, `Question : ${v("sujet", 600)}`);
@@ -346,7 +352,7 @@ export function buildFormEmail(type: string, body: FormPayload, extras?: EmailEx
     accent: NAVY,
     intro: "Nouvelle soumission de formulaire.",
   };
-  const nom = val(body, "nom").replace(/\s+/g, " ") || "Prospect";
+  const nom = fullName(body) || "Prospect";
   const email = val(body, "email");
   const when = new Date().toLocaleString("fr-MA", {
     timeZone: "Africa/Casablanca",

@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { CMS_COOKIE, hasAdminSession } from "@/lib/cms-session";
 import { FORM_TYPES, formTypeLabel, readableFields } from "@/lib/emails";
+import { fullName } from "@/lib/names";
 import { listSubmissions, type Submission } from "@/lib/submissions";
 
 export const metadata: Metadata = {
@@ -125,7 +126,7 @@ export default async function AdminPage({ searchParams }: Props) {
                     <summary>
                       <span className="adm__date">{formatDate(s.createdAt)}</span>
                       <span className="adm__who">
-                        <strong>{by.nom || "Sans nom"}</strong>
+                        <strong>{fullName(s.fields) || "Sans nom"}</strong>
                         <span>{by.email}</span>
                       </span>
                       <span className="adm__what">{summary}</span>
