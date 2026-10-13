@@ -11249,6 +11249,26 @@ img {
 .prog-pieces__grid > li {
   min-width: 0;
 }
+@media (min-width: 900px) {
+  .prog-pieces__grid--home {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.prog-piece__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.prog-piece__date {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.prog__all {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
 .prog-piece {
   display: flex;
   flex-direction: column;

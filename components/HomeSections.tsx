@@ -1,21 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { data, RESOURCE_COVERS, SHOW } from "@/lib/content";
+import { allSessions, data, RESOURCE_COVERS, SHOW, sessionHref } from "@/lib/content";
 import type { Intervenant } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
 import { MediaPressStrip } from "@/components/MediaPressStrip";
 import { PriceTeaser } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
-import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { PubCard } from "@/components/PubCard";
 import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
-import { IconTrophy } from "@/components/icons";
-import { appHref, plain } from "@/lib/text";
+import { IconArrowRight, IconTrophy } from "@/components/icons";
+import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
 
 type Props = {
   speakers: Intervenant[];
@@ -28,6 +27,9 @@ export function HomeSections({ speakers, speakersLead }: Props) {
   const haut = c.chiffres[0];
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
+  const sessions = allSessions();
+  const sessionCount = sessions.length;
+  const featured = sessions.filter((s) => s.numero > 0).slice(0, 3);
 
   return (
     <>
@@ -207,12 +209,34 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 Chaque séance produit une pièce de votre transformation, jusqu’à la
                 soutenance des projets.
               </p>
-              <Link href="/programme" className="prog__cta">
-                Programme complet <span aria-hidden="true">→</span>
-              </Link>
             </div>
           </div>
-          <ProgrammeGrid />
+          <ol className="prog-pieces__grid prog-pieces__grid--home">
+            {featured.map((s) => (
+              <li key={s.numero}>
+                <Link href={sessionHref(s)} className="prog-piece">
+                  <span className="prog-piece__media" aria-hidden="true">
+                    <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 90vw" />
+                  </span>
+                  <span className="prog-piece__row">
+                    <span className="prog-piece__num">{sessionCode(s)}</span>
+                    <span className="prog-piece__date">{plain(s.dates)}</span>
+                  </span>
+                  <span className="prog-piece__title">{plain(s.titre)}</span>
+                  {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
+                  <span className="prog-piece__more">
+                    Voir la séance <IconArrowRight />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+          <div className="prog__all">
+            <ButtonLink href="/programme" variant="secondary">
+              Voir tout le programme ({sessionCount} séances)
+              <IconArrowRight />
+            </ButtonLink>
+          </div>
         </Container>
       </section>
 
