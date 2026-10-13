@@ -169,7 +169,7 @@ const data = {
     "etapes": [
       {
         "titre": "Dossier en ligne",
-        "texte": "Un formulaire en quatre étapes : coordonnées, inscription, fonction et parcours, motivation. Comptez vingt minutes. Le brouillon est conservé dans le navigateur de l’appareil utilisé : vous pouvez reprendre plus tard sur ce même appareil, en joignant à nouveau CV et photo.",
+        "texte": "Un formulaire en quatre étapes : coordonnées, inscription, fonction et parcours, motivation. Comptez vingt minutes environ. Le brouillon est conservé dans le navigateur de l’appareil utilisé : vous pouvez reprendre plus tard sur ce même appareil, en joignant à nouveau CV et photo.",
         "icone": "dossier"
       },
       {
@@ -191,7 +191,15 @@ const data = {
     "dateLimite": "{{PROV}}vendredi 30 octobre 2026{{/PROV}}",
     "dateLimiteBrute": "30 octobre 2026",
     "places": "{{PROV}}vingt-cinq{{/PROV}}",
-    "delaiReponse": "cinq jours ouvrés"
+    "delaiReponse": "cinq jours ouvrés",
+    "dureeDossier": "vingt minutes",
+    "pieces": [
+      "votre CV (PDF, DOC ou DOCX, 5 Mo maximum)",
+      "une photo de profil, facultative (JPG ou PNG)",
+      "la liste de vos diplômes",
+      "le mode de financement : individuel ou pris en charge par l’entreprise",
+      "quelques lignes sur votre intérêt pour la formation"
+    ]
   },
   "certification": {
     "signataires": "le Groupe ISCAE et BDO Maroc",

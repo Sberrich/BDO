@@ -424,8 +424,8 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 Prêt à rejoindre la promotion&nbsp;1&nbsp;?
               </h2>
               <p className="final-cta__lead">
-                Une candidature en quelques minutes, un entretien, puis une réponse
-                sous {data.site.admission.delaiReponse}.
+                Une candidature en {data.site.admission.dureeDossier} environ, un entretien,
+                puis une réponse sous {data.site.admission.delaiReponse}.
               </p>
               <div className="final-cta__actions">
                 <ButtonLink href="/candidater" className="final-cta__primary">

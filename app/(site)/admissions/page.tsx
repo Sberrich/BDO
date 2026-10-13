@@ -174,6 +174,10 @@ export default function AdmissionsPage() {
               </li>
             ))}
           </ol>
+          <p className="adm-prereq">
+            <span className="adm-prereq__label">À préparer</span>
+            {a.pieces.join(" ; ")}.
+          </p>
           <div className="adm-process__cta">
             <ButtonLink href="/candidater" className="sem-hero__cta-primary">
               Commencer mon dossier

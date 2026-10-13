@@ -10,15 +10,24 @@ export const metadata: Metadata = {
 };
 
 export default function CandidaterPage() {
+  const a = data.site.admission;
   return (
     <>
       <PageHero
         kicker="Candidater"
         title="Votre dossier de candidature"
-        lead={`Quatre étapes, quelques minutes. Clôture le ${plain(data.site.admission.dateLimite)}.`}
+        lead={`Quatre étapes, ${a.dureeDossier} environ. Clôture le ${plain(a.dateLimite)}.`}
       />
       <section className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="max-w-3xl">
+          <div className="mb-6 rounded-md border border-line bg-white p-5 sm:px-8">
+            <p className="text-sm font-bold">À préparer avant de commencer</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
+              {a.pieces.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </div>
           <div className="rounded-md bg-white p-6 shadow-[var(--shadow-md)] sm:p-10">
             <CandidatureForm />
           </div>
