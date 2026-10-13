@@ -128,7 +128,7 @@ export function CalendarTable() {
             </span>
             <span>
               <strong>Casablanca</strong>
-              <span className="cal__stat-label">présentiel + coaching</span>
+              <span className="cal__stat-label">présentiel + coaching · ouverture à Rabat</span>
             </span>
           </li>
         </ul>

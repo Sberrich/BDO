@@ -27,7 +27,7 @@ export default async function AProposPage() {
     { value: String(facultyShowcase().length), label: "intervenants" },
     { value: "25", label: "places par promotion" },
     { value: "Oct → déc.", label: "calendrier 2026" },
-    { value: "Casablanca", label: "lieu de formation" },
+    { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
   ];
   const speakers = await getIntervenants();
   const zakaria =

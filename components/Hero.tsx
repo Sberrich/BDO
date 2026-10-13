@@ -82,7 +82,8 @@ export function Hero() {
               />
 
               <p className="hero-cinematic__lead">
-                D’octobre à décembre 2026, à <strong>Casablanca</strong>&nbsp;: un
+                D’octobre à décembre 2026, à <strong>Casablanca</strong> (ouverture au
+                campus ISCAE de Rabat)&nbsp;: un
                 projet appliqué à votre
                 entreprise, du diagnostic à la mise en œuvre.
               </p>

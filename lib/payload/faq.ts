@@ -129,7 +129,7 @@ const data = {
         {
           "id": "faq-calendrier-lieu",
           "q": "Où se déroulent les séminaires ?",
-          "r": "<p>À Casablanca, en présentiel. {{PROV}}Le lieu exact est communiqué aux participants admis avec leur convocation.{{/PROV}}</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
+          "r": "<p>En présentiel, à Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. {{PROV}}Le lieu exact est communiqué aux participants admis avec leur convocation.{{/PROV}}</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
           "lien": null,
           "accueil": false
         },
@@ -176,7 +176,7 @@ const data = {
         {
           "id": "faq-tarif-couverture",
           "q": "Que couvre le tarif ?",
-          "r": "<p>111 heures de formation, dont 51 heures en présentiel ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la présentation du projet et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement à Casablanca restent à votre charge.</p>",
+          "r": "<p>111 heures de formation, dont 51 heures en présentiel ; le coaching des équipes projet entre les séminaires ; les supports de séminaire et les publications BDO ; la présentation du projet et le certificat cosigné ; la restauration des journées de séminaire.</p><p>Les frais de déplacement et d’hébergement, à Casablanca comme à Rabat, restent à votre charge.</p>",
           "lien": {
             "texte": "Le détail du tarif",
             "href": "admissions.html#tarif"

@@ -83,7 +83,7 @@ export default function ProgrammePage() {
                 </li>
                 <li>
                   <IconMap />
-                  <span>Casablanca</span>
+                  <span>Casablanca · ouverture au campus ISCAE de Rabat</span>
                 </li>
               </ul>
               <div className="sem-hero__ctas">

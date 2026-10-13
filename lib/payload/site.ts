@@ -6,7 +6,7 @@ const data = {
   "baseUrl": "https://iscae.bdomaroc.com",
   "promesse": {
     "titre": "Construisez la feuille de route de transformation de votre direction financière.",
-    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
+    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
   },
   "faits": [
     {
@@ -413,7 +413,7 @@ const data = {
     "telephone": "+212 679 724 416",
     "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
-    "lieuFormation": "Casablanca — le lieu exact des séminaires est communiqué aux participants admis."
+    "lieuFormation": "Séminaires à Casablanca, conférence inaugurale au campus ISCAE de Rabat. Le lieu exact des séminaires est communiqué aux participants admis."
   },
   "institutions": [
     {
