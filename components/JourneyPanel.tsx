@@ -196,7 +196,7 @@ export function JourneyPanel() {
           <p className="parcours-intro__lead">
             Le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h. Chaque
             séance ajoute une pièce à votre projet, mené sur votre propre
-            direction financière, jusqu&apos;à la soutenance du 26 décembre 2026.
+            direction financière, jusqu’à la soutenance du 26 décembre 2026.
           </p>
         </div>
 

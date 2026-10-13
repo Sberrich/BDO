@@ -1,9 +1,19 @@
-export function plain(value: unknown) {
+/** Keeps amounts and their units on one line: "1 200 DH HT", "24 000", "51 h", "80 %". */
+export function nbsp(value: unknown) {
   return String(value ?? "")
-    .replace(/\{\{\/?PROV\}\}/g, "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/(\d) (?=\d{3}\b)/g, "$1\u00a0")
+    .replace(/(\d) (?=(DH|HT|h|%|Mo|min|s)\b)/g, "$1\u00a0")
+    .replace(/DH HT/g, "DH\u00a0HT");
+}
+
+export function plain(value: unknown) {
+  return nbsp(
+    String(value ?? "")
+      .replace(/\{\{\/?PROV\}\}/g, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
+  );
 }
 
 export function rich(value: unknown) {

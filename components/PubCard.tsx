@@ -13,6 +13,7 @@ type Props = {
   landscape?: boolean;
   emblem?: ReactNode;
   emblemLabel?: string;
+  logo?: { src: string; width: number; height: number };
   className?: string;
   children?: ReactNode;
 };
@@ -27,6 +28,7 @@ export function PubCard({
   landscape,
   emblem,
   emblemLabel,
+  logo,
   className = "",
   children,
 }: Props) {
@@ -42,6 +44,10 @@ export function PubCard({
               height={landscape ? 715 : 571}
               sizes="(min-width: 960px) 14rem, 50vw"
             />
+          </span>
+        ) : logo ? (
+          <span className="pub-card__logo">
+            <Image src={logo.src} alt="" width={logo.width} height={logo.height} unoptimized />
           </span>
         ) : (
           <span className="pub-card__emblem">

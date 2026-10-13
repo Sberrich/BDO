@@ -158,6 +158,28 @@ export function Header() {
             <div id={mobileMenuId} ref={drawerRef} className="site-header__drawer menu-slide">
               <nav className="site-header__mobile" aria-label="Navigation mobile">
                 <ul className="site-header__mobile-list">
+                  <li>
+                    <Link
+                      href="/"
+                      aria-current={pathname === "/" ? "page" : undefined}
+                      className={`site-header__mobile-link ${pathname === "/" ? "is-current" : ""}`}
+                      onClick={closeMobile}
+                    >
+                      <span>Accueil</span>
+                      <svg
+                        className="site-header__mobile-chevron"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        aria-hidden
+                      >
+                        <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </Link>
+                  </li>
                   {NAV.map((item) => {
                     const current = isCurrent(item.href, pathname);
                     if ("menu" in item && item.menu) {

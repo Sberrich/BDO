@@ -211,25 +211,30 @@ export function CandidatureForm() {
       className="space-y-6"
     >
       <div>
-        <ol className="flex flex-wrap gap-x-5 gap-y-2 text-[0.8125rem]">
+        <ol className="flex justify-between text-[0.8125rem]">
           {steps.map((label, i) => (
             <li
               key={label}
-              className={`flex items-center gap-2 ${i === step ? "font-bold text-ink" : i < step ? "font-semibold text-ink" : "text-muted"}`}
+              aria-current={i === step ? "step" : undefined}
+              className="flex"
             >
-              <span
-                className={`flex h-6 w-6 items-center justify-center rounded-full text-[0.75rem] font-bold ${
-                  i <= step ? "bg-blue text-white" : "bg-cream text-muted"
-                }`}
-              >
-                {i + 1}
-              </span>
               <button
                 type="button"
                 onClick={() => i < step && setStep(i)}
-                className={i < step ? "hover:text-blue" : "cursor-default"}
+                className={`group flex items-center gap-2 ${
+                  i === step ? "font-bold text-ink" : i < step ? "font-semibold text-ink" : "text-muted"
+                } ${i < step ? "" : "cursor-default"}`}
               >
-                {label}
+                <span
+                  aria-hidden
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold transition ${
+                    i <= step ? "bg-blue text-white" : "bg-cream text-muted"
+                  } ${i === step ? "ring-2 ring-blue/25 ring-offset-2" : ""} ${i < step ? "group-hover:bg-blue-dark" : ""}`}
+                >
+                  {i + 1}
+                </span>
+                <span className="sr-only">Étape {i + 1} : </span>
+                <span className="sr-only md:not-sr-only">{label}</span>
               </button>
             </li>
           ))}

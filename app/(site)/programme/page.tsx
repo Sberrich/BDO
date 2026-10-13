@@ -225,7 +225,7 @@ export default function ProgrammePage() {
             <p className="mt-3 text-sm text-muted">{plain(data.site.sessionInfo.replay)}</p>
           </div>
           <div className="rounded-md bg-cream p-6 sm:p-8">
-            <LeadForm kind="session" prefix="ps" submitVariant="secondary" />
+            <LeadForm kind="session" prefix="ps" />
           </div>
         </Container>
       </section>
