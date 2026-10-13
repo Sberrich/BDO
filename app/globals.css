@@ -723,6 +723,20 @@ input[type="radio"] {
   color: var(--text-secondary);
   text-align: center;
 }
+.faq-explorer__empty a,
+.faq-explorer__reset {
+  font: inherit;
+  font-weight: 700;
+  color: var(--brand-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.faq-explorer__reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
 
 .faq-group {
   margin-bottom: clamp(2rem, 4vw, 2.75rem);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { data } from "@/lib/content";
 import { appHref, plain, rich } from "@/lib/text";
 
@@ -13,29 +13,73 @@ type Q = {
   lien?: { texte: string; href: string };
 };
 
+const norm = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+const searchable = (html: string) =>
+  norm(
+    html
+      .replace(/\{\{\/?PROV\}\}/g, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&amp;/g, "&"),
+  ).replace(/[^a-z0-9%]+/g, " ");
+
+/** Everyday words visitors type that the answers phrase differently. */
+const SYNONYMS: Record<string, string[]> = {
+  prix: ["tarif", "dh"],
+  cout: ["tarif", "dh"],
+  couts: ["tarif", "dh"],
+  montant: ["tarif", "dh"],
+  frais: ["tarif", "frais"],
+  payer: ["paiement", "tarif"],
+  financement: ["prise en charge", "tarif", "paiement"],
+  horaire: ["15 h", "9 h"],
+  horaires: ["15 h", "9 h"],
+  heures: ["heures", " h "],
+  adresse: ["campus"],
+  lieu: ["campus", "deroulent"],
+  ligne: ["distance", "visioconference"],
+  inscription: ["inscription", "candidature"],
+  inscrire: ["inscription", "candidature"],
+  diplome: ["diplomant"],
+  attestation: ["attestation", "certificat"],
+  rgpd: ["donnees"],
+};
+
+/** Matches from the start of a word, so “li” finds “lieu” but not “publications”. */
+function matches(hay: string, token: string) {
+  return [token, ...(SYNONYMS[token] ?? [])].some((t) => hay.includes(` ${t}`));
+}
+
 export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
 
-  const groups = useMemo(() => {
-    const q = query
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-    return data.faq.groupes
-      .map((g) => ({
-        ...g,
-        questions: (g.questions as unknown as Q[]).filter((item) => {
-          if (onlyHome && !item.accueil) return false;
-          if (!q) return true;
-          const hay = `${item.q} ${item.court} ${item.r}`
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-          return hay.includes(q);
-        }),
-      }))
-      .filter((g) => g.questions.length);
+  const { groups, approx } = useMemo(() => {
+    const tokens = norm(query)
+      .replace(/[^a-z0-9%]+/g, " ")
+      .split(" ")
+      .filter((t) => t.length > 1 || /\d/.test(t));
+    const run = (every: boolean) =>
+      data.faq.groupes
+        .map((g) => ({
+          ...g,
+          questions: (g.questions as unknown as Q[]).filter((item) => {
+            if (onlyHome && !item.accueil) return false;
+            if (!tokens.length) return true;
+            const hay = ` ${searchable(`${g.titre} ${item.q} ${item.court} ${item.r}`)} `;
+            return every
+              ? tokens.every((t) => matches(hay, t))
+              : tokens.some((t) => matches(hay, t));
+          }),
+        }))
+        .filter((g) => g.questions.length);
+    const exact = run(true);
+    if (exact.length || tokens.length < 2) return { groups: exact, approx: false };
+    return { groups: run(false), approx: true };
   }, [query, onlyHome]);
 
   const sections = useMemo(
@@ -57,6 +101,17 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
     [groups],
   );
 
+  useEffect(() => {
+    const openFromHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const exists = data.faq.groupes.some((g) => g.questions.some((item) => item.id === id));
+      if (exists) setOpen(id);
+    };
+    queueMicrotask(openFromHash);
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, []);
+
   function onQueryChange(value: string) {
     setQuery(value);
     setOpen(null);
@@ -77,6 +132,8 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
               <div className="faq-explorer__search-field">
                 <input
                   id="faq-q"
+                  type="search"
+                  autoComplete="off"
                   className="faq-explorer__search-input"
                   placeholder="tarif, calendrier, admission…"
                   value={query}
@@ -99,7 +156,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
             </form>
             <p className="faq-explorer__count" aria-live="polite">
               {total} question{total > 1 ? "s" : ""}
-              {query.trim() ? " trouvée" + (total > 1 ? "s" : "") : ""}
+              {query.trim() ? (approx ? " proche" : " trouvée") + (total > 1 ? "s" : "") : ""}
             </p>
           </div>
           {groups.length ? (
@@ -207,7 +264,12 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
 
         {groups.length === 0 && (
           <p className="faq-explorer__empty">
-            Aucune question ne correspond à votre recherche.
+            Aucune question ne correspond à « {query.trim()} ».{" "}
+            <a href="/admissions#rappel">Posez-la à l’équipe, qui vous rappelle sous 24 h</a>, ou{" "}
+            <button type="button" className="faq-explorer__reset" onClick={() => onQueryChange("")}>
+              effacez la recherche
+            </button>
+            .
           </p>
         )}
       </div>
