@@ -9570,7 +9570,7 @@ a.about-contact__card:focus-visible {
 
   .site-header__bar {
     min-height: 64px;
-    padding-inline: 0.15rem;
+    padding-inline: 1rem;
   }
   .site-header.is-scrolled .site-header__bar {
     min-height: 58px;
@@ -10582,6 +10582,9 @@ a.about-contact__card:focus-visible {
 }
 body[data-nav="open"] #cmp-floating-icon {
   visibility: hidden;
+}
+body[data-form-page] #cmp-floating-icon {
+  display: none !important;
 }
 @media (max-width: 640px) {
   .foot__cta-row {

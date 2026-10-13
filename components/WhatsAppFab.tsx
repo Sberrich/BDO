@@ -1,7 +1,24 @@
+"use client";
+
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { IconWhatsApp } from "@/components/icons";
 import { BRAND } from "@/lib/content";
 
+/** Pages built around a form: no floating WhatsApp / cookie buttons over the fields. */
+const FORM_PAGES = ["/candidater", "/inscription"];
+
 export function WhatsAppFab() {
+  const pathname = usePathname();
+  const onForm = FORM_PAGES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+  useEffect(() => {
+    if (onForm) document.body.dataset.formPage = "";
+    else delete document.body.dataset.formPage;
+  }, [onForm]);
+
+  if (onForm) return null;
+
   return (
     <aside aria-label="Contact WhatsApp">
       <a
