@@ -9,6 +9,10 @@ type Props = {
   excludeNumero?: number;
 };
 
+/** Hors séances : une journée de travaux personnels par module (1 à 7) et trois journées de projet. */
+const TRAVAUX_PERSONNELS_H = 42;
+const PROJET_H = 18;
+
 function hours(s: Seminaire) {
   return s.heures ?? (s.numero === 0 ? 3 : 6);
 }
@@ -48,14 +52,15 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
         .map((s) => `${splitDate(plain(s.dates)).weekdayLong} · ${plain(s.horaire)}`),
     ),
   ].sort((a, b) => (a.startsWith("Vendredi") ? -1 : b.startsWith("Vendredi") ? 1 : 0));
+  const presentiel = all.reduce((n, s) => n + hours(s), 0);
   const stats = [
     {
       value: String(all.length),
       label: all.length > 1 ? "séances" : "séance",
     },
     {
-      value: `${all.reduce((n, s) => n + hours(s), 0)} h`,
-      label: "de formation",
+      value: `${presentiel + TRAVAUX_PERSONNELS_H + PROJET_H} h`,
+      label: "de formation au total",
     },
   ];
 
@@ -113,6 +118,10 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                   </div>
                 ))}
               </dl>
+              <p className="prog-board__sum-line">
+                Dont {presentiel}&nbsp;h en présentiel, {TRAVAUX_PERSONNELS_H}&nbsp;h de travaux
+                personnels et {PROJET_H}&nbsp;h de préparation du projet.
+              </p>
               {first && last ? (
                 <p className="prog-board__sum-line">
                   Du {first.day} {first.month} au {last.day} {last.month}{" "}
