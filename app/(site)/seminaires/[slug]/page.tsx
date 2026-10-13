@@ -359,7 +359,7 @@ export default async function SeminairePage({ params }: Props) {
                 </ButtonLink>
               </div>
               <p className="sem-side__note">
-                Candidatures ouvertes jusqu’au 30 octobre 2026.
+                Candidatures ouvertes jusqu’au 22 octobre 2026.
               </p>
             </div>
           </section>

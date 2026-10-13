@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 
-/** Fin des candidatures : vendredi 30 octobre 2026, 23 h 59 (heure du Maroc). */
-export const APPLICATION_DEADLINE = "2026-10-30T23:59:59+01:00";
+/** Fin des candidatures : jeudi 22 octobre 2026, 23 h 59 (heure du Maroc). */
+export const APPLICATION_DEADLINE = "2026-10-22T23:59:59+01:00";
 
 type Parts = { days: number; hours: number; minutes: number; seconds: number };
 
@@ -66,7 +66,7 @@ export function DeadlineCountdown({ className = "" }: { className?: string }) {
     >
       <p className="countdown__label">
         Clôture des candidatures
-        <span>Vendredi 30 octobre · 23 h 59</span>
+        <span>Jeudi 22 octobre · 23 h 59</span>
       </p>
       <ol className="countdown__units" aria-hidden="true">
         {units.map((u) => (

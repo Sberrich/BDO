@@ -25,7 +25,7 @@ export function Footer() {
           <div className="foot__cta">
             <p className="foot__cta-note">
               <span className="foot__dot" aria-hidden="true" />
-              Candidatures ouvertes jusqu’au 30 octobre 2026
+              Candidatures ouvertes jusqu’au 22 octobre 2026
             </p>
             <div className="foot__cta-row">
               <Link href="/candidater" className="foot__btn is-primary">

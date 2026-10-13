@@ -90,8 +90,8 @@ const data = {
         {
           "id": "faq-profil-date-limite",
           "q": "Quelle est la date limite de candidature ?",
-          "court": "Le {{PROV}}vendredi 30 octobre 2026{{/PROV}} à 23 h 59.",
-          "r": "<p>Les candidatures pour la promotion 1 sont closes le {{PROV}}vendredi 30 octobre 2026{{/PROV}}. Les entretiens d’admission se tiennent la semaine suivante.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
+          "court": "Le jeudi 22 octobre 2026 à 23 h 59.",
+          "r": "<p>Les candidatures pour la promotion 1 sont closes le jeudi 22 octobre 2026. Les entretiens d’admission se tiennent la semaine suivante.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
           "lien": {
             "texte": "Candidater maintenant",
             "href": "candidater.html"
