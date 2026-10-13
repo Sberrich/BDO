@@ -43,12 +43,12 @@ export function LeadForm({
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    for (const name of ["prenom", "nom", "telephone"]) {
-      const input = form.elements.namedItem(name);
-      if (input instanceof HTMLInputElement && !input.checkValidity()) {
-        input.focus();
-        return;
-      }
+    const invalid = ["prenom", "nom", "telephone"]
+      .map((name) => form.elements.namedItem(name))
+      .filter((input): input is HTMLInputElement => input instanceof HTMLInputElement && !input.checkValidity());
+    if (invalid.length) {
+      invalid[0].focus();
+      return;
     }
     setSending(true);
     setStatus("");
