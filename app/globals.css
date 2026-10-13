@@ -1886,7 +1886,7 @@ body[data-nav="open"] .mobile-bar {
   text-wrap: balance;
 }
 .hero-cinematic__title .typewrite__caret {
-  background: var(--brand-red);
+  background: rgba(255, 255, 255, 0.7);
 }
 .hero-cinematic__lead {
   margin: 1.1rem 0 0;
@@ -1975,7 +1975,7 @@ body[data-nav="open"] .mobile-bar {
   background: rgba(255, 255, 255, 0.08);
 }
 .countdown__unit:first-child {
-  background: var(--brand-red);
+  background: #0062b8;
 }
 .countdown__value {
   font-size: 1.35rem;
@@ -2045,7 +2045,7 @@ body[data-nav="open"] .mobile-bar {
   position: relative;
   z-index: 1;
   padding-bottom: 3rem;
-  background: linear-gradient(180deg, transparent 0, transparent 3.5rem, #f4f6f9 3.5rem);
+  background: linear-gradient(180deg, transparent 0, transparent 3.5rem, var(--surface-1) 3.5rem);
 }
 .hero-cosign {
   display: grid;
@@ -2256,8 +2256,8 @@ body[data-nav="open"] .mobile-bar {
   color: #fff;
 }
 .hero-parcours__item.is-active .hero-parcours__num {
-  border-color: var(--brand-red);
-  background: var(--brand-red);
+  border-color: #0062b8;
+  background: #0062b8;
   color: #fff;
 }
 .hero-parcours__label {
@@ -2730,7 +2730,7 @@ body[data-nav="open"] .mobile-bar {
 /* ——— Le constat — dramatized gap ——— */
 .constat {
   position: relative;
-  background: #f4f6f9;
+  background: var(--surface-1);
   color: var(--brand-navy);
 }
 .constat__inner {
@@ -3171,7 +3171,7 @@ body[data-nav="open"] .mobile-bar {
   height: 9.5rem;
   margin-bottom: 1.5rem;
   border-radius: 14px;
-  background: #f1f4f8;
+  background: var(--surface-1);
   overflow: hidden;
 }
 .carry__gantt {
@@ -3198,7 +3198,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .carry__gantt .is-red,
 .carry__bars .is-red {
-  background: var(--brand-red) !important;
+  background: var(--brand-blue) !important;
 }
 .carry__bars {
   position: absolute;
@@ -3517,7 +3517,7 @@ body[data-nav="open"] .mobile-bar {
 .prog-board__row:hover,
 .prog-board__row:focus-visible {
   padding-left: 0.75rem;
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .prog-board__day {
   display: flex;
@@ -3525,7 +3525,7 @@ body[data-nav="open"] .mobile-bar {
   align-items: center;
   overflow: hidden;
   border-radius: 12px;
-  background: #f1f4f8;
+  background: var(--surface-1);
   line-height: 1;
   text-align: center;
 }
@@ -3564,7 +3564,7 @@ body[data-nav="open"] .mobile-bar {
 .prog-board__when svg {
   width: 0.85rem;
   height: 0.85rem;
-  color: var(--brand-red);
+  color: var(--brand-blue);
 }
 .prog-board__when-sep {
   color: var(--text-tertiary);
@@ -3640,7 +3640,7 @@ body[data-nav="open"] .mobile-bar {
 
 /* ——— 04 Who / profil panels ——— */
 .who {
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .who__inner {
   padding-top: clamp(4rem, 7vw, 5.75rem);
@@ -4260,7 +4260,7 @@ body[data-nav="open"] .mobile-bar {
   height: 0.95em;
   margin-left: 0.08em;
   vertical-align: -0.08em;
-  background: var(--brand-red);
+  background: rgba(255, 255, 255, 0.7);
   animation: typewrite-blink 0.9s steps(1) infinite;
 }
 .typewrite__caret.is-done {
@@ -4674,7 +4674,7 @@ body[data-nav="open"] .mobile-bar {
   height: 1.9rem;
   padding: 0.5rem 0.45rem 0.5rem 0.55rem;
   border-radius: 50%;
-  background: var(--brand-red);
+  background: var(--brand-navy);
   box-shadow: none;
   transition: transform var(--duration-base) var(--ease-out);
 }
@@ -5189,7 +5189,7 @@ body[data-nav="open"] .mobile-bar {
   background:
     radial-gradient(ellipse at 88% 12%, rgba(0, 98, 184, 0.16), transparent 38%),
     radial-gradient(ellipse at 12% 88%, rgba(232, 26, 59, 0.08), transparent 36%),
-    linear-gradient(165deg, #f5f8fb 0%, #e8eef6 45%, #f1f4f7 100%);
+    linear-gradient(165deg, var(--surface-1) 0%, #e8eef6 45%, #f1f4f7 100%);
 }
 
 .hero-stage__aurora {
@@ -6275,7 +6275,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   box-shadow: none;
 }
 .pricing__card.is-fee {
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .pricing__kicker {
   margin: 0;
@@ -7223,7 +7223,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   padding: 1.5rem;
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .sem-part__head {
   margin: 0;
@@ -7245,7 +7245,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   color: #fff;
 }
 .sem-part:nth-child(2) .sem-part__num {
-  background: var(--brand-red);
+  background: var(--brand-blue);
 }
 .sem-part__steps {
   margin: 1.25rem 0 0;
@@ -7378,7 +7378,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 .sem-pager__link:hover,
 .sem-pager__link:focus-visible {
   border-color: rgba(0, 32, 64, 0.25);
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .sem-pager__link.is-next {
   text-align: right;
@@ -7456,7 +7456,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 
 .sem-price {
-  background: #f4f6f9;
+  background: var(--surface-1);
   border-top: 1px solid var(--border-subtle);
 }
 .sem-price > div {
@@ -9142,7 +9142,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   background:
     radial-gradient(ellipse 50% 40% at 100% 0%, rgba(0, 98, 184, 0.07), transparent 55%),
     radial-gradient(ellipse 40% 35% at 0% 100%, rgba(227, 6, 19, 0.05), transparent 50%),
-    linear-gradient(180deg, #f7f9fb 0%, #fff 45%, #f5f8fb 100%);
+    linear-gradient(180deg, var(--surface-1) 0%, #fff 45%, var(--surface-1) 100%);
   border-top: 1px solid var(--border-subtle);
 }
 .about-contact__inner {
@@ -9852,7 +9852,7 @@ a.about-contact__card:focus-visible {
   border: 1px solid rgba(227, 6, 19, 0.16);
   background:
     radial-gradient(ellipse 60% 80% at 100% 0%, rgba(227, 6, 19, 0.08), transparent 55%),
-    linear-gradient(160deg, #fff, #f8fafc);
+    linear-gradient(160deg, #fff, var(--surface-1));
   box-shadow: none;
 }
 .legal-page__cta-title {
@@ -9961,7 +9961,7 @@ a.about-contact__card:focus-visible {
 
 /* ——— Home: press band ——— */
 .press-band {
-  background: #f4f6f9;
+  background: var(--surface-1);
   border-top: 1px solid var(--border-subtle);
 }
 .press-band__inner {
@@ -10382,7 +10382,7 @@ a.about-contact__card:focus-visible {
   color: rgba(255, 255, 255, 0.4);
 }
 .foot__list a:hover .foot__n {
-  color: var(--brand-red);
+  color: #fff;
 }
 .foot__contact {
   list-style: none;
@@ -10815,7 +10815,7 @@ body[data-nav="open"] #cmp-floating-icon {
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 10px;
-  background: #f1f4f8;
+  background: var(--surface-1);
 }
 .doc-card__body {
   display: flex;
@@ -10948,7 +10948,7 @@ img {
   color: var(--brand-navy);
 }
 .pcal__tab.is-active span {
-  background: var(--brand-red);
+  background: var(--brand-navy);
   color: #fff;
 }
 .pcal__grid {
@@ -10999,11 +10999,11 @@ img {
   transform: translateY(-2px);
 }
 .pcal__cell.is-open {
-  background: var(--brand-red);
+  background: #0062b8;
   box-shadow: none;
 }
 .pcal__cell.is-open:hover {
-  background: var(--brand-red-dark);
+  background: var(--brand-blue);
 }
 .pcal__cell.is-close {
   background: #fff;
@@ -11063,7 +11063,7 @@ img {
   letter-spacing: 0.04em;
 }
 .pcal__item.is-open .pcal__item-code {
-  background: var(--brand-red);
+  background: #0062b8;
 }
 .pcal__item.is-close .pcal__item-code {
   background: #fff;
@@ -11098,7 +11098,7 @@ img {
   margin-left: 0.5rem;
 }
 .pcal__legend .is-open {
-  background: var(--brand-red);
+  background: #0062b8;
 }
 .pcal__legend .is-seminar {
   background: rgba(255, 255, 255, 0.16);
@@ -11189,7 +11189,7 @@ img {
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 12px;
-  background: var(--surface-1, #f1f4f8);
+  background: var(--surface-1, var(--surface-1));
   font-size: 0.875rem;
   font-weight: 800;
   color: var(--brand-navy);
@@ -11480,7 +11480,7 @@ img {
 
 .adm-process {
   padding: clamp(3rem, 7vw, 5.5rem) 0;
-  background: #f4f6f9;
+  background: var(--surface-1);
 }
 .adm-steps {
   list-style: none;
@@ -11526,7 +11526,7 @@ img {
   color: #fff;
 }
 .adm-step:last-child .adm-step__num {
-  background: var(--brand-red);
+  background: var(--brand-blue);
 }
 .adm-step__title {
   margin: 1rem 0 0;
@@ -11653,7 +11653,7 @@ img {
 .foot__address-icon {
   flex-shrink: 0;
   margin-top: 0.1rem;
-  color: var(--brand-red);
+  color: rgba(255, 255, 255, 0.7);
 }
 .foot__address-icon svg {
   width: 0.95rem;
@@ -11685,7 +11685,7 @@ img {
   transform: translateX(3px);
 }
 .foot__n.is-in {
-  color: var(--brand-red);
+  color: #fff;
 }
 .foot__contact-link > svg {
   flex-shrink: 0;
@@ -11916,7 +11916,7 @@ img {
 
 .cta-band {
   padding: clamp(2.5rem, 6vw, 4.5rem) 0;
-  background: var(--surface-1, #f4f6f9);
+  background: var(--surface-1, var(--surface-1));
   color: #fff;
 }
 .cta-band__inner {
@@ -12221,7 +12221,7 @@ img {
   grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
 }
 .doc-online {
-  background: var(--surface-1, #f4f6f9);
+  background: var(--surface-1, var(--surface-1));
 }
 .doc-online__inner {
   padding-top: clamp(3rem, 6vw, 4.5rem);
@@ -12512,7 +12512,7 @@ img {
 .prog-board__when svg {
   width: 0.85rem;
   height: 0.85rem;
-  color: var(--brand-red);
+  color: var(--brand-blue);
 }
 .prog-board__when-sep {
   color: var(--text-tertiary);
@@ -12562,8 +12562,8 @@ img {
   color: #fff;
 }
 .sem-steps__dot.is-current {
-  border-color: var(--brand-red);
-  background: var(--brand-red);
+  border-color: #0062b8;
+  background: #0062b8;
   color: #fff;
 }
 
@@ -12596,7 +12596,7 @@ img {
 }
 .sem-side__person:hover,
 .sem-side__person:focus-visible {
-  background: var(--surface-1, #f4f6f9);
+  background: var(--surface-1, var(--surface-1));
 }
 .sem-side__avatar {
   flex-shrink: 0;
@@ -12690,7 +12690,7 @@ img {
   align-self: flex-start;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(232, 0, 18, 0.08);
+  background: var(--brand-blue-soft);
   font-size: 0.6875rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -13006,7 +13006,7 @@ img {
   align-self: flex-start;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(232, 0, 18, 0.08);
+  background: var(--brand-blue-soft);
   font-size: 0.6875rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -13109,7 +13109,7 @@ img {
 }
 
 .res-list {
-  background: var(--surface-1, #f4f6f9);
+  background: var(--surface-1, var(--surface-1));
   padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(1.5rem, 3vw, 2rem);
 }
 .res-list__grid {
@@ -13696,4 +13696,112 @@ img {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ——— Institutional palette ———
+   Red is reserved for primary actions, the "Promotion" badge, the CFO 4.0 wordmark
+   and the gap in the constat chart. Everything else uses navy, BDO blue and greys. */
+
+/* Accents on light surfaces */
+.about-contact__form-kicker,
+.about-lead__kicker,
+.about-trophee__kicker,
+.adm-cond__num,
+.carry__stage-tag span,
+.constat-head__title em,
+.faq-explorer__nav-n,
+.faq-group__index,
+.hero-cosign__kicker,
+.hero-cosign__x,
+.prog-board__meta,
+.prog-piece__more,
+.prog__title em,
+.pub-card__more,
+.pub-card__type,
+.doc-pub__type,
+.res-insights__go,
+.sem-price__kicker,
+.sem-speaker__role,
+.voices-row__tag,
+.who__panel-num {
+  color: var(--brand-blue);
+}
+.pricing__tick svg,
+.prog-board__when svg,
+.prog-piece__more svg,
+.pub-card__more svg,
+.res-insights__go svg {
+  stroke: var(--brand-blue);
+}
+.adm-step__num,
+.carry__cert-seal,
+.pcal__tab span,
+.prog-board__day-month,
+.sem-part__num,
+.voices-feature__dot {
+  background-color: var(--brand-navy);
+}
+.pricing__tick {
+  background-color: var(--brand-blue-soft);
+}
+
+/* Accents on dark surfaces */
+.adm-prereq__label,
+.hero-parcours__timer,
+.iv-faces__link.iv-faces__more,
+.pricing__badge,
+.prog-board__open-tag,
+.voices-bar__all-icon,
+.voices-feature__play,
+.who__prereq-tag {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.typewrite__caret {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.foot__n {
+  color: rgba(255, 255, 255, 0.7);
+}
+.foot__address-icon svg {
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+/* No decorative glows, orbs or textures */
+.faculty,
+.voices,
+.cal-band,
+.iv-roster,
+.faq-page,
+.insights-explorer,
+.about-lead,
+.about-contact,
+.rappel-band,
+.about-trophee__panel,
+.about-trophee__perk,
+.cta-band__inner,
+.final-cta__card,
+.pricing__cover,
+.iv-card__media,
+.res-insights__icon {
+  background-image: none;
+}
+.insights-feature,
+.about-contact__card,
+.about-contact__form {
+  background: #fff;
+}
+.pub-card__visual,
+.faculty-card__media {
+  background: var(--brand-navy);
+}
+.cal-band__glow,
+.cal-band__grid,
+.faculty__glow,
+.faculty__grid,
+.res-hero__glow,
+.about-glass__orb,
+.about-glass__shine {
+  display: none;
 }
