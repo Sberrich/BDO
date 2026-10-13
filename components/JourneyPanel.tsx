@@ -36,7 +36,7 @@ const SEMINARS: Seminar[] = [
     n: "02",
     tag: "IA",
     short: "IA",
-    title: "I.A – aspects conceptuels & pratiques",
+    title: "I.A : boîte à outils pour le leader financier",
     start: "2026-11-13",
     shortDate: "13 nov.",
     longDate: "Vendredi 13 novembre 2026 · 15 h – 21 h",
@@ -45,7 +45,7 @@ const SEMINARS: Seminar[] = [
     n: "03",
     tag: "Cloud",
     short: "Cloud",
-    title: "Cloud",
+    title: "Cloud et automatisation des tâches",
     start: "2026-11-14",
     shortDate: "14 nov.",
     longDate: "Samedi 14 novembre 2026 · 9 h – 16 h",
@@ -63,7 +63,7 @@ const SEMINARS: Seminar[] = [
     n: "04",
     tag: "Trésorerie",
     short: "Cash management",
-    title: "Digitalisation du cash management avec vue sur IoT",
+    title: "Cash management : levier de performance",
     start: "2026-11-28",
     shortDate: "28 nov.",
     longDate: "Samedi 28 novembre 2026 · 9 h – 16 h",
@@ -72,34 +72,25 @@ const SEMINARS: Seminar[] = [
     n: "05",
     tag: "Blockchain",
     short: "Blockchain",
-    title: "Blockchain",
+    title: "Blockchain et crypto-actifs",
     start: "2026-12-11",
     shortDate: "11 déc.",
-    longDate: "Vendredi 11 décembre 2026 · 15 h – 21 h · séance commune avec les crypto-actifs",
+    longDate: "Vendredi 11 décembre 2026 · 15 h – 21 h",
   },
   {
     n: "06",
-    tag: "Crypto",
-    short: "Crypto-actifs",
-    title: "Crypto-actifs",
-    start: "2026-12-11",
-    shortDate: "11 déc.",
-    longDate: "Vendredi 11 décembre 2026 · 15 h – 21 h · séance commune avec la blockchain",
-  },
-  {
-    n: "07",
     tag: "Cyber",
     short: "Cybersécurité",
-    title: "Cybersécurité",
+    title: "Cybersécurité décentralisée et souveraineté de la data",
     start: "2026-12-12",
     shortDate: "12 déc.",
     longDate: "Samedi 12 décembre 2026 · 9 h – 16 h",
   },
   {
-    n: "08",
+    n: "CL",
     tag: "Jury",
     short: "Projets & jury",
-    title: "Présentation des projets de transformation digitale",
+    title: "Présentation et soutenance des projets de transformation digitale",
     start: "2026-12-26",
     shortDate: "26 déc.",
     longDate:
@@ -197,7 +188,7 @@ export function JourneyPanel() {
               Oct. → déc. 2026 · Casablanca · 9 séances
             </p>
             <h2 id={titleId} className="parcours-intro__title">
-              Huit séminaires,
+              Neuf séances,
               <br />
               <span className="parcours-intro__accent">un fil rouge</span>.
             </h2>
@@ -213,7 +204,7 @@ export function JourneyPanel() {
           <div
             className="parcours-index"
             role="listbox"
-            aria-label="Les huit séminaires"
+            aria-label="Les séances"
             aria-activedescendant={`parcours-opt-${active.n}`}
             tabIndex={0}
             onKeyDown={onListKeyDown}

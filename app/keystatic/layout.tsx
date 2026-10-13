@@ -5,6 +5,9 @@ export default function KeystaticLayout() {
     <>
       <KeystaticApp />
       <div className="cms-toolbar">
+        <a href="/admin" className="cms-toolbar__link">
+          Inscriptions
+        </a>
         <a href="/" target="_blank" rel="noopener noreferrer" className="cms-toolbar__link">
           Voir le site ↗
         </a>

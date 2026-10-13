@@ -36,7 +36,7 @@ const MONTH_LABELS: Record<string, string> = {
 function sessionKind(row: CalendarRow): Kind {
   if (row.pause) return "pause";
   if (/inaugurale/i.test(row.seance)) return "open";
-  if (/Séminaire\s*8/i.test(row.seance)) return "finale";
+  if (/clôture/i.test(row.seance)) return "finale";
   if (/workshop/i.test(row.seance)) return "workshop";
   return "seminar";
 }
@@ -175,7 +175,7 @@ export function CalendarTable() {
                   const href = s.lien && !s.pause ? appHref(s.lien) : null;
                   const mark =
                     index ??
-                    (kind === "open" ? "IN" : kind === "finale" ? "08" : kind === "workshop" ? "WS" : "—");
+                    (kind === "open" ? "IN" : kind === "finale" ? "CL" : kind === "workshop" ? "WS" : "—");
                   const isLastOverall =
                     gi === groups.length - 1 && i === group.items.length - 1;
 

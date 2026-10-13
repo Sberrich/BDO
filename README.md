@@ -61,7 +61,7 @@ Copy `.env.example` to `.env.local` for local work. In production, set the same 
 | Variable | Required | Example | Purpose |
 |---|---|---|---|
 | `EMAIL_PROVIDER` | yes | `formsubmit` | `formsubmit` (works with any inbox, no domain setup) or `resend` (needs a verified sending domain) |
-| `NOTIFY_EMAIL` | yes | `certificat@bdo-info.ma` | Inbox that receives every form submission |
+| `NOTIFY_EMAIL` | yes | `gbounani@bdo.ma` | Inbox that receives every form submission |
 | `RESEND_API_KEY` | only if `resend` | `re_xxxxxxxx` | Resend API key |
 | `FROM_EMAIL` | only if `resend` | `CFO 4.0 <noreply@iscae.bdomaroc.com>` | Sender address (must belong to the verified domain) |
 | `KEYSTATIC_USER` | yes in prod | `admin` | CMS login user name |
@@ -188,6 +188,23 @@ All forms post to `POST /api/submit`, which:
 - `resend`: more reliable and branded. Verify the `iscae.bdomaroc.com` domain in Resend (DKIM/SPF DNS records in the `bdomaroc.com` zone), then set `EMAIL_PROVIDER=resend`, `RESEND_API_KEY` and `FROM_EMAIL`.
 
 The server must be able to reach `https://formsubmit.co` or `https://api.resend.com` over outbound HTTPS.
+
+**Stored submissions — `/admin`**
+
+Every valid submission is first saved to `DATA_DIR` (default `./data`, gitignored): one line per submission in `submissions.jsonl`, uploaded files in `uploads/<id>/`. If the e-mail then fails, the visitor still gets a success message because the request is not lost.
+
+- `/admin` (same login as the CMS) lists every form by type, with search, full details, CV/photo download and an **Excel (CSV) export**.
+- `DATA_DIR` must survive redeploys: keep `./data` on the VM (a `git pull` does not touch it), or mount a volume on Docker. Back it up — it holds personal data and CVs.
+- Not suitable for Vercel (read-only, ephemeral disk).
+
+**Google Sheet (optional)**
+
+1. Create a Google Sheet → *Extensions → Apps Script*, paste `scripts/google-sheet.gs`, save.
+2. *Project settings → Script properties*: add `SECRET` = a long random string.
+3. *Deploy → New deployment → Web app*, execute as *Me*, access *Anyone* → copy the `/exec` URL.
+4. On the server set `SHEETS_WEBHOOK_URL` (that URL) and `SHEETS_WEBHOOK_SECRET` (same secret), restart.
+
+Each form type gets its own tab; CV links in the sheet point to `/admin` downloads (login required). A sheet failure is only logged and never blocks the form.
 
 ---
 
@@ -406,4 +423,4 @@ Deploy on merge to `main`: either Vercel's Git integration, or an SSH step that 
 
 ---
 
-**Contacts**: programme team — certificat@bdo-info.ma
+**Contacts**: programme team — gbounani@bdo.ma

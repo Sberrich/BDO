@@ -24,5 +24,12 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/keystatic", "/keystatic/:path*", "/api/keystatic/:path*"],
+  matcher: [
+    "/keystatic",
+    "/keystatic/:path*",
+    "/api/keystatic/:path*",
+    "/admin",
+    "/admin/:path*",
+    "/api/admin/:path*",
+  ],
 };

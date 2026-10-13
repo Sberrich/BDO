@@ -22,7 +22,7 @@ export function appHref(href: string) {
 }
 
 /** Media files are named after the original seminar order; map the current number to its file. */
-const MEDIA_FILE: Record<number, number> = { 4: 6, 5: 4, 6: 5 };
+const MEDIA_FILE: Record<number, number> = { 4: 6, 5: 4, 9: 5 };
 
 export function seminarMediaIndex(numero: number) {
   return MEDIA_FILE[numero] ?? numero;
@@ -47,8 +47,8 @@ export function seminarImage(numero: number) {
 
 /** Looping hero-card clip per séance — files in `/public/videos/seminaires/{n}.mp4`. */
 export function seminarVideo(numero: number) {
-  const n = Number.isFinite(numero) ? Math.max(0, Math.min(8, Math.trunc(numero))) : 0;
-  return `/videos/seminaires/${seminarMediaIndex(n)}.mp4`;
+  const file = Number.isFinite(numero) ? seminarMediaIndex(Math.trunc(numero)) : 0;
+  return `/videos/seminaires/${Math.max(0, Math.min(8, file))}.mp4`;
 }
 
 /**
@@ -59,8 +59,27 @@ export function seminarHeroBg(numero: number) {
   return seminarImage(numero);
 }
 
-export function seminarPath(s: { numero: number; slug?: string }) {
-  return s.numero === 0 ? "/seminaires/conference-inaugurale" : `/seminaires/${s.numero}`;
+type SessionRef = { numero: number; slug?: string; code?: string };
+
+/**
+ * `numero` is the stable id behind URLs and media; `code` overrides what is displayed
+ * (Cybersécurité keeps numero 7 but shows as 06, the workshop shows as WS, the closing as CL).
+ */
+export function sessionCode(s: SessionRef) {
+  if (s.numero === 0) return "IN";
+  return s.code ?? String(s.numero).padStart(2, "0");
+}
+
+export function sessionLabel(s: SessionRef) {
+  if (s.numero === 0) return "Conférence inaugurale";
+  if (s.code === "WS") return "Workshop";
+  if (s.code === "CL") return "Clôture du cycle";
+  return `Séminaire ${sessionCode(s)}`;
+}
+
+export function seminarPath(s: SessionRef) {
+  if (s.numero === 0) return "/seminaires/conference-inaugurale";
+  return s.code === "WS" && s.slug ? `/seminaires/${s.slug}` : `/seminaires/${s.numero}`;
 }
 
 /** LinkedIn profile URL, or empty if missing / placeholder homepage only. */

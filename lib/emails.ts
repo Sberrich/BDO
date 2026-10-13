@@ -246,6 +246,56 @@ function fieldsFor(type: string, body: FormPayload, extras?: EmailExtras): strin
   );
 }
 
+export const FORM_TYPES = ["candidature", "rappel", "session", "document"] as const;
+
+export function formTypeLabel(type: string) {
+  return META[type]?.badge ?? type;
+}
+
+export type ReadableField = { key: string; label: string; value: string };
+
+/** Submission fields in display order, with option codes turned into their labels. */
+export function readableFields(type: string, body: FormPayload): ReadableField[] {
+  const v = (k: string, max = 2000) => val(body, k, max);
+  const yesNo = (k: string) => (v(k) === "oui" ? "Oui" : "Non");
+  const contact = [
+    { key: "nom", label: type === "candidature" ? "Nom et prénom" : "Nom", value: v("nom") },
+    { key: "email", label: "E-mail", value: v("email") },
+    { key: "telephone", label: type === "candidature" ? "GSM" : "Téléphone", value: v("telephone") },
+  ];
+
+  if (type === "candidature") {
+    return [
+      ...contact,
+      { key: "ville", label: "Ville", value: v("ville") },
+      { key: "participation", label: "Participation", value: labelOf(PARTICIPATIONS, v("participation")) },
+      { key: "secteur", label: "Secteur d’activité", value: withAutre(labelOf(SECTEURS, v("secteur")), v("secteur_autre")) },
+      { key: "niveau", label: "Fonction", value: niveauOf(body) },
+      { key: "diplome", label: "Diplômes obtenus", value: v("diplome") },
+      { key: "etudes", label: "Études complémentaires", value: v("etudes") },
+      { key: "decouverte", label: "A découvert le certificat", value: withAutre(labelOf(DECOUVERTES, v("decouverte")), v("decouverte_autre")) },
+      { key: "interet", label: "Intérêt pour la formation", value: v("interet") },
+      { key: "consentement", label: "Conditions générales", value: v("consentement") === "oui" ? "Acceptées" : "Non acceptées" },
+    ];
+  }
+
+  const base = [
+    ...contact,
+    { key: "fonction", label: "Fonction", value: v("fonction") },
+    { key: "entreprise", label: "Entreprise", value: v("entreprise") },
+  ];
+  const detail =
+    type === "rappel"
+      ? [
+          { key: "moment", label: "Créneau de rappel", value: labelMap(MOMENT_LABELS, v("moment")) },
+          { key: "sujet", label: "Question", value: v("sujet") },
+        ]
+      : type === "session"
+        ? [{ key: "creneau", label: "Session choisie", value: v("creneau") ? slotLabel(v("creneau")) : "" }]
+        : [{ key: "document", label: "Document demandé", value: labelMap(DOC_LABELS, v("document")) }];
+  return [...base, ...detail, { key: "prospection", label: "Accepte la prospection", value: yesNo("prospection") }];
+}
+
 function niveauOf(body: FormPayload) {
   return withAutre(labelOf(NIVEAUX, val(body, "niveau")), val(body, "niveau_autre"));
 }

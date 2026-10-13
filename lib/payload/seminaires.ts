@@ -3,11 +3,13 @@ const data = {
     "numero": 0,
     "slug": "conference-inaugurale",
     "titre": "Conférence inaugurale",
-    "sousTitre": "Introduction à la digitalisation dans le domaine économique et financier",
+    "sousTitre": "Séminaire d’accueil : les enjeux du digital dans le domaine économique et financier",
     "objectif": "Cette conférence met en relief le développement des technologies digitales et leur impact dans le domaine économique et financier. Elle présente le Baromètre BDO des DAF et le livre blanc « La Fonction Financière Augmentée », et rapproche les participants par secteur en vue de la constitution des équipes projet.",
     "dates": "Vendredi 30 octobre 2026",
     "horaire": "15 h – 21 h",
-    "heures": 3
+    "heures": 3,
+    "lieu": "Campus ISCAE Rabat",
+    "intervenants": ["ismail-lahsini"]
   },
   "seminaires": [
     {
@@ -29,14 +31,14 @@ const data = {
       "dates": "Samedi 31 octobre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["zayed-fahim"]
+      "intervenants": ["zayed-fahim", "zouheir-lakhdissi"]
     },
     {
       "numero": 2,
       "slug": "intelligence-artificielle",
-      "titre": "I.A – aspects conceptuels & pratiques",
+      "titre": "I.A : boîte à outils pour le leader financier",
       "sousTitre": "Apprentissage automatique, réseaux de neurones, IA générative et IA agentique",
-      "objectif": "L’intégration de l’I.A dans la finance d’entreprise peut significativement améliorer le pilotage de la performance, l’analyse des comptes clients et la prévention des risques, par l’automatisation de tâches et le traitement de volumes considérables de données. L’objectif est d’appréhender les principales techniques de l’I.A, telles que l’apprentissage automatique, les réseaux de neurones et le traitement d’image.",
+      "objectif": "L’intégration de l’I.A dans la finance d’entreprise peut significativement améliorer le pilotage de la performance, l’analyse des comptes clients et la prévention des risques, par l’automatisation de tâches et le traitement de volumes considérables de données. L’objectif est de donner au leader financier une boîte à outils : les principales techniques de l’I.A, telles que l’apprentissage automatique, les réseaux de neurones et le traitement d’image, et leurs usages concrets en finance.",
       "jour1": {
         "matin": "Apprentissage automatique, réseaux de neurones, traitement du langage et de l’image. Ce que l’I.A sait faire, ce qu’elle ne sait pas faire.",
         "apresMidi": "Cas d’usage financiers : pilotage de la performance, analyse des comptes clients, prévision de trésorerie, détection d’anomalies, prévention de la fraude."
@@ -50,12 +52,12 @@ const data = {
       "dates": "Vendredi 13 novembre 2026",
       "horaire": "15 h – 21 h",
       "heures": 6,
-      "intervenants": ["zouheir-lakhdissi"]
+      "intervenants": ["zayed-fahim", "zouheir-lakhdissi"]
     },
     {
       "numero": 3,
       "slug": "cloud",
-      "titre": "Cloud",
+      "titre": "Cloud et automatisation des tâches",
       "sousTitre": "Prévision, planification, budgétisation et robotisation des reportings",
       "objectif": "Le Cloud permet d’héberger les logiciels et les données dans une plateforme unique. L’objectif est de comprendre comment améliorer les performances, en particulier en matière de prévision, de planification et de budgétisation, d’automatisation de la réconciliation des données via les robots, et de normalisation et de systématisation des reportings.",
       "jour1": {
@@ -67,18 +69,39 @@ const data = {
         "apresMidi": "Mesure des gains et conduite du changement. Atelier sur trois processus de l’entreprise de chaque participant."
       },
       "livrable": "Le schéma cible de votre système d’information et le plan d’automatisation chiffré de trois processus.",
-      "actualisation": "La robotisation des processus, déjà amorcée dans le descriptif d’origine, est développée sur une journée entière.",
+      "actualisation": "La robotisation des processus, déjà amorcée dans le descriptif d’origine, est développée en automatisation des tâches.",
       "dates": "Samedi 14 novembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
       "intervenants": ["nasser-kettani"]
     },
     {
+      "numero": 9,
+      "code": "WS",
+      "slug": "workshop",
+      "titre": "Management digital, aspects entrepreneurial et éthique",
+      "sousTitre": "Workshop de lancement des projets de transformation digitale",
+      "objectif": "Ce workshop aborde le management digital et ses dimensions entrepreneuriale et éthique. Il lance les projets de transformation digitale par sous-groupes, inspirés du cas de l’entreprise ou du secteur de chaque participant.",
+      "jour1": {
+        "matin": "Management digital : leadership, organisation et nouvelles façons de travailler dans une direction financière transformée.",
+        "apresMidi": "Aspects entrepreneurial et éthique de la transformation : création de valeur, responsabilité, usage loyal des données et de l’I.A."
+      },
+      "jour2": {
+        "matin": "Constitution des sous-groupes et choix des cas d’entreprise ou de secteur.",
+        "apresMidi": "Initiation des projets de transformation digitale : périmètre, objectifs et premières pièces de la feuille de route."
+      },
+      "livrable": "Le cadrage du projet de transformation de votre sous-groupe, présenté lors du séminaire de clôture.",
+      "dates": "Vendredi 27 novembre 2026",
+      "horaire": "15 h – 21 h",
+      "heures": 6,
+      "intervenants": ["abdeljaouad-benhaddou"]
+    },
+    {
       "numero": 4,
       "slug": "cash-management-iot",
-      "titre": "Digitalisation du cash management avec vue sur IoT",
-      "sousTitre": "Flux de trésorerie, stocks et besoin en fonds de roulement",
-      "objectif": "Ce module est conçu pour aider les professionnels à comprendre et à exploiter les technologies numériques afin d’optimiser la gestion des flux de trésorerie au sein de leur entreprise. Zoom sur l’IoT : appréhender comment les objets connectés permettent à l’entreprise de mieux gérer ses stocks, son besoin en fonds de roulement, ses liquidités et sa trésorerie.",
+      "titre": "Cash management : levier de performance",
+      "sousTitre": "Flux de trésorerie, IoT, stocks et besoin en fonds de roulement",
+      "objectif": "Ce module est conçu pour aider les professionnels à comprendre et à exploiter les technologies numériques afin de faire du cash management un levier de performance. Zoom sur l’IoT : appréhender comment les objets connectés permettent à l’entreprise de mieux gérer ses stocks, son besoin en fonds de roulement, ses liquidités et sa trésorerie.",
       "jour1": {
         "matin": "Le cycle de trésorerie : encaissements, décaissements, prévision, besoin en fonds de roulement. Diagnostic des points de friction.",
         "apresMidi": "Plateformes et outils de cash management : communication bancaire, centralisation des soldes, prévision automatisée, pilotage en temps réel."
@@ -88,7 +111,7 @@ const data = {
         "apresMidi": "Sécurisation des règlements et prévention de la fraude au virement. Atelier sur le cycle de trésorerie de chaque participant."
       },
       "livrable": "Le diagnostic de votre cycle de trésorerie et ses points d’automatisation.",
-      "actualisation": "Le séminaire garde sa place entière. La sécurisation des règlements et la prévention de la fraude au virement y sont ajoutées.",
+      "actualisation": "La sécurisation des règlements et la prévention de la fraude au virement sont ajoutées au séminaire.",
       "dates": "Samedi 28 novembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
@@ -96,62 +119,42 @@ const data = {
     },
     {
       "numero": 5,
-      "slug": "blockchain",
-      "titre": "Blockchain",
-      "sousTitre": "Transactions de pair-à-pair, et workshop BDO de lancement des projets",
-      "objectif": "La technologie blockchain peut être utilisée pour simplifier les transactions financières, qui deviennent des transactions de pair-à-pair. L’objectif est de présenter cette technologie, son fonctionnement, ses contraintes et ses risques, ainsi que les principales applications qui s’y rapportent.",
+      "slug": "blockchain-crypto-actifs",
+      "titre": "Blockchain et crypto-actifs",
+      "sousTitre": "Registre distribué, contrats intelligents, crypto-actifs et tokenisation",
+      "objectif": "La technologie blockchain peut être utilisée pour simplifier les transactions financières, qui deviennent des transactions de pair-à-pair. Les crypto-actifs, qui reposent sur cette technologie, ouvrent de nouvelles possibilités de paiement, de financement et d’investissement. L’objectif est de présenter leur fonctionnement, leurs contraintes et leurs risques, ainsi que les principales applications pour la direction financière.",
       "jour1": {
         "matin": "Principes : registre distribué, mécanismes de consensus, chaînes publiques et permissionnées. Ce que la technologie garantit et ce qu’elle ne garantit pas.",
         "apresMidi": "Contrats intelligents. Applications financières : transactions de pair-à-pair, traçabilité documentaire, certification des pièces comptables, financement du commerce."
       },
       "jour2": {
-        "matin": "Workshop BDO — management digital, aspects entrepreneurial et éthique.",
-        "apresMidi": "Suite du workshop : initiation des projets de transformation digitale par sous-groupes, inspirés du cas de l’entreprise ou du secteur de chaque participant."
+        "matin": "Typologie des crypto-actifs : crypto-monnaies, stablecoins, jetons, monnaies numériques de banque centrale. Tokenisation des créances et des actifs.",
+        "apresMidi": "Comptabilisation, valorisation, fiscalité et cadre réglementaire marocain et international. Atelier d’évaluation des risques et des opportunités."
       },
-      "livrable": "Le cadrage du projet de transformation de votre sous-groupe, présenté lors du séminaire de clôture.",
-      "actualisation": "Le périmètre est conservé. Le contenu est mis à jour sur les usages réellement déployés et sur le financement du commerce.",
+      "livrable": "La note d’opportunité et de risque sur la blockchain et les actifs numériques, à l’usage de votre comité de direction.",
+      "actualisation": "Les séminaires Blockchain et Crypto-actifs sont réunis en une seule séance.",
       "dates": "Vendredi 11 décembre 2026",
       "horaire": "15 h – 21 h",
       "heures": 6,
-      "intervenants": ["zakaria-fahim", "abdeljaouad-benhaddou"]
-    },
-    {
-      "numero": 6,
-      "slug": "crypto-actifs",
-      "titre": "Crypto-actifs",
-      "sousTitre": "Crypto-monnaies, tokenisation et questions posées à la direction financière",
-      "objectif": "Les crypto-actifs sont des actifs numériques virtuels qui reposent sur la technologie blockchain et un protocole informatique crypté. L’objectif est de mettre en relief les avantages liés aux crypto-actifs ainsi que les principales possibilités offertes par ce type d’actifs, et notamment les crypto-monnaies.",
-      "jour1": {
-        "matin": "Typologie : crypto-monnaies, jetons utilitaires, jetons de sécurité, stablecoins, monnaies numériques de banque centrale.",
-        "apresMidi": "Les possibilités offertes : paiements, financement, couverture, diversification. Retours d’expérience et limites observées."
-      },
-      "jour2": {
-        "matin": "Tokenisation des créances et des actifs. Comptabilisation, valorisation, fiscalité et contrôle interne. Ce que le commissaire aux comptes attend.",
-        "apresMidi": "Cadre réglementaire marocain et international, lutte contre le blanchiment. Atelier d’évaluation des risques et des opportunités."
-      },
-      "livrable": "La note d’opportunité et de risque sur les actifs numériques, à l’usage de votre comité de direction.",
-      "actualisation": "Le séminaire conserve son créneau. La tokenisation, la comptabilisation et le volet réglementaire y sont ajoutés.",
-      "dates": "Vendredi 11 décembre 2026",
-      "horaire": "15 h – 21 h",
-      "heures": 6,
-      "intervenants": ["intervenant-provisoire-2"]
+      "intervenants": []
     },
     {
       "numero": 7,
+      "code": "06",
       "slug": "cyber-securite",
-      "titre": "Cybersécurité",
+      "titre": "Cybersécurité décentralisée et souveraineté de la data",
       "sousTitre": "Protection des données, du matériel, des réseaux et des logiciels",
-      "objectif": "Si la digitalisation ouvre des possibilités considérables aux directions financières, elle offre également des opportunités à la cybercriminalité. Le but consiste à identifier les principales mesures idoines à mettre en place au niveau des données, du matériel, des réseaux et des logiciels que l’entreprise cherche à protéger.",
+      "objectif": "Si la digitalisation ouvre des possibilités considérables aux directions financières, elle offre également des opportunités à la cybercriminalité. Le but consiste à identifier les principales mesures idoines à mettre en place au niveau des données, du matériel, des réseaux et des logiciels que l’entreprise cherche à protéger, et à comprendre les enjeux de la cybersécurité décentralisée et de la souveraineté de la data.",
       "jour1": {
         "matin": "Panorama des menaces visant la fonction finance : fraude au président, rançongiciel, compromission de la messagerie, fuite de données.",
-        "apresMidi": "Mesures techniques et organisationnelles. Rôle de la direction financière dans le dispositif et relation avec la direction des systèmes d’information."
+        "apresMidi": "Cybersécurité décentralisée : mesures techniques et organisationnelles, rôle de la direction financière et relation avec la direction des systèmes d’information."
       },
       "jour2": {
-        "matin": "Protection des données à caractère personnel : loi 09-08, obligations déclaratives auprès de la CNDP, droits des personnes, sanctions encourues.",
+        "matin": "Souveraineté de la data et protection des données à caractère personnel : loi 09-08, obligations déclaratives auprès de la CNDP, droits des personnes, sanctions encourues.",
         "apresMidi": "Gouvernance de l’intelligence artificielle et reporting extra-financier. Atelier : construction de la matrice de risques numériques."
       },
       "livrable": "La matrice de risques numériques de votre direction.",
-      "actualisation": "Ajout de la loi 09-08 et de la gouvernance de l’IA. Le livre blanc relève que moins de 30 % des directions intègrent la cybersécurité dans leur matrice de risques.",
+      "actualisation": "Ajout de la souveraineté de la data, de la loi 09-08 et de la gouvernance de l’IA. Le livre blanc relève que moins de 30 % des directions intègrent la cybersécurité dans leur matrice de risques.",
       "dates": "Samedi 12 décembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
@@ -159,24 +162,25 @@ const data = {
     },
     {
       "numero": 8,
+      "code": "CL",
       "slug": "projets-transformation",
-      "titre": "Présentation des projets de transformation digitale",
-      "sousTitre": "Leadership financier, conduite du changement et présentation des projets",
-      "objectif": "Ce séminaire est dédié à la présentation, par chaque groupe formé, de son projet de transformation digitale, qui met en relief les dimensions entrepreneuriale, stratégique, technologique, financière, managériale et éthique.",
+      "titre": "Présentation et soutenance des projets de transformation digitale",
+      "sousTitre": "Séminaire de clôture : leadership financier, conduite du changement et soutenance des projets",
+      "objectif": "Ce séminaire de clôture est dédié à la présentation et à la soutenance, par chaque groupe formé, de son projet de transformation digitale, qui met en relief les dimensions entrepreneuriale, stratégique, technologique, financière, managériale et éthique.",
       "jour1": {
         "matin": "Construire le dossier d’investissement : chiffrage, retour attendu, indicateurs de suivi, scénarios et points de sortie.",
         "apresMidi": "Conduite du changement : parties prenantes, montée en compétences de l’équipe, séquençage des chantiers, traitement des résistances."
       },
       "jour2": {
         "matin": "Répétition des présentations, revue croisée entre sous-groupes, coaching des associés BDO.",
-        "apresMidi": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
+        "apresMidi": "Soutenance des projets devant le jury ISCAE × BDO. Remise des certificats."
       },
       "livrable": "Le projet de transformation digitale de votre direction, présenté et évalué.",
       "actualisation": "Le séminaire accueille le volet leadership financier et conduite du changement, qui donne son nom au certificat sans être traité jusqu’ici.",
       "dates": "Samedi 26 décembre 2026",
       "horaire": "9 h – 16 h",
       "heures": 6,
-      "intervenants": ["zakaria-fahim", "ismail-lahsini"]
+      "intervenants": ["abdeljaouad-benhaddou", "david-carvalho"]
     }
   ]
 } as const;

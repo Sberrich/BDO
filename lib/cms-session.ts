@@ -66,7 +66,13 @@ export function publicUrl(path: string, request: Request) {
   return new URL(path, request.url);
 }
 
-/** Only allow redirects back into the CMS. */
+/** Only allow redirects back into the CMS or the admin area. */
 export function safeNext(next: string | null | undefined) {
-  return next && next.startsWith("/keystatic") && !next.startsWith("//") ? next : "/keystatic";
+  return next && /^\/(keystatic|admin)(\/|\?|$)/.test(next) ? next : "/keystatic";
+}
+
+/** Server components and route handlers re-check the session (middleware is the first gate). */
+export async function hasAdminSession(token: string | undefined) {
+  if (!cmsCredentials().pass) return process.env.NODE_ENV !== "production";
+  return verifySession(token);
 }

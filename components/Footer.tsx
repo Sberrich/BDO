@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
 import { IconArrowRight, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
-import { plain } from "@/lib/text";
+import { plain, seminarPath, sessionCode } from "@/lib/text";
 
 export function Footer() {
   const c = data.site.contact;
@@ -103,9 +103,9 @@ export function Footer() {
               </li>
               {seminars.map((s) => (
                 <li key={s.numero}>
-                  <Link href={`/seminaires/${s.numero}`}>
+                  <Link href={seminarPath(s)}>
                     <span className="foot__n" aria-hidden="true">
-                      {String(s.numero).padStart(2, "0")}
+                      {sessionCode(s)}
                     </span>
                     {plain(s.titre)}
                   </Link>

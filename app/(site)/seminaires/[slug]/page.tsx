@@ -13,7 +13,7 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { plain, seminarImage, seminarVideo } from "@/lib/text";
+import { plain, seminarImage, seminarVideo, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
@@ -84,9 +84,8 @@ export default async function SeminairePage({ params }: Props) {
   };
   const cover = seminarImage(s.numero);
   const clip = seminarVideo(s.numero);
-  const indexLabel = inaug
-    ? "Conférence inaugurale"
-    : `Séminaire ${String(s.numero).padStart(2, "0")}`;
+  const indexLabel = sessionLabel(s);
+  const lieu = s.lieu ?? "Casablanca";
 
   return (
     <>
@@ -104,7 +103,7 @@ export default async function SeminairePage({ params }: Props) {
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
                 <span className="sem-hero__badge">{indexLabel}</span>
-                {inaug ? "Ouverture du cycle" : `${s.numero} sur 8`}
+                {inaug ? "Ouverture du cycle" : `Séance ${i} sur ${seq.length - 1}`}
               </p>
               <h1 id="sem-title" className="sem-hero__title">
                 {plain(s.titre)}
@@ -112,17 +111,17 @@ export default async function SeminairePage({ params }: Props) {
               <p className="sem-hero__lead">{plain(s.sousTitre)}</p>
               <nav className="sem-steps" aria-label="Toutes les séances">
                 <ol>
-                  {seq.map((x) => {
+                  {seq.map((x, xi) => {
                     const current = x.numero === s.numero;
                     return (
                       <li key={x.numero}>
                         <Link
                           href={sessionHref(x)}
-                          className={`sem-steps__dot${current ? " is-current" : ""}${x.numero < s.numero ? " is-past" : ""}`}
+                          className={`sem-steps__dot${current ? " is-current" : ""}${xi < i ? " is-past" : ""}`}
                           aria-current={current ? "page" : undefined}
                           title={plain(x.titre)}
                         >
-                          {x.numero === 0 ? "IN" : x.numero}
+                          {sessionCode(x)}
                           <span className="sr-only"> — {plain(x.titre)}</span>
                         </Link>
                       </li>
@@ -145,7 +144,7 @@ export default async function SeminairePage({ params }: Props) {
                 </li>
                 <li>
                   <IconMap />
-                  <span>Casablanca</span>
+                  <span>{lieu}</span>
                 </li>
               </ul>
               <div className="sem-hero__ctas">
@@ -182,10 +181,10 @@ export default async function SeminairePage({ params }: Props) {
                 <span className="sem-hero__card-veil" />
                 <span className="sem-hero__card-frame" />
                 <span className="sem-hero__card-mark">
-                  {inaug ? "IN" : String(s.numero).padStart(2, "0")}
+                  {sessionCode(s)}
                 </span>
                 <span className="sem-hero__card-caption">
-                  {inaug ? "Ouverture" : `Séance ${s.numero}`}
+                  {inaug ? "Ouverture" : `Séance ${i}`}
                 </span>
               </div>
             </div>
@@ -263,9 +262,7 @@ export default async function SeminairePage({ params }: Props) {
                   <span>← Séance précédente</span>
                   <strong>{plain(prev.titre)}</strong>
                   <em>
-                    {prev.numero === 0
-                      ? "Conférence inaugurale"
-                      : `Séminaire ${String(prev.numero).padStart(2, "0")}`}{" "}
+                    {sessionLabel(prev)}{" "}
                     · {prev.dates}
                   </em>
                 </Link>
@@ -280,9 +277,7 @@ export default async function SeminairePage({ params }: Props) {
                   <span>Séance suivante →</span>
                   <strong>{plain(next.titre)}</strong>
                   <em>
-                    {next.numero === 8
-                      ? "Clôture du cycle"
-                      : `Séminaire ${String(next.numero).padStart(2, "0")}`}{" "}
+                    {sessionLabel(next)}{" "}
                     · {next.dates}
                   </em>
                 </Link>
@@ -314,7 +309,7 @@ export default async function SeminairePage({ params }: Props) {
                 ) : null}
                 <div>
                   <dt>Lieu</dt>
-                  <dd>Casablanca</dd>
+                  <dd>{lieu}</dd>
                 </div>
               </dl>
               {people.length ? (

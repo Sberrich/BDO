@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
 import { BRAND } from "@/lib/content";
@@ -11,6 +11,9 @@ import {
   matchesSignature,
   safeFilename,
 } from "@/lib/candidature";
+import { publicUrl } from "@/lib/cms-session";
+import { pushToSheet } from "@/lib/sheets";
+import { saveSubmission, type Submission } from "@/lib/submissions";
 
 const DOCS: Record<string, string> = {
   brochure: "/docs/CFO-4-0-brochure.pdf",
@@ -87,7 +90,7 @@ async function deliverViaFormSubmit(notify: string, subject: string, lines: stri
   }
 }
 
-type Upload = AttachmentInfo & { content: Buffer };
+type Upload = AttachmentInfo & { field: string; content: Buffer };
 
 async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string }> {
   const files: Upload[] = [];
@@ -107,6 +110,7 @@ async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: s
       return { files, error: `${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).` };
     }
     files.push({
+      field: rule.field,
       label: rule.label,
       filename: safeFilename(file.name, rule.field),
       size: file.size,
@@ -250,6 +254,22 @@ export async function POST(req: Request) {
     attachmentsNotSent: files.length > 0 && !canAttach,
   });
 
+  let saved: Submission | null = null;
+  try {
+    saved = await saveSubmission(type, body, files);
+  } catch (err) {
+    console.error("[submit] storage failed", { type, error: err instanceof Error ? err.message : String(err) });
+  }
+  if (saved) {
+    const record = saved;
+    const site = publicUrl("/", req).origin;
+    after(() =>
+      pushToSheet(record, site).catch((err) =>
+        console.error("[submit] sheet sync failed", { id: record.id, error: err instanceof Error ? err.message : String(err) }),
+      ),
+    );
+  }
+
   try {
     if (provider === "smtp") {
       await deliverViaSmtp(from, notify, email, mail, files);
@@ -264,8 +284,11 @@ export async function POST(req: Request) {
     console.error("[submit] delivery failed", {
       type,
       provider,
+      saved: saved?.id ?? null,
       error: err instanceof Error ? err.message : String(err),
     });
+    // Already on disk and visible in /admin, so the visitor does not need to resend.
+    if (saved) return successResponse(type, body);
     return NextResponse.json(
       {
         ok: false,
@@ -275,6 +298,10 @@ export async function POST(req: Request) {
     );
   }
 
+  return successResponse(type, body);
+}
+
+function successResponse(type: string, body: Record<string, unknown>) {
   const extra: Record<string, string> = {};
   if (type === "document") extra.download = DOCS[clean(body.document, 20)] ?? DOCS.brochure;
 

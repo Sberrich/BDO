@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "CFO 4.0 — Certificat ISCAE × BDO",
   },
-  icons: { icon: "/favicon.png" },
+  icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };
 
 export default function RootLayout({

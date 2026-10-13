@@ -6,7 +6,7 @@ const data = {
   "baseUrl": "https://iscae.bdomaroc.com",
   "promesse": {
     "titre": "Construisez la feuille de route de transformation de votre direction financière.",
-    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Huit séminaires, un projet mené sur votre propre entreprise, un certificat cosigné."
+    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
   },
   "faits": [
     {
@@ -227,11 +227,11 @@ const data = {
       "texte": "Trois journées d’accompagnement des équipes projet entre les séminaires, animées par BDO."
     },
     {
-      "etape": "Séminaire 8, jour 1",
+      "etape": "Séminaire de clôture, jour 1",
       "texte": "Dossier d’investissement, plan de conduite du changement, répétition des présentations."
     },
     {
-      "etape": "Séminaire 8, jour 2",
+      "etape": "Séminaire de clôture, jour 2",
       "texte": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
     }
   ],
@@ -409,7 +409,7 @@ const data = {
   "contact": {
     "nom": "{{PROV}}Prénom Nom{{/PROV}}",
     "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
-    "email": "certificat@bdo-info.ma",
+    "email": "gbounani@bdo.ma",
     "telephone": "+212 679 724 416",
     "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",

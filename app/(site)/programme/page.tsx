@@ -4,33 +4,50 @@ import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { LeadForm } from "@/components/LeadForm";
 import { PriceBand } from "@/components/PriceBand";
+import { ProgrammeCalendar, type CalendarSession } from "@/components/ProgrammeCalendar";
 import { ProgrammeGrid, splitDate } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
-import { plain } from "@/lib/text";
+import { plain, sessionCode } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Le programme",
-  description: "Huit séminaires, une conférence inaugurale et un projet de transformation mené sur votre entreprise.",
+  description: "Six séminaires, un workshop, une conférence inaugurale et un projet de transformation mené sur votre entreprise.",
 };
 
-function byMonth(sessions: Seminaire[]) {
-  const months: { month: string; sessions: { s: Seminaire; day: string; weekday: string }[] }[] = [];
-  for (const s of sessions) {
-    const { month, day, weekday } = splitDate(plain(s.dates));
-    const last = months[months.length - 1];
-    const entry = { s, day, weekday };
-    if (last && last.month === month) last.sessions.push(entry);
-    else months.push({ month, sessions: [entry] });
-  }
-  return months;
+/** "IN", "S1"…"S6", "WS", "CL" */
+function calCode(s: Seminaire) {
+  const code = sessionCode(s);
+  return /^\d+$/.test(code) ? `S${Number(code)}` : code;
+}
+
+const MONTH_INDEX: Record<string, number> = {
+  janvier: 0, février: 1, mars: 2, avril: 3, mai: 4, juin: 5,
+  juillet: 6, août: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11,
+};
+
+function calendarSessions(sessions: Seminaire[]): CalendarSession[] {
+  return sessions.flatMap((s) => {
+    const { day, month, year } = splitDate(plain(s.dates));
+    const m = MONTH_INDEX[month.toLowerCase()];
+    if (m == null) return [];
+    return [{
+      code: calCode(s),
+      title: plain(s.titre),
+      href: sessionHref(s),
+      year: Number(year),
+      month: m,
+      day: Number(day),
+      horaire: s.horaire ? plain(s.horaire) : undefined,
+      kind: s.numero === 0 ? "open" : s.code === "CL" ? "close" : "seminar",
+    }];
+  });
 }
 
 export default function ProgrammePage() {
   const sessions = allSessions();
   const seminars = sessions.filter((s) => s.numero > 0);
-  const months = byMonth(sessions);
 
   return (
     <>
@@ -49,10 +66,10 @@ export default function ProgrammePage() {
                 {sessions.length} séances · octobre → décembre 2026
               </p>
               <h1 id="prog-title" className="sem-hero__title">
-                Huit séminaires, un projet mené sur votre entreprise
+                Neuf séances, un projet mené sur votre entreprise
               </h1>
               <p className="sem-hero__lead">
-                Une conférence inaugurale, huit séminaires et un workshop, jusqu’à la présentation des projets du
+                Une conférence inaugurale, six séminaires et un workshop, jusqu’à la soutenance des projets du
                 26 décembre.
               </p>
               <ul className="sem-hero__meta" aria-label="Repères">
@@ -81,38 +98,7 @@ export default function ProgrammePage() {
               <DeadlineCountdown className="prog-hero__countdown" />
             </div>
 
-            <div className="prog-cal" aria-label="Le cycle en un coup d’œil">
-              <p className="prog-cal__title">Le cycle en un coup d’œil</p>
-              {months.map((m) => (
-                <div key={m.month} className="prog-cal__month">
-                  <p className="prog-cal__name">
-                    {m.month}
-                    <span>
-                      {m.sessions.length} séance{m.sessions.length > 1 ? "s" : ""}
-                    </span>
-                  </p>
-                  <ul className="prog-cal__days">
-                    {m.sessions.map(({ s, day, weekday }) => (
-                      <li key={s.numero}>
-                        <Link
-                          href={sessionHref(s)}
-                          className={`prog-cal__day ${s.numero === 0 ? "is-open" : ""} ${s.numero === 8 ? "is-close" : ""}`}
-                          title={plain(s.titre)}
-                        >
-                          <span className="prog-cal__d">{day}</span>
-                          <span className="prog-cal__w">{weekday}</span>
-                          <span className="prog-cal__n">{s.numero === 0 ? "IN" : `S${s.numero}`}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              <p className="prog-cal__legend">
-                <span className="is-open" /> Ouverture
-                <span className="is-close" /> Présentation des projets
-              </p>
-            </div>
+            <ProgrammeCalendar sessions={calendarSessions(sessions)} />
           </div>
         </Container>
       </section>
@@ -131,7 +117,7 @@ export default function ProgrammePage() {
           <header className="prog-pieces__head">
             <p className="sem-kicker">Le projet</p>
             <h2 id="prog-pieces-title" className="prog-pieces__title">
-              Huit séminaires, huit pièces de votre feuille de route
+              Huit séances, huit pièces de votre feuille de route
             </h2>
             <p className="prog-pieces__lead">
               Chaque séminaire produit une pièce appliquée à votre entreprise. Assemblées, elles forment le projet
@@ -142,11 +128,11 @@ export default function ProgrammePage() {
             {seminars.map((s) => (
               <li key={s.numero}>
                 <Link href={sessionHref(s)} className="prog-piece">
-                  <span className="prog-piece__num">{String(s.numero).padStart(2, "0")}</span>
+                  <span className="prog-piece__num">{sessionCode(s)}</span>
                   <span className="prog-piece__title">{plain(s.titre)}</span>
                   {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
                   <span className="prog-piece__more">
-                    Voir le séminaire <IconArrowRight />
+                    Voir la séance <IconArrowRight />
                   </span>
                 </Link>
               </li>

@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
         destination: `/${p}`,
         permanent: true,
       })),
+      { source: "/seminaires/6", destination: "/seminaires/5", permanent: true },
+      { source: "/seminaires/crypto-actifs", destination: "/seminaires/5", permanent: true },
+      { source: "/seminaires/blockchain", destination: "/seminaires/5", permanent: true },
       {
         source: "/seminaires/:n.html",
         destination: "/seminaires/:n",

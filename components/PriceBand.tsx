@@ -11,7 +11,7 @@ export function PriceBand() {
           <div>
             <p className="sem-price__kicker">Tarif de la promotion 1</p>
             <h2 id="sem-price-title" className="sem-price__title">
-              Les huit séminaires, un seul tarif.
+              Toutes les séances, un seul tarif.
             </h2>
           </div>
           <Link href="/admissions#tarif" className="sem-price__link">

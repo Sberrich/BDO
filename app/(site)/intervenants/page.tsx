@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight, IconLinkedIn } from "@/components/icons";
 import { ButtonLink, Container } from "@/components/ui";
-import { data, SHOW } from "@/lib/content";
+import { allSessions, SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
   facultyHasPhoto,
   facultyPhotoSrc,
   facultyShowcase,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain } from "@/lib/text";
+import { personLinkedIn, plain, seminarPath, sessionCode } from "@/lib/text";
 
 const SECOND_SLUG = "ismail-lahsini";
 
@@ -20,11 +20,17 @@ export const metadata: Metadata = {
 };
 
 function seminarsBySpeaker() {
-  const map = new Map<string, { numero: number; titre: string }[]>();
-  for (const s of data.seminaires.seminaires) {
-    for (const slug of s.intervenants as readonly string[]) {
+  const map = new Map<string, { numero: number; code: string; href: string; titre: string }[]>();
+  for (const s of allSessions()) {
+    for (const slug of s.intervenants ?? []) {
       const list = map.get(slug) ?? [];
-      list.push({ numero: s.numero, titre: plain(s.titre) });
+      const code = sessionCode(s);
+      list.push({
+        numero: s.numero,
+        code: /^\d+$/.test(code) ? `S${Number(code)}` : code,
+        href: seminarPath(s),
+        titre: plain(s.titre),
+      });
       map.set(slug, list);
     }
   }
@@ -59,7 +65,7 @@ export default async function IntervenantsPage() {
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
                 <span className="sem-hero__badge">Les intervenants</span>
-                {intervenants.length} experts · 8 séminaires
+                {intervenants.length} experts · {allSessions().length} séances
               </p>
               <h1 id="iv-title" className="sem-hero__title">
                 Ils animent les séminaires
@@ -151,8 +157,8 @@ export default async function IntervenantsPage() {
                           <ul>
                             {teaches.map((t) => (
                               <li key={t.numero}>
-                                <Link href={`/seminaires/${t.numero}`} className="iv-card__sem">
-                                  <span>S{t.numero}</span>
+                                <Link href={t.href} className="iv-card__sem">
+                                  <span>{t.code}</span>
                                   {t.titre}
                                 </Link>
                               </li>
@@ -195,8 +201,8 @@ export default async function IntervenantsPage() {
                 Le jury de soutenance
               </h2>
               <p className="iv-jury__text">
-                La soutenance se tient devant le jury ISCAE × BDO, au second jour du
-                séminaire 8, le 26 décembre 2026.
+                La soutenance se tient devant le jury ISCAE × BDO, lors du séminaire
+                de clôture, le 26 décembre 2026.
               </p>
             </div>
             <ButtonLink href="/candidater">Candidater</ButtonLink>

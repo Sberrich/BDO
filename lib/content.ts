@@ -67,7 +67,7 @@ const WA_TEXT = encodeURIComponent(
 
 export const BRAND = {
   url: "https://iscae.bdomaroc.com",
-  email: "certificat@bdo-info.ma",
+  email: "gbounani@bdo.ma",
   phone: "+212 679 724 416",
   phoneHref: "tel:+212679724416",
   whatsapp: `https://wa.me/212679724416?text=${WA_TEXT}`,
@@ -79,7 +79,9 @@ export const BRAND = {
 
 export type Seminaire = {
   numero: number;
+  code?: string;
   slug?: string;
+  lieu?: string;
   titre: string;
   sousTitre: string;
   dates: string;

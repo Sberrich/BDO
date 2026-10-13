@@ -39,7 +39,7 @@ const data = {
       corps: [
         "« La Fonction Financière Augmentée » documente ce que les DAF observent déjà : 97 % estiment les indicateurs classiques insuffisants, 67 % jugent leurs outils inadaptés au pilotage prédictif.",
         "Augmenter la fonction finance, ce n’est pas empiler des technologies. C’est articuler données, cas d’usage d’intelligence artificielle, architecture cloud, gouvernance des risques numériques et conduite du changement — dans un ordre qui tient devant un jury et un budget.",
-        "C’est pourquoi le certificat ne délivre pas seulement un diplôme. Il produit un dossier d’investissement : chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement. La soutenance du séminaire 8 en est l’épreuve.",
+        "C’est pourquoi le certificat ne délivre pas seulement un diplôme. Il produit un dossier d’investissement : chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement. La soutenance du séminaire de clôture en est l’épreuve.",
       ],
       source: "La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025.",
       relatedDoc: "livreblanc" as const,
@@ -56,7 +56,7 @@ const data = {
         "Chaque séminaire du certificat CFO 4.0 laisse une trace opératoire sur votre direction financière. Pas un polycopié : une cartographie, un cas d’usage, un schéma cible, une matrice de risques.",
       corps: [
         "Le programme compte huit séminaires plus la conférence inaugurale, répartis d’octobre à décembre 2026. La logique n’est pas encyclopédique. Elle est cumulative.",
-        "Séminaire données : cartographie et indicateurs. Séminaire IA : cas d’usage et gouvernance des modèles. Cloud : schéma cible du SI finance. Blockchain, crypto-actifs, cash management, cybersécurité : chacun ajoute une couche. Le séminaire 8 assemble la feuille de route et la fait soutenir.",
+        "Séminaire données : cartographie et indicateurs. Séminaire IA : cas d’usage et gouvernance des modèles. Cloud et automatisation : schéma cible du SI finance. Workshop, cash management, blockchain et crypto-actifs, cybersécurité : chacun ajoute une couche. Le séminaire de clôture assemble la feuille de route et la fait soutenir.",
         "À l’issue du cycle, le participant n’emporte pas seulement un certificat cosigné ISCAE × BDO. Il emporte un artefact utilisable en comité de direction — construit sur son propre périmètre, pas sur un cas générique.",
       ],
       source: "Programme CFO 4.0 — ISCAE × BDO, session 2026–2027.",

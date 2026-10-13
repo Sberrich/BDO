@@ -199,7 +199,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <header>
               <p className="prog__index">03 — Le programme</p>
               <h2 id="programme-title" className="prog__title">
-                Huit séminaires. <em>Une feuille de route.</em>
+                Huit séances. <em>Une feuille de route.</em>
               </h2>
             </header>
             <div className="prog__aside">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
-import { IconArrowRight, IconPlay } from "@/components/icons";
-import { plain } from "@/lib/text";
+import { IconArrowRight, IconClock, IconPlay } from "@/components/icons";
+import { plain, sessionLabel } from "@/lib/text";
 
 type Props = {
   limit?: number;
@@ -17,10 +17,10 @@ function hoursLabel(s: Seminaire) {
   return `${hours(s)}\u00a0h`;
 }
 
-/** "Samedi 31 octobre 2026" → { weekday: "Sam.", day: "31", month: "octobre" } */
+/** "Samedi 31 octobre 2026" → { weekday: "Sam.", weekdayLong: "Samedi", day: "31", month: "octobre" } */
 export function splitDate(dates: string) {
   const [weekday = "", day = "", month = "", year = ""] = dates.split(" ");
-  return { weekday: `${weekday.slice(0, 3)}.`, day, month, year };
+  return { weekday: `${weekday.slice(0, 3)}.`, weekdayLong: weekday, day, month, year };
 }
 
 export function ProgrammeGrid({ limit, excludeNumero }: Props) {
@@ -39,23 +39,19 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
   }
 
   const all = allSessions();
-  const cycle = all.filter((s) => s.numero > 0);
   const first = all[0] ? splitDate(plain(all[0].dates)) : null;
   const last = all.length ? splitDate(plain(all[all.length - 1].dates)) : null;
   const slots = [
     ...new Set(
-      cycle
+      all
         .filter((s) => s.horaire)
-        .map(
-          (s) =>
-            `${splitDate(plain(s.dates)).weekday.replace(".", "")}. ${s.horaire}`,
-        ),
+        .map((s) => `${splitDate(plain(s.dates)).weekdayLong} · ${plain(s.horaire)}`),
     ),
-  ];
+  ].sort((a, b) => (a.startsWith("Vendredi") ? -1 : b.startsWith("Vendredi") ? 1 : 0));
   const stats = [
     {
-      value: String(cycle.length),
-      label: cycle.length > 1 ? "séminaires" : "séminaire",
+      value: String(all.length),
+      label: all.length > 1 ? "séances" : "séance",
     },
     {
       value: `${all.reduce((n, s) => n + hours(s), 0)} h`,
@@ -93,6 +89,7 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                 <span className="prog-board__open-date">
                   {opening.dates}
                   {opening.horaire ? ` · ${opening.horaire}` : ""}
+                  {opening.lieu ? ` · ${opening.lieu}` : ""}
                 </span>
                 <h3 className="prog-board__open-title">
                   {plain(opening.titre)}
@@ -155,23 +152,25 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                         className={`prog-board__row${finale ? " is-finale" : ""}`}
                       >
                         <span className="prog-board__day" aria-hidden="true">
+                          <span className="prog-board__day-month">{d.month.slice(0, 3)}.</span>
                           <span className="prog-board__day-num">{d.day}</span>
                           <span className="prog-board__day-name">
                             {d.weekday}
                           </span>
                         </span>
                         <span className="prog-board__main">
-                          <span className="prog-board__meta">
-                            {finale
-                              ? "Clôture du cycle"
-                              : `Séminaire ${String(s.numero).padStart(2, "0")}`}
-                            <span aria-hidden="true">·</span>
-                            {s.horaire ? plain(s.horaire) : hoursLabel(s)}
-                          </span>
+                          <span className="prog-board__meta">{sessionLabel(s)}</span>
                           <span className="prog-board__name">
                             {plain(s.titre)}
                           </span>
-                          <span className="sr-only">{s.dates}</span>
+                          <span className="prog-board__when">
+                            <IconClock />
+                            <span>
+                              {d.weekdayLong} {d.day} {d.month}
+                            </span>
+                            <span className="prog-board__when-sep" aria-hidden="true">·</span>
+                            <span>{s.horaire ? plain(s.horaire) : hoursLabel(s)}</span>
+                          </span>
                         </span>
                         <span className="prog-board__arrow" aria-hidden="true">
                           <IconArrowRight />

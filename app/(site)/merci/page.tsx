@@ -7,7 +7,7 @@ import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
 import { ButtonLink, Container, Kicker } from "@/components/ui";
 
 const NEXT_STEPS = [
-  { href: "/programme", label: "Parcourir les huit séminaires" },
+  { href: "/programme", label: "Parcourir le programme" },
   { href: "/ressources", label: "Télécharger les publications" },
 ];
 
