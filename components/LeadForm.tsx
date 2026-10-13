@@ -19,6 +19,20 @@ const docs = [
   },
 ];
 
+/** Fields without their own error display (NameInput and PhoneInput handle theirs). */
+const GENERIC = ["fonction", "email", "moment", "creneau"];
+
+function messageFor(el: HTMLInputElement | HTMLSelectElement) {
+  if (el.validity.valid) return "";
+  if (el.validity.valueMissing) {
+    return el instanceof HTMLSelectElement ? "Choisissez une option." : "Ce champ est obligatoire.";
+  }
+  if ((el.validity.typeMismatch || el.validity.patternMismatch) && el.type === "email") {
+    return "Adresse e-mail non valide (exemple : nom@entreprise.ma).";
+  }
+  return el.validationMessage;
+}
+
 export function LeadForm({
   kind,
   document,
@@ -34,22 +48,38 @@ export function LeadForm({
   const [status, setStatus] = useState("");
   const [ok, setOk] = useState<boolean | null>(null);
   const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const openedAt = useRef(0);
+  const inFlight = useRef(false);
 
   useEffect(() => {
     openedAt.current = Math.floor(Date.now() / 1000);
   }, []);
 
+  function revalidate(e: FormEvent<HTMLFormElement>) {
+    const el = e.target;
+    if (!(el instanceof HTMLInputElement || el instanceof HTMLSelectElement) || !(el.name in errors)) return;
+    setErrors((errs) => ({ ...errs, [el.name]: messageFor(el) }));
+  }
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (inFlight.current) return;
     const form = e.currentTarget;
-    const invalid = ["prenom", "nom", "telephone"]
-      .map((name) => form.elements.namedItem(name))
-      .filter((input): input is HTMLInputElement => input instanceof HTMLInputElement && !input.checkValidity());
+    const invalid = Array.from(form.elements).filter(
+      (el): el is HTMLInputElement | HTMLSelectElement =>
+        (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) && !el.checkValidity(),
+    );
+    setErrors(
+      Object.fromEntries(
+        invalid.filter((el) => GENERIC.includes(el.name)).map((el) => [el.name, messageFor(el)]),
+      ),
+    );
     if (invalid.length) {
       invalid[0].focus();
       return;
     }
+    inFlight.current = true;
     setSending(true);
     setStatus("");
     const fd = new FormData(form);
@@ -71,6 +101,7 @@ export function LeadForm({
         setOk(false);
         setStatus(json.message);
         setSending(false);
+        inFlight.current = false;
         return;
       }
       // Start the PDF download in this user-gesture turn (before navigation).
@@ -91,11 +122,23 @@ export function LeadForm({
       setOk(false);
       setStatus("L’envoi n’a pas abouti. Écrivez-nous à " + BRAND.email);
       setSending(false);
+      inFlight.current = false;
     }
   }
 
+  const fieldError = (name: string) =>
+    errors[name] ? (
+      <span id={`${prefix}-${name}-error`} role="alert" className="mt-1 block text-xs font-normal text-red">
+        {errors[name]}
+      </span>
+    ) : null;
+  const errorProps = (name: string) =>
+    errors[name]
+      ? { "aria-invalid": true as const, "aria-describedby": `${prefix}-${name}-error` }
+      : {};
+
   return (
-    <form onSubmit={onSubmit} className="space-y-4" noValidate>
+    <form onSubmit={onSubmit} onInput={revalidate} onChange={revalidate} className="space-y-4" noValidate>
       <div className="honeypot" aria-hidden>
         <label htmlFor={`${prefix}-hp`}>Ne remplissez pas ce champ</label>
         <input
@@ -117,7 +160,9 @@ export function LeadForm({
           name="fonction"
           autoComplete="organization-title"
           maxLength={120}
+          {...errorProps("fonction")}
         />
+        {fieldError("fonction")}
       </label>
       <label className="block text-sm font-semibold">
         E-mail *
@@ -131,20 +176,24 @@ export function LeadForm({
           name="email"
           autoComplete="email"
           maxLength={160}
+          pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+          {...errorProps("email")}
         />
+        {fieldError("email")}
       </label>
       {kind === "rappel" && (
         <>
           <PhoneInput label="Téléphone" required />
           <label className="block text-sm font-semibold">
             Créneau souhaité *
-            <select className={fieldClass} required name="moment">
+            <select className={fieldClass} required name="moment" {...errorProps("moment")}>
               <option value="">Choisissez…</option>
               <option value="matin">Le matin, 9 h – 12 h</option>
               <option value="midi">Entre 12 h et 14 h</option>
               <option value="apres-midi">L’après-midi, 14 h – 18 h</option>
               <option value="soir">En fin de journée, après 18 h</option>
             </select>
+            {fieldError("moment")}
           </label>
           <label className="block text-sm font-semibold">
             Votre question
@@ -163,7 +212,7 @@ export function LeadForm({
             Une heure en ligne, en français. Un fichier calendrier vous est
             remis après l’inscription.
           </span>
-          <select className={fieldClass} required name="creneau">
+          <select className={fieldClass} required name="creneau" {...errorProps("creneau")}>
             <option value="">Choisissez…</option>
             {data.site.sessionInfo.creneaux.map((slot) => (
               <option key={slot.id} value={slot.id}>
@@ -171,6 +220,7 @@ export function LeadForm({
               </option>
             ))}
           </select>
+          {fieldError("creneau")}
         </label>
       )}
       {kind === "document" && (

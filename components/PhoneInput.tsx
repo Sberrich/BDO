@@ -11,7 +11,9 @@ export function PhoneInput({ label, required }: { label: string; required?: bool
 
   function check(input: HTMLInputElement, show: boolean) {
     const value = input.value.trim();
-    const message = value && !normalizePhone(value) ? PHONE_ERROR : "";
+    const message = value
+      ? normalizePhone(value) ? "" : PHONE_ERROR
+      : required ? "Merci d’indiquer votre numéro de téléphone." : "";
     input.setCustomValidity(message);
     if (show || !message) setError(message);
   }

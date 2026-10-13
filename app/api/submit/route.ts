@@ -94,22 +94,23 @@ async function deliverViaFormSubmit(notify: string, subject: string, lines: stri
 
 type Upload = AttachmentInfo & { field: string; content: Buffer };
 
-async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string }> {
+async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string; field?: string }> {
   const files: Upload[] = [];
   for (const rule of UPLOADS) {
     const entry = form.get(rule.field);
     const file = entry instanceof File && entry.size > 0 ? entry : null;
+    const fail = (error: string) => ({ files, error, field: rule.field });
     if (!file) {
-      if (rule.required) return { files, error: `Merci de joindre votre ${rule.label} (${rule.hint}).` };
+      if (rule.required) return fail(`Merci de joindre votre ${rule.label} (${rule.hint}).`);
       continue;
     }
     const ext = extensionOf(file.name);
     if (!rule.extensions.includes(ext) || file.size > rule.maxBytes) {
-      return { files, error: `${rule.label} : ${rule.hint}.` };
+      return fail(`${rule.label} : ${rule.hint}.`);
     }
     const content = Buffer.from(await file.arrayBuffer());
     if (!matchesSignature(ext, content.subarray(0, 8))) {
-      return { files, error: `${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).` };
+      return fail(`${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).`);
     }
     files.push({
       field: rule.field,
@@ -179,7 +180,7 @@ async function deliverViaSmtp(
 export async function POST(req: Request) {
   const isMultipart = (req.headers.get("content-type") || "").includes("multipart/form-data");
   if (isMultipart && Number(req.headers.get("content-length") || 0) > MAX_REQUEST_BYTES) {
-    return NextResponse.json({ ok: false, message: "Les fichiers envoyés sont trop volumineux (5 Mo maximum chacun)." }, { status: 413 });
+    return NextResponse.json({ ok: false, message: "Les fichiers envoyés sont trop volumineux (5 Mo maximum chacun).", field: "cv" }, { status: 413 });
   }
 
   let body: Record<string, unknown>;
@@ -203,7 +204,7 @@ export async function POST(req: Request) {
   }
   const ts = Number(body._ts || 0);
   if (ts > 0 && Date.now() / 1000 - ts < 3) {
-    return NextResponse.json({ ok: false, message: "Votre envoi est parti un peu vite." }, { status: 429 });
+    return NextResponse.json({ ok: false, message: "Votre envoi est parti un peu vite. Patientez quelques secondes, puis cliquez à nouveau." }, { status: 429 });
   }
   if (!rateOk(ipOf(req))) {
     return NextResponse.json({ ok: false, message: "Trop de demandes. Réessayez plus tard." }, { status: 429 });
@@ -246,11 +247,11 @@ export async function POST(req: Request) {
   let files: Upload[] = [];
   if (type === "candidature") {
     if (!form) {
-      return NextResponse.json({ ok: false, message: "Merci de joindre votre CV." }, { status: 422 });
+      return NextResponse.json({ ok: false, message: "Merci de joindre votre CV.", field: "cv" }, { status: 422 });
     }
     const uploads = await readUploads(form);
     if (uploads.error) {
-      return NextResponse.json({ ok: false, message: uploads.error }, { status: 422 });
+      return NextResponse.json({ ok: false, message: uploads.error, field: uploads.field }, { status: 422 });
     }
     files = uploads.files;
   }
