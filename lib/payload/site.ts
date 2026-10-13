@@ -413,7 +413,7 @@ const data = {
     "telephone": "+212 679 724 416",
     "linkedin": "",
     "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
-    "lieuFormation": "Séminaires à Casablanca, conférence inaugurale au campus ISCAE de Rabat. Le lieu exact des séminaires est communiqué aux participants admis."
+    "lieuFormation": "Séminaires au campus ISCAE de Casablanca, conférence inaugurale au campus ISCAE de Rabat."
   },
   "institutions": [
     {

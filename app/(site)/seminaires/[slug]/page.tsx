@@ -85,7 +85,7 @@ export default async function SeminairePage({ params }: Props) {
   const cover = seminarImage(s.numero);
   const clip = seminarVideo(s.numero);
   const indexLabel = sessionLabel(s);
-  const lieu = s.lieu ?? "Casablanca";
+  const lieu = s.lieu ?? "Campus ISCAE Casablanca";
 
   return (
     <>

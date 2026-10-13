@@ -129,7 +129,7 @@ const data = {
         {
           "id": "faq-calendrier-lieu",
           "q": "Où se déroulent les séminaires ?",
-          "r": "<p>En présentiel, à Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. {{PROV}}Le lieu exact est communiqué aux participants admis avec leur convocation.{{/PROV}}</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
+          "r": "<p>En présentiel, au campus ISCAE de Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. Le plan d’accès est envoyé aux participants admis avec leur convocation.</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p>",
           "lien": null,
           "accueil": false
         },
