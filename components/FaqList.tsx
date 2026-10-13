@@ -7,6 +7,7 @@ import { appHref, plain, rich } from "@/lib/text";
 type Q = {
   id: string;
   q: string;
+  court: string;
   r: string;
   accueil?: boolean;
   lien?: { texte: string; href: string };
@@ -27,7 +28,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
         questions: (g.questions as unknown as Q[]).filter((item) => {
           if (onlyHome && !item.accueil) return false;
           if (!q) return true;
-          const hay = `${item.q} ${item.r}`
+          const hay = `${item.q} ${item.court} ${item.r}`
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
@@ -173,10 +174,20 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
                       inert={!isOpen}
                     >
                       <div className="faq-panel__inner">
-                        <div
-                          className="faq-answer"
-                          dangerouslySetInnerHTML={{ __html: rich(item.r) }}
+                        <p
+                          className="faq-answer faq-answer__short"
+                          dangerouslySetInnerHTML={{ __html: rich(item.court) }}
                         />
+                        <details className="faq-detail">
+                          <summary className="faq-detail__toggle">
+                            <span className="faq-detail__more">Voir le détail</span>
+                            <span className="faq-detail__less">Masquer le détail</span>
+                          </summary>
+                          <div
+                            className="faq-answer faq-detail__body"
+                            dangerouslySetInnerHTML={{ __html: rich(item.r) }}
+                          />
+                        </details>
                         {item.lien && (
                           <p className="faq-item__link">
                             <a href={appHref(item.lien.href)}>
