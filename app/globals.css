@@ -13092,6 +13092,22 @@ img {
 .pub-card:hover .pub-card__emblem-icon {
   transform: scale(1.06) rotate(-4deg);
 }
+.pub-card__logo {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 1.75rem;
+  border-radius: 14px;
+  background: #fff;
+  transition: transform 0.5s var(--ease-out);
+}
+.pub-card__logo img {
+  display: block;
+  width: 9.7rem;
+  height: auto;
+}
+.pub-card:hover .pub-card__logo {
+  transform: scale(1.04);
+}
 .pub-card__emblem-label {
   font-size: 0.75rem;
   font-weight: 800;

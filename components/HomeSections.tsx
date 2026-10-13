@@ -13,8 +13,10 @@ import { VoicesVideos } from "@/components/VoicesVideos";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconTrophy } from "@/components/icons";
+import { IconArrowRight } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
+
+const TROPHEE_LOGO = { src: "/images/logos/trophee-bdo-digital-cfos.png", width: 155, height: 61 };
 
 type Props = {
   speakers: Intervenant[];
@@ -428,8 +430,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                   action={it.action}
                   cover={baro ? RESOURCE_COVERS.barometre : livre ? RESOURCE_COVERS.livreblanc : null}
                   landscape={baro}
-                  emblem={<IconTrophy />}
-                  emblemLabel="BDO Maroc"
+                  logo={TROPHEE_LOGO}
                 />
               );
             })}
