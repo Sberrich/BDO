@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 
@@ -40,9 +41,14 @@ export function LeadForm({
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const phone = form.elements.namedItem("telephone");
+    if (phone instanceof HTMLInputElement && !phone.checkValidity()) {
+      phone.focus();
+      return;
+    }
     setSending(true);
     setStatus("");
-    const form = e.currentTarget;
     const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
     payload._ts = String(openedAt.current || Math.floor(Date.now() / 1000));
@@ -132,16 +138,7 @@ export function LeadForm({
       </label>
       {kind === "rappel" && (
         <>
-          <label className="block text-sm font-semibold">
-            Téléphone *
-            <input
-              className={fieldClass}
-              required
-              type="tel"
-              name="telephone"
-              autoComplete="tel"
-            />
-          </label>
+          <PhoneInput label="Téléphone" required />
           <label className="block text-sm font-semibold">
             Créneau souhaité *
             <select className={fieldClass} required name="moment">

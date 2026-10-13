@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 import {
@@ -247,16 +248,7 @@ export function CandidatureForm() {
             autoComplete="email"
           />
         </label>
-        <label className="block text-sm font-semibold">
-          GSM *
-          <input
-            className={fieldClass}
-            required={step === 0}
-            type="tel"
-            name="telephone"
-            autoComplete="tel"
-          />
-        </label>
+        <PhoneInput label="GSM" required={step === 0} />
         <label className="block text-sm font-semibold sm:col-span-2">
           Ville *
           <input

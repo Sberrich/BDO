@@ -12,6 +12,7 @@ import {
   safeFilename,
 } from "@/lib/candidature";
 import { publicUrl } from "@/lib/cms-session";
+import { PHONE_ERROR, normalizePhone } from "@/lib/phone";
 import { pushToSheet } from "@/lib/sheets";
 import { saveSubmission, type Submission } from "@/lib/submissions";
 
@@ -220,6 +221,13 @@ export async function POST(req: Request) {
   const email = clean(body.email, 160);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, message: "L’adresse e-mail n’est pas valide." }, { status: 422 });
+  }
+  if (clean(body.telephone, 40)) {
+    const phone = normalizePhone(clean(body.telephone, 40));
+    if (!phone) {
+      return NextResponse.json({ ok: false, message: PHONE_ERROR }, { status: 422 });
+    }
+    body.telephone = phone;
   }
   if (type === "candidature") {
     for (const name of AUTRE_FIELDS) {
