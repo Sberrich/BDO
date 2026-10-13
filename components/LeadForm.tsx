@@ -159,6 +159,7 @@ export function LeadForm({
           required
           name="fonction"
           autoComplete="organization-title"
+          placeholder="Ex. Directeur administratif et financier"
           maxLength={120}
           {...errorProps("fonction")}
         />
@@ -175,6 +176,7 @@ export function LeadForm({
           type="email"
           name="email"
           autoComplete="email"
+          placeholder="nom@entreprise.ma"
           maxLength={160}
           pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
           {...errorProps("email")}
@@ -200,6 +202,7 @@ export function LeadForm({
             <textarea
               className={`${fieldClass} min-h-24`}
               name="sujet"
+              placeholder="Ex. financement par l’entreprise, rythme, prérequis…"
               maxLength={600}
             />
           </label>

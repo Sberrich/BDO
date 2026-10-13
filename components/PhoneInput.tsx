@@ -40,6 +40,7 @@ export function PhoneInput({ label, required }: { label: string; required?: bool
         name="telephone"
         inputMode="tel"
         autoComplete="tel"
+        placeholder="06 12 34 56 78"
         maxLength={25}
         aria-invalid={error ? true : undefined}
         aria-describedby={`${id}-hint`}

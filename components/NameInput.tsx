@@ -24,6 +24,7 @@ export function NameInput({ kind, required }: { kind: NameKind; required?: boole
         required={required}
         name={kind}
         autoComplete={kind === "prenom" ? "given-name" : "family-name"}
+        placeholder={kind === "prenom" ? "Ex. Salma" : "Ex. El Amrani"}
         maxLength={NAME_MAX + 20}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}

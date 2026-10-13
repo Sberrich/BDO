@@ -192,7 +192,13 @@ export function CandidatureForm() {
     choices[name] === "autre" ? (
       <label className="block text-sm font-semibold">
         {label} *
-        <input className={fieldClass} required={step === s} name={`${name}_autre`} maxLength={200} />
+        <input
+          className={fieldClass}
+          required={step === s}
+          name={`${name}_autre`}
+          placeholder="Votre réponse"
+          maxLength={200}
+        />
       </label>
     ) : null;
 
@@ -255,6 +261,7 @@ export function CandidatureForm() {
             type="email"
             name="email"
             autoComplete="email"
+            placeholder="nom@entreprise.ma"
             pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
             title="Adresse e-mail complète, par exemple nom@entreprise.ma"
           />
@@ -267,6 +274,7 @@ export function CandidatureForm() {
             required={step === 0}
             name="ville"
             autoComplete="address-level2"
+            placeholder="Ex. Casablanca"
           />
         </label>
         {UPLOADS.map((rule) => (
@@ -306,11 +314,17 @@ export function CandidatureForm() {
             required={step === 2}
             maxLength={800}
             name="diplome"
+            placeholder="Ex. Master en finance, ISCAE Casablanca, 2015"
           />
         </label>
         <label className="block text-sm font-semibold">
           Études complémentaires non sanctionnées par un diplôme
-          <textarea className={`${fieldClass} min-h-28`} maxLength={800} name="etudes" />
+          <textarea
+            className={`${fieldClass} min-h-28`}
+            maxLength={800}
+            name="etudes"
+            placeholder="Ex. formation continue en data analytics, MOOC, séminaires"
+          />
         </label>
       </fieldset>
 
@@ -325,6 +339,7 @@ export function CandidatureForm() {
             required={step === 3}
             maxLength={1500}
             name="interet"
+            placeholder="Vos objectifs, le projet de transformation que vous souhaitez mener dans votre entreprise…"
           />
         </label>
         <label className="flex items-start gap-3 rounded-[10px] bg-cream px-4 py-3 text-sm">
