@@ -17,6 +17,9 @@ export const metadata: Metadata = {
 
 const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
 
+/** The tarif section above already answers this one. */
+const ADM_FAQ_EXCLUDE = ["faq-tarif-montant"];
+
 export default function AdmissionsPage() {
   const a = data.site.admission;
   const c = data.site.contact;
@@ -200,7 +203,7 @@ export default function AdmissionsPage() {
               </a>
             </div>
           </header>
-          <FaqList onlyHome />
+          <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} />
         </Container>
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">

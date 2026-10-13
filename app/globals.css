@@ -244,7 +244,6 @@ input[type="radio"] {
   width: 1.75rem;
   height: 1.75rem;
   display: block;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
 }
 @keyframes wa-fab-ping {
   0% {
@@ -8574,8 +8573,9 @@ a.cal__hit:focus-visible .cal__cta svg {
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  background: rgba(0, 30, 60, 0.6);
+  padding: 0.15rem 0.4rem;
 }
 .iv-card__body {
   display: flex;
@@ -9989,7 +9989,7 @@ a.about-contact__card:focus-visible {
 .rappel-band {
   position: relative;
   background: linear-gradient(180deg, var(--surface-1) 0%, #fff 70%);
-  box-shadow: inset 0 18px 24px -22px rgba(0, 30, 60, 0.18);
+  border-top: 1px solid var(--color-line);
 }
 .rappel-band__card {
   border: 1px solid var(--border-subtle);

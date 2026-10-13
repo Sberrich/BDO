@@ -54,7 +54,7 @@ function matches(hay: string, token: string) {
   return [token, ...(SYNONYMS[token] ?? [])].some((t) => hay.includes(` ${t}`));
 }
 
-export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
+export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclude?: string[] }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
 
@@ -69,6 +69,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
           ...g,
           questions: (g.questions as unknown as Q[]).filter((item) => {
             if (onlyHome && !item.accueil) return false;
+            if (exclude.includes(item.id)) return false;
             if (!tokens.length) return true;
             const hay = ` ${searchable(`${g.titre} ${item.q} ${item.court} ${item.r}`)} `;
             return every
@@ -80,7 +81,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
     const exact = run(true);
     if (exact.length || tokens.length < 2) return { groups: exact, approx: false };
     return { groups: run(false), approx: true };
-  }, [query, onlyHome]);
+  }, [query, onlyHome, exclude]);
 
   const sections = useMemo(
     () =>
