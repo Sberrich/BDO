@@ -96,7 +96,7 @@ const data = {
   },
   "profil": {
     "titre": "À qui s’adresse le certificat",
-    "chapeau": "Le certificat s’adresse aux dirigeants et cadres qui décident des moyens de la fonction finance.",
+    "chapeau": "Le certificat s’adresse aux dirigeants et cadres qui décident des moyens de la fonction finance, et aux experts-comptables qui les accompagnent.",
     "profils": [
       {
         "titre": "Directions générales",
@@ -112,6 +112,11 @@ const data = {
         "titre": "Directions centrales et contrôle de gestion",
         "texte": "Directeurs centraux et contrôleurs de gestion, qui construisent le pilotage et les indicateurs de la performance.",
         "icone": "pilotage"
+      },
+      {
+        "titre": "Experts-comptables",
+        "texte": "Experts-comptables et commissaires aux comptes, qui accompagnent leurs clients dans la digitalisation de la fonction finance.",
+        "icone": "expertise"
       }
     ],
     "prerequis": "Cinq ans d’expérience professionnelle au minimum, dans le secteur privé ou dans le secteur public."

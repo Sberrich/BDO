@@ -57,8 +57,8 @@ const data = {
         {
           "id": "faq-profil-cible",
           "q": "À qui s’adresse le certificat ?",
-          "court": "Aux DG, DAF, directeurs centraux et contrôleurs de gestion qui portent la transformation de la fonction finance.",
-          "r": "<p>Aux dirigeants et cadres qui décident des moyens de la fonction finance : directeurs généraux et administrateurs en charge de la finance, directeurs administratifs et financiers, directeurs centraux et contrôleurs de gestion.</p><p>Le certificat suppose que vous soyez en position de porter un chantier de transformation dans votre organisation, ou d’y contribuer directement.</p>",
+          "court": "Aux DG, DAF, directeurs centraux, contrôleurs de gestion et experts-comptables qui portent la transformation de la fonction finance.",
+          "r": "<p>Aux dirigeants et cadres qui décident des moyens de la fonction finance : directeurs généraux et administrateurs en charge de la finance, directeurs administratifs et financiers, directeurs centraux et contrôleurs de gestion. Il s’adresse aussi aux experts-comptables et commissaires aux comptes qui accompagnent leurs clients dans cette transformation.</p><p>Le certificat suppose que vous soyez en position de porter un chantier de transformation dans votre organisation, ou d’y contribuer directement.</p>",
           "lien": {
             "texte": "Le profil des participants",
             "href": "admissions.html#profil"

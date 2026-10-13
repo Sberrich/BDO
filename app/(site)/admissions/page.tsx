@@ -6,7 +6,7 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconChart, IconGauge, IconUsers } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
 import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Tarif, éligibilité, financement et processus d’admission du certificat CFO 4.0.",
 };
 
-const PROFILE_ICONS = [IconUsers, IconChart, IconGauge];
+const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
 
 export default function AdmissionsPage() {
   const a = data.site.admission;
