@@ -221,14 +221,20 @@ export function CandidatureForm() {
               <button
                 type="button"
                 onClick={() => i < step && setStep(i)}
-                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition ${
-                  i <= step ? "bg-blue text-white" : "bg-cream text-muted"
-                } ${i === step ? "ring-2 ring-blue/25 ring-offset-2" : ""} ${i < step ? "hover:bg-blue-dark" : "cursor-default"}`}
+                className={`group flex items-center gap-2 ${
+                  i === step ? "font-bold text-ink" : i < step ? "font-semibold text-ink" : "text-muted"
+                } ${i < step ? "" : "cursor-default"}`}
               >
-                <span aria-hidden>{i + 1}</span>
-                <span className="sr-only">
-                  Étape {i + 1} : {label}
+                <span
+                  aria-hidden
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold transition ${
+                    i <= step ? "bg-blue text-white" : "bg-cream text-muted"
+                  } ${i === step ? "ring-2 ring-blue/25 ring-offset-2" : ""} ${i < step ? "group-hover:bg-blue-dark" : ""}`}
+                >
+                  {i + 1}
                 </span>
+                <span className="sr-only">Étape {i + 1} : </span>
+                <span className="sr-only md:not-sr-only">{label}</span>
               </button>
             </li>
           ))}
