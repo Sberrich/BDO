@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description: "Six séminaires, un workshop, une conférence inaugurale et un projet de transformation mené sur votre entreprise.",
 };
 
-/** "IN", "S1"…"S6", "WS", "CL" */
+/** "IN", "S1"…"S7", "WS", "CL" */
 function calCode(s: Seminaire) {
   const code = sessionCode(s);
   return /^\d+$/.test(code) ? `S${Number(code)}` : code;
