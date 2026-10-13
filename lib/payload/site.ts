@@ -426,13 +426,48 @@ const data = {
   "institutions": [
     {
       "nom": "Groupe ISCAE",
-      "texte": "Créé en 1971, le Groupe ISCAE est l’école de commerce publique pionnière du Maroc, en formation initiale comme en formation continue des cadres."
+      "titre": "Présentation du Groupe ISCAE",
+      "texte": "Créé en 1971, le Groupe ISCAE, établissement d’enseignement supérieur public et école de commerce pionnière, poursuit depuis sa création une mission nationale et institutionnelle qui mobilise toutes les forces vives de l’établissement pour :",
+      "points": [
+        "attirer et développer des talents pour répondre aux besoins évolutifs des environnements national, régional et mondial ;",
+        "servir le développement économique et social durable du Maroc et de la région ;",
+        "former des acteurs du changement ;",
+        "cultiver un état d’esprit entrepreneurial."
+      ],
+      "lien": "https://www.groupeiscae.ma",
+      "lienLibelle": "En savoir plus sur le Groupe ISCAE"
     },
     {
       "nom": "BDO Maroc",
-      "texte": "Cinquième réseau mondial d’audit et de conseil, BDO réunit au Maroc experts-comptables, auditeurs, juristes, fiscalistes et consultants au service des entreprises."
+      "titre": "Présentation de BDO",
+      "texte": "BDO, cinquième réseau mondial d’audit et de conseil, opère au Maroc avec une équipe pluridisciplinaire : experts-comptables, auditeurs, juristes, fiscalistes et consultants en transformation digitale et en cybersécurité.",
+      "points": [
+        "Une longue expérience de l’audit et du conseil auprès des grandes et moyennes entreprises.",
+        "Des associés spécialisés, engagés au quotidien pour un service d’excellence.",
+        "Des équipes multidisciplinaires qui intègrent des compétences numériques ancrées dans l’industrie."
+      ],
+      "lien": "https://www.bdo.ma",
+      "lienLibelle": "En savoir plus sur BDO"
     }
   ],
+  "objectifs": {
+    "titre": "Les objectifs du certificat",
+    "chapeau": "Le certificat s’adresse aux cadres de la finance qui veulent conduire la transformation digitale de leur fonction.",
+    "liste": [
+      {
+        "titre": "Sensibiliser aux enjeux technologiques en finance",
+        "texte": "La nécessité de la transformation digitale et l’évolution des métiers de la finance."
+      },
+      {
+        "titre": "Comprendre les enjeux du digital",
+        "texte": "Développer une réelle compréhension des principaux enjeux du digital dans le domaine de la finance."
+      },
+      {
+        "titre": "Construire votre stratégie de digitalisation",
+        "texte": "Disposer de toutes les clés pour construire une stratégie de digitalisation en phase avec les objectifs de l’entreprise."
+      }
+    ]
+  },
   "conformite": {
     "loi": "loi n° 09-08 relative à la protection des personnes physiques à l’égard du traitement des données à caractère personnel",
     "dahir": "dahir n° 1-09-15 du 22 safar 1430 (18 février 2009)",

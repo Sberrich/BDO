@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
-import { IconArrowRight, IconClock, IconPlay } from "@/components/icons";
-import { LoopVideo } from "@/components/LoopVideo";
-import { plain, sessionLabel } from "@/lib/text";
+import { IconArrowRight, IconClock } from "@/components/icons";
+import { plain, seminarImage, sessionLabel } from "@/lib/text";
 
 type Props = {
   limit?: number;
@@ -72,18 +72,17 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
           <div className="prog-board__aside">
             <Link href={sessionHref(opening)} className="prog-board__open">
               <span className="prog-board__open-media" aria-hidden="true">
-                <LoopVideo
+                <Image
                   className="prog-board__open-video"
-                  src="/videos/seminaires/0.mp4"
-                  poster="/images/home/hero.png"
+                  src={seminarImage(0)}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 24rem, 90vw"
                 />
               </span>
               <span className="prog-board__open-veil" aria-hidden="true" />
               <span className="prog-board__open-top">
                 <span className="prog-board__open-tag">Ouverture du cycle</span>
-                <span className="prog-board__open-mark" aria-hidden="true">
-                  <IconPlay />
-                </span>
               </span>
               <span className="prog-board__open-bottom">
                 <span className="prog-board__open-date">

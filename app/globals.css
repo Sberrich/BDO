@@ -13919,3 +13919,149 @@ img {
 .faculty__link:focus-visible {
   color: var(--brand-blue);
 }
+
+/* Programme images from certificat.bdo-info.ma */
+.prog-piece__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  margin: -1.35rem -1.35rem 1.1rem;
+  border-radius: 19px 19px 0 0;
+  overflow: hidden;
+  background: var(--brand-navy);
+}
+.prog-piece__media img {
+  object-fit: cover;
+}
+.prog-piece:hover .prog-piece__num {
+  background: var(--brand-blue);
+}
+
+.prog-goals {
+  padding: clamp(3rem, 7vw, 5.5rem) 0;
+  background: #fff;
+}
+.prog-goals__inner {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .prog-goals__inner {
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+.prog-goals__media {
+  position: relative;
+  aspect-ratio: 526 / 498;
+  max-width: 26rem;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--brand-navy);
+}
+.prog-goals__media img {
+  object-fit: cover;
+}
+.prog-goals__title {
+  margin: 0.6rem 0 0;
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--brand-navy);
+  text-wrap: balance;
+}
+.prog-goals__lead {
+  margin: 0.85rem 0 0;
+  max-width: 40rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.prog-goals__list {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.prog-goals__item {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  background: #fff;
+}
+.prog-goals__num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 12px;
+  background: var(--surface-1);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+}
+.prog-goals__item-title {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+.prog-goals__item-text {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.about-card__index {
+  color: var(--text-tertiary);
+}
+.about-card__points {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+.about-card__points li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.about-card__points li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.62em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--brand-blue);
+}
+.about-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+  text-decoration: none;
+}
+.about-card__link:hover {
+  text-decoration: underline;
+}
+.about-card__link svg {
+  width: 1rem;
+  height: 1rem;
+}

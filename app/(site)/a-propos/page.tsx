@@ -147,8 +147,22 @@ export default async function AProposPage() {
                     </div>
                   ) : null}
                   {logo ? <p className="about-card__role">{logo.role}</p> : null}
-                  <h3 className="about-card__title">{x.nom}</h3>
+                  <h3 className="about-card__title">{x.titre}</h3>
                   <p className="about-card__text">{x.texte}</p>
+                  <ul className="about-card__points">
+                    {x.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href={x.lien}
+                    className="about-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {x.lienLibelle}
+                    <IconArrowRight />
+                  </a>
                 </article>
               );
             })}

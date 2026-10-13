@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
-import { LoopVideo } from "@/components/LoopVideo";
 import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { getIntervenants } from "@/lib/cms";
@@ -14,7 +13,7 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { plain, seminarImage, seminarVideo, sessionCode, sessionLabel } from "@/lib/text";
+import { plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
@@ -84,7 +83,6 @@ export default async function SeminairePage({ params }: Props) {
     objectif: string;
   };
   const cover = seminarImage(s.numero);
-  const clip = seminarVideo(s.numero);
   const indexLabel = sessionLabel(s);
   const lieu = s.lieu ?? "Campus ISCAE Casablanca";
 
@@ -168,7 +166,14 @@ export default async function SeminairePage({ params }: Props) {
 
             <div className="sem-hero__aside" aria-hidden="true">
               <div className="sem-hero__card">
-                <LoopVideo className="sem-hero__card-img" src={clip} poster={cover} />
+                <Image
+                  className="sem-hero__card-img"
+                  src={cover}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 32rem, 90vw"
+                  priority
+                />
                 <span className="sem-hero__card-veil" />
                 <span className="sem-hero__card-frame" />
                 <span className="sem-hero__card-mark">
