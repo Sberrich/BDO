@@ -48,7 +48,7 @@ const data = {
   ],
   "constat": {
     "titre": "Les directions financières savent qu’elles doivent se transformer. Peu savent par où commencer.",
-    "chapeau": "Deux études BDO font le même constat : l’intention de se transformer est générale, la feuille de route est rare.",
+    "chapeau": "Deux études BDO le confirment : l’intention est là, la feuille de route manque.",
     "chiffres": [
       {
         "valeur": 78,
@@ -71,7 +71,7 @@ const data = {
         "accent": false
       }
     ],
-    "conclusion": "Ce certificat comble cet écart : il produit une feuille de route, construite sur votre propre entreprise.",
+    "conclusion": "Ce certificat comble l’écart : une feuille de route construite sur votre entreprise.",
     "source": "Sources : Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants ; La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025."
   },
   "livrable": {
@@ -79,17 +79,17 @@ const data = {
     "items": [
       {
         "titre": "Une feuille de route de transformation",
-        "texte": "Construite séminaire après séminaire sur votre direction financière : données, IA, système d’information, trésorerie, risques numériques.",
+        "texte": "Données, IA, système d’information, trésorerie, risques : une pièce par séminaire.",
         "icone": "feuille-de-route"
       },
       {
         "titre": "Un dossier d’investissement",
-        "texte": "Chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement, présentés au dernier séminaire.",
+        "texte": "Chiffrage, retour attendu et conduite du changement, présentés en clôture.",
         "icone": "jury"
       },
       {
         "titre": "Un certificat cosigné ISCAE × BDO",
-        "texte": "Délivré avec au moins 80 % d’assiduité et la réussite des évaluations de mi-parcours et de fin de cycle.",
+        "texte": "Avec 80 % d’assiduité et la réussite des évaluations.",
         "icone": "certificat"
       }
     ]
@@ -100,26 +100,26 @@ const data = {
     "profils": [
       {
         "titre": "Directions générales",
-        "texte": "DG et administrateurs en charge de la finance, qui arbitrent les investissements numériques.",
+        "texte": "DG et administrateurs qui arbitrent les investissements numériques.",
         "icone": "direction"
       },
       {
         "titre": "Directions administratives et financières",
-        "texte": "DAF de groupes et de filiales, qui portent la transformation de leur fonction et de leurs équipes.",
+        "texte": "DAF de groupes et de filiales qui portent la transformation.",
         "icone": "finance"
       },
       {
         "titre": "Directions centrales et contrôle de gestion",
-        "texte": "Directeurs centraux et contrôleurs de gestion, qui construisent le pilotage et les indicateurs de la performance.",
+        "texte": "Directeurs centraux et contrôleurs de gestion qui bâtissent le pilotage.",
         "icone": "pilotage"
       },
       {
         "titre": "Experts-comptables",
-        "texte": "Experts-comptables et commissaires aux comptes, qui accompagnent leurs clients dans la digitalisation de la fonction finance.",
+        "texte": "Experts-comptables et commissaires aux comptes qui accompagnent leurs clients.",
         "icone": "expertise"
       }
     ],
-    "prerequis": "Cinq ans d’expérience professionnelle au minimum, dans le secteur privé ou dans le secteur public."
+    "prerequis": "Cinq ans d’expérience au minimum, secteur privé ou public."
   },
   "tarif": {
     "montant": "24 000",
@@ -154,18 +154,13 @@ const data = {
     ],
     "conditions": [
       {
-        "titre": "Frais d’inscription",
-        "texte": "1 200 DH HT, dus à l’inscription, en plus du tarif particulier ou entreprise.",
-        "icone": "dossier"
-      },
-      {
         "titre": "Échelonnement",
-        "texte": "{{PROV}}Règlement possible en deux ou trois échéances sur la durée du cycle, à convenir avec le service scolarité du Groupe ISCAE.{{/PROV}}",
+        "texte": "{{PROV}}En deux ou trois échéances, à convenir avec la scolarité du Groupe ISCAE.{{/PROV}}",
         "icone": "calendrier"
       },
       {
         "titre": "Conditions partenaires",
-        "texte": "{{PROV}}Des conditions particulières sont réservées aux membres du CFA Maroc et aux lauréats du Trophée BDO des DAF.{{/PROV}}",
+        "texte": "{{PROV}}Conditions particulières pour les membres du CFA Maroc et les lauréats du Trophée BDO des DAF.{{/PROV}}",
         "icone": "certificat"
       }
     ]
@@ -320,21 +315,21 @@ const data = {
     "items": [
       {
         "titre": "Le Baromètre BDO des DAF",
-        "texte": "L’enquête annuelle de BDO Maroc auprès des directeurs financiers et des leaders financiers. Édition 2024, 94 répondants.",
+        "texte": "L’enquête annuelle de BDO Maroc auprès des DAF. Édition 2024, 94 répondants.",
         "lien": "/ressources/barometre",
         "action": "Télécharger le baromètre",
         "icone": "finance"
       },
       {
         "titre": "La Fonction Financière Augmentée",
-        "texte": "Le livre blanc BDO × Maltem Africa sur la transformation de la fonction finance et l’émergence du CFO 4.0.",
+        "texte": "BDO × Maltem Africa sur l’émergence du CFO 4.0.",
         "lien": "/ressources/livre-blanc",
         "action": "Télécharger le livre blanc",
         "icone": "brochure"
       },
       {
         "titre": "Le Trophée BDO des DAF",
-        "texte": "La rencontre annuelle de la place financière marocaine, qui distingue les directions financières les plus engagées dans leur transformation.",
+        "texte": "Le rendez-vous annuel qui distingue les directions financières les plus engagées.",
         "lien": "a-propos.html#trophee",
         "action": "Découvrir le Trophée",
         "icone": "certificat"
