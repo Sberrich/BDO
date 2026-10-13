@@ -7,7 +7,7 @@ const data = {
         {
           "id": "faq-programme-definition",
           "q": "En quoi consiste le certificat CFO 4.0 ?",
-          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en séance.</p><p>Le cycle combine six séminaires thématiques, un workshop et un projet de transformation mené sur votre propre entreprise. Ce projet est présenté au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
+          "r": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en présentiel.</p><p>Le cycle combine six séminaires thématiques, un workshop et un projet de transformation mené sur votre propre entreprise. Ce projet est présenté au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
           "lien": {
             "texte": "Voir le programme complet",
             "href": "programme.html"

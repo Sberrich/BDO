@@ -117,11 +117,11 @@ export default function ProgrammePage() {
           <header className="prog-pieces__head">
             <p className="sem-kicker">Le projet</p>
             <h2 id="prog-pieces-title" className="prog-pieces__title">
-              Huit séances, huit pièces de votre feuille de route
+              Huit pièces pour votre feuille de route
             </h2>
             <p className="prog-pieces__lead">
-              Chaque séminaire produit une pièce appliquée à votre entreprise. Assemblées, elles forment le projet
-              présenté au dernier séminaire.
+              Après la conférence inaugurale, chacune des huit séances produit une pièce appliquée à votre entreprise.
+              Assemblées, elles forment le projet soutenu le 26 décembre.
             </p>
           </header>
           <ol className="prog-pieces__grid">

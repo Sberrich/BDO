@@ -94,7 +94,7 @@ export function Hero() {
                 </div>
                 <div>
                   <dt>Format</dt>
-                  <dd>111&nbsp;h · 9 séances</dd>
+                  <dd>9 séances · 111&nbsp;h, dont 51&nbsp;h en salle</dd>
                 </div>
                 <div>
                   <dt>Promotion 1</dt>
