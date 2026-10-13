@@ -401,7 +401,7 @@ const data = {
       "lien": "https://www.leconomiste.com/",
       "logo": "/images/medias/leconomiste.png",
       "domaine": "leconomiste.com",
-      "titre": "L’Économiste — premier quotidien économique du Maroc",
+      "titre": "L’Économiste, premier quotidien économique du Maroc",
       "description": "Toute l’actualité économique, financière et business en continu.",
       "apercu": "/images/medias/previews/leconomiste.jpg",
     },
@@ -412,7 +412,7 @@ const data = {
     "email": "gbounani@bdo.ma",
     "telephone": "+212 679 724 416",
     "linkedin": "",
-    "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
+    "adresseIscae": "Groupe ISCAE, Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
     "lieuFormation": "Séminaires au campus ISCAE de Casablanca, conférence inaugurale au campus ISCAE de Rabat."
   },
   "institutions": [
@@ -429,8 +429,8 @@ const data = {
     "loi": "loi n° 09-08 relative à la protection des personnes physiques à l’égard du traitement des données à caractère personnel",
     "dahir": "dahir n° 1-09-15 du 22 safar 1430 (18 février 2009)",
     "bo": "Bulletin officiel n° 5714 du 5 mars 2009",
-    "responsable": "{{PROV}}BDO Maroc — responsable de traitement à confirmer nominativement{{/PROV}}",
-    "declaration": "{{PROV}}Déclaration CNDP en cours — le numéro de récépissé sera publié ici dès réception.{{/PROV}}",
+    "responsable": "{{PROV}}BDO Maroc, responsable de traitement à confirmer nominativement{{/PROV}}",
+    "declaration": "{{PROV}}Déclaration CNDP en cours : le numéro de récépissé sera publié ici dès réception.{{/PROV}}",
     "conservation": "trois ans à compter du dernier contact",
     "mention": "Les informations recueillies par ce formulaire sont destinées au Groupe ISCAE et à BDO Maroc, aux seules fins d’instruire votre demande relative au certificat CFO 4.0. Elles sont conservées trois ans à compter de votre dernier contact. Conformément à la loi n° 09-08, vous disposez d’un droit d’accès, de rectification et d’opposition que vous pouvez exercer à l’adresse indiquée en pied de page."
   },

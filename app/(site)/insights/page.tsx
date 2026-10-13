@@ -10,7 +10,7 @@ import { RESOURCES_MENU } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Insights",
   description:
-    "Analyses et lectures sur la transformation de la fonction finance — Baromètre BDO des DAF, livre blanc et méthode du certificat CFO 4.0.",
+    "Analyses et lectures sur la transformation de la fonction finance : Baromètre BDO des DAF, livre blanc et méthode du certificat CFO 4.0.",
 };
 
 export default async function InsightsPage() {

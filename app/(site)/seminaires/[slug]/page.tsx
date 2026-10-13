@@ -122,7 +122,7 @@ export default async function SeminairePage({ params }: Props) {
                           title={plain(x.titre)}
                         >
                           {sessionCode(x)}
-                          <span className="sr-only"> — {plain(x.titre)}</span>
+                          <span className="sr-only"> : {plain(x.titre)}</span>
                         </Link>
                       </li>
                     );

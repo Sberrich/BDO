@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
   title: {
-    default: `${data.site.nom} — ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
+    default: `${data.site.nom} · ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
     template: `%s | ${data.site.nom}`,
   },
   description: data.site.promesse.sousTitre,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     url: BRAND.url,
     locale: "fr_MA",
     type: "website",
-    siteName: "CFO 4.0 — Certificat ISCAE × BDO",
+    siteName: "CFO 4.0 · Certificat ISCAE × BDO",
   },
   icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };

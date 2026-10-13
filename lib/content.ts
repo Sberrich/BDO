@@ -23,7 +23,7 @@ export const RESOURCES_MENU = [
   {
     href: "/ressources/barometre",
     label: "Le Baromètre BDO des DAF 2024",
-    desc: "Enquête annuelle — 94 répondants",
+    desc: "Enquête annuelle, 94 répondants",
     icon: "barometre" as const,
     cover: RESOURCE_COVERS.barometre,
   },

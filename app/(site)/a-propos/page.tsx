@@ -245,7 +245,7 @@ export default async function AProposPage() {
             </h2>
             <p className="about-contact__lead">
               Une question sur le cycle, le tarif ou votre dossier ? Laissez vos
-              coordonnées — rappel sous 24 h.
+              coordonnées : rappel sous 24 h.
             </p>
 
             <ul className="about-contact__cards">

@@ -23,7 +23,7 @@ export function MediaPressStrip({ items }: { items: readonly MediaItem[] }) {
             target="_blank"
             rel="noopener noreferrer"
             className="press-logo"
-            aria-label={`${plain(m.nom)} — ${plain(m.titre)}`}
+            aria-label={`${plain(m.nom)} : ${plain(m.titre)}`}
           >
             <span className="press-logo__mark">
               <Image

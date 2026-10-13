@@ -35,7 +35,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="constat__inner">
           <div className="constat-top">
             <header className="constat-head">
-              <p className="constat-head__index">01 — Le constat</p>
+              <p className="constat-head__index">01 · Le constat</p>
               <h2 id="constat-title" className="constat-head__title">
                 {(() => {
                   const parts = c.titre.split(/(?<=\.)\s+/);
@@ -140,7 +140,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="carry__inner">
           <header className="carry__head">
             <div>
-              <p className="carry__index">02 — Le livrable</p>
+              <p className="carry__index">02 · Le livrable</p>
               <h2 id="livrable-title" className="carry__title">
                 {site.livrable.titre}
               </h2>
@@ -197,7 +197,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="prog__inner">
           <div className="prog__top">
             <header>
-              <p className="prog__index">03 — Le programme</p>
+              <p className="prog__index">03 · Le programme</p>
               <h2 id="programme-title" className="prog__title">
                 Neuf séances. <em>Une feuille de route.</em>
               </h2>
@@ -221,7 +221,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="who__inner">
           <header className="who__head">
             <div>
-              <p className="who__index">04 — Le profil</p>
+              <p className="who__index">04 · Le profil</p>
               <h2 id="profil-title" className="who__title">
                 {site.profil.titre}
               </h2>
@@ -252,7 +252,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="temoignages" className="voices" aria-labelledby="temoignages-title">
         <Container className="voices__inner">
           <header className="voices__head">
-            <p className="voices__index">06 — Les témoignages</p>
+            <p className="voices__index">06 · Les témoignages</p>
             <h2 id="temoignages-title" className="voices__title">
               Ils racontent le certificat
             </h2>
@@ -292,7 +292,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <>
               <header className="cal-band__head">
                 <div>
-                  <p className="cal-band__index">07 — Calendrier et tarif</p>
+                  <p className="cal-band__index">07 · Calendrier et tarif</p>
                   <h2 id="calendrier-title" className="cal-band__title">
                     Calendrier de la promotion 1.
                     <br />
@@ -310,7 +310,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           ) : (
             <header className="cal-band__head">
               <div>
-                <p className="cal-band__index">07 — Le tarif</p>
+                <p className="cal-band__index">07 · Le tarif</p>
                 <h2 id="calendrier-title" className="cal-band__title">
                   Tarif de la promotion 1.
                 </h2>
@@ -387,7 +387,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="dispositif" className="dispo" aria-labelledby="dispositif-title">
         <Container className="dispo__inner">
           <header className="dispo__head">
-            <p className="dispo__index">08 — Le dispositif BDO</p>
+            <p className="dispo__index">08 · Le dispositif BDO</p>
             <h2 id="dispositif-title" className="dispo__title">
               {site.dispositif.titre}
             </h2>

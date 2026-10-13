@@ -1,6 +1,6 @@
 const data = {
   chapeau:
-    "Analyses, points de vue et lectures pour les directions financières — issues du Baromètre BDO des DAF, du livre blanc et de la méthode du certificat CFO 4.0.",
+    "Analyses, points de vue et lectures pour les directions financières, issues du Baromètre BDO des DAF, du livre blanc et de la méthode du certificat CFO 4.0.",
   trust: [
     { label: "Sources BDO × ISCAE", done: true },
     { label: "Chiffres du Baromètre", done: true },
@@ -21,7 +21,7 @@ const data = {
       corps: [
         "Le Baromètre BDO des DAF 2024, mené auprès de 94 répondants, dessine un paysage paradoxal. Près de huit directions financières sur dix se déclarent engagées dans une transformation. À peine un tiers dispose d’une feuille de route formalisée.",
         "Cet écart n’est pas un détail de méthode. Sans feuille de route, les investissements numériques restent fragmentés : un outil ici, un tableau de bord là, une initiative d’automatisation ailleurs. Le comité de direction ne voit pas de trajectoire ; il voit des projets.",
-        "Le certificat CFO 4.0 est conçu exactement pour cet écart. Chaque séminaire produit une brique de la feuille de route — données, IA, cloud, blockchain, trésorerie, cybersécurité — construite sur le cas de votre propre entreprise, puis assemblée et soutenue devant le jury ISCAE × BDO.",
+        "Le certificat CFO 4.0 est conçu exactement pour cet écart. Chaque séminaire produit une brique de la feuille de route (données, IA, cloud, blockchain, trésorerie, cybersécurité), construite sur le cas de votre propre entreprise, puis assemblée et soutenue devant le jury ISCAE × BDO.",
       ],
       source: "Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants.",
       relatedDoc: "barometre" as const,
@@ -35,10 +35,10 @@ const data = {
       dateLabel: "4 mars 2025",
       lecture: "8 min",
       resume:
-        "Le livre blanc BDO × Maltem Africa pose le diagnostic : les indicateurs classiques ne suffisent plus. La transformation exige un dossier d’investissement — pas seulement une ambition stratégique.",
+        "Le livre blanc BDO × Maltem Africa pose le diagnostic : les indicateurs classiques ne suffisent plus. La transformation exige un dossier d’investissement, pas seulement une ambition stratégique.",
       corps: [
         "« La Fonction Financière Augmentée » documente ce que les DAF observent déjà : 97 % estiment les indicateurs classiques insuffisants, 67 % jugent leurs outils inadaptés au pilotage prédictif.",
-        "Augmenter la fonction finance, ce n’est pas empiler des technologies. C’est articuler données, cas d’usage d’intelligence artificielle, architecture cloud, gouvernance des risques numériques et conduite du changement — dans un ordre qui tient devant un jury et un budget.",
+        "Augmenter la fonction finance, ce n’est pas empiler des technologies. C’est articuler données, cas d’usage d’intelligence artificielle, architecture cloud, gouvernance des risques numériques et conduite du changement, dans un ordre qui tient devant un jury et un budget.",
         "C’est pourquoi le certificat ne délivre pas seulement un diplôme. Il produit un dossier d’investissement : chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement. La soutenance du séminaire de clôture en est l’épreuve.",
       ],
       source: "La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025.",
@@ -57,9 +57,9 @@ const data = {
       corps: [
         "Le programme compte neuf séances (la conférence inaugurale, six séminaires, un workshop et la séance de clôture), réparties d’octobre à décembre 2026. La logique n’est pas encyclopédique. Elle est cumulative.",
         "Séminaire données : cartographie et indicateurs. Séminaire IA : cas d’usage et gouvernance des modèles. Cloud et automatisation : schéma cible du SI finance. Workshop, cash management, blockchain et crypto-actifs, cybersécurité : chacun ajoute une couche. Le séminaire de clôture assemble la feuille de route et la fait soutenir.",
-        "À l’issue du cycle, le participant n’emporte pas seulement un certificat cosigné ISCAE × BDO. Il emporte un artefact utilisable en comité de direction — construit sur son propre périmètre, pas sur un cas générique.",
+        "À l’issue du cycle, le participant n’emporte pas seulement un certificat cosigné ISCAE × BDO. Il emporte un artefact utilisable en comité de direction, construit sur son propre périmètre, pas sur un cas générique.",
       ],
-      source: "Programme CFO 4.0 — ISCAE × BDO, session 2026–2027.",
+      source: "Programme CFO 4.0, ISCAE × BDO, session 2026–2027.",
       relatedDoc: "brochure" as const,
     },
     {

@@ -15,7 +15,7 @@ const docs = [
   { value: "barometre", label: "Baromètre BDO des DAF 2024" },
   {
     value: "livreblanc",
-    label: "Livre blanc — La Fonction Financière Augmentée",
+    label: "Livre blanc : La Fonction Financière Augmentée",
   },
 ];
 

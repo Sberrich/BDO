@@ -23,7 +23,7 @@ const WASH = "#f2f5f8";
 const DOC_LABELS: Record<string, string> = {
   brochure: "Brochure du certificat CFO 4.0",
   barometre: "Baromètre BDO des DAF 2024",
-  livreblanc: "Livre blanc — La Fonction Financière Augmentée",
+  livreblanc: "Livre blanc : La Fonction Financière Augmentée",
 };
 
 const MOMENT_LABELS: Record<string, string> = {
@@ -123,7 +123,7 @@ function section(title: string, rowsHtml: string) {
 }
 
 function withAutre(label: string, other: string) {
-  return other ? `${label} — ${other}` : label;
+  return other ? `${label} : ${other}` : label;
 }
 
 function formatSize(bytes: number) {
@@ -313,7 +313,7 @@ function subtitleOf(type: string, body: FormPayload) {
 function textFor(type: string, body: FormPayload, extras?: EmailExtras) {
   const meta = META[type] ?? META.rappel;
   const v = (k: string, max?: number) => val(body, k, max);
-  const lines = [`${meta.title}`, `—`, `Nom : ${fullName(body)}`, `Fonction : ${subtitleOf(type, body)}`, `E-mail : ${v("email")}`];
+  const lines = [`${meta.title}`, `----`, `Nom : ${fullName(body)}`, `Fonction : ${subtitleOf(type, body)}`, `E-mail : ${v("email")}`];
 
   if (type === "rappel") {
     lines.push(`Téléphone : ${v("telephone")}`, `Créneau : ${labelMap(MOMENT_LABELS, v("moment"))}`, `Question : ${v("sujet", 600)}`);
@@ -336,7 +336,7 @@ function textFor(type: string, body: FormPayload, extras?: EmailExtras) {
       lines.push(`${f.label} : ${f.filename} (${formatSize(f.size)})`);
     }
     if (extras?.attachmentsNotSent && extras.attachments?.length) {
-      lines.push("Attention : fichiers non joints à cet e-mail — à demander au candidat.");
+      lines.push("Attention : fichiers non joints à cet e-mail, à demander au candidat.");
     }
   }
 
@@ -360,7 +360,7 @@ export function buildFormEmail(type: string, body: FormPayload, extras?: EmailEx
     timeStyle: "short",
   });
 
-  const subject = `[CFO 4.0] ${meta.subject} — ${nom}`;
+  const subject = `[CFO 4.0] ${meta.subject} · ${nom}`;
 
   const html = `<!DOCTYPE html>
 <html lang="fr">
@@ -432,7 +432,7 @@ export function buildFormEmail(type: string, body: FormPayload, extras?: EmailEx
           <tr>
             <td style="background:${NAVY};padding:18px 32px;">
               <p style="margin:0;font:600 12px/1.5 Mulish,Segoe UI,Arial,sans-serif;color:rgba(255,255,255,0.7);">
-                Certificat exécutif CFO 4.0 — Transformation Digitale et Leadership Financier
+                Certificat exécutif CFO 4.0 · Transformation Digitale et Leadership Financier
               </p>
             </td>
           </tr>

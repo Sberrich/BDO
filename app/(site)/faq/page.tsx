@@ -39,7 +39,7 @@ export default function FaqPage() {
                 Les questions que vous vous posez
               </h1>
               <p className="sem-hero__lead">
-                Les réponses, regroupées par thème — du programme au tarif.
+                Les réponses, regroupées par thème, du programme au tarif.
               </p>
             </div>
             <aside className="faq-help" aria-labelledby="faq-help-title">

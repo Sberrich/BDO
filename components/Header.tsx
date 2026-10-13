@@ -239,7 +239,7 @@ export function Header() {
         <Link
           href="/"
           className="site-header__brand flex min-w-0 shrink-0 items-center"
-          aria-label="CFO 4.0 — certificat cosigné par le Groupe ISCAE et BDO Maroc, retour à l’accueil"
+          aria-label="CFO 4.0, certificat cosigné par le Groupe ISCAE et BDO Maroc, retour à l’accueil"
           onClick={closeMobile}
         >
           <Image
