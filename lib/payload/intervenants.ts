@@ -1,5 +1,5 @@
 const data = {
-  "chapeau": "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités. Chaque intervenant enseigne sur son terrain d’exercice.",
+  "chapeau": "Associés de BDO Maroc, professeurs du Groupe ISCAE et praticiens invités : chacun enseigne sur son terrain.",
   "intervenants": [
     {
       "slug": "zakaria-fahim",
@@ -33,7 +33,7 @@ const data = {
     },
     {
       "slug": "intervenant-provisoire-1",
-      "nom": "{{PROV}}Intervenant — séminaire Cloud{{/PROV}}",
+      "nom": "{{PROV}}Intervenant, séminaire Cloud{{/PROV}}",
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
@@ -43,7 +43,7 @@ const data = {
     },
     {
       "slug": "intervenant-provisoire-2",
-      "nom": "{{PROV}}Intervenant — séminaire Crypto-actifs{{/PROV}}",
+      "nom": "{{PROV}}Intervenant, séminaire Crypto-actifs{{/PROV}}",
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
@@ -53,7 +53,7 @@ const data = {
     },
     {
       "slug": "intervenant-provisoire-3",
-      "nom": "{{PROV}}Intervenant — séminaire Cash management{{/PROV}}",
+      "nom": "{{PROV}}Intervenant, séminaire Cash management{{/PROV}}",
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",
@@ -63,7 +63,7 @@ const data = {
     },
     {
       "slug": "intervenant-provisoire-4",
-      "nom": "{{PROV}}Intervenant — séminaire Cybersécurité{{/PROV}}",
+      "nom": "{{PROV}}Intervenant, séminaire Cybersécurité{{/PROV}}",
       "fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
       "institution": "{{PROV}}Institution à confirmer{{/PROV}}",
       "photo": "assets/img/placeholder-portrait-400x400.svg",

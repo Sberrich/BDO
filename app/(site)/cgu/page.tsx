@@ -6,7 +6,7 @@ import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Conditions générales d’utilisation",
-  description: "Conditions générales d’utilisation du site du certificat CFO 4.0 — ISCAE × BDO.",
+  description: "Conditions générales d’utilisation du site du certificat CFO 4.0 (ISCAE × BDO).",
 };
 
 export default function CguPage() {

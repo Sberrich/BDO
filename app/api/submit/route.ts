@@ -12,6 +12,8 @@ import {
   safeFilename,
 } from "@/lib/candidature";
 import { publicUrl } from "@/lib/cms-session";
+import { cleanName, nameError } from "@/lib/names";
+import { PHONE_ERROR, normalizePhone } from "@/lib/phone";
 import { pushToSheet } from "@/lib/sheets";
 import { saveSubmission, type Submission } from "@/lib/submissions";
 
@@ -48,11 +50,11 @@ function clean(v: unknown, max = 200) {
 }
 
 const required: Record<string, string[]> = {
-  document: ["nom", "fonction", "email", "document"],
-  session: ["nom", "fonction", "email", "creneau"],
-  rappel: ["nom", "fonction", "email", "telephone", "moment"],
+  document: ["prenom", "nom", "fonction", "email", "document"],
+  session: ["prenom", "nom", "fonction", "email", "creneau"],
+  rappel: ["prenom", "nom", "fonction", "email", "telephone", "moment"],
   candidature: [
-    "nom", "email", "telephone", "ville", "participation", "secteur",
+    "prenom", "nom", "email", "telephone", "ville", "participation", "secteur",
     "niveau", "diplome", "decouverte", "interet", "consentement",
   ],
 };
@@ -92,22 +94,23 @@ async function deliverViaFormSubmit(notify: string, subject: string, lines: stri
 
 type Upload = AttachmentInfo & { field: string; content: Buffer };
 
-async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string }> {
+async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: string; field?: string }> {
   const files: Upload[] = [];
   for (const rule of UPLOADS) {
     const entry = form.get(rule.field);
     const file = entry instanceof File && entry.size > 0 ? entry : null;
+    const fail = (error: string) => ({ files, error, field: rule.field });
     if (!file) {
-      if (rule.required) return { files, error: `Merci de joindre votre ${rule.label} (${rule.hint}).` };
+      if (rule.required) return fail(`Merci de joindre votre ${rule.label} (${rule.hint}).`);
       continue;
     }
     const ext = extensionOf(file.name);
     if (!rule.extensions.includes(ext) || file.size > rule.maxBytes) {
-      return { files, error: `${rule.label} : ${rule.hint}.` };
+      return fail(`${rule.label} : ${rule.hint}.`);
     }
     const content = Buffer.from(await file.arrayBuffer());
     if (!matchesSignature(ext, content.subarray(0, 8))) {
-      return { files, error: `${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).` };
+      return fail(`${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).`);
     }
     files.push({
       field: rule.field,
@@ -177,7 +180,7 @@ async function deliverViaSmtp(
 export async function POST(req: Request) {
   const isMultipart = (req.headers.get("content-type") || "").includes("multipart/form-data");
   if (isMultipart && Number(req.headers.get("content-length") || 0) > MAX_REQUEST_BYTES) {
-    return NextResponse.json({ ok: false, message: "Les fichiers envoyés sont trop volumineux (5 Mo maximum chacun)." }, { status: 413 });
+    return NextResponse.json({ ok: false, message: "Les fichiers envoyés sont trop volumineux (5 Mo maximum chacun).", field: "cv" }, { status: 413 });
   }
 
   let body: Record<string, unknown>;
@@ -201,7 +204,7 @@ export async function POST(req: Request) {
   }
   const ts = Number(body._ts || 0);
   if (ts > 0 && Date.now() / 1000 - ts < 3) {
-    return NextResponse.json({ ok: false, message: "Votre envoi est parti un peu vite." }, { status: 429 });
+    return NextResponse.json({ ok: false, message: "Votre envoi est parti un peu vite. Patientez quelques secondes, puis cliquez à nouveau." }, { status: 429 });
   }
   if (!rateOk(ipOf(req))) {
     return NextResponse.json({ ok: false, message: "Trop de demandes. Réessayez plus tard." }, { status: 429 });
@@ -221,6 +224,18 @@ export async function POST(req: Request) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, message: "L’adresse e-mail n’est pas valide." }, { status: 422 });
   }
+  for (const kind of ["prenom", "nom"] as const) {
+    const message = nameError(kind, clean(body[kind], 200));
+    if (message) return NextResponse.json({ ok: false, message }, { status: 422 });
+    body[kind] = cleanName(clean(body[kind], 200));
+  }
+  if (clean(body.telephone, 40)) {
+    const phone = normalizePhone(clean(body.telephone, 40));
+    if (!phone) {
+      return NextResponse.json({ ok: false, message: PHONE_ERROR }, { status: 422 });
+    }
+    body.telephone = phone;
+  }
   if (type === "candidature") {
     for (const name of AUTRE_FIELDS) {
       if (clean(body[name], 30) === "autre" && !clean(body[`${name}_autre`], 200)) {
@@ -232,11 +247,11 @@ export async function POST(req: Request) {
   let files: Upload[] = [];
   if (type === "candidature") {
     if (!form) {
-      return NextResponse.json({ ok: false, message: "Merci de joindre votre CV." }, { status: 422 });
+      return NextResponse.json({ ok: false, message: "Merci de joindre votre CV.", field: "cv" }, { status: 422 });
     }
     const uploads = await readUploads(form);
     if (uploads.error) {
-      return NextResponse.json({ ok: false, message: uploads.error }, { status: 422 });
+      return NextResponse.json({ ok: false, message: uploads.error, field: uploads.field }, { status: 422 });
     }
     files = uploads.files;
   }

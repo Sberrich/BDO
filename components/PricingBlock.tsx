@@ -77,13 +77,41 @@ export function PricingBlock({ showCovered = true, showCtas = false }: Props) {
   );
 }
 
+/** Short price mention for pages other than /admissions, which holds the only full grid. */
+export function PriceTeaser({ showCta = false }: { showCta?: boolean }) {
+  const t = data.site.tarif;
+  const from = [...t.formules].sort(
+    (a, b) => Number(a.montant.replace(/\D/g, "")) - Number(b.montant.replace(/\D/g, "")),
+  )[0];
+
+  return (
+    <div className="price-teaser">
+      <div>
+        <p className="price-teaser__amount">
+          À partir de <strong>{from.montant}</strong> {t.devisePhrase}
+        </p>
+        <p className="price-teaser__hint">
+          {from.titre}, hors frais d’inscription de {t.fraisInscription.montant} {t.devisePhrase}.
+          Formation, coaching, supports et certificat inclus.
+        </p>
+      </div>
+      <div className="price-teaser__actions">
+        <ButtonLink href="/admissions#tarif" variant="ghost">
+          Voir le tarif complet →
+        </ButtonLink>
+        {showCta ? <ButtonLink href="/candidater">Déposer ma candidature</ButtonLink> : null}
+      </div>
+    </div>
+  );
+}
+
 export function PricingConditions() {
   const conditions = data.site.tarif.conditions;
   return (
     <div className="mt-8 grid gap-4 md:grid-cols-3">
       {conditions.map((cond, i) => (
         <article key={cond.titre} className="rounded-md border border-line bg-white p-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted">0{i + 1}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted">0{i + 1}</p>
           <h3 className="mt-2 text-lg font-bold">{cond.titre}</h3>
           <p className="mt-2 text-sm text-muted">{plain(cond.texte)}</p>
         </article>

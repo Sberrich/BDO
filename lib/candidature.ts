@@ -15,6 +15,7 @@ export const NIVEAUX: Option[] = [
   { value: "administrateur-finance", label: "Administrateur en charge de la finance" },
   { value: "daf", label: "Directeur Administratif et Financier" },
   { value: "directeur-central", label: "Directeur central et contrôleur de gestion" },
+  { value: "expert-comptable", label: "Expert-comptable" },
   { value: "autre", label: "Autre" },
 ];
 

@@ -48,7 +48,7 @@ export function VideoBlock() {
         aria-label={
           ready
             ? "Lire la vidéo de présentation"
-            : "Vidéo de présentation — bientôt disponible"
+            : "Vidéo de présentation bientôt disponible"
         }
         aria-disabled={!ready}
         disabled={!ready}

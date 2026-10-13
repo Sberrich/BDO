@@ -116,7 +116,7 @@ export default async function InsightArticlePage({ params }: Props) {
             </footer>
           </div>
 
-          <aside className="insight-aside">
+          <div className="insight-aside">
             <div className="insight-aside__card">
               <p className="insight-aside__kicker">Aller plus loin</p>
               <p className="insight-aside__text">
@@ -133,7 +133,7 @@ export default async function InsightArticlePage({ params }: Props) {
             <Link href="/insights" className="insight-aside__back">
               ← Tous les insights
             </Link>
-          </aside>
+          </div>
         </Container>
       </article>
 

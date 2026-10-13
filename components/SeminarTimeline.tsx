@@ -46,7 +46,7 @@ export function SeminarTimeline() {
                     >
                       {plain(s.titre)}
                     </span>
-                    <span className="mt-1 text-[11px] font-medium text-muted/80">{s.dates}</span>
+                    <span className="mt-1 text-xs font-medium text-muted/80">{s.dates}</span>
                   </button>
                 </li>
               );
@@ -63,7 +63,7 @@ export function SeminarTimeline() {
             className="seminar-timeline__panel grid gap-6 p-7 md:grid-cols-[minmax(0,1.1fr)_auto] md:items-end"
           >
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-blue">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue">
                 Séminaire {String(seminars[active].numero).padStart(2, "0")}
                 <span className="mx-2 text-line">·</span>
                 <span className="text-muted">{seminars[active].dates}</span>
@@ -107,7 +107,7 @@ export function SeminarTimeline() {
                 onMouseEnter={() => setActive(i)}
                 aria-expanded={isActive}
               >
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted">
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted">
                   {String(s.numero).padStart(2, "0")} · {s.dates}
                 </p>
                 <p className="mt-1 text-base font-bold tracking-[-0.015em] text-ink">{plain(s.titre)}</p>

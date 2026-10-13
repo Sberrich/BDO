@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense } from "react";
 import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
-import { ButtonLink, Container, Kicker } from "@/components/ui";
+import { ButtonLink, Container, Kicker, cls } from "@/components/ui";
 
 const NEXT_STEPS = [
   { href: "/programme", label: "Parcourir le programme" },
@@ -14,11 +14,11 @@ const NEXT_STEPS = [
 const cases: Record<string, [string, string]> = {
   candidature: [
     "Votre candidature est enregistrée",
-    "Le comité pédagogique examine votre dossier. Vous recevez une proposition d’entretien sous quelques jours.",
+    "Notre équipe étudie votre éligibilité au programme sur la base des informations et documents transmis. La réponse vous est communiquée sous deux jours ouvrés après réception du dossier complet.",
   ],
   document: [
     "Votre publication est prête",
-    "Le téléchargement démarre automatiquement. Si rien ne se passe, utilisez le bouton ci-dessous.",
+    "Le téléchargement a démarré. Si rien ne s’est passé, utilisez le bouton ci-dessous.",
   ],
   session: [
     "Votre place est réservée",
@@ -39,23 +39,11 @@ function safeDocPath(fichier: string | null) {
 
 function MerciInner() {
   const p = useSearchParams();
-  const type = p.get("type") || "default";
-  const pair = cases[type] || cases.default;
-  const fichier = safeDocPath(p.get("fichier"));
-  const started = useRef(false);
+  return <MerciView type={p.get("type") || "default"} fichier={safeDocPath(p.get("fichier"))} />;
+}
 
-  useEffect(() => {
-    if (!fichier || started.current) return;
-    started.current = true;
-    const name = fichier.split("/").pop() || "document.pdf";
-    const a = document.createElement("a");
-    a.href = fichier;
-    a.setAttribute("download", name);
-    a.rel = "noopener";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }, [fichier]);
+function MerciView({ type, fichier }: { type: string; fichier: string | null }) {
+  const pair = cases[type] || cases.default;
 
   return (
     <section className="bg-cream py-[clamp(3rem,7vw,5.5rem)]">
@@ -73,7 +61,7 @@ function MerciInner() {
         {fichier && (
           <p className="mt-6">
             <a
-              className="btn-icon inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-red px-6 py-3 text-sm font-bold text-white shadow-[var(--shadow-cta)] hover:bg-red-dark"
+              className={cls("primary")}
               href={fichier}
               download={fichier.split("/").pop() || "document.pdf"}
             >
@@ -82,7 +70,7 @@ function MerciInner() {
             </a>
           </p>
         )}
-        <ul className="mt-10 grid gap-3 sm:grid-cols-3">
+        <ul className="mt-10 grid gap-3 sm:grid-cols-2">
           {NEXT_STEPS.map((step) => (
             <li key={step.href}>
               <Link href={step.href} className="merci__step card-lift">
@@ -93,7 +81,7 @@ function MerciInner() {
           ))}
         </ul>
         <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="/candidater">Candidater</ButtonLink>
+          {type !== "candidature" && <ButtonLink href="/candidater">Candidater</ButtonLink>}
           <ButtonLink href="/" variant="ghost">
             Retour à l’accueil
           </ButtonLink>
@@ -105,7 +93,7 @@ function MerciInner() {
 
 export default function MerciPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<MerciView type="default" fichier={null} />}>
       <MerciInner />
     </Suspense>
   );

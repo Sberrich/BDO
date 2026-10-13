@@ -93,7 +93,7 @@ export function CalendarTable() {
 
   return (
     <div className="cal">
-      <aside className="cal__aside" aria-label="Repères du calendrier">
+      <section className="cal__aside" aria-label="Repères du calendrier">
         <div className="cal__aside-glow" aria-hidden="true" />
         <div className="cal__aside-head">
           <p className="cal__aside-kicker">Promotion 1</p>
@@ -128,7 +128,7 @@ export function CalendarTable() {
             </span>
             <span>
               <strong>Casablanca</strong>
-              <span className="cal__stat-label">présentiel + coaching</span>
+              <span className="cal__stat-label">présentiel + coaching · ouverture à Rabat</span>
             </span>
           </li>
         </ul>
@@ -155,7 +155,7 @@ export function CalendarTable() {
           Réserver ma place
           <IconArrowRight />
         </Link>
-      </aside>
+      </section>
 
       <div className="cal__timeline">
         <ol className="cal__months">

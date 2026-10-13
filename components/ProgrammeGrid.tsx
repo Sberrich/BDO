@@ -1,13 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
-import { IconArrowRight, IconClock, IconPlay } from "@/components/icons";
-import { plain, sessionLabel } from "@/lib/text";
+import { IconArrowRight, IconClock } from "@/components/icons";
+import { plain, seminarImage, sessionLabel } from "@/lib/text";
 
 type Props = {
   limit?: number;
   /** Hide the session currently being viewed (seminar detail pages). */
   excludeNumero?: number;
 };
+
+/** Hors séances : une journée de travaux personnels par module (1 à 7) et trois journées de projet. */
+const TRAVAUX_PERSONNELS_H = 42;
+const PROJET_H = 18;
 
 function hours(s: Seminaire) {
   return s.heures ?? (s.numero === 0 ? 3 : 6);
@@ -28,10 +33,9 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
     .filter((s) => excludeNumero == null || s.numero !== excludeNumero)
     .slice(0, limit);
   const opening = items.find((s) => s.numero === 0);
-  const seminars = items.filter((s) => s.numero > 0);
 
   const months: { month: string; year: string; sessions: Seminaire[] }[] = [];
-  for (const s of seminars) {
+  for (const s of items) {
     const { month, year } = splitDate(plain(s.dates));
     const last = months[months.length - 1];
     if (last && last.month === month) last.sessions.push(s);
@@ -48,14 +52,15 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
         .map((s) => `${splitDate(plain(s.dates)).weekdayLong} · ${plain(s.horaire)}`),
     ),
   ].sort((a, b) => (a.startsWith("Vendredi") ? -1 : b.startsWith("Vendredi") ? 1 : 0));
+  const presentiel = all.reduce((n, s) => n + hours(s), 0);
   const stats = [
     {
       value: String(all.length),
       label: all.length > 1 ? "séances" : "séance",
     },
     {
-      value: `${all.reduce((n, s) => n + hours(s), 0)} h`,
-      label: "de formation",
+      value: `${presentiel + TRAVAUX_PERSONNELS_H + PROJET_H} h`,
+      label: "de formation au total",
     },
   ];
 
@@ -66,24 +71,17 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
           <div className="prog-board__aside">
             <Link href={sessionHref(opening)} className="prog-board__open">
               <span className="prog-board__open-media" aria-hidden="true">
-                <video
+                <Image
                   className="prog-board__open-video"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster="/images/home/hero.png"
-                >
-                  <source src="/videos/seminaires/0.mp4" type="video/mp4" />
-                </video>
+                  src={seminarImage(0)}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 24rem, 90vw"
+                />
               </span>
               <span className="prog-board__open-veil" aria-hidden="true" />
               <span className="prog-board__open-top">
                 <span className="prog-board__open-tag">Ouverture du cycle</span>
-                <span className="prog-board__open-mark" aria-hidden="true">
-                  <IconPlay />
-                </span>
               </span>
               <span className="prog-board__open-bottom">
                 <span className="prog-board__open-date">
@@ -113,6 +111,10 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                   </div>
                 ))}
               </dl>
+              <p className="prog-board__sum-line">
+                Dont {presentiel}&nbsp;h en présentiel, {TRAVAUX_PERSONNELS_H}&nbsp;h de travaux
+                personnels et {PROJET_H}&nbsp;h de préparation du projet.
+              </p>
               {first && last ? (
                 <p className="prog-board__sum-line">
                   Du {first.day} {first.month} au {last.day} {last.month}{" "}
@@ -161,7 +163,7 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                         <span className="prog-board__main">
                           <span className="prog-board__meta">{sessionLabel(s)}</span>
                           <span className="prog-board__name">
-                            {plain(s.titre)}
+                            {plain(s.numero === 0 && s.sousTitre ? s.sousTitre : s.titre)}
                           </span>
                           <span className="prog-board__when">
                             <IconClock />

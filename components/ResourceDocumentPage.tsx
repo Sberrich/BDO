@@ -30,23 +30,21 @@ const DOCS: Record<
     path: "/ressources/brochure",
     kicker: "Brochure 2026",
     title: "La brochure du certificat",
-    lead: "Le programme, les séminaires, le calendrier, le tarif et le processus d’admission.",
+    lead: "Le programme, les séminaires, le tarif et le processus d’admission.",
     metaTitle: "Brochure du certificat",
-    metaDesc: "Recevoir la brochure CFO 4.0 — programme, calendrier, tarif et admissions.",
+    metaDesc: "Recevoir la brochure CFO 4.0 : programme, séminaires, tarif et admissions.",
     formBg: "white",
     prefix: "b",
     cover: RESOURCE_COVERS.brochure,
     coverSize: [636, 900],
     contents: [
       "Le programme et les séminaires",
-      "Le calendrier de la promotion 1",
       "Le tarif et les conditions",
       "Le processus d’admission",
     ],
     formTitle: "Recevoir la brochure",
     online: [
       { label: "Le programme", desc: "Les séminaires et leurs livrables", href: "/programme#seances" },
-      { label: "Le calendrier", desc: "Les dates de la promotion 1, d’octobre à décembre 2026", href: "/programme" },
       { label: "Le tarif", desc: "Les formules et les conditions", href: "/admissions#tarif" },
       { label: "L’admission", desc: "Le processus, étape par étape", href: "/admissions#processus" },
     ],
@@ -57,7 +55,7 @@ const DOCS: Record<
     title: "Le Baromètre BDO des DAF 2024",
     lead: "L’enquête annuelle de BDO Maroc. Édition 2024, 94 répondants.",
     metaTitle: "Baromètre BDO des DAF 2024",
-    metaDesc: "Recevoir le Baromètre BDO des DAF 2024 — enquête auprès de 94 leaders financiers.",
+    metaDesc: "Recevoir le Baromètre BDO des DAF 2024, enquête auprès de 94 leaders financiers.",
     formBg: "cream",
     prefix: "a",
     cover: RESOURCE_COVERS.barometre,
@@ -130,7 +128,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
                   <div className="doc-book__page">
                     <Image
                       src={d.cover}
-                      alt={`Couverture — ${d.title}`}
+                      alt={`Couverture : ${d.title}`}
                       width={d.coverSize[0]}
                       height={d.coverSize[1]}
                       priority

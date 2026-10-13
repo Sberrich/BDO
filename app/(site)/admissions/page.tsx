@@ -6,7 +6,7 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconChart, IconGauge, IconUsers } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
 import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
@@ -15,7 +15,10 @@ export const metadata: Metadata = {
   description: "Tarif, éligibilité, financement et processus d’admission du certificat CFO 4.0.",
 };
 
-const PROFILE_ICONS = [IconUsers, IconChart, IconGauge];
+const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
+
+/** The tarif section above already answers this one. */
+const ADM_FAQ_EXCLUDE = ["faq-tarif-montant"];
 
 export default function AdmissionsPage() {
   const a = data.site.admission;
@@ -69,21 +72,13 @@ export default function AdmissionsPage() {
               </div>
             </div>
 
-            <aside className="adm-facts" aria-label="L’essentiel">
+            <section className="adm-facts" aria-label="L’essentiel">
               <p className="adm-facts__title">L’essentiel</p>
               <dl className="adm-facts__list">
-                {tarif.formules.map((f) => (
-                  <div key={f.id}>
-                    <dt>{f.titre}</dt>
-                    <dd>
-                      {f.montant} <span>{tarif.devisePhrase}</span>
-                    </dd>
-                  </div>
-                ))}
                 <div>
-                  <dt>{tarif.fraisInscription.label}</dt>
-                  <dd>
-                    {tarif.fraisInscription.montant} <span>{tarif.devisePhrase}</span>
+                  <dt>Tarif</dt>
+                  <dd className="is-text">
+                    <a href="#tarif">Détail et conditions ci-dessous</a>
                   </dd>
                 </div>
                 <div>
@@ -92,11 +87,11 @@ export default function AdmissionsPage() {
                 </div>
                 <div>
                   <dt>Réponse</dt>
-                  <dd className="is-text">sous {a.delaiReponse} après l’entretien</dd>
+                  <dd className="is-text">sous {a.delaiReponse} après réception du dossier complet</dd>
                 </div>
               </dl>
               <DeadlineCountdown className="adm-facts__countdown" />
-            </aside>
+            </section>
           </div>
         </Container>
       </section>
@@ -161,9 +156,9 @@ export default function AdmissionsPage() {
           <header className="adm-head">
             <p className="sem-kicker">Le processus</p>
             <h2 id="adm-process-title" className="adm-head__title">
-              Quatre étapes jusqu’à l’inscription
+              Trois étapes jusqu’à l’inscription
             </h2>
-            <p className="adm-head__lead">Réponse sous {a.delaiReponse} après l’entretien.</p>
+            <p className="adm-head__lead">Réponse sous {a.delaiReponse} après réception du dossier complet.</p>
           </header>
           <ol className="adm-steps">
             {a.etapes.map((x, i) => (
@@ -174,6 +169,10 @@ export default function AdmissionsPage() {
               </li>
             ))}
           </ol>
+          <p className="adm-prereq">
+            <span className="adm-prereq__label">À préparer</span>
+            {a.pieces.join(" ; ")}.
+          </p>
           <div className="adm-process__cta">
             <ButtonLink href="/candidater" className="sem-hero__cta-primary">
               Commencer mon dossier
@@ -204,7 +203,7 @@ export default function AdmissionsPage() {
               </a>
             </div>
           </header>
-          <FaqList onlyHome />
+          <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} />
         </Container>
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">

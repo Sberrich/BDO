@@ -10,7 +10,7 @@ import { RESOURCES_MENU } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Insights",
   description:
-    "Analyses et lectures sur la transformation de la fonction finance — Baromètre BDO des DAF, livre blanc et méthode du certificat CFO 4.0.",
+    "Analyses et lectures sur la transformation de la fonction finance : Baromètre BDO des DAF, livre blanc et méthode du certificat CFO 4.0.",
 };
 
 export default async function InsightsPage() {
@@ -39,7 +39,7 @@ export default async function InsightsPage() {
               </h1>
               {chapeau ? <p className="sem-hero__lead">{chapeau}</p> : null}
             </div>
-            <aside className="ins-sources" aria-label="Les publications sources">
+            <section className="ins-sources" aria-label="Les publications sources">
               <p className="ins-sources__title">Les publications sources</p>
               <ul>
                 {sources.map((r) => (
@@ -59,7 +59,7 @@ export default async function InsightsPage() {
                   </li>
                 ))}
               </ul>
-            </aside>
+            </section>
           </div>
         </Container>
       </section>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
@@ -9,14 +10,14 @@ import { ProgrammeGrid, splitDate } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
-import { plain, sessionCode } from "@/lib/text";
+import { plain, seminarImage, sessionCode } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Le programme",
   description: "Six séminaires, un workshop, une conférence inaugurale et un projet de transformation mené sur votre entreprise.",
 };
 
-/** "IN", "S1"…"S6", "WS", "CL" */
+/** "IN", "S1"…"S7", "WS", "CL" */
 function calCode(s: Seminaire) {
   const code = sessionCode(s);
   return /^\d+$/.test(code) ? `S${Number(code)}` : code;
@@ -83,7 +84,7 @@ export default function ProgrammePage() {
                 </li>
                 <li>
                   <IconMap />
-                  <span>Casablanca</span>
+                  <span>Campus ISCAE Casablanca · ouverture au campus ISCAE de Rabat</span>
                 </li>
               </ul>
               <div className="sem-hero__ctas">
@@ -103,6 +104,39 @@ export default function ProgrammePage() {
         </Container>
       </section>
 
+      <section id="objectifs" className="prog-goals" aria-labelledby="prog-goals-title">
+        <Container className="prog-goals__inner">
+          <div className="prog-goals__media" aria-hidden="true">
+            <Image
+              src="/images/home/conference.png"
+              alt=""
+              fill
+              sizes="(min-width: 900px) 26rem, 90vw"
+            />
+          </div>
+          <div className="prog-goals__copy">
+            <p className="sem-kicker">Objectifs</p>
+            <h2 id="prog-goals-title" className="prog-goals__title">
+              {data.site.objectifs.titre}
+            </h2>
+            <p className="prog-goals__lead">{data.site.objectifs.chapeau}</p>
+            <ol className="prog-goals__list">
+              {data.site.objectifs.liste.map((o, i) => (
+                <li key={o.titre} className="prog-goals__item">
+                  <span className="prog-goals__num" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span className="prog-goals__item-title">{o.titre}</span>
+                    <span className="prog-goals__item-text">{o.texte}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </Container>
+      </section>
+
       <section id="seances" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
@@ -112,22 +146,25 @@ export default function ProgrammePage() {
         </Container>
       </section>
 
-      <section className="prog-pieces" aria-labelledby="prog-pieces-title">
+      <section id="projet" className="prog-pieces" aria-labelledby="prog-pieces-title">
         <Container>
           <header className="prog-pieces__head">
             <p className="sem-kicker">Le projet</p>
             <h2 id="prog-pieces-title" className="prog-pieces__title">
-              Huit séances, huit pièces de votre feuille de route
+              Huit pièces pour votre feuille de route
             </h2>
             <p className="prog-pieces__lead">
-              Chaque séminaire produit une pièce appliquée à votre entreprise. Assemblées, elles forment le projet
-              présenté au dernier séminaire.
+              Chaque séance produit une pièce appliquée à votre entreprise. Ensemble, elles forment le
+              projet soutenu le 26 décembre.
             </p>
           </header>
           <ol className="prog-pieces__grid">
             {seminars.map((s) => (
               <li key={s.numero}>
                 <Link href={sessionHref(s)} className="prog-piece">
+                  <span className="prog-piece__media" aria-hidden="true">
+                    <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 1100px) 17rem, (min-width: 640px) 45vw, 90vw" />
+                  </span>
                   <span className="prog-piece__num">{sessionCode(s)}</span>
                   <span className="prog-piece__title">{plain(s.titre)}</span>
                   {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}

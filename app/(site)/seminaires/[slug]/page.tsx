@@ -13,7 +13,7 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { plain, seminarImage, seminarVideo, sessionCode, sessionLabel } from "@/lib/text";
+import { plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
@@ -83,9 +83,8 @@ export default async function SeminairePage({ params }: Props) {
     objectif: string;
   };
   const cover = seminarImage(s.numero);
-  const clip = seminarVideo(s.numero);
   const indexLabel = sessionLabel(s);
-  const lieu = s.lieu ?? "Casablanca";
+  const lieu = s.lieu ?? "Campus ISCAE Casablanca";
 
   return (
     <>
@@ -122,7 +121,7 @@ export default async function SeminairePage({ params }: Props) {
                           title={plain(x.titre)}
                         >
                           {sessionCode(x)}
-                          <span className="sr-only"> — {plain(x.titre)}</span>
+                          <span className="sr-only"> : {plain(x.titre)}</span>
                         </Link>
                       </li>
                     );
@@ -167,17 +166,14 @@ export default async function SeminairePage({ params }: Props) {
 
             <div className="sem-hero__aside" aria-hidden="true">
               <div className="sem-hero__card">
-                <video
+                <Image
                   className="sem-hero__card-img"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster={cover}
-                >
-                  <source src={clip} type="video/mp4" />
-                </video>
+                  src={cover}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 32rem, 90vw"
+                  priority
+                />
                 <span className="sem-hero__card-veil" />
                 <span className="sem-hero__card-frame" />
                 <span className="sem-hero__card-mark">
@@ -230,10 +226,10 @@ export default async function SeminairePage({ params }: Props) {
             ) : null}
 
             {detail.livrable ? (
-              <aside className="sem-livrable">
+              <div className="sem-livrable">
                 <p className="sem-livrable__kicker">Ce que vous produisez</p>
                 <p className="sem-livrable__text">{detail.livrable}</p>
-              </aside>
+              </div>
             ) : null}
 
             {detail.actualisation ? (
@@ -287,7 +283,7 @@ export default async function SeminairePage({ params }: Props) {
             </nav>
           </div>
 
-          <aside className="sem-side" aria-label="En bref">
+          <section className="sem-side" aria-label="En bref">
             <div className="sem-side__card">
               <p className="sem-side__title">En bref</p>
               <dl className="sem-side__facts">
@@ -363,10 +359,10 @@ export default async function SeminairePage({ params }: Props) {
                 </ButtonLink>
               </div>
               <p className="sem-side__note">
-                Candidatures ouvertes jusqu’au 30 octobre 2026.
+                Candidatures ouvertes jusqu’au 22 octobre 2026.
               </p>
             </div>
-          </aside>
+          </section>
         </Container>
       </section>
 

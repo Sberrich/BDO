@@ -91,14 +91,14 @@ export function FacultyShowcase({ speakers, lead }: Props) {
       <Container className="faculty__inner">
         <header className="faculty__head">
           <div>
-            <p className="faculty__index">05 — Les intervenants</p>
+            <p className="faculty__index">05 · Les intervenants</p>
             <h2 id="intervenants-title" className="faculty__title">
               La chaire vivante du certificat
             </h2>
           </div>
           <p className="faculty__lead">
             {lead ||
-              "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités."}
+              "Associés de BDO Maroc, professeurs du Groupe ISCAE et praticiens invités : chacun enseigne sur son terrain."}
           </p>
         </header>
 

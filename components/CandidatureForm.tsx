@@ -4,6 +4,8 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { NameInput } from "@/components/NameInput";
+import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 import {
@@ -35,6 +37,7 @@ export function CandidatureForm() {
   const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
+  const inFlight = useRef(false);
 
   useEffect(() => {
     openedAt.current = Math.floor(Date.now() / 1000);
@@ -115,6 +118,7 @@ export function CandidatureForm() {
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (step < steps.length - 1) return next(e);
+    if (inFlight.current) return;
     const form = e.currentTarget;
     const fd = new FormData(form);
     const cv = fd.get("cv");
@@ -123,6 +127,7 @@ export function CandidatureForm() {
       setStatus(`Merci de joindre votre CV à l’étape « ${steps[CV_STEP]} ».`);
       return;
     }
+    inFlight.current = true;
     setSending(true);
     setStatus("");
     const photo = fd.get("photo");
@@ -132,10 +137,16 @@ export function CandidatureForm() {
     fd.set("consentement", fd.get("consentement") ? "oui" : "");
     try {
       const res = await fetch("/api/submit", { method: "POST", body: fd });
-      const json = (await res.json()) as { ok: boolean; message: string };
+      const json = (await res.json()) as { ok: boolean; message: string; field?: string };
       if (!res.ok || !json.ok) {
+        const upload = UPLOADS.find((rule) => rule.field === json.field);
+        if (upload) {
+          setFileErrors((errs) => ({ ...errs, [upload.field]: json.message }));
+          setStep(CV_STEP);
+        }
         setStatus(json.message);
         setSending(false);
+        inFlight.current = false;
         return;
       }
       try {
@@ -145,6 +156,7 @@ export function CandidatureForm() {
     } catch {
       setStatus("L’envoi n’a pas abouti. Écrivez-nous à " + BRAND.email);
       setSending(false);
+      inFlight.current = false;
     }
   }
 
@@ -180,7 +192,13 @@ export function CandidatureForm() {
     choices[name] === "autre" ? (
       <label className="block text-sm font-semibold">
         {label} *
-        <input className={fieldClass} required={step === s} name={`${name}_autre`} maxLength={200} />
+        <input
+          className={fieldClass}
+          required={step === s}
+          name={`${name}_autre`}
+          placeholder="Votre réponse"
+          maxLength={200}
+        />
       </label>
     ) : null;
 
@@ -223,8 +241,8 @@ export function CandidatureForm() {
           />
         </div>
         <p className="mt-2 text-xs text-muted">
-          Brouillon conservé sur cet appareil. Vous pouvez reprendre plus tard ; les fichiers
-          (CV, photo) sont à joindre à nouveau.
+          Brouillon conservé dans ce navigateur, sur cet appareil uniquement. Vous pouvez
+          reprendre plus tard ; les fichiers (CV, photo) sont à joindre à nouveau.
         </p>
       </div>
 
@@ -233,10 +251,8 @@ export function CandidatureForm() {
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 0}>
-        <label className="block text-sm font-semibold sm:col-span-2">
-          Nom et prénom *
-          <input className={fieldClass} required={step === 0} name="nom" autoComplete="name" />
-        </label>
+        <NameInput kind="prenom" required={step === 0} />
+        <NameInput kind="nom" required={step === 0} />
         <label className="block text-sm font-semibold">
           E-mail *
           <input
@@ -245,18 +261,12 @@ export function CandidatureForm() {
             type="email"
             name="email"
             autoComplete="email"
+            placeholder="nom@entreprise.ma"
+            pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+            title="Adresse e-mail complète, par exemple nom@entreprise.ma"
           />
         </label>
-        <label className="block text-sm font-semibold">
-          GSM *
-          <input
-            className={fieldClass}
-            required={step === 0}
-            type="tel"
-            name="telephone"
-            autoComplete="tel"
-          />
-        </label>
+        <PhoneInput label="GSM" required={step === 0} />
         <label className="block text-sm font-semibold sm:col-span-2">
           Ville *
           <input
@@ -264,6 +274,7 @@ export function CandidatureForm() {
             required={step === 0}
             name="ville"
             autoComplete="address-level2"
+            placeholder="Ex. Casablanca"
           />
         </label>
         {UPLOADS.map((rule) => (
@@ -303,11 +314,17 @@ export function CandidatureForm() {
             required={step === 2}
             maxLength={800}
             name="diplome"
+            placeholder="Ex. Master en finance, ISCAE Casablanca, 2015"
           />
         </label>
         <label className="block text-sm font-semibold">
           Études complémentaires non sanctionnées par un diplôme
-          <textarea className={`${fieldClass} min-h-28`} maxLength={800} name="etudes" />
+          <textarea
+            className={`${fieldClass} min-h-28`}
+            maxLength={800}
+            name="etudes"
+            placeholder="Ex. formation continue en data analytics, MOOC, séminaires"
+          />
         </label>
       </fieldset>
 
@@ -322,6 +339,7 @@ export function CandidatureForm() {
             required={step === 3}
             maxLength={1500}
             name="interet"
+            placeholder="Vos objectifs, le projet de transformation que vous souhaitez mener dans votre entreprise…"
           />
         </label>
         <label className="flex items-start gap-3 rounded-[10px] bg-cream px-4 py-3 text-sm">

@@ -44,7 +44,7 @@ export default async function RessourcesPage() {
                 Les publications qui documentent le programme
               </h1>
               <p className="sem-hero__lead">
-                Brochure, Baromètre, livre blanc et analyses — chaque document a sa page dédiée.
+                Brochure, Baromètre, livre blanc et analyses : chaque document a sa page dédiée.
               </p>
               <div className="sem-hero__ctas">
                 <ButtonLink href="/ressources/brochure" className="sem-hero__cta-primary">

@@ -82,7 +82,8 @@ export function Hero() {
               />
 
               <p className="hero-cinematic__lead">
-                D’octobre à décembre 2026, à <strong>Casablanca</strong>&nbsp;: un
+                D’octobre à décembre 2026, à <strong>Casablanca</strong> (ouverture au
+                campus ISCAE de Rabat)&nbsp;: un
                 projet appliqué à votre
                 entreprise, du diagnostic à la mise en œuvre.
               </p>
@@ -94,7 +95,7 @@ export function Hero() {
                 </div>
                 <div>
                   <dt>Format</dt>
-                  <dd>111&nbsp;h · 9 séances</dd>
+                  <dd>9 séances · 111&nbsp;h, dont 51&nbsp;h en salle</dd>
                 </div>
                 <div>
                   <dt>Promotion 1</dt>
@@ -146,7 +147,7 @@ export function Hero() {
                       </span>
                     ) : null}
                     <span className={`hero-cosign__logo ${p.size}`}>
-                      <Image src={p.src} alt={p.name} width={p.w} height={p.h} />
+                      <Image src={p.src} alt={p.name} width={p.w} height={p.h} sizes="100px" />
                     </span>
                     <span className="hero-cosign__role">{p.role}</span>
                   </li>

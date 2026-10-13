@@ -48,15 +48,14 @@ export function ProgrammeCalendar({ sessions }: { sessions: CalendarSession[] })
     <div className="pcal" aria-label="Le cycle en un coup d’œil">
       <div className="pcal__head">
         <p className="pcal__title">Le cycle en un coup d’œil</p>
-        <div className="pcal__tabs" role="tablist" aria-label="Mois">
+        <div className="pcal__tabs" role="group" aria-label="Mois">
           {months.map((m, i) => {
             const count = sessions.filter((s) => s.year === m.year && s.month === m.month).length;
             return (
               <button
                 key={`${m.year}-${m.month}`}
                 type="button"
-                role="tab"
-                aria-selected={i === active}
+                aria-pressed={i === active}
                 className={`pcal__tab${i === active ? " is-active" : ""}`}
                 onClick={() => setActive(i)}
               >
@@ -68,7 +67,7 @@ export function ProgrammeCalendar({ sessions }: { sessions: CalendarSession[] })
         </div>
       </div>
 
-      <div className="pcal__grid" role="grid" aria-label={`${MONTHS[current.month]} ${current.year}`}>
+      <div className="pcal__grid" aria-hidden="true">
         {WEEKDAYS.map((w, i) => (
           <span key={w} className={`pcal__wd${i >= 5 ? " is-weekend" : ""}`} aria-hidden="true">
             {w}
@@ -89,6 +88,7 @@ export function ProgrammeCalendar({ sessions }: { sessions: CalendarSession[] })
             <Link
               key={d}
               href={s.href}
+              tabIndex={-1}
               className={`pcal__cell is-session is-${s.kind}`}
               title={`${s.title}${s.horaire ? ` · ${s.horaire}` : ""}`}
             >
@@ -99,7 +99,7 @@ export function ProgrammeCalendar({ sessions }: { sessions: CalendarSession[] })
         })}
       </div>
 
-      <ol className="pcal__list">
+      <ol className="pcal__list" aria-label={`Séances de ${MONTHS[current.month]} ${current.year}`}>
         {inMonth.map((s) => (
           <li key={`${s.month}-${s.day}-${s.code}`}>
             <Link href={s.href} className={`pcal__item is-${s.kind}`}>

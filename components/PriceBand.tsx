@@ -1,7 +1,5 @@
-import Link from "next/link";
-import { PricingBlock } from "@/components/PricingBlock";
+import { PriceTeaser } from "@/components/PricingBlock";
 import { Container } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
 
 export function PriceBand() {
   return (
@@ -14,12 +12,8 @@ export function PriceBand() {
               Toutes les séances, un seul tarif.
             </h2>
           </div>
-          <Link href="/admissions#tarif" className="sem-price__link">
-            Détail du tarif
-            <IconArrowRight />
-          </Link>
         </div>
-        <PricingBlock showCovered={false} />
+        <PriceTeaser />
       </Container>
     </section>
   );

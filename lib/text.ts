@@ -21,42 +21,21 @@ export function appHref(href: string) {
   return hash ? `${p}#${hash}` : p;
 }
 
-/** Media files are named after the original seminar order; map the current number to its file. */
-const MEDIA_FILE: Record<number, number> = { 4: 6, 5: 4, 9: 5 };
-
-export function seminarMediaIndex(numero: number) {
-  return MEDIA_FILE[numero] ?? numero;
-}
+/** Programme images from certificat.bdo-info.ma, keyed by seminar number (266 × 250 source files). */
+const SEMINAR_IMAGE: Record<number, string> = {
+  0: "/images/home/hero.png",
+  1: "/images/programme/big-data.png",
+  2: "/images/programme/intelligence-artificielle.png",
+  3: "/images/programme/cloud.png",
+  9: "/images/home/about.png",
+  4: "/images/programme/cash-management-iot.png",
+  5: "/images/programme/blockchain.png",
+  7: "/images/programme/cybersecurite.png",
+  8: "/images/programme/projets-transformation.png",
+};
 
 export function seminarImage(numero: number) {
-  numero = seminarMediaIndex(numero);
-  /** Prefer curated campus / professional stills over stock tech art. */
-  const map: Record<number, string> = {
-    0: "/images/seminaires/0.png",
-    1: "/images/seminaires/1.png",
-    2: "/images/seminaires/2.png",
-    3: "/images/seminaires/3.png",
-    4: "/images/seminaires/4.png",
-    5: "/images/seminaires/5.png",
-    6: "/images/seminaires/6.png",
-    7: "/images/seminaires/7.png",
-    8: "/images/seminaires/8.png",
-  };
-  return map[numero] ?? "/images/home/iscae-entrance.png";
-}
-
-/** Looping hero-card clip per séance — files in `/public/videos/seminaires/{n}.mp4`. */
-export function seminarVideo(numero: number) {
-  const file = Number.isFinite(numero) ? seminarMediaIndex(Math.trunc(numero)) : 0;
-  return `/videos/seminaires/${Math.max(0, Math.min(8, file))}.mp4`;
-}
-
-/**
- * Optional custom hero BG — unused for now (heroes stay solid BDO navy).
- * Drop files at `/public/images/seminaires/{n}.png` for card covers instead.
- */
-export function seminarHeroBg(numero: number) {
-  return seminarImage(numero);
+  return SEMINAR_IMAGE[numero] ?? "/images/home/iscae-entrance.png";
 }
 
 type SessionRef = { numero: number; slug?: string; code?: string };

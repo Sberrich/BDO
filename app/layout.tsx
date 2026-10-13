@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
   title: {
-    default: `${data.site.nom} — ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
+    default: `${data.site.nom} · ${data.site.sousTitreOfficiel} | ISCAE × BDO`,
     template: `%s | ${data.site.nom}`,
   },
   description: data.site.promesse.sousTitre,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     url: BRAND.url,
     locale: "fr_MA",
     type: "website",
-    siteName: "CFO 4.0 — Certificat ISCAE × BDO",
+    siteName: "CFO 4.0 · Certificat ISCAE × BDO",
   },
   icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };
@@ -44,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="fr" data-scroll-behavior="smooth" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
       <head>
+        <link rel="preconnect" href="https://cookies.bdomaroc.com" />
         <script
           src="https://cookies.bdomaroc.com/static/widget/widget.js"
           data-site-id="site_9u8iidbnDr0"

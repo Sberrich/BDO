@@ -27,7 +27,7 @@ export default async function AProposPage() {
     { value: String(facultyShowcase().length), label: "intervenants" },
     { value: "25", label: "places par promotion" },
     { value: "Oct → déc.", label: "calendrier 2026" },
-    { value: "Casablanca", label: "lieu de formation" },
+    { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
   ];
   const speakers = await getIntervenants();
   const zakaria =
@@ -147,8 +147,22 @@ export default async function AProposPage() {
                     </div>
                   ) : null}
                   {logo ? <p className="about-card__role">{logo.role}</p> : null}
-                  <h3 className="about-card__title">{x.nom}</h3>
+                  <h3 className="about-card__title">{x.titre}</h3>
                   <p className="about-card__text">{x.texte}</p>
+                  <ul className="about-card__points">
+                    {x.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href={x.lien}
+                    className="about-card__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {x.lienLibelle}
+                    <IconArrowRight />
+                  </a>
                 </article>
               );
             })}
@@ -164,9 +178,8 @@ export default async function AProposPage() {
               Le Trophée BDO des DAF
             </h2>
             <p className="about-trophee__text">
-              La rencontre annuelle de la place financière marocaine, qui distingue
-              les directions financières les plus engagées dans leur transformation.
-              Les lauréats bénéficient de conditions particulières pour le certificat.
+              Le rendez-vous annuel des directions financières marocaines. Ses lauréats
+              bénéficient de conditions particulières pour le certificat.
             </p>
             <a
               href="https://www.tropheebdo.ma/"
@@ -178,7 +191,7 @@ export default async function AProposPage() {
               <IconArrowRight />
             </a>
           </div>
-          <aside className="about-trophee__perk" aria-label="Avantage lauréats">
+          <section className="about-trophee__perk" aria-label="Avantage lauréats">
             <span className="about-trophee__icon">
               <IconTrophy />
             </span>
@@ -188,7 +201,7 @@ export default async function AProposPage() {
               Voir le tarif
               <IconArrowRight />
             </Link>
-          </aside>
+          </section>
         </Container>
       </section>
 
@@ -245,7 +258,7 @@ export default async function AProposPage() {
             </h2>
             <p className="about-contact__lead">
               Une question sur le cycle, le tarif ou votre dossier ? Laissez vos
-              coordonnées — rappel sous 24 h.
+              coordonnées : rappel sous 24 h.
             </p>
 
             <ul className="about-contact__cards">

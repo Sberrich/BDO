@@ -15,7 +15,7 @@ export default function MentionsPage() {
     <LegalDoc
       currentPath="/mentions-legales"
       title="Mentions légales"
-      lead="Éditeur, hébergement et cadre juridique du site du certificat CFO 4.0 — Groupe ISCAE × BDO Maroc."
+      lead="Éditeur, hébergement et cadre juridique du site du certificat CFO 4.0 (Groupe ISCAE × BDO Maroc)."
       sections={[
         {
           id: "editeur",
@@ -24,7 +24,7 @@ export default function MentionsPage() {
             <>
               <p>
                 Site édité conjointement par le <strong>Groupe ISCAE</strong> et{" "}
-                <strong>BDO Maroc</strong>, dans le cadre du certificat {data.site.nom} —{" "}
+                <strong>BDO Maroc</strong>, dans le cadre du certificat {data.site.nom} :{" "}
                 {data.site.sousTitreOfficiel}.
               </p>
               <p>{c.adresseIscae}</p>

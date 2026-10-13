@@ -119,6 +119,7 @@ const data = {
     },
     {
       "numero": 5,
+      "code": "06",
       "slug": "blockchain-crypto-actifs",
       "titre": "Blockchain et crypto-actifs",
       "sousTitre": "Registre distribué, contrats intelligents, crypto-actifs et tokenisation",
@@ -140,7 +141,7 @@ const data = {
     },
     {
       "numero": 7,
-      "code": "06",
+      "code": "07",
       "slug": "cyber-securite",
       "titre": "Cybersécurité décentralisée et souveraineté de la data",
       "sousTitre": "Protection des données, du matériel, des réseaux et des logiciels",

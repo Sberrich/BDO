@@ -195,8 +195,8 @@ export function JourneyPanel() {
           </div>
           <p className="parcours-intro__lead">
             Le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h. Chaque
-            séance ajoute une pièce à votre projet — mené sur votre propre
-            direction financière — jusqu&apos;à la soutenance du 26 décembre 2026.
+            séance ajoute une pièce à votre projet, mené sur votre propre
+            direction financière, jusqu&apos;à la soutenance du 26 décembre 2026.
           </p>
         </div>
 
@@ -276,7 +276,7 @@ export function JourneyPanel() {
             ))}
           </div>
 
-          <aside className="parcours-aside" aria-label="Candidatures">
+          <section className="parcours-aside" aria-label="Candidatures">
             <p className="parcours-aside__kicker">Candidatures</p>
             <p className="parcours-aside__count">
               {days === null ? (
@@ -306,7 +306,7 @@ export function JourneyPanel() {
               Le fil rouge relie les séances à un seul projet défendu
               devant le jury ISCAE × BDO.
             </p>
-          </aside>
+          </section>
         </div>
       </Container>
     </section>

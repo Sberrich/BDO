@@ -6,7 +6,7 @@ const data = {
   "baseUrl": "https://iscae.bdomaroc.com",
   "promesse": {
     "titre": "Construisez la feuille de route de transformation de votre direction financière.",
-    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
+    "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
   },
   "faits": [
     {
@@ -48,7 +48,7 @@ const data = {
   ],
   "constat": {
     "titre": "Les directions financières savent qu’elles doivent se transformer. Peu savent par où commencer.",
-    "chapeau": "Le Baromètre BDO des DAF et le livre blanc « La Fonction Financière Augmentée » mesurent le même écart : l’intention est générale, la feuille de route est rare.",
+    "chapeau": "Deux études BDO le confirment : l’intention est là, la feuille de route manque.",
     "chiffres": [
       {
         "valeur": 78,
@@ -71,7 +71,7 @@ const data = {
         "accent": false
       }
     ],
-    "conclusion": "L’écart entre 78 % et 32 % est la raison d’être de ce certificat. Il produit exactement ce qui manque : une feuille de route, construite sur votre propre entreprise.",
+    "conclusion": "Ce certificat comble l’écart : une feuille de route construite sur votre entreprise.",
     "source": "Sources : Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants ; La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025."
   },
   "livrable": {
@@ -79,42 +79,47 @@ const data = {
     "items": [
       {
         "titre": "Une feuille de route de transformation",
-        "texte": "Construite séminaire après séminaire sur le cas de votre propre direction financière : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques numériques.",
+        "texte": "Données, IA, système d’information, trésorerie, risques : une pièce par séminaire.",
         "icone": "feuille-de-route"
       },
       {
         "titre": "Un dossier d’investissement",
-        "texte": "Chiffrage, retour attendu, indicateurs de suivi, plan de conduite du changement, présentés au dernier séminaire.",
+        "texte": "Chiffrage, retour attendu et conduite du changement, présentés en clôture.",
         "icone": "jury"
       },
       {
         "titre": "Un certificat cosigné ISCAE × BDO",
-        "texte": "Délivré aux participants qui réunissent un taux d’assiduité d’au moins 80 % et la réussite des évaluations de mi-parcours et de fin de cycle.",
+        "texte": "Avec 80 % d’assiduité et la réussite des évaluations.",
         "icone": "certificat"
       }
     ]
   },
   "profil": {
     "titre": "À qui s’adresse le certificat",
-    "chapeau": "Le certificat s’adresse aux dirigeants et cadres qui décident des moyens de la fonction finance.",
+    "chapeau": "Le certificat s’adresse aux dirigeants et cadres qui décident des moyens de la fonction finance, et aux experts-comptables qui les accompagnent.",
     "profils": [
       {
         "titre": "Directions générales",
-        "texte": "Directeurs généraux et administrateurs en charge de la finance, qui arbitrent les investissements numériques de l’entreprise.",
+        "texte": "DG et administrateurs qui arbitrent les investissements numériques.",
         "icone": "direction"
       },
       {
         "titre": "Directions administratives et financières",
-        "texte": "DAF de groupes et de filiales, qui portent la transformation de leur fonction et la montée en compétences de leurs équipes.",
+        "texte": "DAF de groupes et de filiales qui portent la transformation.",
         "icone": "finance"
       },
       {
         "titre": "Directions centrales et contrôle de gestion",
-        "texte": "Directeurs centraux et contrôleurs de gestion, qui construisent le pilotage et les indicateurs de la performance.",
+        "texte": "Directeurs centraux et contrôleurs de gestion qui bâtissent le pilotage.",
         "icone": "pilotage"
+      },
+      {
+        "titre": "Experts-comptables",
+        "texte": "Experts-comptables et commissaires aux comptes qui accompagnent leurs clients.",
+        "icone": "expertise"
       }
     ],
-    "prerequis": "Cinq ans d’expérience professionnelle au minimum, dans le secteur privé ou dans le secteur public."
+    "prerequis": "Cinq ans d’expérience au minimum, secteur privé ou public."
   },
   "tarif": {
     "montant": "24 000",
@@ -149,18 +154,13 @@ const data = {
     ],
     "conditions": [
       {
-        "titre": "Frais d’inscription",
-        "texte": "1 200 DH HT, dus à l’inscription, en plus du tarif particulier ou entreprise.",
-        "icone": "dossier"
-      },
-      {
         "titre": "Échelonnement",
-        "texte": "{{PROV}}Le règlement peut être échelonné en deux ou trois échéances sur la durée du cycle. Les modalités sont arrêtées avec le service scolarité du Groupe ISCAE.{{/PROV}}",
+        "texte": "{{PROV}}En deux ou trois échéances, à convenir avec la scolarité du Groupe ISCAE.{{/PROV}}",
         "icone": "calendrier"
       },
       {
         "titre": "Conditions partenaires",
-        "texte": "{{PROV}}Des conditions particulières sont réservées aux membres du CFA Maroc et aux lauréats du Trophée BDO des DAF.{{/PROV}}",
+        "texte": "{{PROV}}Conditions particulières pour les membres du CFA Maroc et les lauréats du Trophée BDO des DAF.{{/PROV}}",
         "icone": "certificat"
       }
     ]
@@ -168,30 +168,33 @@ const data = {
   "admission": {
     "etapes": [
       {
-        "titre": "Dossier en ligne",
-        "texte": "Un formulaire en quatre étapes : identité et fonction, parcours, projet de transformation visé, financement. Comptez vingt minutes. Le brouillon est conservé et peut être repris sur un autre appareil.",
+        "titre": "Inscription en ligne",
+        "texte": "Le candidat complète le formulaire d’inscription en ligne et renseigne les informations demandées.",
         "icone": "dossier"
       },
       {
-        "titre": "Étude du dossier",
-        "texte": "Le comité pédagogique ISCAE × BDO examine l’adéquation du parcours et la consistance du chantier de transformation décrit.",
+        "titre": "Envoi du dossier",
+        "texte": "Le candidat nous transmet son CV à jour ainsi qu’une photo professionnelle en haute définition afin de compléter son dossier.",
         "icone": "recherche"
       },
       {
-        "titre": "Entretien d’admission",
-        "texte": "Un entretien de trente minutes, en présentiel à Rabat ou en visioconférence, avec un membre du comité pédagogique.",
-        "icone": "visio"
-      },
-      {
-        "titre": "Réponse et inscription",
-        "texte": "La réponse est donnée sous cinq jours ouvrés après l’entretien. L’inscription est confirmée par le règlement ou par l’accord de prise en charge de l’employeur.",
+        "titre": "Étude de l’éligibilité et réponse",
+        "texte": "Notre équipe étudie l’éligibilité du candidat au programme sur la base des informations et documents transmis. Une réponse est communiquée dans un délai maximum de deux jours ouvrés après réception du dossier complet.",
         "icone": "certificat"
       }
     ],
-    "dateLimite": "{{PROV}}vendredi 30 octobre 2026{{/PROV}}",
-    "dateLimiteBrute": "30 octobre 2026",
+    "dateLimite": "jeudi 22 octobre 2026",
+    "dateLimiteBrute": "22 octobre 2026",
     "places": "{{PROV}}vingt-cinq{{/PROV}}",
-    "delaiReponse": "cinq jours ouvrés"
+    "delaiReponse": "deux jours ouvrés",
+    "dureeDossier": "vingt minutes",
+    "pieces": [
+      "votre CV (PDF, DOC ou DOCX, 5 Mo maximum)",
+      "une photo professionnelle en haute définition (JPG ou PNG)",
+      "la liste de vos diplômes",
+      "le mode de financement : individuel ou pris en charge par l’entreprise",
+      "quelques lignes sur votre intérêt pour la formation"
+    ]
   },
   "certification": {
     "signataires": "le Groupe ISCAE et BDO Maroc",
@@ -312,21 +315,21 @@ const data = {
     "items": [
       {
         "titre": "Le Baromètre BDO des DAF",
-        "texte": "L’enquête annuelle de BDO Maroc auprès des directeurs financiers et des leaders financiers. Édition 2024, 94 répondants.",
+        "texte": "L’enquête annuelle de BDO Maroc auprès des DAF. Édition 2024, 94 répondants.",
         "lien": "/ressources/barometre",
         "action": "Télécharger le baromètre",
         "icone": "finance"
       },
       {
         "titre": "La Fonction Financière Augmentée",
-        "texte": "Le livre blanc BDO × Maltem Africa sur la transformation de la fonction finance et l’émergence du CFO 4.0.",
+        "texte": "BDO × Maltem Africa sur l’émergence du CFO 4.0.",
         "lien": "/ressources/livre-blanc",
         "action": "Télécharger le livre blanc",
         "icone": "brochure"
       },
       {
         "titre": "Le Trophée BDO des DAF",
-        "texte": "La rencontre annuelle de la place financière marocaine, qui distingue les directions financières les plus engagées dans leur transformation.",
+        "texte": "Le rendez-vous annuel qui distingue les directions financières les plus engagées.",
         "lien": "a-propos.html#trophee",
         "action": "Découvrir le Trophée",
         "icone": "certificat"
@@ -401,7 +404,7 @@ const data = {
       "lien": "https://www.leconomiste.com/",
       "logo": "/images/medias/leconomiste.png",
       "domaine": "leconomiste.com",
-      "titre": "L’Économiste — premier quotidien économique du Maroc",
+      "titre": "L’Économiste, premier quotidien économique du Maroc",
       "description": "Toute l’actualité économique, financière et business en continu.",
       "apercu": "/images/medias/previews/leconomiste.jpg",
     },
@@ -412,25 +415,60 @@ const data = {
     "email": "gbounani@bdo.ma",
     "telephone": "+212 679 724 416",
     "linkedin": "",
-    "adresseIscae": "Groupe ISCAE — Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
-    "lieuFormation": "Casablanca — le lieu exact des séminaires est communiqué aux participants admis."
+    "adresseIscae": "Groupe ISCAE, Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
+    "lieuFormation": "Séminaires au campus ISCAE de Casablanca, conférence inaugurale au campus ISCAE de Rabat."
   },
   "institutions": [
     {
       "nom": "Groupe ISCAE",
-      "texte": "Créé en 1971, le Groupe ISCAE est un établissement d’enseignement supérieur public et une école de commerce pionnière. Il poursuit une mission nationale : attirer et développer les talents, servir le développement économique et social durable du Maroc et de la région, former des acteurs du changement et cultiver un état d’esprit entrepreneurial, à travers ses programmes académiques en management, sa formation continue et la diffusion de ses contributions intellectuelles."
+      "titre": "Présentation du Groupe ISCAE",
+      "texte": "Créé en 1971, le Groupe ISCAE, établissement d’enseignement supérieur public et école de commerce pionnière, poursuit depuis sa création une mission nationale et institutionnelle qui mobilise toutes les forces vives de l’établissement pour :",
+      "points": [
+        "attirer et développer des talents pour répondre aux besoins évolutifs des environnements national, régional et mondial ;",
+        "servir le développement économique et social durable du Maroc et de la région ;",
+        "former des acteurs du changement ;",
+        "cultiver un état d’esprit entrepreneurial."
+      ],
+      "lien": "https://www.groupeiscae.ma",
+      "lienLibelle": "En savoir plus sur le Groupe ISCAE"
     },
     {
       "nom": "BDO Maroc",
-      "texte": "BDO, cinquième réseau mondial d’audit et de conseil, opère au Maroc avec une équipe pluridisciplinaire d’experts-comptables, d’auditeurs, de juristes, de fiscalistes et de consultants. Ses équipes interviennent auprès des grandes et moyennes entreprises et intègrent une gamme de compétences numériques ancrées dans l’industrie et soutenues par une solide expérience fonctionnelle."
+      "titre": "Présentation de BDO",
+      "texte": "BDO, cinquième réseau mondial d’audit et de conseil, opère au Maroc avec une équipe pluridisciplinaire : experts-comptables, auditeurs, juristes, fiscalistes et consultants en transformation digitale et en cybersécurité.",
+      "points": [
+        "Une longue expérience de l’audit et du conseil auprès des grandes et moyennes entreprises.",
+        "Des associés spécialisés, engagés au quotidien pour un service d’excellence.",
+        "Des équipes multidisciplinaires qui intègrent des compétences numériques ancrées dans l’industrie."
+      ],
+      "lien": "https://www.bdo.ma",
+      "lienLibelle": "En savoir plus sur BDO"
     }
   ],
+  "objectifs": {
+    "titre": "Les objectifs du certificat",
+    "chapeau": "Le certificat s’adresse aux cadres de la finance qui veulent conduire la transformation digitale de leur fonction.",
+    "liste": [
+      {
+        "titre": "Sensibiliser aux enjeux technologiques en finance",
+        "texte": "La nécessité de la transformation digitale et l’évolution des métiers de la finance."
+      },
+      {
+        "titre": "Comprendre les enjeux du digital",
+        "texte": "Développer une réelle compréhension des principaux enjeux du digital dans le domaine de la finance."
+      },
+      {
+        "titre": "Construire votre stratégie de digitalisation",
+        "texte": "Disposer de toutes les clés pour construire une stratégie de digitalisation en phase avec les objectifs de l’entreprise."
+      }
+    ]
+  },
   "conformite": {
     "loi": "loi n° 09-08 relative à la protection des personnes physiques à l’égard du traitement des données à caractère personnel",
     "dahir": "dahir n° 1-09-15 du 22 safar 1430 (18 février 2009)",
     "bo": "Bulletin officiel n° 5714 du 5 mars 2009",
-    "responsable": "{{PROV}}BDO Maroc — responsable de traitement à confirmer nominativement{{/PROV}}",
-    "declaration": "{{PROV}}Déclaration CNDP en cours — le numéro de récépissé sera publié ici dès réception.{{/PROV}}",
+    "responsable": "{{PROV}}BDO Maroc, responsable de traitement à confirmer nominativement{{/PROV}}",
+    "declaration": "{{PROV}}Déclaration CNDP en cours : le numéro de récépissé sera publié ici dès réception.{{/PROV}}",
     "conservation": "trois ans à compter du dernier contact",
     "mention": "Les informations recueillies par ce formulaire sont destinées au Groupe ISCAE et à BDO Maroc, aux seules fins d’instruire votre demande relative au certificat CFO 4.0. Elles sont conservées trois ans à compter de votre dernier contact. Conformément à la loi n° 09-08, vous disposez d’un droit d’accès, de rectification et d’opposition que vous pouvez exercer à l’adresse indiquée en pied de page."
   },
@@ -455,7 +493,7 @@ const data = {
     "candidater": {
       "libelle": "Déposer ma candidature",
       "icone": "dossier",
-      "note": "Vingt minutes. Brouillon conservé, reprise possible."
+      "note": "Vingt minutes. Brouillon conservé sur votre appareil."
     },
     "candidaterCourt": {
       "libelle": "Déposer ma candidature",

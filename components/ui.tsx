@@ -1,17 +1,20 @@
 import Link, { type LinkProps } from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
+/** Three button styles site-wide: primary (red), secondary (outline), text (link). "ghost" = secondary. */
+type Variant = "primary" | "secondary" | "ghost" | "text";
+
+const outline = "bg-white text-blue border-line hover:border-blue";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-red text-white hover:bg-red-dark border-red shadow-[var(--shadow-cta)] hover:shadow-[0_8px_22px_rgba(227,6,19,.26)]",
-  secondary: "bg-white text-blue border-blue hover:bg-blue hover:text-white",
-  ghost: "bg-transparent text-blue border-line hover:border-blue",
+  primary: "bg-red text-white border-red hover:bg-red-dark hover:border-red-dark",
+  secondary: outline,
+  ghost: outline,
+  text: "border-transparent bg-transparent !px-1 text-blue underline-offset-4 hover:underline",
 };
 
-function cls(variant: Variant, className = "") {
-  return `btn-icon inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border px-[1.4rem] py-[0.85rem] text-sm font-bold leading-snug ${variants[variant]} ${className}`;
+export function cls(variant: Variant, className = "") {
+  return `btn-icon inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border px-6 py-2.5 text-sm font-bold leading-snug ${variants[variant]} ${className}`;
 }
 
 export function ButtonLink({
@@ -95,7 +98,7 @@ export function SectionHeading({
 }
 
 export const fieldClass =
-  "mt-1 w-full rounded-[10px] border border-line bg-white px-3.5 py-[0.7rem] text-ink outline-none transition hover:border-muted focus:border-blue focus:ring-2 focus:ring-blue/20";
+  "mt-1 w-full rounded-[10px] border border-line bg-white px-3.5 py-[0.7rem] text-ink outline-none placeholder:font-normal placeholder:text-muted transition hover:border-muted focus:border-blue focus:ring-2 focus:ring-blue/20";
 
 export function PageHero({
   kicker,
@@ -110,10 +113,6 @@ export function PageHero({
 }) {
   return (
     <section className="page-hero relative overflow-hidden bg-navy text-white">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_0%,rgba(0,55,104,0.35),transparent_42%),radial-gradient(ellipse_at_90%_20%,rgba(227,6,19,0.22),transparent_40%)]"
-        aria-hidden
-      />
       <Container className="relative z-[1] py-[clamp(2.75rem,6vw,4.5rem)]">
         <Kicker light>{kicker}</Kicker>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.05rem,1.5rem+2.2vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.025em] text-white">

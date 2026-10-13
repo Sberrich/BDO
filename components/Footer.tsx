@@ -25,7 +25,7 @@ export function Footer() {
           <div className="foot__cta">
             <p className="foot__cta-note">
               <span className="foot__dot" aria-hidden="true" />
-              Candidatures ouvertes jusqu’au 30 octobre 2026
+              Candidatures ouvertes jusqu’au 22 octobre 2026
             </p>
             <div className="foot__cta-row">
               <Link href="/candidater" className="foot__btn is-primary">
@@ -48,6 +48,7 @@ export function Footer() {
                 alt="Groupe ISCAE"
                 width={351}
                 height={184}
+                sizes="96px"
                 className="foot__logo is-iscae"
               />
               <span className="foot__logo-rule" aria-hidden="true" />
@@ -56,6 +57,7 @@ export function Footer() {
                 alt="BDO Maroc"
                 width={418}
                 height={161}
+                sizes="96px"
                 className="foot__logo is-bdo"
               />
             </div>
@@ -194,10 +196,9 @@ export function Footer() {
 
 export function MobileBar() {
   return (
-    <div
-      className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden gap-2 border-t border-line bg-white/95 px-4 py-3 shadow-[0_-4px_16px_rgba(51,51,51,.08)] backdrop-blur max-[720px]:flex"
+    <nav
+      className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden gap-2 border-t border-line bg-white/95 px-4 py-3 backdrop-blur max-[720px]:flex"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
-      role="group"
       aria-label="Actions rapides"
     >
       <Link href="/candidater" className="flex-1 rounded-md bg-red py-3 text-center text-sm font-bold text-white">
@@ -206,6 +207,6 @@ export function MobileBar() {
       <Link href="/admissions#rappel" className="flex-1 rounded-md border border-blue py-3 text-center text-sm font-bold text-blue">
         Être rappelé
       </Link>
-    </div>
+    </nav>
   );
 }

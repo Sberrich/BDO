@@ -94,7 +94,7 @@ export async function getIntervenantsPage() {
   return {
     chapeau:
       page?.chapeau ||
-      "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités.",
+      "Associés de BDO Maroc, professeurs du Groupe ISCAE et praticiens invités : chacun enseigne sur son terrain.",
   };
 }
 
