@@ -177,7 +177,7 @@ export default async function AProposPage() {
               <IconArrowRight />
             </a>
           </div>
-          <aside className="about-trophee__perk" aria-label="Avantage lauréats">
+          <section className="about-trophee__perk" aria-label="Avantage lauréats">
             <span className="about-trophee__icon">
               <IconTrophy />
             </span>
@@ -187,7 +187,7 @@ export default async function AProposPage() {
               Voir le tarif
               <IconArrowRight />
             </Link>
-          </aside>
+          </section>
         </Container>
       </section>
 

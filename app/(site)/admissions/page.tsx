@@ -69,7 +69,7 @@ export default function AdmissionsPage() {
               </div>
             </div>
 
-            <aside className="adm-facts" aria-label="L’essentiel">
+            <section className="adm-facts" aria-label="L’essentiel">
               <p className="adm-facts__title">L’essentiel</p>
               <dl className="adm-facts__list">
                 <div>
@@ -88,7 +88,7 @@ export default function AdmissionsPage() {
                 </div>
               </dl>
               <DeadlineCountdown className="adm-facts__countdown" />
-            </aside>
+            </section>
           </div>
         </Container>
       </section>

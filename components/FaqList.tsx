@@ -64,7 +64,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
   return (
     <div className={`faq-explorer ${onlyHome ? "is-compact" : "has-side"}`}>
       {!onlyHome && (
-        <aside className="faq-explorer__side">
+        <div className="faq-explorer__side">
           <div className="faq-explorer__toolbar">
             <form
               className="faq-explorer__search"
@@ -121,7 +121,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
               </ol>
             </nav>
           ) : null}
-        </aside>
+        </div>
       )}
 
       <div className="faq-explorer__main">
@@ -170,7 +170,7 @@ export function FaqList({ onlyHome }: { onlyHome?: boolean }) {
                       id={`${item.id}-panel`}
                       role="region"
                       className="faq-panel"
-                      aria-hidden={!isOpen}
+                      inert={!isOpen}
                     >
                       <div className="faq-panel__inner">
                         <div

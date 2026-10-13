@@ -42,7 +42,7 @@ export default function FaqPage() {
                 Les réponses, regroupées par thème, du programme au tarif.
               </p>
             </div>
-            <aside className="faq-help" aria-labelledby="faq-help-title">
+            <section className="faq-help" aria-labelledby="faq-help-title">
               <p id="faq-help-title" className="faq-help__title">
                 Pas trouvé votre réponse ?
               </p>
@@ -86,7 +86,7 @@ export default function FaqPage() {
                   </Link>
                 </li>
               </ul>
-            </aside>
+            </section>
           </div>
         </Container>
       </section>

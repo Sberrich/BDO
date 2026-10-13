@@ -33,7 +33,7 @@ export function LegalDoc({
 
       <section className="legal-page">
         <Container className="legal-page__inner">
-          <aside className="legal-page__aside" aria-label="Navigation légale">
+          <section className="legal-page__aside" aria-label="Navigation légale">
             <p className="legal-page__aside-kicker">Sur cette page</p>
             <nav className="legal-page__toc">
               <ul>
@@ -61,7 +61,7 @@ export function LegalDoc({
                 ))}
               </ul>
             </nav>
-          </aside>
+          </section>
 
           <div className="legal-page__content">
             {sections.map((s, i) => (

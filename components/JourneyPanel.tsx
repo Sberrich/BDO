@@ -276,7 +276,7 @@ export function JourneyPanel() {
             ))}
           </div>
 
-          <aside className="parcours-aside" aria-label="Candidatures">
+          <section className="parcours-aside" aria-label="Candidatures">
             <p className="parcours-aside__kicker">Candidatures</p>
             <p className="parcours-aside__count">
               {days === null ? (
@@ -306,7 +306,7 @@ export function JourneyPanel() {
               Le fil rouge relie les séances à un seul projet défendu
               devant le jury ISCAE × BDO.
             </p>
-          </aside>
+          </section>
         </div>
       </Container>
     </section>

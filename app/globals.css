@@ -13814,4 +13814,17 @@ img {
   #contenu {
     padding-bottom: 0;
   }
+  .wa-fab {
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Keyboard focus: one ring everywhere. The white gap keeps it visible on navy sections. */
+:where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid var(--brand-blue) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #fff !important;
+}
+.skip-link:focus-visible {
+  outline-offset: 0 !important;
 }

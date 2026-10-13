@@ -194,7 +194,7 @@ export default async function IntervenantsPage() {
           </ul>
 
           {SHOW.soutenance ? (
-          <aside className="iv-jury" aria-labelledby="iv-jury-title">
+          <section className="iv-jury" aria-labelledby="iv-jury-title">
             <div>
               <p className="iv-jury__kicker">Soutenance</p>
               <h2 id="iv-jury-title" className="iv-jury__title">
@@ -206,7 +206,7 @@ export default async function IntervenantsPage() {
               </p>
             </div>
             <ButtonLink href="/candidater">Candidater</ButtonLink>
-          </aside>
+          </section>
           ) : null}
         </Container>
       </section>

@@ -39,9 +39,11 @@ function safeDocPath(fichier: string | null) {
 
 function MerciInner() {
   const p = useSearchParams();
-  const type = p.get("type") || "default";
+  return <MerciView type={p.get("type") || "default"} fichier={safeDocPath(p.get("fichier"))} />;
+}
+
+function MerciView({ type, fichier }: { type: string; fichier: string | null }) {
   const pair = cases[type] || cases.default;
-  const fichier = safeDocPath(p.get("fichier"));
 
   return (
     <section className="bg-cream py-[clamp(3rem,7vw,5.5rem)]">
@@ -91,7 +93,7 @@ function MerciInner() {
 
 export default function MerciPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<MerciView type="default" fichier={null} />}>
       <MerciInner />
     </Suspense>
   );

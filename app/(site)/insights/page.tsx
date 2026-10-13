@@ -39,7 +39,7 @@ export default async function InsightsPage() {
               </h1>
               {chapeau ? <p className="sem-hero__lead">{chapeau}</p> : null}
             </div>
-            <aside className="ins-sources" aria-label="Les publications sources">
+            <section className="ins-sources" aria-label="Les publications sources">
               <p className="ins-sources__title">Les publications sources</p>
               <ul>
                 {sources.map((r) => (
@@ -59,7 +59,7 @@ export default async function InsightsPage() {
                   </li>
                 ))}
               </ul>
-            </aside>
+            </section>
           </div>
         </Container>
       </section>

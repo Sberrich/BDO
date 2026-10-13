@@ -230,10 +230,10 @@ export default async function SeminairePage({ params }: Props) {
             ) : null}
 
             {detail.livrable ? (
-              <aside className="sem-livrable">
+              <div className="sem-livrable">
                 <p className="sem-livrable__kicker">Ce que vous produisez</p>
                 <p className="sem-livrable__text">{detail.livrable}</p>
-              </aside>
+              </div>
             ) : null}
 
             {detail.actualisation ? (
@@ -287,7 +287,7 @@ export default async function SeminairePage({ params }: Props) {
             </nav>
           </div>
 
-          <aside className="sem-side" aria-label="En bref">
+          <section className="sem-side" aria-label="En bref">
             <div className="sem-side__card">
               <p className="sem-side__title">En bref</p>
               <dl className="sem-side__facts">
@@ -366,7 +366,7 @@ export default async function SeminairePage({ params }: Props) {
                 Candidatures ouvertes jusqu’au 30 octobre 2026.
               </p>
             </div>
-          </aside>
+          </section>
         </Container>
       </section>
 

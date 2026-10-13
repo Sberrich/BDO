@@ -194,10 +194,9 @@ export function Footer() {
 
 export function MobileBar() {
   return (
-    <div
+    <nav
       className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden gap-2 border-t border-line bg-white/95 px-4 py-3 backdrop-blur max-[720px]:flex"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
-      role="group"
       aria-label="Actions rapides"
     >
       <Link href="/candidater" className="flex-1 rounded-md bg-red py-3 text-center text-sm font-bold text-white">
@@ -206,6 +205,6 @@ export function MobileBar() {
       <Link href="/admissions#rappel" className="flex-1 rounded-md border border-blue py-3 text-center text-sm font-bold text-blue">
         Être rappelé
       </Link>
-    </div>
+    </nav>
   );
 }

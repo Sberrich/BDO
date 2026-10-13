@@ -6,7 +6,6 @@ import {
   useId,
   useRef,
   useState,
-  type KeyboardEvent,
 } from "react";
 
 const STEPS = [
@@ -65,22 +64,6 @@ export function FinancialRoadmap() {
     };
   }, [paused, reduce, active]);
 
-  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      goTo(active + 1);
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      goTo(active - 1);
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      goTo(0);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      goTo(STEPS.length - 1);
-    }
-  };
-
   return (
     <div
       className="hero-parcours"
@@ -94,7 +77,6 @@ export function FinancialRoadmap() {
           setPaused(false);
         }
       }}
-      onKeyDown={onKeyDown}
     >
       <div className="hero-parcours__head">
         <p id={labelId} className="hero-parcours__title">
@@ -108,8 +90,6 @@ export function FinancialRoadmap() {
 
       <ol
         className="hero-parcours__list"
-        role="tablist"
-        aria-orientation="vertical"
         aria-label="Étapes du parcours"
       >
         {STEPS.map((s, i) => {
@@ -117,16 +97,12 @@ export function FinancialRoadmap() {
           return (
             <li
               key={s.label}
-              role="presentation"
               className={`hero-parcours__item${selected ? " is-active" : ""}${i < active ? " is-done" : ""}`}
             >
               <button
                 type="button"
-                role="tab"
-                id={`hero-step-tab-${i}`}
-                aria-selected={selected}
-                aria-controls={`hero-step-panel-${i}`}
-                tabIndex={selected ? 0 : -1}
+                aria-expanded={selected}
+                aria-controls={selected ? `hero-step-panel-${i}` : undefined}
                 className="hero-parcours__step"
                 onClick={() => goTo(i)}
               >
@@ -139,9 +115,7 @@ export function FinancialRoadmap() {
               {selected ? (
                 <div
                   className="hero-parcours__panel"
-                  role="tabpanel"
                   id={`hero-step-panel-${i}`}
-                  aria-labelledby={`hero-step-tab-${i}`}
                 >
                   <p className="hero-parcours__detail">{s.detail}</p>
                   {!reduce ? (
