@@ -33,10 +33,9 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
     .filter((s) => excludeNumero == null || s.numero !== excludeNumero)
     .slice(0, limit);
   const opening = items.find((s) => s.numero === 0);
-  const seminars = items.filter((s) => s.numero > 0);
 
   const months: { month: string; year: string; sessions: Seminaire[] }[] = [];
-  for (const s of seminars) {
+  for (const s of items) {
     const { month, year } = splitDate(plain(s.dates));
     const last = months[months.length - 1];
     if (last && last.month === month) last.sessions.push(s);
@@ -164,7 +163,7 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
                         <span className="prog-board__main">
                           <span className="prog-board__meta">{sessionLabel(s)}</span>
                           <span className="prog-board__name">
-                            {plain(s.titre)}
+                            {plain(s.numero === 0 && s.sousTitre ? s.sousTitre : s.titre)}
                           </span>
                           <span className="prog-board__when">
                             <IconClock />
