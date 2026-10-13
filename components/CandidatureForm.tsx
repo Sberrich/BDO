@@ -225,8 +225,8 @@ export function CandidatureForm() {
           />
         </div>
         <p className="mt-2 text-xs text-muted">
-          Brouillon conservé sur cet appareil. Vous pouvez reprendre plus tard ; les fichiers
-          (CV, photo) sont à joindre à nouveau.
+          Brouillon conservé dans ce navigateur, sur cet appareil uniquement. Vous pouvez
+          reprendre plus tard ; les fichiers (CV, photo) sont à joindre à nouveau.
         </p>
       </div>
 

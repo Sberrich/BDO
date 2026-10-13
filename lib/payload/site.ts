@@ -169,7 +169,7 @@ const data = {
     "etapes": [
       {
         "titre": "Dossier en ligne",
-        "texte": "Un formulaire en quatre étapes : identité et fonction, parcours, projet de transformation visé, financement. Comptez vingt minutes. Le brouillon est conservé et peut être repris sur un autre appareil.",
+        "texte": "Un formulaire en quatre étapes : coordonnées, inscription, fonction et parcours, motivation. Comptez vingt minutes. Le brouillon est conservé dans le navigateur de l’appareil utilisé : vous pouvez reprendre plus tard sur ce même appareil, en joignant à nouveau CV et photo.",
         "icone": "dossier"
       },
       {
@@ -455,7 +455,7 @@ const data = {
     "candidater": {
       "libelle": "Déposer ma candidature",
       "icone": "dossier",
-      "note": "Vingt minutes. Brouillon conservé, reprise possible."
+      "note": "Vingt minutes. Brouillon conservé sur votre appareil."
     },
     "candidaterCourt": {
       "libelle": "Déposer ma candidature",
