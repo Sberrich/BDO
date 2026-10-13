@@ -897,12 +897,19 @@ input[type="radio"] {
 .faq-answer {
   padding: 0 1.35rem 0.35rem;
 }
-.faq-answer ul {
+.faq-answer ul,
+.faq-answer ol {
   margin: 0.5rem 0 0.75rem;
   padding-left: 1.2rem;
   list-style: disc;
   color: var(--text-secondary);
   line-height: 1.65;
+}
+.faq-answer ol {
+  list-style: decimal;
+}
+.faq-answer ol li + li {
+  margin-top: 0.4rem;
 }
 .faq-answer__short {
   margin: 0;
@@ -11571,7 +11578,7 @@ img {
 }
 @media (min-width: 900px) {
   .adm-steps {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
   }
 }

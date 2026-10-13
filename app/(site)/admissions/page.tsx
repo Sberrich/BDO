@@ -84,7 +84,7 @@ export default function AdmissionsPage() {
                 </div>
                 <div>
                   <dt>Réponse</dt>
-                  <dd className="is-text">sous {a.delaiReponse} après l’entretien</dd>
+                  <dd className="is-text">sous {a.delaiReponse} après réception du dossier complet</dd>
                 </div>
               </dl>
               <DeadlineCountdown className="adm-facts__countdown" />
@@ -153,9 +153,9 @@ export default function AdmissionsPage() {
           <header className="adm-head">
             <p className="sem-kicker">Le processus</p>
             <h2 id="adm-process-title" className="adm-head__title">
-              Quatre étapes jusqu’à l’inscription
+              Trois étapes jusqu’à l’inscription
             </h2>
-            <p className="adm-head__lead">Réponse sous {a.delaiReponse} après l’entretien.</p>
+            <p className="adm-head__lead">Réponse sous {a.delaiReponse} après réception du dossier complet.</p>
           </header>
           <ol className="adm-steps">
             {a.etapes.map((x, i) => (

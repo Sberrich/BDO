@@ -79,8 +79,8 @@ const data = {
         {
           "id": "faq-profil-processus",
           "q": "Comment se déroule l’admission ?",
-          "court": "Sur étude de votre dossier et de votre CV, déposés en ligne.",
-          "r": "<p>L’admission se fait sur étude du dossier. Les candidats sont invités à transmettre leur CV afin d’évaluer l’adéquation de leur profil avec les prérequis du programme. Après examen de leur candidature, les profils correspondant aux critères d’éligibilité seront retenus pour participer au certificat.</p>",
+          "court": "En trois étapes : inscription en ligne, envoi du CV et d’une photo, étude de l’éligibilité. Réponse sous deux jours ouvrés.",
+          "r": "<ol><li><strong>Inscription en ligne.</strong> Le candidat complète le formulaire d’inscription en ligne et renseigne les informations demandées.</li><li><strong>Envoi du dossier.</strong> Le candidat transmet son CV à jour ainsi qu’une photo professionnelle en haute définition afin de compléter son dossier.</li><li><strong>Étude de l’éligibilité et réponse.</strong> Notre équipe étudie l’éligibilité du candidat au programme sur la base des informations et documents transmis. Une réponse est communiquée dans un délai maximum de deux jours ouvrés après réception du dossier complet.</li></ol>",
           "lien": {
             "texte": "Déposer une candidature",
             "href": "candidater.html"
@@ -91,7 +91,7 @@ const data = {
           "id": "faq-profil-date-limite",
           "q": "Quelle est la date limite de candidature ?",
           "court": "Le jeudi 22 octobre 2026 à 23 h 59.",
-          "r": "<p>Les candidatures pour la promotion 1 sont closes le jeudi 22 octobre 2026. Les entretiens d’admission se tiennent la semaine suivante.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
+          "r": "<p>Les candidatures pour la promotion 1 sont closes le jeudi 22 octobre 2026. Chaque dossier complet reçoit une réponse sous deux jours ouvrés.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
           "lien": {
             "texte": "Candidater maintenant",
             "href": "candidater.html"
@@ -102,7 +102,7 @@ const data = {
           "id": "faq-profil-places",
           "q": "Combien de places sont ouvertes ?",
           "court": "{{PROV}}Vingt-cinq participants{{/PROV}} pour la promotion 1.",
-          "r": "<p>{{PROV}}La promotion 1 est limitée à vingt-cinq participants.{{/PROV}} Le travail en sous-groupes sur des projets réels suppose un effectif contenu.</p><p>Les places sont attribuées à l’issue des entretiens, dans l’ordre de réception des dossiers complets.</p>",
+          "r": "<p>{{PROV}}La promotion 1 est limitée à vingt-cinq participants.{{/PROV}} Le travail en sous-groupes sur des projets réels suppose un effectif contenu.</p><p>Les places sont attribuées après étude de l’éligibilité, dans l’ordre de réception des dossiers complets.</p>",
           "lien": {
             "texte": "Être rappelé",
             "href": "admissions.html#rappel"
@@ -141,7 +141,7 @@ const data = {
           "id": "faq-calendrier-lieu",
           "q": "Où se déroulent les séminaires ? Peut-on les suivre à distance ?",
           "court": "En présentiel uniquement, au campus ISCAE de Casablanca. La conférence inaugurale a lieu au campus ISCAE de Rabat.",
-          "r": "<p>En présentiel, au campus ISCAE de Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. Le plan d’accès est envoyé aux participants admis avec leur convocation.</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p><p>Le cycle ne se suit pas à distance : les ateliers, le travail en sous-groupes et le coaching des équipes projet supposent la présence physique.</p><p>Seules les sessions d’information et, le cas échéant, l’entretien d’admission se tiennent en visioconférence. {{PROV}}Des supports d’apprentissage en ligne complètent les séminaires, selon les moyens mobilisés par les parties.{{/PROV}}</p>",
+          "r": "<p>En présentiel, au campus ISCAE de Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. Le plan d’accès est envoyé aux participants admis avec leur convocation.</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p><p>Le cycle ne se suit pas à distance : les ateliers, le travail en sous-groupes et le coaching des équipes projet supposent la présence physique.</p><p>Seules les sessions d’information se tiennent en visioconférence. {{PROV}}Des supports d’apprentissage en ligne complètent les séminaires, selon les moyens mobilisés par les parties.{{/PROV}}</p>",
           "lien": null,
           "accueil": false
         },
@@ -207,7 +207,7 @@ const data = {
           "id": "faq-tarif-groupe",
           "q": "Existe-t-il un tarif pour plusieurs inscrits d’une même entreprise ?",
           "court": "{{PROV}}Oui, une remise s’applique à partir de trois inscrits d’une même entreprise.{{/PROV}}",
-          "r": "<p>{{PROV}}Oui. Une remise est prévue à partir de trois inscrits d’une même entreprise. Le barème est en cours d’arrêté et vous est communiqué lors de l’entretien d’admission.{{/PROV}}</p><p>{{PROV}}Des conditions particulières sont par ailleurs réservées aux membres du CFA Maroc et aux lauréats du Trophée BDO des DAF.{{/PROV}}</p>",
+          "r": "<p>{{PROV}}Oui. Une remise est prévue à partir de trois inscrits d’une même entreprise. Le barème est en cours d’arrêté et vous est communiqué sur simple demande.{{/PROV}}</p><p>{{PROV}}Des conditions particulières sont par ailleurs réservées aux membres du CFA Maroc et aux lauréats du Trophée BDO des DAF.{{/PROV}}</p>",
           "lien": {
             "texte": "Être rappelé pour en parler",
             "href": "admissions.html#rappel"

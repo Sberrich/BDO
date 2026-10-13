@@ -173,34 +173,29 @@ const data = {
   "admission": {
     "etapes": [
       {
-        "titre": "Dossier en ligne",
-        "texte": "Quatre étapes, vingt minutes environ. Le brouillon reste sur votre appareil ; CV et photo sont à joindre à nouveau.",
+        "titre": "Inscription en ligne",
+        "texte": "Le candidat complète le formulaire d’inscription en ligne et renseigne les informations demandées.",
         "icone": "dossier"
       },
       {
-        "titre": "Étude du dossier",
-        "texte": "Le comité pédagogique ISCAE × BDO examine votre parcours et votre projet de transformation.",
+        "titre": "Envoi du dossier",
+        "texte": "Le candidat nous transmet son CV à jour ainsi qu’une photo professionnelle en haute définition afin de compléter son dossier.",
         "icone": "recherche"
       },
       {
-        "titre": "Entretien d’admission",
-        "texte": "Un entretien de trente minutes, en présentiel à Rabat ou en visioconférence, avec un membre du comité pédagogique.",
-        "icone": "visio"
-      },
-      {
-        "titre": "Réponse et inscription",
-        "texte": "Réponse sous cinq jours ouvrés après l’entretien. Inscription confirmée par le règlement ou l’accord de prise en charge de l’employeur.",
+        "titre": "Étude de l’éligibilité et réponse",
+        "texte": "Notre équipe étudie l’éligibilité du candidat au programme sur la base des informations et documents transmis. Une réponse est communiquée dans un délai maximum de deux jours ouvrés après réception du dossier complet.",
         "icone": "certificat"
       }
     ],
     "dateLimite": "jeudi 22 octobre 2026",
     "dateLimiteBrute": "22 octobre 2026",
     "places": "{{PROV}}vingt-cinq{{/PROV}}",
-    "delaiReponse": "cinq jours ouvrés",
+    "delaiReponse": "deux jours ouvrés",
     "dureeDossier": "vingt minutes",
     "pieces": [
       "votre CV (PDF, DOC ou DOCX, 5 Mo maximum)",
-      "une photo de profil, facultative (JPG ou PNG)",
+      "une photo professionnelle en haute définition (JPG ou PNG)",
       "la liste de vos diplômes",
       "le mode de financement : individuel ou pris en charge par l’entreprise",
       "quelques lignes sur votre intérêt pour la formation"
