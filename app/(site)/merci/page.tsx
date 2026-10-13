@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
-import { ButtonLink, Container, Kicker } from "@/components/ui";
+import { ButtonLink, Container, Kicker, cls } from "@/components/ui";
 
 const NEXT_STEPS = [
   { href: "/programme", label: "Parcourir le programme" },
@@ -59,7 +59,7 @@ function MerciInner() {
         {fichier && (
           <p className="mt-6">
             <a
-              className="btn-icon inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-red px-6 py-3 text-sm font-bold text-white shadow-[var(--shadow-cta)] hover:bg-red-dark"
+              className={cls("primary")}
               href={fichier}
               download={fichier.split("/").pop() || "document.pdf"}
             >

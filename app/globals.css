@@ -3013,8 +3013,8 @@ body[data-nav="open"] .mobile-bar {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 2.85rem;
-  padding-inline: 1.3rem;
+  min-height: 50px;
+  padding-inline: 1.5rem;
   border-radius: 999px;
   background: var(--brand-red);
   font-size: 0.9375rem;
@@ -4383,7 +4383,8 @@ body[data-nav="open"] .mobile-bar {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.65rem 1.1rem 0.65rem 0.75rem;
+  min-height: 50px;
+  padding: 0 1.4rem 0 1rem;
   border: 0;
   border-radius: 999px;
   background: var(--brand-navy);
@@ -4391,7 +4392,7 @@ body[data-nav="open"] .mobile-bar {
   font-weight: 700;
   color: #fff;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   transition:
     background var(--duration-fast) ease,
     transform var(--duration-base) var(--ease-out);
@@ -9158,9 +9159,9 @@ a.cal__hit:focus-visible .cal__cta svg {
 .about-lead__li {
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
-  padding: 0 1.1rem;
-  border-radius: 10px;
+  min-height: 50px;
+  padding: 0 1.5rem;
+  border-radius: 999px;
   background: var(--brand-navy);
   color: #fff;
   font-size: 0.9rem;
@@ -11656,7 +11657,7 @@ img {
   margin-top: 1.75rem;
 }
 .adm-faq__all {
-  min-height: 48px;
+  min-height: 50px;
   padding-inline: 1.35rem !important;
   border-radius: 999px !important;
   gap: 0.5rem;

@@ -1,17 +1,20 @@
 import Link, { type LinkProps } from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
+/** Three button styles site-wide: primary (red), secondary (outline), text (link). "ghost" = secondary. */
+type Variant = "primary" | "secondary" | "ghost" | "text";
+
+const outline = "bg-white text-blue border-line hover:border-blue";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-red text-white hover:bg-red-dark border-red shadow-[var(--shadow-cta)] hover:shadow-[0_8px_22px_rgba(227,6,19,.26)]",
-  secondary: "bg-white text-blue border-blue hover:bg-blue hover:text-white",
-  ghost: "bg-transparent text-blue border-line hover:border-blue",
+  primary: "bg-red text-white border-red hover:bg-red-dark hover:border-red-dark",
+  secondary: outline,
+  ghost: outline,
+  text: "border-transparent bg-transparent !px-1 text-blue underline-offset-4 hover:underline",
 };
 
-function cls(variant: Variant, className = "") {
-  return `btn-icon inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border px-[1.4rem] py-[0.85rem] text-sm font-bold leading-snug ${variants[variant]} ${className}`;
+export function cls(variant: Variant, className = "") {
+  return `btn-icon inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border px-6 py-2.5 text-sm font-bold leading-snug ${variants[variant]} ${className}`;
 }
 
 export function ButtonLink({
