@@ -14077,3 +14077,20 @@ img {
   width: 1rem;
   height: 1rem;
 }
+
+/* Mobile: call-to-action buttons span the full width (text links and filter chips excluded) */
+@media (max-width: 640px) {
+  main .btn-icon:not(.\!px-1),
+  main form button[type="submit"],
+  .constat-resolve__cta,
+  .voices-bar__all,
+  .final-cta__primary,
+  .final-cta__secondary,
+  .adm-faq__all,
+  .doc-others__all,
+  .about-lead__li {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}

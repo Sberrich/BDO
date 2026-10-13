@@ -125,7 +125,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
               <p className="constat-resolve__eyebrow">Pourquoi ce certificat</p>
               <p className="constat-resolve__text">{c.conclusion}</p>
               <Link href="/candidater" className="constat-resolve__cta">
-                Combler l&apos;écart
+                Combler l’écart
                 <span aria-hidden="true">→</span>
               </Link>
             </Reveal>
@@ -422,7 +422,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
                 Prêt à rejoindre la promotion&nbsp;1&nbsp;?
               </h2>
               <p className="final-cta__lead">
-                Une candidature en {data.site.admission.dureeDossier} environ, puis une réponse sous
+                Une candidature en {data.site.admission.dureeDossier} environ, puis une réponse sous{" "}
                 {data.site.admission.delaiReponse} après réception du dossier complet.
               </p>
               <div className="final-cta__actions">

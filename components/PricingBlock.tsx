@@ -1,7 +1,7 @@
 import { data } from "@/lib/content";
 import { ButtonLink } from "@/components/ui";
 import { IconTick } from "@/components/icons";
-import { plain } from "@/lib/text";
+import { nbsp, plain } from "@/lib/text";
 
 type Props = {
   showCovered?: boolean;
@@ -20,8 +20,8 @@ export function PricingBlock({ showCovered = true, showCtas = false }: Props) {
           <span className="pricing__accent" aria-hidden="true" />
           <p className="pricing__kicker">{fees.label}</p>
           <p className="pricing__amount">
-            {fees.montant}
-            <span> {t.devisePhrase}</span>
+            {nbsp(fees.montant)}
+            <span>{"\u00a0"}{nbsp(t.devisePhrase)}</span>
           </p>
           <p className="pricing__hint">{fees.mention}</p>
         </article>
@@ -37,8 +37,8 @@ export function PricingBlock({ showCovered = true, showCtas = false }: Props) {
             ) : null}
             <p className="pricing__kicker">{f.titre}</p>
             <p className="pricing__amount">
-              {f.montant}
-              <span> {t.devisePhrase}</span>
+              {nbsp(f.montant)}
+              <span>{"\u00a0"}{nbsp(t.devisePhrase)}</span>
             </p>
             <p className="pricing__hint">{f.mention}</p>
           </article>
@@ -88,10 +88,11 @@ export function PriceTeaser({ showCta = false }: { showCta?: boolean }) {
     <div className="price-teaser">
       <div>
         <p className="price-teaser__amount">
-          À partir de <strong>{from.montant}</strong> {t.devisePhrase}
+          À partir de <strong>{nbsp(from.montant)}</strong>{"\u00a0"}{nbsp(t.devisePhrase)}
         </p>
         <p className="price-teaser__hint">
-          {from.titre}, hors frais d’inscription de {t.fraisInscription.montant} {t.devisePhrase}.
+          {from.titre}, hors frais d’inscription de{" "}
+          {nbsp(`${t.fraisInscription.montant} ${t.devisePhrase}`)}.
           Formation, coaching, supports et certificat inclus.
         </p>
       </div>
