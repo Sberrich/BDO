@@ -12334,7 +12334,7 @@ img {
   padding: 0;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .doc-online__card {
   position: relative;
@@ -12395,12 +12395,7 @@ img {
   background: var(--brand-red);
   color: #fff;
 }
-@media (max-width: 899px) {
-  .doc-online__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .doc-online__grid {
     grid-template-columns: minmax(0, 1fr);
   }
