@@ -112,7 +112,7 @@ export default function ProgrammePage() {
         </Container>
       </section>
 
-      <section className="prog-pieces" aria-labelledby="prog-pieces-title">
+      <section id="projet" className="prog-pieces" aria-labelledby="prog-pieces-title">
         <Container>
           <header className="prog-pieces__head">
             <p className="sem-kicker">Le projet</p>

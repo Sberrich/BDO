@@ -29,8 +29,8 @@ const data = {
           "q": "Qu’est-ce que le projet de transformation et comment se déroule-t-il ?",
           "r": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du 27 novembre. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. Les projets sont présentés et évalués au séminaire de clôture du 26 décembre.</p>",
           "lien": {
-            "texte": "Le fil rouge, étape par étape",
-            "href": "programme.html#fil-rouge"
+            "texte": "Le projet, pièce par pièce",
+            "href": "programme.html#projet"
           },
           "accueil": false
         },
@@ -112,7 +112,7 @@ const data = {
           "r": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026, de 15 h à 21 h. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le samedi 26 décembre 2026, par la présentation des projets et la remise des certificats.</p>",
           "lien": {
             "texte": "Le calendrier complet",
-            "href": "admissions.html#calendrier"
+            "href": "programme.html#seances"
           },
           "accueil": false
         },
@@ -122,7 +122,7 @@ const data = {
           "r": "<p>Les séances ont lieu le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, souvent groupées sur un même week-end.</p><p>Le rythme est conçu pour une activité professionnelle à temps plein : la séance du vendredi commence en fin d’après-midi.</p><p>Chaque séminaire est complété par une journée de travaux personnels, et trois journées sont consacrées à la préparation du projet de fin de certificat.</p>",
           "lien": {
             "texte": "Le calendrier complet",
-            "href": "admissions.html#calendrier"
+            "href": "programme.html#seances"
           },
           "accueil": false
         },

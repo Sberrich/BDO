@@ -48,7 +48,10 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const resourcesRef = useRef<HTMLLIElement>(null);
+  const resourcesTriggerRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const resourcesMenuId = useId();
   const mobileMenuId = useId();
 
@@ -75,6 +78,7 @@ export function Header() {
     root.style.overflow = "hidden";
     document.body.dataset.nav = "open";
     window.addEventListener("resize", syncTop);
+    requestAnimationFrame(() => drawerRef.current?.querySelector<HTMLElement>("a, button")?.focus());
     return () => {
       window.removeEventListener("resize", syncTop);
       root.style.overflow = "";
@@ -94,9 +98,27 @@ export function Header() {
     if (!open && !resourcesOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (open) burgerRef.current?.focus();
+        else if (resourcesRef.current?.contains(document.activeElement)) resourcesTriggerRef.current?.focus();
         setOpen(false);
         setResourcesOpen(false);
         setMobileResourcesOpen(false);
+        return;
+      }
+      if (e.key === "Tab" && open && drawerRef.current) {
+        const items = Array.from(drawerRef.current.querySelectorAll<HTMLElement>("a, button"));
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          burgerRef.current?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          burgerRef.current?.focus();
+        } else if (!e.shiftKey && document.activeElement === burgerRef.current) {
+          e.preventDefault();
+          first?.focus();
+        }
       }
     };
     window.addEventListener("keydown", onKey);
@@ -117,6 +139,11 @@ export function Header() {
     setMobileResourcesOpen(false);
   }
 
+  function dismissMobile() {
+    closeMobile();
+    burgerRef.current?.focus();
+  }
+
   const mobileMenu =
     open && mounted
       ? createPortal(
@@ -125,9 +152,10 @@ export function Header() {
               type="button"
               className="site-header__scrim"
               aria-label="Fermer le menu"
-              onClick={closeMobile}
+              tabIndex={-1}
+              onClick={dismissMobile}
             />
-            <div id={mobileMenuId} className="site-header__drawer menu-slide">
+            <div id={mobileMenuId} ref={drawerRef} className="site-header__drawer menu-slide">
               <nav className="site-header__mobile" aria-label="Navigation mobile">
                 <ul className="site-header__mobile-list">
                   {NAV.map((item) => {
@@ -270,13 +298,20 @@ export function Header() {
               const current = isCurrent(item.href, pathname);
               if ("menu" in item && item.menu) {
                 return (
-                  <li key={item.href} className="site-header__dd" ref={resourcesRef}>
+                  <li
+                    key={item.href}
+                    className="site-header__dd"
+                    ref={resourcesRef}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setResourcesOpen(false);
+                    }}
+                  >
                     <button
+                      ref={resourcesTriggerRef}
                       type="button"
                       className={`site-header__link site-header__dd-trigger ${current || resourcesOpen ? "is-current" : ""}`}
                       aria-expanded={resourcesOpen}
                       aria-controls={resourcesMenuId}
-                      aria-haspopup="menu"
                       onClick={() => setResourcesOpen((v) => !v)}
                       onMouseEnter={() => setResourcesOpen(true)}
                     >
@@ -297,17 +332,15 @@ export function Header() {
                     {resourcesOpen ? (
                       <div
                         id={resourcesMenuId}
-                        role="menu"
                         className="site-header__dd-panel"
                         onMouseLeave={() => setResourcesOpen(false)}
                       >
                         <p className="site-header__dd-label">Ressources</p>
                         <ul className="site-header__dd-list">
                           {RESOURCES_MENU.map((sub) => (
-                            <li key={sub.href} role="none">
+                            <li key={sub.href}>
                               <Link
                                 href={sub.href}
-                                role="menuitem"
                                 className="site-header__dd-item"
                                 onClick={() => setResourcesOpen(false)}
                               >
@@ -360,6 +393,7 @@ export function Header() {
         </nav>
 
         <button
+          ref={burgerRef}
           type="button"
           className={`site-header__burger ${open ? "is-open" : ""}`}
           aria-expanded={open}
