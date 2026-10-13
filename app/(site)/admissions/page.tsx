@@ -220,7 +220,7 @@ export default function AdmissionsPage() {
             </p>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
-            <LeadForm kind="rappel" prefix="r" submitVariant="secondary" />
+            <LeadForm kind="rappel" prefix="r" />
           </div>
         </Container>
       </section>

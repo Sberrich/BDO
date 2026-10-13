@@ -365,7 +365,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <p className="mt-3 text-sm text-muted">{plain(site.sessionInfo.replay)}</p>
           </div>
           <div className="rounded-md bg-cream p-6 sm:p-8">
-            <LeadForm kind="session" prefix="s" submitVariant="secondary" />
+            <LeadForm kind="session" prefix="s" />
           </div>
         </Container>
       </section>
