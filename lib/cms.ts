@@ -35,7 +35,10 @@ export type Intervenant = {
   photo: string;
   bio: string;
   linkedin: string;
-  seminaires: number[];
+  initials: string;
+  tone: "navy" | "blue" | "red" | "slate";
+  ordre: number;
+  accueil: boolean;
 };
 
 function relatedDoc(v: string | null | undefined): InsightArticle["relatedDoc"] {
@@ -100,14 +103,19 @@ export async function getIntervenantsPage() {
 
 export async function getIntervenants(): Promise<Intervenant[]> {
   const entries = await reader.collections.intervenants.all();
-  return entries.map(({ slug, entry }) => ({
-    slug,
-    nom: slugName(entry.nom, slug),
-    fonction: entry.fonction || "",
-    institution: entry.institution || "",
-    photo: entry.photo || "",
-    bio: entry.bio || "",
-    linkedin: entry.linkedin || "",
-    seminaires: (entry.seminaires || []).filter((n): n is number => typeof n === "number"),
-  }));
+  return entries
+    .map(({ slug, entry }) => ({
+      slug,
+      nom: slugName(entry.nom, slug),
+      fonction: entry.fonction || "",
+      institution: entry.institution || "",
+      photo: entry.photo || "",
+      bio: entry.bio || "",
+      linkedin: entry.linkedin || "",
+      initials: entry.initials || "",
+      tone: entry.tone,
+      ordre: entry.ordre ?? 999,
+      accueil: entry.accueil,
+    }))
+    .sort((a, b) => a.ordre - b.ordre || a.nom.localeCompare(b.nom, "fr"));
 }

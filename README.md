@@ -147,11 +147,22 @@ Content rules for the team:
 
 ## 5. Content & CMS (Keystatic)
 
-The CMS is **[Keystatic](https://keystatic.com)** in **local mode**: it has no database and writes YAML files into `content/`, which are versioned with Git like the code.
+The CMS is **[Keystatic](https://keystatic.com)** in **local mode**: it has no database and writes YAML/JSON files into `content/`, which are versioned with Git like the code.
 
 - Admin UI: `/keystatic` → redirects to the login page `/cms-login`
 - Credentials: `KEYSTATIC_USER` / `KEYSTATIC_PASSWORD`; session cookie valid **8 hours**
 - Logout: the "Se déconnecter" button in the CMS toolbar (or `/api/cms-logout`)
+
+| CMS section | File(s) | Used by |
+|---|---|---|
+| Programme et séminaires | `content/programme.json` | programme, seminar pages, home, footer (via `lib/payload/seminaires.ts`) |
+| Intervenants | `content/intervenants/*.yaml` | all speaker lists; order = « Ordre d’affichage », home = « Afficher sur la page d’accueil » |
+| Questions fréquentes | `content/faq.json` | `/faq`, home and admissions FAQ (via `lib/payload/faq.ts`) |
+| Articles Insights | `content/insights/*.yaml` | `/insights`, resources |
+
+The other page texts (`lib/payload/site.ts`) and the calendar (`lib/payload/calendrier.ts`) are not in the CMS yet.
+
+**GitHub mode (recommended for production).** Set `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO=owner/repo` and each save becomes a Git commit, so the host rebuilds the site and edits are never lost. On first use, open `/keystatic` locally and follow Keystatic's prompt to create the GitHub App; it writes `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET` and `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` to `.env`. Copy them to the host's environment variables. Editors then need a GitHub account with write access to the repository.
 
 ### Recommended editorial workflow
 

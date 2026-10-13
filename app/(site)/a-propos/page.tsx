@@ -5,7 +5,6 @@ import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data } from "@/lib/content";
-import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
 import { IconArrowRight, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
@@ -22,14 +21,14 @@ const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: numbe
 export default async function AProposPage() {
   const c = data.site.contact;
   const seminarCount = allSessions().filter((s) => s.numero > 0).length;
+  const speakers = await getIntervenants();
   const facts = [
     { value: String(seminarCount), label: "séminaires" },
-    { value: String(facultyShowcase().length), label: "intervenants" },
+    { value: String(speakers.length), label: "intervenants" },
     { value: "25", label: "places par promotion" },
     { value: "Oct → déc.", label: "calendrier 2026" },
     { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
   ];
-  const speakers = await getIntervenants();
   const zakaria =
     speakers.find((p) => p.slug === "zakaria-fahim") ||
     speakers.find((p) => /zakaria|fahim/i.test(p.nom));

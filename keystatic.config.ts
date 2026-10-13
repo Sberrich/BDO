@@ -27,19 +27,154 @@ function BrandMark({ colorScheme }: { colorScheme: "light" | "dark" }) {
   );
 }
 
+const halfDay = (label: string) =>
+  fields.object(
+    {
+      matin: fields.text({ label: "Matin", multiline: true }),
+      apresMidi: fields.text({ label: "Après-midi", multiline: true }),
+    },
+    { label },
+  );
+
+function sessionSchema() {
+  return {
+    numero: fields.integer({
+      label: "Numéro",
+      description: "0 pour la conférence inaugurale. Sert à l’ordre et au code affiché (01, 02…).",
+      validation: { isRequired: true, min: 0 },
+    }),
+    code: fields.text({
+      label: "Code affiché",
+      description:
+        "Laisser vide pour afficher le numéro (01, 02…). « WS » = workshop, « CL » = séance de clôture, ou un code libre (ex. 06).",
+      validation: { length: { max: 3 } },
+    }),
+    slug: fields.text({
+      label: "Adresse de la page",
+      description: "Ex. big-data-data-analytics → /seminaires/big-data-data-analytics. Ne pas modifier après publication.",
+      validation: { length: { min: 1 } },
+    }),
+    titre: fields.text({ label: "Titre", validation: { length: { min: 1 } } }),
+    sousTitre: fields.text({ label: "Sous-titre" }),
+    dates: fields.text({ label: "Date", description: "Ex. « Samedi 31 octobre 2026 »." }),
+    horaire: fields.text({ label: "Horaire", description: "Ex. « 9 h – 16 h »." }),
+    heures: fields.integer({ label: "Durée (heures)" }),
+    lieu: fields.text({
+      label: "Lieu",
+      description: "Laisser vide pour « Campus ISCAE Casablanca ».",
+    }),
+    objectif: fields.text({ label: "Objectif", multiline: true }),
+    jour1: halfDay("Notions clés"),
+    jour2: halfDay("Approfondissement"),
+    livrable: fields.text({
+      label: "Livrable",
+      description: "La pièce du projet produite pendant la séance.",
+      multiline: true,
+    }),
+    actualisation: fields.text({ label: "Note d’actualisation", multiline: true }),
+    intervenants: fields.array(
+      fields.relationship({ label: "Intervenant", collection: "intervenants" }),
+      {
+        label: "Intervenants",
+        itemLabel: (props) => props.value ?? "Choisir un intervenant",
+      },
+    ),
+  };
+}
+
+/** NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO="owner/repo" saves edits as Git commits instead of local files. */
+const githubRepo = process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO as `${string}/${string}` | undefined;
+
 export default config({
-  storage: {
-    kind: "local",
-  },
+  storage: githubRepo ? { kind: "github", repo: githubRepo } : { kind: "local" },
   locale: "fr-FR",
   ui: {
     brand: { name: "CFO 4.0 · Éditeur", mark: BrandMark },
     navigation: {
-      Contenu: ["insights", "intervenants"],
-      "Textes de page": ["insightsPage", "intervenantsPage"],
+      Programme: ["programme"],
+      Intervenants: ["intervenants", "intervenantsPage"],
+      Insights: ["insights", "insightsPage"],
+      FAQ: ["faq"],
     },
   },
   singletons: {
+    programme: singleton({
+      label: "Programme et séminaires",
+      path: "content/programme",
+      format: { data: "json" },
+      schema: {
+        inaugurale: fields.object(sessionSchema(), { label: "Conférence inaugurale" }),
+        seminaires: fields.array(fields.object(sessionSchema()), {
+          label: "Séances",
+          description: "Dans l’ordre du calendrier.",
+          itemLabel: (props) => {
+            const { numero, code, titre } = props.fields;
+            const prefix = code.value || String(numero.value ?? "").padStart(2, "0");
+            return `${prefix} · ${titre.value || "Nouvelle séance"}`;
+          },
+        }),
+      },
+    }),
+    faq: singleton({
+      label: "Questions fréquentes",
+      path: "content/faq",
+      format: { data: "json" },
+      schema: {
+        groupes: fields.array(
+          fields.object({
+            id: fields.text({ label: "Identifiant", description: "Ex. programme. Sans espace ni accent." }),
+            titre: fields.text({ label: "Thème", validation: { length: { min: 1 } } }),
+            questions: fields.array(
+              fields.object({
+                id: fields.text({
+                  label: "Identifiant",
+                  description: "Sert de lien direct (/faq#identifiant). Ne pas modifier après publication.",
+                }),
+                q: fields.text({ label: "Question", validation: { length: { min: 1 } } }),
+                court: fields.text({
+                  label: "Réponse courte",
+                  description: "Une à deux phrases, affichées en premier.",
+                  multiline: true,
+                }),
+                r: fields.text({
+                  label: "Réponse détaillée",
+                  description:
+                    "Chaque paragraphe entre <p> et </p>. Gras : <strong>…</strong>. Ne pas utiliser d’autres balises.",
+                  multiline: true,
+                }),
+                lien: fields.object(
+                  {
+                    texte: fields.text({ label: "Texte du lien" }),
+                    href: fields.text({ label: "Adresse", description: "Ex. programme.html#projet" }),
+                  },
+                  { label: "Lien en bas de réponse (facultatif)" },
+                ),
+                accueil: fields.checkbox({
+                  label: "Afficher sur la page d’accueil",
+                  defaultValue: false,
+                }),
+              }),
+              {
+                label: "Questions",
+                itemLabel: (props) => props.fields.q.value || "Nouvelle question",
+              },
+            ),
+          }),
+          {
+            label: "Thèmes",
+            itemLabel: (props) =>
+              `${props.fields.titre.value || "Nouveau thème"} (${props.fields.questions.elements.length})`,
+          },
+        ),
+        relance: fields.object(
+          {
+            titre: fields.text({ label: "Titre" }),
+            texte: fields.text({ label: "Texte", multiline: true }),
+          },
+          { label: "Encadré « Votre question n’est pas là ? »" },
+        ),
+      },
+    }),
     insightsPage: singleton({
       label: "Page Insights — introduction",
       path: "content/insights-page",
@@ -136,13 +271,12 @@ export default config({
       label: "Intervenants",
       slugField: "nom",
       path: "content/intervenants/*",
-      columns: ["fonction", "institution"],
+      columns: ["fonction", "institution", "ordre"],
       schema: {
         nom: fields.slug({
           name: {
             label: "Nom",
-            description:
-              "Le slug doit correspondre à un intervenant existant du site (ex. zakaria-fahim) pour que la fiche soit mise à jour.",
+            description: "L’identifiant (slug) sert aux liens avec les séminaires : ne pas le modifier après publication.",
             validation: { length: { min: 1 } },
           },
         }),
@@ -154,9 +288,30 @@ export default config({
         }),
         bio: fields.text({ label: "Biographie", multiline: true }),
         linkedin: fields.url({ label: "Profil LinkedIn" }),
-        seminaires: fields.array(fields.integer({ label: "N° séminaire" }), {
-          label: "Séminaires animés",
-          itemLabel: (props) => (props.value != null ? `Séminaire ${props.value}` : "Séminaire"),
+        initials: fields.text({
+          label: "Initiales",
+          description: "Affichées à la place de la photo si elle manque. Ex. ZF.",
+          validation: { length: { min: 1, max: 3 } },
+        }),
+        tone: fields.select({
+          label: "Couleur de la carte",
+          options: [
+            { label: "Bleu nuit", value: "navy" },
+            { label: "Bleu ISCAE", value: "blue" },
+            { label: "Rouge BDO", value: "red" },
+            { label: "Ardoise", value: "slate" },
+          ],
+          defaultValue: "navy",
+        }),
+        ordre: fields.integer({
+          label: "Ordre d’affichage",
+          description: "1 = en premier.",
+          validation: { isRequired: true, min: 1 },
+        }),
+        accueil: fields.checkbox({
+          label: "Afficher sur la page d’accueil",
+          description: "Trois intervenants recommandés.",
+          defaultValue: false,
         }),
       },
     }),
