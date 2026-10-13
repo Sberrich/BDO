@@ -111,7 +111,7 @@ export function PricingConditions() {
     <div className="mt-8 grid gap-4 md:grid-cols-3">
       {conditions.map((cond, i) => (
         <article key={cond.titre} className="rounded-md border border-line bg-white p-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted">0{i + 1}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted">0{i + 1}</p>
           <h3 className="mt-2 text-lg font-bold">{cond.titre}</h3>
           <p className="mt-2 text-sm text-muted">{plain(cond.texte)}</p>
         </article>

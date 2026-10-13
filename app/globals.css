@@ -363,7 +363,7 @@ input[type="radio"] {
 }
 .site-footer__cta-label {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -429,7 +429,7 @@ input[type="radio"] {
 }
 .site-footer__heading {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -630,7 +630,7 @@ input[type="radio"] {
 }
 .faq-page__cta-kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1180,7 +1180,7 @@ input[type="radio"] {
 .site-header__dd-label {
   margin: 0 0 0.45rem;
   padding: 0 0.45rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1987,7 +1987,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .countdown__unit-label {
   margin-top: 0.25rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
 }
@@ -2160,7 +2160,7 @@ body[data-nav="open"] .mobile-bar {
     height: 2.5rem;
   }
   .hero-cosign__role {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -2432,7 +2432,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .parcours-index__month-label {
   margin: 0 0 0.35rem 3.75rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2541,7 +2541,7 @@ body[data-nav="open"] .mobile-bar {
   min-width: 0;
 }
 .parcours-entry__tag {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -2643,7 +2643,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .parcours-aside__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -3533,7 +3533,7 @@ body[data-nav="open"] .mobile-bar {
   align-self: stretch;
   padding: 0.25rem 0 0.2rem;
   background: var(--brand-red);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3548,7 +3548,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .prog-board__day-name {
   padding: 0.2rem 0 0.4rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-secondary);
 }
@@ -4062,7 +4062,7 @@ body[data-nav="open"] .mobile-bar {
   align-items: center;
   gap: 0.3rem;
   margin-bottom: 0.45rem;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -4316,7 +4316,7 @@ body[data-nav="open"] .mobile-bar {
 .voices__projet span {
   display: inline-block;
   margin-right: 0.45rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4455,7 +4455,7 @@ body[data-nav="open"] .mobile-bar {
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.95);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4521,7 +4521,7 @@ body[data-nav="open"] .mobile-bar {
   padding-right: calc(clamp(1.25rem, 3vw, 2rem) + 5.5rem);
 }
 .voices-feature__tag {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4574,7 +4574,7 @@ body[data-nav="open"] .mobile-bar {
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
   background: #fff;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--brand-navy);
 }
 
@@ -4590,7 +4590,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .voices-list__title {
   margin: 0.25rem 0.5rem 0.65rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4691,7 +4691,7 @@ body[data-nav="open"] .mobile-bar {
   min-width: 0;
 }
 .voices-row__tag {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4810,7 +4810,7 @@ body[data-nav="open"] .mobile-bar {
   line-height: 1.2;
 }
 .voices-player__next-text span {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -4890,7 +4890,7 @@ body[data-nav="open"] .mobile-bar {
 .voices__card-projet span {
   display: inline-block;
   margin-right: 0.4rem;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -5017,7 +5017,7 @@ body[data-nav="open"] .mobile-bar {
   letter-spacing: -0.01em;
 }
 .press-logo__host {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-tertiary);
 }
@@ -5089,7 +5089,7 @@ body[data-nav="open"] .mobile-bar {
   border-radius: var(--radius-full);
   background: var(--surface-0);
   border: 1px solid var(--border-subtle);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -5283,7 +5283,7 @@ body[data-nav="open"] .mobile-bar {
   gap: 0.4rem;
   padding: 0.45rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--navy);
@@ -5380,7 +5380,7 @@ body[data-nav="open"] .mobile-bar {
 .hero-panel__badge {
   border-radius: 999px;
   padding: 0.3rem 0.65rem;
-  font-size: 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -5661,7 +5661,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .cal-band__block-label {
   margin: 0 0 1.15rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -5718,7 +5718,7 @@ body[data-nav="open"] .mobile-bar {
 }
 .cal__aside-kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -5733,7 +5733,7 @@ body[data-nav="open"] .mobile-bar {
   border-radius: var(--radius-full);
   border: 1px solid rgba(0, 55, 104, 0.12);
   background: rgba(255, 255, 255, 0.85);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5924,14 +5924,14 @@ body[data-nav="open"] .mobile-bar {
 }
 .cal__month-label {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
 .cal__month-count {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-tertiary);
 }
@@ -6114,7 +6114,7 @@ a.cal__hit:focus-visible .cal__mark {
   padding: 0 0.55rem;
   border-radius: var(--radius-full);
   background: rgba(0, 98, 184, 0.1);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -6141,7 +6141,7 @@ a.cal__hit:focus-visible .cal__mark {
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border-subtle);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--text-secondary);
 }
@@ -6574,7 +6574,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   height: 2rem;
 }
 .resource-dispositif__brand-label {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -6685,7 +6685,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   padding: 0 0.3rem;
   border-radius: var(--radius-full);
   background: rgba(227, 6, 19, 0.9);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #fff;
@@ -6883,7 +6883,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   text-align: right;
 }
 .videoband__caption-kicker {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -7592,7 +7592,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -7684,7 +7684,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   border-radius: 6px;
   background: rgba(0, 55, 104, 0.08);
   color: var(--brand-blue);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -7756,7 +7756,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 .insights-feature__kicker {
   position: relative;
   margin: 0.35rem 0 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -7975,7 +7975,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .insights-band__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -8062,7 +8062,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   padding: 0.35rem 0.65rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.1);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -8150,7 +8150,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 .insight-prose__source-label {
   display: block;
   margin-bottom: 0.35rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -8178,7 +8178,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .insight-aside__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -8218,7 +8218,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .insight-more__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -8389,7 +8389,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .iv-hero__credit {
   margin: 1.5rem 0 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -8505,7 +8505,7 @@ a.cal__hit:focus-visible .cal__cta svg {
   align-items: center;
   gap: 0.35rem;
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -8571,7 +8571,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .iv-jury__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -8982,7 +8982,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .about-trophee__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -9087,7 +9087,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .about-lead__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -9160,7 +9160,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .about-contact__kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -9239,7 +9239,7 @@ a.about-contact__card:focus-visible {
   min-width: 0;
 }
 .about-contact__label {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -9266,7 +9266,7 @@ a.about-contact__card:focus-visible {
 }
 .about-contact__form-kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -9740,7 +9740,7 @@ a.about-contact__card:focus-visible {
 }
 .legal-page__aside-kicker {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -10936,7 +10936,7 @@ img {
   padding: 0 0.3rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.15rem;
   text-align: center;
 }
@@ -10958,7 +10958,7 @@ img {
 }
 .pcal__wd {
   padding-bottom: 0.35rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
@@ -11020,7 +11020,7 @@ img {
 }
 .pcal__code {
   margin-top: 0.15rem;
-  font-size: 0.5625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.04em;
 }
@@ -11058,7 +11058,7 @@ img {
   padding: 0.1rem 0.35rem;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.12);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.04em;
 }
@@ -11258,7 +11258,7 @@ img {
 }
 
 .voices-row__tag {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
 }
 
 .site-header__mobile-sub {
@@ -11796,7 +11796,7 @@ img {
   position: absolute;
   inset: auto 0 0;
   padding: 1.5rem 0.6rem 0.55rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.25;
   color: #fff;
@@ -11832,7 +11832,7 @@ img {
 .iv-card__teaches-label {
   display: block;
   margin-bottom: 0.4rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -11866,7 +11866,7 @@ img {
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   background: var(--brand-navy);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: #fff;
 }
 .iv-card__sem:hover,
@@ -12072,7 +12072,7 @@ img {
 }
 .iv-faces__more-label {
   padding: 0 0.4rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -12135,7 +12135,7 @@ img {
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   background: rgba(0, 55, 104, 0.07);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -12341,7 +12341,7 @@ img {
 }
 .prog-board__sum-title {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -12419,7 +12419,7 @@ img {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   background: rgba(0, 55, 104, 0.07);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: none;
   color: var(--text-secondary);
@@ -12468,7 +12468,7 @@ img {
   padding: 0.2rem 0;
   background: var(--brand-red);
   color: #fff;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-align: center;
@@ -12479,7 +12479,7 @@ img {
 }
 .prog-board__month .prog-board__day-name {
   margin-top: 0.2rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -12495,7 +12495,7 @@ img {
   background: rgba(255, 255, 255, 0.16);
 }
 .prog-board__month .prog-board__meta {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -12615,7 +12615,7 @@ img {
 }
 .sem-side__person-label {
   display: block;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--text-tertiary);
 }
 .sem-side__person-name {
@@ -12691,7 +12691,7 @@ img {
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   background: var(--brand-blue-soft);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -12834,7 +12834,7 @@ img {
 }
 .faq-explorer__nav-title {
   margin: 0 0 0.5rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -12864,7 +12864,7 @@ img {
   background: #fff;
 }
 .faq-explorer__nav-n {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--brand-red);
 }
@@ -12877,7 +12877,7 @@ img {
   padding: 0.1rem 0.45rem;
   border-radius: 999px;
   background: rgba(0, 55, 104, 0.07);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   text-align: center;
   color: var(--text-secondary);
 }
@@ -13007,7 +13007,7 @@ img {
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   background: var(--brand-blue-soft);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -13604,7 +13604,7 @@ img {
   margin: 1rem 0 0;
 }
 .adm__detail dt {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -13804,4 +13804,14 @@ img {
 .about-glass__orb,
 .about-glass__shine {
   display: none;
+}
+
+/* Short viewports (200 % zoom, landscape phones): keep sticky chrome under ~20 % of the screen. */
+@media (max-height: 500px) {
+  .mobile-bar {
+    display: none !important;
+  }
+  #contenu {
+    padding-bottom: 0;
+  }
 }
