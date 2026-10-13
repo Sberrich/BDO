@@ -28,7 +28,7 @@ export default function CandidaterPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-md bg-white p-6 shadow-[var(--shadow-md)] sm:p-10">
+          <div className="rounded-md border border-line bg-white p-6 sm:p-10">
             <CandidatureForm />
           </div>
         </Container>

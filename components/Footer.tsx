@@ -195,7 +195,7 @@ export function Footer() {
 export function MobileBar() {
   return (
     <div
-      className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden gap-2 border-t border-line bg-white/95 px-4 py-3 shadow-[0_-4px_16px_rgba(51,51,51,.08)] backdrop-blur max-[720px]:flex"
+      className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden gap-2 border-t border-line bg-white/95 px-4 py-3 backdrop-blur max-[720px]:flex"
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       role="group"
       aria-label="Actions rapides"
