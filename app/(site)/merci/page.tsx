@@ -14,7 +14,7 @@ const NEXT_STEPS = [
 const cases: Record<string, [string, string]> = {
   candidature: [
     "Votre candidature est enregistrée",
-    "Le comité pédagogique examine votre dossier. Vous recevez une proposition d’entretien sous quelques jours.",
+    "Le comité pédagogique examine votre dossier et vous propose un entretien. La réponse est donnée sous cinq jours ouvrés après l’entretien.",
   ],
   document: [
     "Votre publication est prête",
