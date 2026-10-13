@@ -10584,9 +10584,7 @@ body[data-nav="open"] #cmp-floating-icon {
 .doc-hero {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 55% 70% at 100% 0%, rgba(0, 98, 184, 0.28), transparent 60%),
-    linear-gradient(180deg, #001a33 0%, #002142 100%);
+  background: #001a33;
   color: #fff;
 }
 .doc-hero__inner {
@@ -10628,7 +10626,7 @@ body[data-nav="open"] #cmp-floating-icon {
   margin: 0;
   padding: 0 0.75rem;
   border-radius: 999px;
-  background: var(--brand-red);
+  background: rgba(255, 255, 255, 0.16);
   font-size: 0.75rem;
   font-weight: 700;
   color: #fff;
@@ -10762,7 +10760,7 @@ body[data-nav="open"] #cmp-floating-icon {
   height: 1.3rem;
   margin-top: 0.05rem;
   border-radius: 50%;
-  background: var(--brand-red);
+  background: #0062b8;
   color: #fff;
 }
 .doc-hero__tick svg {
@@ -10832,8 +10830,8 @@ body[data-nav="open"] #cmp-floating-icon {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 2.5rem;
-  padding: 0 1rem;
+  min-height: 50px;
+  padding: 0 1.5rem;
   border: 1px solid var(--border-strong);
   border-radius: 999px;
   font-size: 0.875rem;
@@ -12304,7 +12302,7 @@ img {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brand-red);
+  color: var(--brand-blue);
 }
 .doc-online__title {
   margin: 0.5rem 0 0;
@@ -12347,7 +12345,7 @@ img {
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: var(--brand-red);
+  color: var(--brand-blue);
 }
 .doc-online__label {
   margin-top: 0.75rem;
@@ -12789,7 +12787,7 @@ img {
   padding-top: 1.25rem;
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--brand-red);
+  color: var(--brand-blue);
 }
 .doc-pub__more svg {
   width: 0.85rem;
@@ -13790,6 +13788,8 @@ img {
 .pub-card__more,
 .pub-card__type,
 .doc-pub__type,
+.insight-more__kicker,
+.legal-block__index,
 .res-insights__go,
 .sem-price__kicker,
 .sem-speaker__role,
@@ -13898,4 +13898,24 @@ img {
 }
 .skip-link:focus-visible {
   outline-offset: 0 !important;
+}
+
+/* Flat surfaces instead of red glows */
+.doc-pub__visual,
+.faculty-card.tone-red .faculty-card__media {
+  background: linear-gradient(160deg, #0a3a6b, var(--brand-navy));
+}
+.insight-hero {
+  background: linear-gradient(165deg, #00182e 0%, var(--brand-navy) 55%, #00305a 100%);
+}
+.legal-page__cta {
+  border-color: var(--border-subtle);
+  background: var(--surface-1);
+}
+.faculty__link {
+  border-bottom-color: var(--brand-blue);
+}
+.faculty__link:hover,
+.faculty__link:focus-visible {
+  color: var(--brand-blue);
 }

@@ -113,10 +113,6 @@ export function PageHero({
 }) {
   return (
     <section className="page-hero relative overflow-hidden bg-navy text-white">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_0%,rgba(0,55,104,0.35),transparent_42%),radial-gradient(ellipse_at_90%_20%,rgba(227,6,19,0.22),transparent_40%)]"
-        aria-hidden
-      />
       <Container className="relative z-[1] py-[clamp(2.75rem,6vw,4.5rem)]">
         <Kicker light>{kicker}</Kicker>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.05rem,1.5rem+2.2vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.025em] text-white">
