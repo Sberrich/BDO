@@ -5,7 +5,7 @@ import type { Intervenant } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
 import { MediaPressStrip } from "@/components/MediaPressStrip";
-import { PricingBlock } from "@/components/PricingBlock";
+import { PriceTeaser } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { PubCard } from "@/components/PubCard";
@@ -320,7 +320,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
           <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
             {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
-            <PricingBlock showCtas />
+            <PriceTeaser showCta />
           </div>
         </Container>
       </section>

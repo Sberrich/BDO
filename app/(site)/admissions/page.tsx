@@ -72,18 +72,10 @@ export default function AdmissionsPage() {
             <aside className="adm-facts" aria-label="L’essentiel">
               <p className="adm-facts__title">L’essentiel</p>
               <dl className="adm-facts__list">
-                {tarif.formules.map((f) => (
-                  <div key={f.id}>
-                    <dt>{f.titre}</dt>
-                    <dd>
-                      {f.montant} <span>{tarif.devisePhrase}</span>
-                    </dd>
-                  </div>
-                ))}
                 <div>
-                  <dt>{tarif.fraisInscription.label}</dt>
-                  <dd>
-                    {tarif.fraisInscription.montant} <span>{tarif.devisePhrase}</span>
+                  <dt>Tarif</dt>
+                  <dd className="is-text">
+                    <a href="#tarif">Détail et conditions ci-dessous</a>
                   </dd>
                 </div>
                 <div>

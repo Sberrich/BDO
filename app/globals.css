@@ -13707,3 +13707,45 @@ img {
     grid-column: 2;
   }
 }
+
+/* Short price mention (full grid lives on /admissions#tarif only) */
+.price-teaser {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  background: #fff;
+}
+.price-teaser__amount {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.price-teaser__amount strong {
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+}
+.price-teaser__hint {
+  margin: 0.35rem 0 0;
+  max-width: 46ch;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.price-teaser__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.adm-facts__list dd a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
