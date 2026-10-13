@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container } from "@/components/ui";
+import { LoopVideo } from "@/components/LoopVideo";
 import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { getIntervenants } from "@/lib/cms";
@@ -167,17 +168,7 @@ export default async function SeminairePage({ params }: Props) {
 
             <div className="sem-hero__aside" aria-hidden="true">
               <div className="sem-hero__card">
-                <video
-                  className="sem-hero__card-img"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  poster={cover}
-                >
-                  <source src={clip} type="video/mp4" />
-                </video>
+                <LoopVideo className="sem-hero__card-img" src={clip} poster={cover} />
                 <span className="sem-hero__card-veil" />
                 <span className="sem-hero__card-frame" />
                 <span className="sem-hero__card-mark">

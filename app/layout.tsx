@@ -44,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="fr" data-scroll-behavior="smooth" className={`${mulish.variable} ${mulish.className} h-full antialiased`}>
       <head>
+        <link rel="preconnect" href="https://cookies.bdomaroc.com" />
         <script
           src="https://cookies.bdomaroc.com/static/widget/widget.js"
           data-site-id="site_9u8iidbnDr0"

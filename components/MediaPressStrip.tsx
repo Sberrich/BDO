@@ -50,6 +50,7 @@ export function MediaPressStrip({ items }: { items: readonly MediaItem[] }) {
                   alt=""
                   width={640}
                   height={360}
+                  sizes="320px"
                   className="press-preview__img"
                 />
               </span>

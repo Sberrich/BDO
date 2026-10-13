@@ -147,7 +147,7 @@ export function Hero() {
                       </span>
                     ) : null}
                     <span className={`hero-cosign__logo ${p.size}`}>
-                      <Image src={p.src} alt={p.name} width={p.w} height={p.h} />
+                      <Image src={p.src} alt={p.name} width={p.w} height={p.h} sizes="100px" />
                     </span>
                     <span className="hero-cosign__role">{p.role}</span>
                   </li>

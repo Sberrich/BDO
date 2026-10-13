@@ -275,6 +275,7 @@ export function Header() {
             alt="Groupe ISCAE"
             width={351}
             height={184}
+            sizes="96px"
             className="site-header__logo site-header__logo--iscae"
             priority
           />
@@ -284,6 +285,7 @@ export function Header() {
             alt="BDO"
             width={418}
             height={161}
+            sizes="96px"
             className="site-header__logo site-header__logo--bdo"
             priority
           />

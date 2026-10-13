@@ -48,6 +48,7 @@ export function Footer() {
                 alt="Groupe ISCAE"
                 width={351}
                 height={184}
+                sizes="96px"
                 className="foot__logo is-iscae"
               />
               <span className="foot__logo-rule" aria-hidden="true" />
@@ -56,6 +57,7 @@ export function Footer() {
                 alt="BDO Maroc"
                 width={418}
                 height={161}
+                sizes="96px"
                 className="foot__logo is-bdo"
               />
             </div>

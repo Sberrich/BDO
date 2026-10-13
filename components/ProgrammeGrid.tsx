@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { allSessions, sessionHref, type Seminaire } from "@/lib/content";
 import { IconArrowRight, IconClock, IconPlay } from "@/components/icons";
+import { LoopVideo } from "@/components/LoopVideo";
 import { plain, sessionLabel } from "@/lib/text";
 
 type Props = {
@@ -71,17 +72,11 @@ export function ProgrammeGrid({ limit, excludeNumero }: Props) {
           <div className="prog-board__aside">
             <Link href={sessionHref(opening)} className="prog-board__open">
               <span className="prog-board__open-media" aria-hidden="true">
-                <video
+                <LoopVideo
                   className="prog-board__open-video"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
+                  src="/videos/seminaires/0.mp4"
                   poster="/images/home/hero.png"
-                >
-                  <source src="/videos/seminaires/0.mp4" type="video/mp4" />
-                </video>
+                />
               </span>
               <span className="prog-board__open-veil" aria-hidden="true" />
               <span className="prog-board__open-top">
