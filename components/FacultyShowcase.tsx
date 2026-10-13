@@ -98,7 +98,7 @@ export function FacultyShowcase({ speakers, lead }: Props) {
           </div>
           <p className="faculty__lead">
             {lead ||
-              "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités."}
+              "Associés de BDO Maroc, professeurs du Groupe ISCAE et praticiens invités : chacun enseigne sur son terrain."}
           </p>
         </header>
 

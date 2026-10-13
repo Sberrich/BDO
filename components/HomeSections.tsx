@@ -204,8 +204,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </header>
             <div className="prog__aside">
               <p>
-                La conférence inaugurale ouvre le cycle. Les huit séances suivantes
-                produisent chacune une pièce de votre transformation, jusqu’à la
+                Chaque séance produit une pièce de votre transformation, jusqu’à la
                 soutenance des projets.
               </p>
               <Link href="/programme" className="prog__cta">
@@ -257,8 +256,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
               Ils racontent le certificat
             </h2>
             <p className="voices__lead">
-              Participants de la deuxième cohorte, direction de l’ISCAE, BDO Maroc et
-              intervenants : le certificat raconté en vidéo.
+              Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
             </p>
           </header>
 

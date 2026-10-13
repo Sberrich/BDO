@@ -48,7 +48,7 @@ const data = {
   ],
   "constat": {
     "titre": "Les directions financières savent qu’elles doivent se transformer. Peu savent par où commencer.",
-    "chapeau": "Le Baromètre BDO des DAF et le livre blanc « La Fonction Financière Augmentée » mesurent le même écart : l’intention est générale, la feuille de route est rare.",
+    "chapeau": "Deux études BDO font le même constat : l’intention de se transformer est générale, la feuille de route est rare.",
     "chiffres": [
       {
         "valeur": 78,
@@ -71,7 +71,7 @@ const data = {
         "accent": false
       }
     ],
-    "conclusion": "L’écart entre 78 % et 32 % est la raison d’être de ce certificat. Il produit exactement ce qui manque : une feuille de route, construite sur votre propre entreprise.",
+    "conclusion": "Ce certificat comble cet écart : il produit une feuille de route, construite sur votre propre entreprise.",
     "source": "Sources : Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants ; La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025."
   },
   "livrable": {
@@ -79,7 +79,7 @@ const data = {
     "items": [
       {
         "titre": "Une feuille de route de transformation",
-        "texte": "Construite séminaire après séminaire sur le cas de votre propre direction financière : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques numériques.",
+        "texte": "Construite séminaire après séminaire sur votre direction financière : données, IA, système d’information, trésorerie, risques numériques.",
         "icone": "feuille-de-route"
       },
       {
@@ -89,7 +89,7 @@ const data = {
       },
       {
         "titre": "Un certificat cosigné ISCAE × BDO",
-        "texte": "Délivré aux participants qui réunissent un taux d’assiduité d’au moins 80 % et la réussite des évaluations de mi-parcours et de fin de cycle.",
+        "texte": "Délivré avec au moins 80 % d’assiduité et la réussite des évaluations de mi-parcours et de fin de cycle.",
         "icone": "certificat"
       }
     ]
@@ -100,12 +100,12 @@ const data = {
     "profils": [
       {
         "titre": "Directions générales",
-        "texte": "Directeurs généraux et administrateurs en charge de la finance, qui arbitrent les investissements numériques de l’entreprise.",
+        "texte": "DG et administrateurs en charge de la finance, qui arbitrent les investissements numériques.",
         "icone": "direction"
       },
       {
         "titre": "Directions administratives et financières",
-        "texte": "DAF de groupes et de filiales, qui portent la transformation de leur fonction et la montée en compétences de leurs équipes.",
+        "texte": "DAF de groupes et de filiales, qui portent la transformation de leur fonction et de leurs équipes.",
         "icone": "finance"
       },
       {
@@ -155,7 +155,7 @@ const data = {
       },
       {
         "titre": "Échelonnement",
-        "texte": "{{PROV}}Le règlement peut être échelonné en deux ou trois échéances sur la durée du cycle. Les modalités sont arrêtées avec le service scolarité du Groupe ISCAE.{{/PROV}}",
+        "texte": "{{PROV}}Règlement possible en deux ou trois échéances sur la durée du cycle, à convenir avec le service scolarité du Groupe ISCAE.{{/PROV}}",
         "icone": "calendrier"
       },
       {
@@ -169,12 +169,12 @@ const data = {
     "etapes": [
       {
         "titre": "Dossier en ligne",
-        "texte": "Un formulaire en quatre étapes : coordonnées, inscription, fonction et parcours, motivation. Comptez vingt minutes environ. Le brouillon est conservé dans le navigateur de l’appareil utilisé : vous pouvez reprendre plus tard sur ce même appareil, en joignant à nouveau CV et photo.",
+        "texte": "Quatre étapes, vingt minutes environ. Le brouillon reste sur votre appareil ; CV et photo sont à joindre à nouveau.",
         "icone": "dossier"
       },
       {
         "titre": "Étude du dossier",
-        "texte": "Le comité pédagogique ISCAE × BDO examine l’adéquation du parcours et la consistance du chantier de transformation décrit.",
+        "texte": "Le comité pédagogique ISCAE × BDO examine votre parcours et votre projet de transformation.",
         "icone": "recherche"
       },
       {
@@ -184,7 +184,7 @@ const data = {
       },
       {
         "titre": "Réponse et inscription",
-        "texte": "La réponse est donnée sous cinq jours ouvrés après l’entretien. L’inscription est confirmée par le règlement ou par l’accord de prise en charge de l’employeur.",
+        "texte": "Réponse sous cinq jours ouvrés après l’entretien. Inscription confirmée par le règlement ou l’accord de prise en charge de l’employeur.",
         "icone": "certificat"
       }
     ],
@@ -426,11 +426,11 @@ const data = {
   "institutions": [
     {
       "nom": "Groupe ISCAE",
-      "texte": "Créé en 1971, le Groupe ISCAE est un établissement d’enseignement supérieur public et une école de commerce pionnière. Il poursuit une mission nationale : attirer et développer les talents, servir le développement économique et social durable du Maroc et de la région, former des acteurs du changement et cultiver un état d’esprit entrepreneurial, à travers ses programmes académiques en management, sa formation continue et la diffusion de ses contributions intellectuelles."
+      "texte": "Créé en 1971, le Groupe ISCAE est l’école de commerce publique pionnière du Maroc, en formation initiale comme en formation continue des cadres."
     },
     {
       "nom": "BDO Maroc",
-      "texte": "BDO, cinquième réseau mondial d’audit et de conseil, opère au Maroc avec une équipe pluridisciplinaire d’experts-comptables, d’auditeurs, de juristes, de fiscalistes et de consultants. Ses équipes interviennent auprès des grandes et moyennes entreprises et intègrent une gamme de compétences numériques ancrées dans l’industrie et soutenues par une solide expérience fonctionnelle."
+      "texte": "Cinquième réseau mondial d’audit et de conseil, BDO réunit au Maroc experts-comptables, auditeurs, juristes, fiscalistes et consultants au service des entreprises."
     }
   ],
   "conformite": {

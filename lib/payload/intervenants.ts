@@ -1,5 +1,5 @@
 const data = {
-  "chapeau": "Les séminaires sont animés par des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités. Chaque intervenant enseigne sur son terrain d’exercice.",
+  "chapeau": "Associés de BDO Maroc, professeurs du Groupe ISCAE et praticiens invités : chacun enseigne sur son terrain.",
   "intervenants": [
     {
       "slug": "zakaria-fahim",

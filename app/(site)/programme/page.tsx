@@ -120,8 +120,8 @@ export default function ProgrammePage() {
               Huit pièces pour votre feuille de route
             </h2>
             <p className="prog-pieces__lead">
-              Après la conférence inaugurale, chacune des huit séances produit une pièce appliquée à votre entreprise.
-              Assemblées, elles forment le projet soutenu le 26 décembre.
+              Chaque séance produit une pièce appliquée à votre entreprise. Ensemble, elles forment le
+              projet soutenu le 26 décembre.
             </p>
           </header>
           <ol className="prog-pieces__grid">

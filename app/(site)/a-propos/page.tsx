@@ -164,9 +164,8 @@ export default async function AProposPage() {
               Le Trophée BDO des DAF
             </h2>
             <p className="about-trophee__text">
-              La rencontre annuelle de la place financière marocaine, qui distingue
-              les directions financières les plus engagées dans leur transformation.
-              Les lauréats bénéficient de conditions particulières pour le certificat.
+              Le rendez-vous annuel des directions financières marocaines. Ses lauréats
+              bénéficient de conditions particulières pour le certificat.
             </p>
             <a
               href="https://www.tropheebdo.ma/"
