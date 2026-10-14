@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
@@ -216,7 +217,7 @@ export default function AdmissionsPage() {
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="grid gap-10 md:grid-cols-2">
-          <div>
+          <div className="rappel-band__intro">
             <SectionHeading
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
@@ -226,6 +227,15 @@ export default function AdmissionsPage() {
               Vous pouvez aussi écrire à{" "}
               <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
             </p>
+            <div className="rappel-band__media">
+              <Image
+                src="/images/home/hero.png"
+                alt="Participants du certificat CFO 4.0 échangeant autour d’un ordinateur"
+                fill
+                sizes="(min-width: 768px) 34rem, 100vw"
+                className="object-cover object-center"
+              />
+            </div>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
             <LeadForm kind="rappel" prefix="r" />

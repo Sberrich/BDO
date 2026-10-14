@@ -9165,6 +9165,27 @@ a.about-contact__card:focus-visible {
   border: 1px solid var(--border-subtle);
   box-shadow: none;
 }
+.rappel-band__intro {
+  display: flex;
+  flex-direction: column;
+}
+.rappel-band__media {
+  position: relative;
+  flex: 1;
+  min-height: 15rem;
+  margin-top: 1.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  background: var(--surface-1);
+}
+@media (max-width: 767px) {
+  .rappel-band__media {
+    flex: none;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+}
 @media (min-width: 961px) and (max-width: 1099px) {
   .site-header__link {
     padding: 0 0.7rem;
