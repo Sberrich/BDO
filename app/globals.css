@@ -6909,6 +6909,7 @@ a.cal__hit:focus-visible .cal__cta svg {
 }
 .sem-hero__grid-layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem;
   align-items: center;
 }
@@ -13869,4 +13870,111 @@ img {
   main form select {
     min-height: 4rem;
   }
+}
+
+/* ——— Light BDO-blue heroes (inner pages), same treatment as the home hero ——— */
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero) {
+  background:
+    radial-gradient(60rem 30rem at 85% 0%, rgba(0, 55, 104, 0.1), transparent 70%),
+    linear-gradient(180deg, #e6eef7 0%, #f4f7fb 100%) !important;
+  color: var(--brand-navy);
+}
+:is(.res-hero__glow, .insight-hero__glow, .insight-hero__grid, .doc-book__glow, .about-glass__orb, .about-glass__shine, .page-hero .hero-decor) {
+  display: none;
+}
+
+/* Text: navy everywhere except on red, dark or photo surfaces */
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero)
+  *:not(
+    .btn-icon, .btn-icon *,
+    .sem-hero__badge, .sem-hero__badge *,
+    .doc-hero__kicker, .doc-hero__kicker *,
+    .sem-hero__card, .sem-hero__card *,
+    .iv-faces__name, .iv-faces__name *,
+    .doc-form, .doc-form *,
+    .countdown__unit:first-child, .countdown__unit:first-child *,
+    .pcal__cell.is-open, .pcal__cell.is-open *,
+    .pcal__item.is-open .pcal__item-code,
+    .sem-steps__dot.is-current, .sem-steps__dot.is-current *,
+    .doc-hero__tick, .doc-hero__tick *,
+    .doc-book, .doc-book *,
+    .pcal__tab.is-active span
+  ) {
+  color: var(--brand-navy);
+  border-color: var(--border-subtle);
+}
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero)
+  :is(
+    .sem-hero__lead, .doc-hero__lead, .insight-hero__lead, .page-hero__lead,
+    .sem-hero__crumbs, .doc-hero__crumbs, .insight-hero__crumbs,
+    .sem-hero__index, .sem-hero__meta, .insight-hero__meta,
+    .doc-hero__format, .pcal__legend, .pcal__wd, .pcal__item-time,
+    .countdown__label small, .about-glass__hint, .ins-source__desc,
+    .faq-help__lead, .adm-facts dt, .pcal__cell:not(.is-session)
+  ),
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero)
+  :is(.sem-hero__crumbs, .doc-hero__crumbs, .insight-hero__crumbs) *,
+.page-hero h1 + p {
+  color: var(--text-secondary) !important;
+}
+:is(.sem-hero__crumbs, .doc-hero__crumbs, .insight-hero__crumbs) :is([aria-current], span:last-child) {
+  color: var(--brand-navy) !important;
+}
+
+/* Panels → white cards, inner tiles → pale grey */
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero)
+  :is(.pcal, .adm-facts, .faq-help, .ins-sources, .about-glass, .countdown, .sem-hero__meta li, .adm-jump a) {
+  border-color: var(--border-subtle);
+  background: #fff;
+  background-image: none;
+  box-shadow: none;
+}
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero)
+  :is(
+    .pcal__tabs, .pcal__cell.is-session:not(.is-open), .pcal__cell.is-weekend,
+    .pcal__item:not(.is-open) .pcal__item-code, .countdown__unit:not(:first-child),
+    .ins-source, .ins-source__cover, .iv-faces__link, .faq-help__icon, .faq-help__link,
+    .about-glass__join, .sem-steps__dot.is-past, .insight-hero__kicker
+  ) {
+  background: var(--surface-1);
+  border-color: var(--border-subtle);
+}
+.sem-hero .pcal__tab span {
+  background: var(--brand-blue-soft);
+}
+.sem-hero .pcal__tab.is-active {
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--border-subtle);
+}
+.sem-hero .pcal__tab.is-active span {
+  background: var(--brand-navy);
+  color: #fff;
+}
+.sem-hero .pcal__legend .is-seminar {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+.sem-hero .pcal__legend .is-close {
+  background: var(--brand-navy);
+}
+.sem-hero .pcal__legend .is-weekend {
+  background: var(--surface-1);
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
+}
+.sem-hero .about-glass__logo {
+  filter: none;
+}
+:is(.sem-hero, .doc-hero, .page-hero, .insight-hero) .sem-steps__dot {
+  border-color: var(--border-strong);
+}
+.sem-hero__cta-secondary {
+  border-color: var(--border-strong) !important;
+  background: #fff !important;
+  color: var(--brand-navy) !important;
+}
+.sem-hero__cta-secondary:hover,
+.sem-hero__cta-secondary:focus-visible {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
 }
