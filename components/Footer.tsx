@@ -105,20 +105,20 @@ export function Footer() {
             </h2>
             <ul className="foot__list is-sem">
               <li>
-                <Link href={`/seminaires/${inaugurale.slug}`}>
+                <Link href={`/seminaires/${inaugurale.slug}`} title={plain(inaugurale.titre)}>
                   <span className="foot__n is-in" aria-hidden="true">
                     IN
                   </span>
-                  {plain(inaugurale.titre)}
+                  <span className="foot__sem-title">{plain(inaugurale.titre)}</span>
                 </Link>
               </li>
               {seminars.map((s) => (
                 <li key={s.numero}>
-                  <Link href={seminarPath(s)}>
+                  <Link href={seminarPath(s)} title={plain(s.titre)}>
                     <span className="foot__n" aria-hidden="true">
                       {sessionCode(s)}
                     </span>
-                    {plain(s.titre)}
+                    <span className="foot__sem-title">{plain(s.titre)}</span>
                   </Link>
                 </li>
               ))}

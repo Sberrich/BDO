@@ -9696,7 +9696,23 @@ a.about-contact__card:focus-visible {
   color: #fff;
 }
 .foot__list.is-sem a {
+  display: flex;
+  align-items: baseline;
+  max-width: 100%;
   font-size: 0.875rem;
+  line-height: 1.6;
+}
+.foot__col:has(.foot__list.is-sem),
+.foot__list.is-sem,
+.foot__list.is-sem li {
+  min-width: 0;
+  max-width: 100%;
+}
+.foot__sem-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .foot__n {
   flex-shrink: 0;
