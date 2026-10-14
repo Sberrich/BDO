@@ -17,6 +17,12 @@ import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/com
 import { IconArrowRight } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
 
+const CARRY_ART = [
+  "/images/livrables/feuille-de-route.png",
+  "/images/livrables/dossier-investissement.png",
+  "/images/livrables/certificat.png",
+];
+
 const TROPHEE_LOGO = { src: "/images/logos/trophee-bdo-digital-cfos.png", width: 155, height: 61 };
 
 type Props = {
@@ -161,30 +167,14 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
               const tags = ["Feuille de route", "Dossier d’investissement", "Certificat"];
               return (
                 <Reveal as="li" key={it.titre} delay={i * 100} className="carry__stage">
-                  <div className={`carry__art is-${i + 1}`} aria-hidden="true">
-                    {i === 0 ? (
-                      <span className="carry__gantt">
-                        <span style={{ ["--x" as string]: "0%", ["--w" as string]: "38%" }} />
-                        <span style={{ ["--x" as string]: "22%", ["--w" as string]: "42%" }} />
-                        <span style={{ ["--x" as string]: "46%", ["--w" as string]: "34%" }} />
-                        <span className="is-red" style={{ ["--x" as string]: "64%", ["--w" as string]: "36%" }} />
-                      </span>
-                    ) : i === 1 ? (
-                      <span className="carry__bars">
-                        <span style={{ ["--h" as string]: "34%" }} />
-                        <span style={{ ["--h" as string]: "48%" }} />
-                        <span style={{ ["--h" as string]: "62%" }} />
-                        <span style={{ ["--h" as string]: "78%" }} />
-                        <span className="is-red" style={{ ["--h" as string]: "96%" }} />
-                      </span>
-                    ) : (
-                      <span className="carry__cert">
-                        <span className="carry__cert-line is-title" />
-                        <span className="carry__cert-line" />
-                        <span className="carry__cert-line is-short" />
-                        <span className="carry__cert-seal" />
-                      </span>
-                    )}
+                  <div className={`carry__art is-img is-${i + 1}`} aria-hidden="true">
+                    <Image
+                      src={CARRY_ART[i]}
+                      alt=""
+                      width={444}
+                      height={230}
+                      sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+                    />
                   </div>
                   <p className="carry__stage-tag">
                     <span>0{i + 1}</span>

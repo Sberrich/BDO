@@ -3077,6 +3077,17 @@ body[data-nav="open"] .mobile-bar {
   background: var(--surface-1);
   overflow: hidden;
 }
+.carry__art.is-img {
+  height: auto;
+  aspect-ratio: 444 / 230;
+  background: none;
+}
+.carry__art.is-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .carry__gantt {
   position: absolute;
   inset: 1.5rem 1.5rem;
