@@ -1,5 +1,19 @@
 import Link, { type LinkProps } from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import {
+  IconBook,
+  IconCal,
+  IconCert,
+  IconChart,
+  IconFileText,
+  IconGrid,
+  IconLayers,
+  IconPhone,
+  IconPlay,
+  IconSearch,
+  IconTick,
+  IconUsers,
+} from "@/components/icons";
 
 /** Three button styles site-wide: primary (red), secondary (outline), text (link). "ghost" = secondary. */
 type Variant = "primary" | "secondary" | "ghost" | "text";
@@ -54,6 +68,27 @@ export function Container({
   return <div className={`mx-auto w-full max-w-[1160px] px-4 sm:px-5 ${className}`}>{children}</div>;
 }
 
+/** First match wins; IconGrid otherwise. */
+const KICKER_ICONS: [RegExp, (props: { size?: number }) => ReactNode][] = [
+  [/session/i, IconPlay],
+  [/calendrier|séances?\b|\bdates?\b/i, IconCal],
+  [/fil rouge|parcours/i, IconLayers],
+  [/parler|rappel|contact/i, IconPhone],
+  [/candidat|mention|confidentialit|cgu|conditions|légal/i, IconFileText],
+  [/investissement|tarif|financement/i, IconChart],
+  [/erreur/i, IconSearch],
+  [/confirmation/i, IconTick],
+  [/concours|partenaire|intervenant|équipe/i, IconUsers],
+  [/certificat|certification/i, IconCert],
+  [/séminaire|programme/i, IconBook],
+];
+
+function kickerIcon(children: ReactNode) {
+  const label = typeof children === "string" ? children : "";
+  const Icon = KICKER_ICONS.find(([re]) => re.test(label))?.[1] ?? IconGrid;
+  return <Icon />;
+}
+
 export function Kicker({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
     <p
@@ -62,9 +97,13 @@ export function Kicker({ children, light = false }: { children: ReactNode; light
       }`}
     >
       <span
-        className={`h-[3px] w-7 rounded-full ${light ? "bg-white/70" : "bg-blue"}`}
+        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg [&_svg]:h-4 [&_svg]:w-4 ${
+          light ? "bg-white/10 text-white" : "bg-blue/10 text-blue"
+        }`}
         aria-hidden
-      />
+      >
+        {kickerIcon(children)}
+      </span>
       {children}
     </p>
   );

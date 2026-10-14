@@ -11778,12 +11778,20 @@ img {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.9);
 }
-.foot__heading::before {
-  content: "";
+.foot__heading-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.foot__heading-icon svg {
   width: 1rem;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--brand-red);
+  height: 1rem;
 }
 .foot__list a {
   transition: color 0.18s ease, transform 0.18s ease;
