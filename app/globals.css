@@ -11320,6 +11320,93 @@ img {
   content: "Réduire −";
 }
 
+/* Intervenants cards: photo carries number + LinkedIn, seminars pinned at the bottom */
+.iv-grid .iv-card__media {
+  aspect-ratio: 5 / 4;
+}
+.iv-grid .iv-card__num {
+  top: 0.75rem;
+  right: auto;
+  bottom: auto;
+  left: 0.75rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--brand-navy) !important;
+}
+.iv-grid a.li-icon.iv-card__li {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  margin: 0;
+  border-color: transparent;
+  background: #fff;
+}
+.iv-grid a.li-icon.iv-card__li:hover,
+.iv-grid a.li-icon.iv-card__li:focus-visible {
+  background: #0a66c2;
+}
+.iv-grid .iv-card__body {
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+.iv-grid .iv-card__name {
+  margin-top: 0;
+}
+.iv-grid .iv-bio {
+  flex: 0 0 auto;
+  margin-top: 0.65rem;
+}
+.iv-grid .iv-card__bio {
+  margin-top: 0;
+}
+.iv-grid .iv-card__teaches {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.iv-grid .iv-bio + .iv-card__teaches,
+.iv-grid .iv-card__role + .iv-card__teaches {
+  margin-top: auto;
+}
+.iv-grid .iv-card__teaches::before {
+  content: "";
+  display: block;
+  height: 1px;
+  margin: 0.25rem 0 0.85rem;
+  background: var(--border-subtle);
+}
+.iv-grid .iv-card__teaches-label {
+  font-size: 0.6875rem;
+}
+.iv-grid > li,
+.iv-grid .iv-card,
+.iv-grid .iv-card__body,
+.iv-grid .iv-card__teaches {
+  min-width: 0;
+}
+.iv-grid .iv-card__teaches ul {
+  grid-template-columns: minmax(0, 1fr);
+}
+.iv-grid .iv-card__sem {
+  display: flex;
+  width: 100%;
+  padding: 0.35rem 0.6rem 0.35rem 0.35rem;
+  border-radius: 10px;
+  background: var(--surface-1);
+  border-color: transparent;
+}
+.iv-grid .iv-card__sem em {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-style: normal;
+}
+.iv-grid .iv-card__sem span {
+  min-width: 2rem;
+  text-align: center;
+  border-radius: 6px;
+}
+
 .cta-band {
   padding: clamp(2.5rem, 6vw, 4.5rem) 0;
   background: var(--surface-1, var(--surface-1));

@@ -144,36 +144,6 @@ export default async function IntervenantsPage() {
                       <span className="iv-card__num" aria-hidden>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                    </div>
-                    <div className="iv-card__body">
-                      <h3 className="iv-card__name">{name}</h3>
-                      <p className="iv-card__role">
-                        {plain(p.fonction)}
-                        {p.institution ? ` · ${plain(p.institution)}` : ""}
-                      </p>
-                      {teaches.length ? (
-                        <div className="iv-card__teaches">
-                          <span className="iv-card__teaches-label">Intervient sur</span>
-                          <ul>
-                            {teaches.map((t) => (
-                              <li key={t.numero}>
-                                <Link href={t.href} className="iv-card__sem">
-                                  <span>{t.code}</span>
-                                  {t.titre}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                      {p.bio ? (
-                        <details className="iv-bio">
-                          <summary>
-                            <span className="iv-card__bio">{plain(p.bio)}</span>
-                            <span className="iv-bio__toggle" aria-hidden="true" />
-                          </summary>
-                        </details>
-                      ) : null}
                       {linkedin ? (
                         <a
                           href={linkedin}
@@ -185,6 +155,36 @@ export default async function IntervenantsPage() {
                         >
                           <IconLinkedIn size={16} />
                         </a>
+                      ) : null}
+                    </div>
+                    <div className="iv-card__body">
+                      <h3 className="iv-card__name">{name}</h3>
+                      <p className="iv-card__role">
+                        {plain(p.fonction)}
+                        {p.institution ? ` · ${plain(p.institution)}` : ""}
+                      </p>
+                      {p.bio ? (
+                        <details className="iv-bio">
+                          <summary>
+                            <span className="iv-card__bio">{plain(p.bio)}</span>
+                            <span className="iv-bio__toggle" aria-hidden="true" />
+                          </summary>
+                        </details>
+                      ) : null}
+                      {teaches.length ? (
+                        <div className="iv-card__teaches">
+                          <span className="iv-card__teaches-label">Intervient sur</span>
+                          <ul>
+                            {teaches.map((t) => (
+                              <li key={t.numero}>
+                                <Link href={t.href} className="iv-card__sem" title={t.titre}>
+                                  <span>{t.code}</span>
+                                  <em>{t.titre}</em>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ) : null}
                     </div>
                   </article>
