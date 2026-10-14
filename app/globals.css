@@ -5853,36 +5853,6 @@ a.cal__hit:focus-visible .cal__cta svg {
   background: var(--brand-navy);
   overflow: hidden;
 }
-.merci__badge {
-  display: grid;
-  place-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background: var(--brand-navy);
-  color: #fff;
-  box-shadow: 0 0 0 6px rgba(0, 55, 104, 0.08);
-}
-.merci__step {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  height: 100%;
-  padding: 1rem 1.15rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  background: var(--surface-0);
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: var(--brand-navy);
-  text-decoration: none;
-}
-.merci__step svg {
-  flex-shrink: 0;
-  color: var(--brand-blue);
-}
-
 .resource-dispositif__cover--brand {
   display: flex;
   flex-direction: column;
@@ -14473,7 +14443,7 @@ input[type="checkbox"][aria-invalid="true"] {
   padding: 1.25rem 0.75rem 0.25rem;
   text-align: center;
 }
-.success-dialog__body h2 {
+.success-dialog__body :is(h1, h2) {
   margin: 0;
   font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);
   font-weight: 700;
@@ -14512,4 +14482,19 @@ input[type="checkbox"][aria-invalid="true"] {
   .success-dialog__art {
     animation: none;
   }
+}
+
+.merci-page {
+  display: grid;
+  place-items: center;
+  padding: clamp(2rem, 6vw, 4.5rem) 1rem;
+  background: var(--surface-1);
+}
+.success-dialog.is-page {
+  display: block;
+  margin: 0;
+  overflow: visible;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 24px 60px -32px rgba(0, 31, 61, 0.35);
+  animation: success-in 320ms var(--ease-out);
 }
