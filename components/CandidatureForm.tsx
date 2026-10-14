@@ -7,7 +7,7 @@ import { CguLink } from "@/components/CguDialog";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { SuccessDialog } from "@/components/SuccessDialog";
-import { IconArrowRight, IconSend } from "@/components/icons";
+import { IconArrowRight, IconSend, IconTick } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 import { collectErrors, fieldMessage, focusField, isField } from "@/lib/form-errors";
@@ -218,7 +218,7 @@ export function CandidatureForm() {
           return (
             <label
               key={o.value}
-              className={`flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white px-4 py-3 text-sm transition hover:border-muted ${
+              className={`cand-choice flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white transition hover:border-muted ${
                 checked ? "border-blue ring-2 ring-blue/20" : errors[name] ? "border-red" : "border-line"
               }`}
             >
@@ -261,15 +261,15 @@ export function CandidatureForm() {
       onChange={onFormChange}
       noValidate
       encType="multipart/form-data"
-      className="space-y-6"
+      className="cand-form space-y-6"
     >
       <div>
-        <ol className="flex justify-between text-[0.8125rem]">
+        <ol className="cand-steps text-[0.8125rem]">
           {steps.map((label, i) => (
             <li
               key={label}
               aria-current={i === step ? "step" : undefined}
-              className="flex"
+              className={`cand-steps__item${i < step ? " is-done" : ""}`}
             >
               <button
                 type="button"
@@ -284,21 +284,16 @@ export function CandidatureForm() {
                     i <= step ? "bg-blue text-white" : "bg-cream text-muted"
                   } ${i === step ? "ring-2 ring-blue/25 ring-offset-2" : ""} ${i < step ? "group-hover:bg-blue-dark" : ""}`}
                 >
-                  {i + 1}
+                  {i < step ? <IconTick size={15} /> : i + 1}
                 </span>
                 <span className="sr-only">Étape {i + 1} : </span>
                 <span className="sr-only md:not-sr-only">{label}</span>
               </button>
+              {i < steps.length - 1 ? <span className="cand-steps__line" aria-hidden /> : null}
             </li>
           ))}
         </ol>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-sm bg-cream">
-          <div
-            className="h-full bg-blue transition-all"
-            style={{ width: `${((step + 1) / steps.length) * 100}%` }}
-          />
-        </div>
-        <p className="mt-2 text-xs text-muted">
+        <p className="mt-4 text-xs text-muted">
           Brouillon conservé dans ce navigateur, sur cet appareil uniquement. Vous pouvez
           reprendre plus tard ; les fichiers (CV, photo) sont à joindre à nouveau.
         </p>

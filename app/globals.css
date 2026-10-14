@@ -14497,3 +14497,138 @@ input[type="checkbox"][aria-invalid="true"] {
   border: 1px solid var(--border-subtle);
   animation: success-in 320ms var(--ease-out);
 }
+
+/* Candidater: compact hero, collapsible checklist */
+.page-hero:has(+ section .cand-prep) > div {
+  padding-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+.cand-prep__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+}
+.cand-prep__summary::-webkit-details-marker {
+  display: none;
+}
+.cand-prep__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  color: var(--brand-navy);
+}
+.cand-prep__chevron {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  color: var(--brand-navy);
+  transition: transform 0.25s var(--ease-out);
+}
+.cand-prep[open] .cand-prep__chevron {
+  transform: rotate(180deg);
+}
+.cand-prep__summary:hover .cand-prep__chevron {
+  background: var(--surface-1);
+}
+.cand-prep__list {
+  margin: 0;
+  padding: 0 1.25rem 1.1rem 4.35rem;
+  list-style: disc;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+@media (max-width: 640px) {
+  .cand-prep__list {
+    padding-left: 2.6rem;
+  }
+}
+
+/* Candidater: steps joined circle to circle */
+.cand-steps {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cand-steps__item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+.cand-steps__item:last-child {
+  flex: none;
+}
+.cand-steps__item > button > span:first-child {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.9375rem;
+}
+.cand-steps__item > button {
+  flex: none;
+  white-space: nowrap;
+}
+.cand-steps__line {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  margin: 0 0.75rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-1);
+  background: #e4e8ee;
+}
+.cand-steps__line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand-blue, var(--brand-navy));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out);
+}
+.cand-steps__item.is-done .cand-steps__line::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cand-steps__line::after {
+    transition: none;
+  }
+}
+
+/* Candidater: extra-large fields */
+.cand-form :is(input:not([type="radio"], [type="checkbox"]), select, textarea) {
+  min-height: 3.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1.0625rem;
+}
+.cand-form input[type="file"] {
+  padding-block: 0.85rem;
+  font-size: 0.9375rem;
+}
+.cand-form .cand-choice {
+  min-height: 3.5rem;
+  padding: 0.9rem 1.15rem;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+.cand-form .cand-choice input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.cand-form label {
+  font-size: 0.9375rem;
+}
