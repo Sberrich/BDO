@@ -35,16 +35,16 @@ const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
 /** Hero mosaic: photos alternate with the key facts; a « Candidater » tile closes the grid. */
 const ADM_TILES: (
   | { src: string }
-  | { icon: () => React.JSX.Element; value: string; label: string; dark?: boolean }
+  | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
 )[] = [
   { src: "/images/home/campus.png" },
-  { icon: IconUsers, value: "25", label: "places par promotion" },
+  { icon: IconUsers, num: "25", unit: "places", label: "par promotion" },
   { src: "/images/home/about.png" },
-  { icon: IconClock, value: "delai", label: "pour la réponse" },
+  { icon: IconClock, num: "2", unit: "jours ouvrés", label: "pour la réponse" },
   { src: "/images/home/hero.png" },
   { src: "/images/home/conference.png" },
   { src: "/images/home/objectives.png" },
-  { icon: IconCal, value: "22 oct.", label: "clôture des candidatures", dark: true },
+  { icon: IconCal, num: "22", unit: "oct.", label: "fin des candidatures", dark: true },
 ];
 
 /** The tarif section above already answers this one. */
@@ -115,7 +115,10 @@ export default function AdmissionsPage() {
                   ) : (
                     <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
                       <span className="iv-faces__stat-icon" aria-hidden="true"><t.icon /></span>
-                      <strong>{t.value === "delai" ? a.delaiReponse : t.value}</strong>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
                       <span>{t.label}</span>
                     </span>
                   )}
