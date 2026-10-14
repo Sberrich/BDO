@@ -13978,3 +13978,71 @@ img {
   background: var(--brand-navy) !important;
   color: #fff !important;
 }
+
+/* ——— Light BDO-blue surfaces (former navy sections, cards and footer) ——— */
+:is(.carry, .foot, .final-cta__card, .constat-resolve, .about-trophee__perk, .sem-livrable, .cta-band__inner) {
+  background:
+    radial-gradient(60rem 30rem at 85% 0%, rgba(0, 55, 104, 0.08), transparent 70%),
+    linear-gradient(180deg, #e6eef7 0%, #f4f7fb 100%) !important;
+  color: var(--brand-navy) !important;
+}
+:is(.final-cta__card, .constat-resolve, .about-trophee__perk, .sem-livrable, .cta-band__inner) {
+  border: 1px solid rgba(0, 55, 104, 0.12) !important;
+}
+.foot {
+  border-top: 1px solid var(--border-subtle);
+}
+:is(.carry, .foot, .final-cta__card, .constat-resolve, .about-trophee__perk, .sem-livrable, .cta-band__inner)
+  *:not(
+    .btn-icon, .btn-icon *,
+    .carry__stage, .carry__stage *,
+    .countdown__unit:first-child, .countdown__unit:first-child *,
+    .foot__btn.is-primary, .foot__btn.is-primary *,
+    .final-cta__primary, .final-cta__primary *,
+    .constat-resolve__cta, .constat-resolve__cta *,
+    .foot__wordmark span
+  ) {
+  color: var(--brand-navy);
+  border-color: var(--border-subtle);
+}
+:is(.carry__lead, .foot__tagline, .foot__brand-text, .foot__address, .foot__list a, .foot__contact-label,
+  .foot__legal, .foot__legal *, .foot__copy, .foot__cta-note, .final-cta__lead, .final-cta__card p,
+  .countdown__label small, .foot__bottom, .foot__bottom a) {
+  color: var(--text-secondary) !important;
+}
+:is(.foot__list a, .foot__bottom a):hover {
+  color: var(--brand-blue) !important;
+}
+.foot__logo {
+  filter: none;
+}
+.final-cta__secondary,
+.foot__btn.is-ghost {
+  color: var(--brand-navy) !important;
+}
+.foot__address-icon {
+  color: var(--brand-blue) !important;
+}
+.foot__address-icon svg {
+  stroke: currentColor !important;
+}
+:is(.foot__brand-card, .foot__contact-link, .foot__top, .foot__btn.is-ghost, .final-cta__secondary,
+  .final-cta__countdown, .final-cta__card .countdown) {
+  border-color: var(--border-subtle) !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+:is(.foot__btn.is-ghost, .final-cta__secondary, .foot__top):hover {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+:is(.foot__btn.is-ghost, .final-cta__secondary, .foot__top):hover * {
+  color: #fff !important;
+}
+:is(.carry, .foot, .final-cta__card, .cta-band__inner) :is(.countdown__unit:not(:first-child), .foot__contact-icon, .foot__heading-icon) {
+  background: var(--surface-1) !important;
+}
+.foot__heading-icon {
+  background: var(--brand-blue-soft) !important;
+}
