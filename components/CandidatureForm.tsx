@@ -218,8 +218,8 @@ export function CandidatureForm() {
           return (
             <label
               key={o.value}
-              className={`cand-choice flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white transition hover:border-muted ${
-                checked ? "border-blue ring-2 ring-blue/20" : errors[name] ? "border-red" : "border-line"
+              className={`cand-choice flex cursor-pointer items-center gap-3 rounded-[10px] border-2 bg-white transition hover:border-muted ${
+                checked ? "border-blue" : errors[name] ? "border-red" : "border-line"
               }`}
             >
               <input

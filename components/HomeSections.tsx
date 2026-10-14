@@ -12,10 +12,20 @@ import { VideoBlock } from "@/components/VideoBlock";
 import type { Playlist } from "@/lib/playlists";
 import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
+import { LoopCarousel } from "@/components/LoopCarousel";
+import { CAROUSEL_MAX } from "@/lib/carousel";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconGauge, IconPhone, IconUsers } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
+
+const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
+
+const CARRY_ART = [
+  "/images/livrables/feuille-de-route.png",
+  "/images/livrables/dossier-investissement.png",
+  "/images/livrables/certificat.png",
+];
 
 const TROPHEE_LOGO = { src: "/images/logos/trophee-bdo-digital-cfos.png", width: 155, height: 61 };
 
@@ -32,8 +42,9 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
   const sessions = allSessions();
-  const sessionCount = sessions.length;
-  const featured = sessions.filter((s) => s.numero > 0).slice(0, 3);
+  const dispo = site.dispositif.items.slice(0, CAROUSEL_MAX);
+  const profils = site.profil.profils.slice(0, CAROUSEL_MAX);
+  const featured = sessions.filter((s) => s.numero > 0).slice(0, CAROUSEL_MAX);
 
   return (
     <>
@@ -161,30 +172,14 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
               const tags = ["Feuille de route", "Dossier d’investissement", "Certificat"];
               return (
                 <Reveal as="li" key={it.titre} delay={i * 100} className="carry__stage">
-                  <div className={`carry__art is-${i + 1}`} aria-hidden="true">
-                    {i === 0 ? (
-                      <span className="carry__gantt">
-                        <span style={{ ["--x" as string]: "0%", ["--w" as string]: "38%" }} />
-                        <span style={{ ["--x" as string]: "22%", ["--w" as string]: "42%" }} />
-                        <span style={{ ["--x" as string]: "46%", ["--w" as string]: "34%" }} />
-                        <span className="is-red" style={{ ["--x" as string]: "64%", ["--w" as string]: "36%" }} />
-                      </span>
-                    ) : i === 1 ? (
-                      <span className="carry__bars">
-                        <span style={{ ["--h" as string]: "34%" }} />
-                        <span style={{ ["--h" as string]: "48%" }} />
-                        <span style={{ ["--h" as string]: "62%" }} />
-                        <span style={{ ["--h" as string]: "78%" }} />
-                        <span className="is-red" style={{ ["--h" as string]: "96%" }} />
-                      </span>
-                    ) : (
-                      <span className="carry__cert">
-                        <span className="carry__cert-line is-title" />
-                        <span className="carry__cert-line" />
-                        <span className="carry__cert-line is-short" />
-                        <span className="carry__cert-seal" />
-                      </span>
-                    )}
+                  <div className={`carry__art is-img is-${i + 1}`} aria-hidden="true">
+                    <Image
+                      src={CARRY_ART[i]}
+                      alt=""
+                      width={444}
+                      height={230}
+                      sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+                    />
                   </div>
                   <p className="carry__stage-tag">
                     <span>0{i + 1}</span>
@@ -201,76 +196,94 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="programme" className="prog" aria-labelledby="programme-title">
         <Container className="prog__inner">
-          <div className="prog__top">
-            <header>
-              <p className="prog__index"><KickerIcon label="Le programme" />03 · Le programme</p>
-              <h2 id="programme-title" className="prog__title">
-                Neuf séances. <em>Une feuille de route.</em>
-              </h2>
-            </header>
-            <div className="prog__aside">
-              <p>
-                Chaque séance produit une pièce de votre transformation, jusqu’à la
-                soutenance des projets.
-              </p>
-            </div>
-          </div>
-          <ol className="prog-pieces__grid prog-pieces__grid--home">
-            {featured.map((s) => (
-              <li key={s.numero}>
-                <Link href={sessionHref(s)} className="prog-piece">
-                  <span className="prog-piece__media" aria-hidden="true">
-                    <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 90vw" />
-                  </span>
-                  <span className="prog-piece__row">
-                    <span className="prog-piece__num">{sessionCode(s)}</span>
-                    <span className="prog-piece__date">{plain(s.dates)}</span>
-                  </span>
-                  <span className="prog-piece__title">{plain(s.titre)}</span>
-                  {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
-                  <span className="prog-piece__more">
-                    Voir la séance <IconArrowRight />
-                  </span>
-                </Link>
-              </li>
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="prog__index"><KickerIcon label="Le programme" />03 · Le programme</p>
+                <h2 id="programme-title" className="prog__title">
+                  Neuf séances. <em>Une feuille de route.</em>
+                </h2>
+                <p className="carousel-head__lead">
+                  Chaque séance produit une pièce de votre transformation, jusqu’à la soutenance des projets.
+                </p>
+              </header>
+            }
+            slides={featured.map((s) => (
+              <Link key={s.numero} href={sessionHref(s)} className="prog-piece">
+                <span className="prog-piece__media" aria-hidden="true">
+                  <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 80vw" />
+                </span>
+                <span className="prog-piece__row">
+                  <span className="prog-piece__num">{sessionCode(s)}</span>
+                  <span className="prog-piece__date">{plain(s.dates)}</span>
+                </span>
+                <span className="prog-piece__title">{plain(s.titre)}</span>
+                {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
+                <span className="prog-piece__more">
+                  Voir la séance <IconArrowRight />
+                </span>
+              </Link>
             ))}
-          </ol>
-          <div className="prog__all">
-            <ButtonLink href="/programme" variant="secondary">
-              Voir tout le programme ({sessionCount} séances)
-              <IconArrowRight />
-            </ButtonLink>
-          </div>
+            labels={featured.map((s) => `Afficher ${plain(s.titre)}`)}
+            prevLabel="Séance précédente"
+            nextLabel="Séance suivante"
+          />
+          {sessions.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/programme" variant="ghost" aria-label="Voir tout le programme">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
+            </div>
+          ) : null}
         </Container>
       </section>
 
       <section id="profil" className="who" aria-labelledby="profil-title">
         <Container className="who__inner">
-          <header className="who__head">
-            <div>
-              <p className="who__index"><KickerIcon label="Le profil" />04 · Le profil</p>
-              <h2 id="profil-title" className="who__title">
-                {site.profil.titre}
-              </h2>
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="who__index"><KickerIcon label="Le profil" />04 · Le profil</p>
+                <h2 id="profil-title" className="who__title">
+                  {site.profil.titre}
+                </h2>
+                <p className="who__prereq">
+                  <strong>Prérequis</strong>
+                  <span aria-hidden="true">·</span>
+                  {site.profil.prerequis}
+                </p>
+              </header>
+            }
+            slides={profils.map((p, i) => {
+              const Icon = PROFILE_ICONS[i % PROFILE_ICONS.length];
+              return (
+                <article key={p.titre} className="who__panel">
+                  <span className="who__panel-icon" aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <span className="who__panel-rule" aria-hidden="true" />
+                  <h3 className="who__panel-title">{p.titre}</h3>
+                  <p className="who__panel-text">{p.texte}</p>
+                </article>
+              );
+            })}
+            labels={profils.map((p) => `Afficher ${p.titre}`)}
+            prevLabel="Profil précédent"
+            nextLabel="Profil suivant"
+          />
+          {site.profil.profils.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/admissions#profil" variant="ghost" aria-label="Voir tous les profils">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
             </div>
-            <p className="who__lead">{site.profil.chapeau}</p>
-          </header>
-          <ul className="who__panels">
-            {site.profil.profils.map((p, i) => (
-              <Reveal as="li" key={p.titre} delay={i * 90} className={`who__panel is-${i + 1}`}>
-                <span className="who__panel-num" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <span className="who__panel-rule" aria-hidden="true" />
-                <h3 className="who__panel-title">{p.titre}</h3>
-                <p className="who__panel-text">{p.texte}</p>
-              </Reveal>
-            ))}
-          </ul>
-          <p className="who__prereq">
-            <span className="who__prereq-tag">Prérequis</span>
-            <span>{site.profil.prerequis}</span>
-          </p>
+          ) : null}
         </Container>
       </section>
 
@@ -278,17 +291,20 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="playlists" className="voices" aria-labelledby="playlists-title">
         <Container className="voices__inner">
-          <header className="voices__head">
-            <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
-            <h2 id="playlists-title" className="voices__title">
-              Ils racontent le certificat
-            </h2>
-            <p className="voices__lead">
-              Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
-            </p>
-          </header>
-
-          <Playlists playlists={playlists} />
+          <Playlists
+            playlists={playlists}
+            intro={
+              <header className="carousel-head">
+                <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
+                <h2 id="playlists-title" className="voices__title">
+                  Ils racontent le certificat
+                </h2>
+                <p className="carousel-head__lead">
+                  Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
+                </p>
+              </header>
+            }
+          />
         </Container>
       </section>
 
@@ -421,14 +437,18 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="dispositif" className="dispo" aria-labelledby="dispositif-title">
         <Container className="dispo__inner">
-          <header className="dispo__head">
-            <p className="dispo__index"><KickerIcon label="Le dispositif BDO" />08 · Le dispositif BDO</p>
-            <h2 id="dispositif-title" className="dispo__title">
-              {site.dispositif.titre}
-            </h2>
-          </header>
-          <div className="dispo__grid">
-            {site.dispositif.items.map((it) => {
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="dispo__index"><KickerIcon label="Le dispositif BDO" />08 · Le dispositif BDO</p>
+                <h2 id="dispositif-title" className="dispo__title">
+                  {site.dispositif.titre}
+                </h2>
+              </header>
+            }
+            slides={dispo.map((it) => {
               const baro = it.lien.includes("barometre");
               const livre = it.lien.includes("livre-blanc");
               return (
@@ -445,7 +465,18 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 />
               );
             })}
-          </div>
+            labels={dispo.map((it) => `Afficher ${it.titre}`)}
+            prevLabel="Publication précédente"
+            nextLabel="Publication suivante"
+          />
+          {site.dispositif.items.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/ressources" variant="ghost" aria-label="Voir toutes les ressources">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
+            </div>
+          ) : null}
         </Container>
       </section>
 
@@ -462,16 +493,17 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 {data.site.admission.delaiReponse} après réception du dossier complet.
               </p>
               <div className="final-cta__actions">
-                <ButtonLink href="/candidater" className="final-cta__primary">
-                  Candidater
-                  <span aria-hidden="true">→</span>
-                </ButtonLink>
                 <ButtonLink
                   href="/admissions#rappel"
                   variant="ghost"
                   className="final-cta__secondary"
                 >
+                  <IconPhone />
                   Être rappelé
+                </ButtonLink>
+                <ButtonLink href="/candidater" className="final-cta__primary">
+                  Candidater
+                  <span aria-hidden="true">→</span>
                 </ButtonLink>
               </div>
             </div>

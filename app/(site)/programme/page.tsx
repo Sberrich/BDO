@@ -5,10 +5,9 @@ import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { LeadForm } from "@/components/LeadForm";
 import { PriceBand } from "@/components/PriceBand";
-import { ProgrammeCalendar, type CalendarSession } from "@/components/ProgrammeCalendar";
-import { ProgrammeGrid, splitDate } from "@/components/ProgrammeGrid";
+import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconDownload } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
 import { plain, seminarImage, sessionCode } from "@/lib/text";
 
@@ -21,29 +20,6 @@ export const metadata: Metadata = {
 function calCode(s: Seminaire) {
   const code = sessionCode(s);
   return /^\d+$/.test(code) ? `S${Number(code)}` : code;
-}
-
-const MONTH_INDEX: Record<string, number> = {
-  janvier: 0, février: 1, mars: 2, avril: 3, mai: 4, juin: 5,
-  juillet: 6, août: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11,
-};
-
-function calendarSessions(sessions: Seminaire[]): CalendarSession[] {
-  return sessions.flatMap((s) => {
-    const { day, month, year } = splitDate(plain(s.dates));
-    const m = MONTH_INDEX[month.toLowerCase()];
-    if (m == null) return [];
-    return [{
-      code: calCode(s),
-      title: plain(s.titre),
-      href: sessionHref(s),
-      year: Number(year),
-      month: m,
-      day: Number(day),
-      horaire: s.horaire ? plain(s.horaire) : undefined,
-      kind: s.numero === 0 ? "open" : s.code === "CL" ? "close" : "seminar",
-    }];
-  });
 }
 
 export default function ProgrammePage() {
@@ -75,38 +51,60 @@ export default function ProgrammePage() {
               </p>
               <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
+                <ButtonLink href="/ressources/brochure" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconDownload />
+                  Recevoir la brochure
+                </ButtonLink>
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Candidater
                   <IconArrowRight />
                 </ButtonLink>
-                <ButtonLink href="/ressources/brochure" variant="ghost" className="sem-hero__cta-secondary">
-                  Recevoir la brochure
-                </ButtonLink>
               </div>
             </div>
 
-            <ProgrammeCalendar sessions={calendarSessions(sessions)} />
+            <ul className="iv-faces is-programme" aria-label="Les séances du programme">
+              {sessions.slice(0, 8).map((s, i) => (
+                <li key={s.numero} className={`iv-faces__item is-${i + 1}`}>
+                  <Link href={sessionHref(s)} className="iv-faces__link" aria-label={plain(s.titre)}>
+                    <Image src={seminarImage(s.numero)} alt="" fill sizes="180px" className="iv-faces__img" />
+                    <span className="iv-faces__code" aria-hidden>
+                      {calCode(s)}
+                    </span>
+                    <span className="iv-faces__name" aria-hidden>
+                      {plain(s.titre)}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <a href="#seances" className="iv-faces__link iv-faces__more">
+                  <span className="iv-faces__more-n">{sessions.length}</span>
+                  <span className="iv-faces__more-label">Toutes les séances</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
 
       <section id="objectifs" className="prog-goals" aria-labelledby="prog-goals-title">
         <Container className="prog-goals__inner">
-          <div className="prog-goals__media" aria-hidden="true">
-            <Image
-              src="/images/home/conference.png"
-              alt=""
-              fill
-              sizes="(min-width: 900px) 26rem, 90vw"
-            />
-          </div>
           <div className="prog-goals__copy">
             <p className="sem-kicker">Objectifs</p>
             <h2 id="prog-goals-title" className="prog-goals__title">
               {data.site.objectifs.titre}
             </h2>
             <p className="prog-goals__lead">{data.site.objectifs.chapeau}</p>
-            <ol className="prog-goals__list">
+            <div className="prog-goals__media" aria-hidden="true">
+              <Image
+                src="/images/home/conference.png"
+                alt=""
+                fill
+                sizes="(min-width: 900px) 30rem, 90vw"
+              />
+            </div>
+          </div>
+          <ol className="prog-goals__list">
               {data.site.objectifs.liste.map((o, i) => (
                 <li key={o.titre} className="prog-goals__item">
                   <span className="prog-goals__num" aria-hidden="true">
@@ -118,14 +116,19 @@ export default function ProgrammePage() {
                   </span>
                 </li>
               ))}
-            </ol>
-          </div>
+          </ol>
         </Container>
       </section>
 
       <section id="seances" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
-          <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
+          <div className="prog-seances__head">
+            <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
+            <ButtonLink href="/ressources/brochure" variant="ghost" className="prog-brochure">
+              <IconDownload />
+              Télécharger la brochure
+            </ButtonLink>
+          </div>
           <div className="mt-8">
             <ProgrammeGrid />
           </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { IconArrowRight } from "@/components/icons";
 import { LoopCarousel } from "@/components/LoopCarousel";
+import { Button, ButtonLink } from "@/components/ui";
+import { CAROUSEL_MAX } from "@/lib/carousel";
 import { Reveal } from "@/components/motion";
 import {
   durationLabel,
@@ -46,8 +49,17 @@ function Card({ v, index, onPlay }: { v: PlaylistVideo; index: number; onPlay: (
   );
 }
 
-function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (index: number) => void }) {
+function PlaylistBlock({
+  playlist,
+  intro,
+  onPlay,
+}: {
+  playlist: Playlist;
+  intro?: ReactNode;
+  onPlay: (index: number) => void;
+}) {
   const { id, titre, videos } = playlist;
+  const shown = videos.slice(0, CAROUSEL_MAX);
   const total = videos.reduce((acc, v) => acc + durationSeconds(v.duree), 0);
 
   const head = (
@@ -83,14 +95,29 @@ function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (inde
         <LoopCarousel
           className="is-videos"
           centered
-          heading={head}
-          slides={videos.map((v, i) => (
+          heading={intro ?? head}
+          subheading={intro ? head : undefined}
+          slides={shown.map((v, i) => (
             <Card key={v.id} v={v} index={i} onPlay={() => onPlay(i)} />
           ))}
-          labels={videos.map((v) => `Afficher « ${v.titre} »`)}
+          labels={shown.map((v) => `Afficher « ${v.titre} »`)}
           prevLabel="Vidéo précédente"
           nextLabel="Vidéo suivante"
         />
+        <div className="prog__all playlist__all-bottom">
+          <Button type="button" variant="ghost" onClick={() => onPlay(0)}>
+            <PlayIcon className="playlist__all-icon" />
+            Tout lire
+          </Button>
+        </div>
+        {videos.length > CAROUSEL_MAX ? (
+          <div className="prog__all">
+            <ButtonLink href={`/playlists?playlist=${id}#videos`} variant="ghost" aria-label={`Voir toutes les vidéos : ${titre}`}>
+              Voir tout
+              <IconArrowRight />
+            </ButtonLink>
+          </div>
+        ) : null}
       </section>
     </Reveal>
   );
@@ -207,7 +234,8 @@ export function PlaylistPlayer({
 }
 
 /** Every playlist of `site.playlists` as a looping carousel, one shared player. */
-export function Playlists({ playlists }: { playlists: Playlist[] }) {
+/** `intro` (the section heading) takes the first carousel's header, next to its arrows. */
+export function Playlists({ playlists, intro }: { playlists: Playlist[]; intro?: ReactNode }) {
   const [playing, setPlaying] = useState<{ list: number; index: number } | null>(null);
   const close = useCallback(() => setPlaying(null), []);
   const setIndex = useCallback(
@@ -220,7 +248,12 @@ export function Playlists({ playlists }: { playlists: Playlist[] }) {
     <>
       <div className="playlists">
         {playlists.map((p, list) => (
-          <PlaylistBlock key={p.id} playlist={p} onPlay={(index) => setPlaying({ list, index })} />
+          <PlaylistBlock
+            key={p.id}
+            playlist={p}
+            intro={list === 0 ? intro : undefined}
+            onPlay={(index) => setPlaying({ list, index })}
+          />
         ))}
       </div>
       {current && playing ? (

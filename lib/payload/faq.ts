@@ -196,7 +196,7 @@ const data = {
           "id": "faq-tarif-echelonnement",
           "q": "Le paiement peut-il être échelonné ?",
           "court": "{{PROV}}Oui, en deux ou trois échéances sur la durée du cycle.{{/PROV}}",
-          "r": "<p>{{PROV}}Oui. Le règlement peut être échelonné en deux ou trois échéances sur la durée du cycle. Les modalités sont arrêtées avec le service scolarité du Groupe ISCAE au moment de l’inscription.{{/PROV}}</p>",
+          "r": "<p>{{PROV}}Oui. Le règlement peut être échelonné en deux ou trois échéances sur la durée du cycle.{{/PROV}}</p>",
           "lien": {
             "texte": "Être rappelé pour en parler",
             "href": "admissions.html#rappel"

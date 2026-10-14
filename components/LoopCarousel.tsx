@@ -12,6 +12,8 @@ type Props = {
   /** Accessible name of each slide, for the dots. */
   labels: string[];
   heading?: ReactNode;
+  /** Optional row between the heading (with the arrows) and the track. */
+  subheading?: ReactNode;
   prevLabel: string;
   nextLabel: string;
   className?: string;
@@ -20,7 +22,16 @@ type Props = {
 };
 
 /** Swipe or arrows, autoplay one slide every 2 s, endless loop, dots. */
-export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, className = "", centered = false }: Props) {
+export function LoopCarousel({
+  slides,
+  labels,
+  heading,
+  subheading,
+  prevLabel,
+  nextLabel,
+  className = "",
+  centered = false,
+}: Props) {
   const trackRef = useRef<HTMLUListElement>(null);
   const interactedUntil = useRef(0);
   const [active, setActive] = useState(0);
@@ -150,6 +161,7 @@ export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, cl
           </button>
         </div>
       </div>
+      {subheading}
 
       <ul ref={trackRef} className="press-track">
         {slides.map((s, i) => (

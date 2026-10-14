@@ -7,8 +7,20 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconBook, IconChart, IconClock, IconGauge, IconUsers } from "@/components/icons";
-import { data, SHOW } from "@/lib/content";
+import {
+  IconArrowRight,
+  IconBook,
+  IconCal,
+  IconChart,
+  IconClock,
+  IconGauge,
+  IconMail,
+  IconPhone,
+  IconPin,
+  IconUsers,
+  IconWhatsApp,
+} from "@/components/icons";
+import { BRAND, data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -19,6 +31,21 @@ export const metadata: Metadata = {
 };
 
 const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
+
+/** Hero mosaic: photos alternate with the key facts; a « Candidater » tile closes the grid. */
+const ADM_TILES: (
+  | { src: string }
+  | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
+)[] = [
+  { src: "/images/home/campus.png" },
+  { icon: IconUsers, num: "25", unit: "places", label: "par promotion" },
+  { src: "/images/home/about.png" },
+  { icon: IconClock, num: "2", unit: "jours ouvrés", label: "pour la réponse" },
+  { src: "/images/home/hero.png" },
+  { src: "/images/home/conference.png" },
+  { src: "/images/home/objectives.png" },
+  { icon: IconCal, num: "22", unit: "oct.", label: "fin des candidatures", dark: true },
+];
 
 /** The tarif section above already answers this one. */
 const ADM_FAQ_EXCLUDE = ["faq-tarif-montant"];
@@ -66,51 +93,45 @@ export default function AdmissionsPage() {
                   </a>
                 ))}
               </nav>
+              <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
+                <ButtonLink href="#rappel" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconPhone />
+                  Être rappelé
+                </ButtonLink>
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Déposer ma candidature
                   <IconArrowRight />
                 </ButtonLink>
-                <ButtonLink href="#rappel" variant="ghost" className="sem-hero__cta-secondary">
-                  Être rappelé sous 24 h
-                </ButtonLink>
               </div>
             </div>
 
-            <section className="adm-facts" aria-label="L’essentiel">
-              <p className="adm-facts__title">L’essentiel</p>
-              <dl className="adm-facts__grid">
-                <div className="adm-fact">
-                  <dt>
-                    <span className="adm-fact__icon" aria-hidden="true"><IconUsers /></span>
-                    Places
-                  </dt>
-                  <dd>
-                    <strong>25</strong>
-                    <span>participants par promotion</span>
-                  </dd>
-                </div>
-                <div className="adm-fact">
-                  <dt>
-                    <span className="adm-fact__icon" aria-hidden="true"><IconClock /></span>
-                    Réponse
-                  </dt>
-                  <dd>
-                    <strong>{a.delaiReponse}</strong>
-                    <span>après réception du dossier complet</span>
-                  </dd>
-                </div>
-                {SHOW.tarif ? (
-                  <div className="adm-fact is-wide">
-                    <dt>Tarif</dt>
-                    <dd>
-                      <a href="#tarif">Détail et conditions ci-dessous</a>
-                    </dd>
-                  </div>
-                ) : null}
-              </dl>
-              <DeadlineCountdown className="adm-facts__countdown" />
-            </section>
+            <ul className="iv-faces is-admissions" aria-label="L’essentiel">
+              {ADM_TILES.map((t, i) => (
+                <li key={i} className={`iv-faces__item is-${i + 1}`} aria-hidden={"src" in t || undefined}>
+                  {"src" in t ? (
+                    <span className="iv-faces__link">
+                      <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" />
+                    </span>
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true"><t.icon /></span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <Link href="/candidater" className="iv-faces__link iv-faces__more is-cta">
+                  <IconArrowRight />
+                  <span className="iv-faces__more-label">Candidater</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
@@ -234,25 +255,48 @@ export default function AdmissionsPage() {
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
             />
-            <div className="rappel-band__media">
-              <Image
-                src="/images/home/hero.png"
-                alt="Participants du certificat CFO 4.0 échangeant autour d’un ordinateur"
-                fill
-                sizes="(min-width: 768px) 34rem, 100vw"
-                className="object-cover object-center"
-              />
-            </div>
-            <div className="rappel-band__text">
-              <p className="max-w-2xl text-lg leading-relaxed text-muted">
-                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
-                règlent mieux au téléphone.
-              </p>
-              <p className="mt-4 text-sm">
-                Vous pouvez aussi écrire à{" "}
-                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
-              </p>
-            </div>
+            <p className="rappel-band__lead">
+              Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+              règlent mieux au téléphone.
+            </p>
+            <ul className="rappel-contacts">
+              <li>
+                <a href={BRAND.phoneHref} className="rappel-contact">
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPhone /></span>
+                  <span className="rappel-contact__label">Téléphone</span>
+                  <span className="rappel-contact__value">{BRAND.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="rappel-contact">
+                  <span className="rappel-contact__icon is-wa" aria-hidden="true"><IconWhatsApp /></span>
+                  <span className="rappel-contact__label">WhatsApp</span>
+                  <span className="rappel-contact__value">Écrire un message</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${plain(c.email)}`} className="rappel-contact">
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
+                  <span className="rappel-contact__label">E-mail</span>
+                  <span className="rappel-contact__value">
+                    {plain(c.email).split("@")[0]}@<wbr />
+                    {plain(c.email).split("@")[1]}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plain(c.adresseIscae))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rappel-contact"
+                >
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPin /></span>
+                  <span className="rappel-contact__label">Campus</span>
+                  <span className="rappel-contact__value">ISCAE Casablanca</span>
+                </a>
+              </li>
+            </ul>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
             <LeadForm kind="rappel" prefix="r" />

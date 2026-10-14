@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Intervenant } from "@/lib/cms";
 import { LoopCarousel } from "@/components/LoopCarousel";
-import { Container, KickerIcon } from "@/components/ui";
-import { IconLinkedIn } from "@/components/icons";
+import { CAROUSEL_MAX } from "@/lib/carousel";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
+import { IconArrowRight, IconLinkedIn } from "@/components/icons";
 import {
   facultyHasPhoto,
   facultyHome,
@@ -54,11 +54,11 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
             href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="faculty-card__li"
+            className="li-icon faculty-card__li"
             aria-label={`Profil LinkedIn de ${name}`}
+            title="LinkedIn"
           >
-            <IconLinkedIn size={15} />
-            LinkedIn
+            <IconLinkedIn size={16} />
           </a>
         ) : null}
       </div>
@@ -70,7 +70,7 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
 export function FacultyShowcase({ speakers, lead }: Props) {
   const all = facultyShowcase(speakers);
   const first = facultyHome(speakers);
-  const people = [...first, ...all.filter((p) => !first.some((f) => f.slug === p.slug))];
+  const people = [...first, ...all.filter((p) => !first.some((f) => f.slug === p.slug))].slice(0, CAROUSEL_MAX);
 
   return (
     <section id="intervenants" className="faculty" aria-labelledby="intervenants-title">
@@ -100,9 +100,12 @@ export function FacultyShowcase({ speakers, lead }: Props) {
           nextLabel="Intervenant suivant"
         />
 
-        <Link href="/intervenants" className="faculty__link">
-          Tous les intervenants ({all.length}) <span aria-hidden="true">→</span>
-        </Link>
+        <div className="faculty__more">
+          <ButtonLink href="/intervenants" variant="ghost" aria-label="Voir tous les intervenants">
+            Voir tout
+            <IconArrowRight />
+          </ButtonLink>
+        </div>
       </Container>
     </section>
   );

@@ -10,7 +10,7 @@ import {
   facultyPhotoSrc,
   facultyShowcase,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarPath, sessionCode } from "@/lib/text";
+import { personLinkedIn, plain } from "@/lib/text";
 
 const SECOND_SLUG = "ismail-lahsini";
 
@@ -18,24 +18,6 @@ export const metadata: Metadata = {
   title: "Intervenants",
   description: "Les associés, professeurs et praticiens qui animent les séminaires.",
 };
-
-function seminarsBySpeaker() {
-  const map = new Map<string, { numero: number; code: string; href: string; titre: string }[]>();
-  for (const s of allSessions()) {
-    for (const slug of s.intervenants ?? []) {
-      const list = map.get(slug) ?? [];
-      const code = sessionCode(s);
-      list.push({
-        numero: s.numero,
-        code: /^\d+$/.test(code) ? `S${Number(code)}` : code,
-        href: seminarPath(s),
-        titre: plain(s.titre),
-      });
-      map.set(slug, list);
-    }
-  }
-  return map;
-}
 
 export default async function IntervenantsPage() {
   const [{ chapeau }, cms] = await Promise.all([
@@ -47,7 +29,6 @@ export default async function IntervenantsPage() {
   const intervenants = featured
     ? [...roster.filter((p) => p !== featured).slice(0, 1), featured, ...roster.filter((p) => p !== featured).slice(1)]
     : roster;
-  const bySpeaker = seminarsBySpeaker();
   const withPhoto = intervenants.filter((p) => facultyHasPhoto(p));
   const faces = withPhoto.slice(0, 8);
   const hidden = intervenants.length - faces.length;
@@ -120,7 +101,6 @@ export default async function IntervenantsPage() {
               const linkedin = personLinkedIn(p.linkedin);
               const name = plain(p.nom);
               const photo = facultyHasPhoto(p);
-              const teaches = bySpeaker.get(p.slug) ?? [];
               return (
                 <li key={p.slug}>
                   <article id={p.slug} className="iv-card">
@@ -131,8 +111,7 @@ export default async function IntervenantsPage() {
                           alt=""
                           fill
                           className="iv-card__img"
-                          sizes="(min-width: 900px) 20rem, 50vw"
-                        />
+                          sizes="(min-width: 900px) 24rem, 100vw"                        />
                       ) : (
                         <span
                           className={`faculty-mono tone-${p.tone} iv-card__mono`}
@@ -151,39 +130,17 @@ export default async function IntervenantsPage() {
                         {plain(p.fonction)}
                         {p.institution ? ` · ${plain(p.institution)}` : ""}
                       </p>
-                      {teaches.length ? (
-                        <div className="iv-card__teaches">
-                          <span className="iv-card__teaches-label">Intervient sur</span>
-                          <ul>
-                            {teaches.map((t) => (
-                              <li key={t.numero}>
-                                <Link href={t.href} className="iv-card__sem">
-                                  <span>{t.code}</span>
-                                  {t.titre}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                      {p.bio ? (
-                        <details className="iv-bio">
-                          <summary>
-                            <span className="iv-card__bio">{plain(p.bio)}</span>
-                            <span className="iv-bio__toggle" aria-hidden="true" />
-                          </summary>
-                        </details>
-                      ) : null}
+                      {p.bio ? <p className="iv-card__bio">{plain(p.bio)}</p> : null}
                       {linkedin ? (
                         <a
                           href={linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="iv-card__li"
+                          className="li-icon iv-card__li"
                           aria-label={`Profil LinkedIn de ${name}`}
+                          title="LinkedIn"
                         >
                           <IconLinkedIn size={16} />
-                          LinkedIn
                         </a>
                       ) : null}
                     </div>

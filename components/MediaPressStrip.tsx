@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { IconArrowUpRight } from "@/components/icons";
 import { LoopCarousel } from "@/components/LoopCarousel";
+import { CAROUSEL_MAX } from "@/lib/carousel";
 import { plain } from "@/lib/text";
 
 export type MediaItem = {
@@ -41,7 +42,8 @@ function PressCard({ m }: { m: MediaItem }) {
 }
 
 /** Press carousel: swipe or arrows, autoplay one card every 2 s, endless loop. */
-export function MediaPressStrip({ items, children }: { items: readonly MediaItem[]; children?: ReactNode }) {
+export function MediaPressStrip({ items: all, children }: { items: readonly MediaItem[]; children?: ReactNode }) {
+  const items = all.slice(0, CAROUSEL_MAX);
   return (
     <LoopCarousel
       heading={children}

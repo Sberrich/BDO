@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
-import { IconArrowRight, IconBook, IconCert, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconBook, IconCert, IconDownload, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
 import { plain, seminarPath, sessionCode } from "@/lib/text";
 
 export function Footer() {
@@ -28,12 +28,13 @@ export function Footer() {
               Candidatures ouvertes jusqu’au 22 octobre 2026
             </p>
             <div className="foot__cta-row">
+              <Link href="/ressources/brochure" className="foot__btn is-ghost">
+                <IconDownload />
+                Recevoir la brochure
+              </Link>
               <Link href="/candidater" className="foot__btn is-primary">
                 Candidater
                 <IconArrowRight />
-              </Link>
-              <Link href="/ressources/brochure" className="foot__btn is-ghost">
-                Recevoir la brochure
               </Link>
             </div>
           </div>
@@ -105,20 +106,20 @@ export function Footer() {
             </h2>
             <ul className="foot__list is-sem">
               <li>
-                <Link href={`/seminaires/${inaugurale.slug}`}>
+                <Link href={`/seminaires/${inaugurale.slug}`} title={plain(inaugurale.titre)}>
                   <span className="foot__n is-in" aria-hidden="true">
                     IN
                   </span>
-                  {plain(inaugurale.titre)}
+                  <span className="foot__sem-title">{plain(inaugurale.titre)}</span>
                 </Link>
               </li>
               {seminars.map((s) => (
                 <li key={s.numero}>
-                  <Link href={seminarPath(s)}>
+                  <Link href={seminarPath(s)} title={plain(s.titre)}>
                     <span className="foot__n" aria-hidden="true">
                       {sessionCode(s)}
                     </span>
-                    {plain(s.titre)}
+                    <span className="foot__sem-title">{plain(s.titre)}</span>
                   </Link>
                 </li>
               ))}

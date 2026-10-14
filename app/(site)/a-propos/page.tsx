@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AdSlider } from "@/components/AdSlider";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { getIntervenants } from "@/lib/cms";
-import { allSessions, BRAND, data, SHOW } from "@/lib/content";
-import { facultyShowcase } from "@/lib/faculty-roster";
-import { personLinkedIn, personPhoto, plain } from "@/lib/text";
-import { IconArrowRight, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { BRAND, data } from "@/lib/content";
+import { plain } from "@/lib/text";
+import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -15,28 +14,36 @@ export const metadata: Metadata = {
 };
 
 const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number; role: string }> = {
-  "Groupe ISCAE": { src: "/images/logo-iscae.png", alt: "Groupe ISCAE", w: 160, h: 50, role: "Excellence académique" },
-  "BDO Maroc": { src: "/images/logo-bdo.png", alt: "BDO", w: 120, h: 42, role: "Expertise terrain" },
+  "Groupe ISCAE": { src: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", w: 351, h: 184, role: "Excellence académique" },
+  "BDO Maroc": { src: "/images/logo-bdo-header.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
 };
 
-export default async function AProposPage() {
+/** Hero mosaic: each institution's logo (to its site), photos, key facts and a contact tile. */
+const ABOUT_TILES: (
+  | { src: string }
+  | { logo: string; alt: string; href: string; w: number; h: number }
+  | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
+)[] = [
+  { logo: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 351, h: 184 },
+  { src: "/images/home/iscae-entrance.png" },
+  { icon: IconBook, num: "1971", unit: "", label: "Groupe ISCAE, école pionnière" },
+  { src: "/images/home/conference.png" },
+  { icon: IconCert, num: "2", unit: "institutions", label: "une signature commune", dark: true },
+  { src: "/images/home/about.png" },
+  { icon: IconGlobe, num: "5e", unit: "réseau", label: "mondial d’audit · BDO" },
+  { logo: "/images/logo-bdo-header.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
+];
+
+const TROPHY_SLIDES = [
+  { src: "/images/trophee/01-laureats-2026.png", alt: "Découvrez les lauréats des 3 catégories du Trophée BDO Digital des CFO’s 2026" },
+  { src: "/images/trophee/02-cfo-digital-annee.png", alt: "CFO Digital de l’année 2026 : Ibtissam Tirafi, Ora Technologies" },
+  { src: "/images/trophee/03-cfo-digital-grande-entreprise.png", alt: "CFO Digital Grande Entreprise 2026 : Kenza Bennani et Ikram Gouri, CBI" },
+  { src: "/images/trophee/04-coup-de-coeur-jury.png", alt: "CFO Digital Coup de cœur du jury 2026 : Sara Blouz, Procia (IT Global Services)" },
+  { src: "/images/trophee/05-rendez-vous.png", alt: "À l’année prochaine pour écrire un nouveau chapitre" },
+];
+
+export default function AProposPage() {
   const c = data.site.contact;
-  const seminarCount = allSessions().filter((s) => s.numero > 0).length;
-  const facts = [
-    { value: String(seminarCount), label: "séminaires" },
-    { value: String(facultyShowcase().length), label: "intervenants" },
-    { value: "25", label: "places par promotion" },
-    { value: "Oct → déc.", label: "calendrier 2026" },
-    { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
-  ];
-  const speakers = await getIntervenants();
-  const zakaria =
-    speakers.find((p) => p.slug === "zakaria-fahim") ||
-    speakers.find((p) => /zakaria|fahim/i.test(p.nom));
-  const linkedin = zakaria ? personLinkedIn(zakaria.linkedin) : "";
-  const photo = zakaria
-    ? personPhoto(zakaria.photo, zakaria.slug)
-    : "/images/people/zakaria-fahim-grey.png";
 
   return (
     <>
@@ -68,55 +75,46 @@ export default async function AProposPage() {
               </div>
             </div>
 
-            <div className="about-hero__partners" aria-label="Institutions cosignataires">
-              <article className="about-glass is-iscae">
-                <span className="about-glass__shine" aria-hidden />
-                <span className="about-glass__orb" aria-hidden />
-                <Image
-                  src="/images/logo-iscae.png"
-                  alt="Groupe ISCAE"
-                  width={220}
-                  height={70}
-                  className="about-glass__logo is-iscae"
-                  priority
-                />
-                <p className="about-glass__label">Groupe ISCAE</p>
-                <p className="about-glass__hint">Excellence académique</p>
-              </article>
-
-              <span className="about-glass__join" aria-hidden>
-                ×
-              </span>
-
-              <article className="about-glass is-bdo">
-                <span className="about-glass__shine" aria-hidden />
-                <span className="about-glass__orb" aria-hidden />
-                <Image
-                  src="/images/logo-bdo.png"
-                  alt="BDO Maroc"
-                  width={180}
-                  height={62}
-                  className="about-glass__logo is-bdo"
-                  priority
-                />
-                <p className="about-glass__label">BDO Maroc</p>
-                <p className="about-glass__hint">Expertise terrain</p>
-              </article>
-            </div>
+            <ul className="iv-faces is-admissions is-about" aria-label="Institutions cosignataires">
+              {ABOUT_TILES.map((t, i) => (
+                <li key={i} className={`iv-faces__item is-${i + 1}`} aria-hidden={"src" in t || undefined}>
+                  {"src" in t ? (
+                    <span className="iv-faces__link">
+                      <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" />
+                    </span>
+                  ) : "logo" in t ? (
+                    <a
+                      href={t.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="iv-faces__link iv-faces__logo"
+                      aria-label={`${t.alt} (site officiel, nouvel onglet)`}
+                    >
+                      <Image src={t.logo} alt="" width={t.w} height={t.h} className="iv-faces__logo-img" />
+                      <span className="iv-faces__logo-go" aria-hidden="true">
+                        <IconArrowUpRight />
+                      </span>
+                    </a>
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true"><t.icon /></span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <a href="#contact" className="iv-faces__link iv-faces__more is-cta">
+                  <IconMail />
+                  <span className="iv-faces__more-label">Écrire à l’équipe</span>
+                </a>
+              </li>
+            </ul>
           </div>
-        </Container>
-      </section>
-
-      <section className="about-facts" aria-label="Le certificat en bref">
-        <Container>
-          <dl className="about-facts__list">
-            {facts.map((f) => (
-              <div key={f.label} className="about-facts__item">
-                <dt>{f.label}</dt>
-                <dd>{f.value}</dd>
-              </div>
-            ))}
-          </dl>
         </Container>
       </section>
 
@@ -160,8 +158,12 @@ export default async function AProposPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
+                    <span className="about-card__link-site" aria-hidden="true">
+                      <IconGlobe />
+                    </span>
                     {x.lienLibelle}
-                    <IconArrowRight />
+                    <span className="sr-only"> (nouvel onglet)</span>
+                    <IconArrowUpRight />
                   </a>
                 </article>
               );
@@ -171,83 +173,47 @@ export default async function AProposPage() {
       </section>
 
       <section id="trophee" className="about-trophee" aria-labelledby="trophee-title">
-        <Container className="about-trophee__inner">
-          <div className="about-trophee__panel">
-            <p className="about-trophee__kicker"><KickerIcon label="Le dispositif BDO" />Le dispositif BDO</p>
-            <h2 id="trophee-title" className="about-trophee__title">
-              Le Trophée BDO des DAF
-            </h2>
-            <p className="about-trophee__text">
-              Le rendez-vous annuel des directions financières marocaines. Ses lauréats
-              bénéficient de conditions particulières pour le certificat.
-            </p>
-            <a
-              href="https://www.tropheebdo.ma/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="about-trophee__link"
-            >
-              Découvrir le Trophée
-              <IconArrowRight />
-            </a>
+        <Container>
+          <div className="trophy-card">
+            <div className="trophy-card__copy">
+              <Image
+                src="/images/logos/trophee-bdo-digital-cfos.png"
+                alt="Trophée BDO Digital CFOs"
+                width={160}
+                height={44}
+                className="trophy-card__logo"
+              />
+              <p className="about-trophee__kicker"><KickerIcon label="Le dispositif BDO" />Le dispositif BDO</p>
+              <h2 id="trophee-title" className="trophy-card__title">
+                Le Trophée BDO des DAF
+              </h2>
+              <p className="trophy-card__text">
+                Le rendez-vous annuel des directions financières marocaines : il distingue les DAF
+                qui portent la transformation digitale de leur organisation.
+              </p>
+              <a
+                href="https://www.tropheebdo.ma/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-card__link"
+              >
+                <span className="about-card__link-site" aria-hidden="true">
+                  <IconGlobe />
+                </span>
+                Découvrir le Trophée
+                <span className="sr-only"> (nouvel onglet)</span>
+                <IconArrowUpRight />
+              </a>
+            </div>
+
+            <AdSlider
+              className="trophy-card__media"
+              slides={TROPHY_SLIDES}
+              label="Lauréats du Trophée BDO Digital des CFO’s 2026"
+            />
           </div>
-          <section className="about-trophee__perk" aria-label="Avantage lauréats">
-            <span className="about-trophee__icon">
-              <IconTrophy />
-            </span>
-            <p className="about-trophee__perk-kicker">Lauréats du Trophée</p>
-            <p className="about-trophee__perk-title">Conditions particulières pour le certificat</p>
-            <Link href={SHOW.tarif ? "/admissions#tarif" : "/admissions#rappel"} className="about-trophee__perk-link">
-              {SHOW.tarif ? "Voir le tarif" : "Nous contacter"}
-              <IconArrowRight />
-            </Link>
-          </section>
         </Container>
       </section>
-
-      {zakaria ? (
-        <section className="about-lead" aria-labelledby="about-lead-title">
-          <Container className="about-lead__inner">
-            <div className="about-lead__media">
-              <Image
-                src={photo}
-                alt={zakaria.nom}
-                fill
-                sizes="(min-width: 800px) 22rem, 80vw"
-                className="about-lead__img"
-                priority
-              />
-              <span className="about-lead__frame" aria-hidden />
-            </div>
-            <div className="about-lead__copy">
-              <p className="about-lead__kicker"><KickerIcon label="Signature pédagogique" />Signature pédagogique</p>
-              <h2 id="about-lead-title" className="about-lead__name">
-                {zakaria.nom}
-              </h2>
-              <p className="about-lead__role">
-                {zakaria.fonction}
-                {zakaria.institution ? ` · ${zakaria.institution}` : ""}
-              </p>
-              <p className="about-lead__bio">{zakaria.bio}</p>
-              <div className="about-lead__actions">
-                {linkedin ? (
-                  <a
-                    href={linkedin}
-                    className="about-lead__li"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Profil LinkedIn
-                  </a>
-                ) : null}
-                <ButtonLink href="/intervenants" variant="secondary">
-                  Voir les intervenants
-                </ButtonLink>
-              </div>
-            </div>
-          </Container>
-        </section>
-      ) : null}
 
       <section id="contact" className="about-contact" aria-labelledby="contact-title">
         <Container className="about-contact__inner">
