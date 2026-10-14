@@ -244,6 +244,11 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
               <h2 id="profil-title" className="who__title">
                 {site.profil.titre}
               </h2>
+              <p className="who__prereq">
+                <strong>Prérequis</strong>
+                <span aria-hidden="true">·</span>
+                {site.profil.prerequis}
+              </p>
             </div>
             <p className="who__lead">{site.profil.chapeau}</p>
           </header>
@@ -262,10 +267,6 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
               );
             })}
           </ul>
-          <p className="who__prereq">
-            <span className="who__prereq-tag">Prérequis</span>
-            <span>{site.profil.prerequis}</span>
-          </p>
         </Container>
       </section>
 

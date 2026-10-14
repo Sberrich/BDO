@@ -3660,27 +3660,32 @@ body[data-nav="open"] .mobile-bar {
   flex: 1;
 }
 .who__prereq {
-  margin: 1.25rem 0 0;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1rem;
-  padding: 1rem 1.25rem;
-  border-radius: 16px;
-  background: var(--brand-navy);
-  font-size: 0.9375rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-.who__prereq-tag {
-  display: inline-flex;
-  align-items: center;
-  min-height: 1.75rem;
-  padding: 0 0.7rem;
+  gap: 0.15rem 0.45rem;
+  margin: 1rem 0 0;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
-  background: var(--brand-red);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fff;
+  background: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+.who__prereq strong {
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+@media (max-width: 640px) {
+  .who__prereq {
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-md);
+  }
+  .who__prereq > span {
+    display: none;
+  }
 }
 
 /* ——— 05 Faculty showcase ——— */
@@ -13054,11 +13059,6 @@ img {
 .iv-faces__link.iv-faces__more,
 .pricing__badge,
 .prog-board__open-tag,
-.who__prereq-tag {
-  background-color: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #fff;
-}
 .typewrite__caret {
   background-color: rgba(255, 255, 255, 0.7);
 }
