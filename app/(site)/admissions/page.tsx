@@ -5,7 +5,7 @@ import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
-import { ButtonLink, Container, SectionHeading } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
 import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
@@ -47,7 +47,7 @@ export default function AdmissionsPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">Promotion 1</span>
+                <span className="sem-hero__badge"><KickerIcon label="Promotion 1" bare />Promotion 1</span>
                 Candidatures ouvertes jusqu’au {plain(a.dateLimite)}
               </p>
               <h1 id="adm-title" className="sem-hero__title">

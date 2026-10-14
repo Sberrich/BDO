@@ -7,7 +7,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeCalendar, type CalendarSession } from "@/components/ProgrammeCalendar";
 import { ProgrammeGrid, splitDate } from "@/components/ProgrammeGrid";
-import { ButtonLink, Container, SectionHeading } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
 import { plain, seminarImage, sessionCode } from "@/lib/text";
@@ -63,7 +63,7 @@ export default function ProgrammePage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">Promotion 1</span>
+                <span className="sem-hero__badge"><KickerIcon label="Promotion 1" bare />Promotion 1</span>
                 {sessions.length} séances · octobre → décembre 2026
               </p>
               <h1 id="prog-title" className="sem-hero__title">

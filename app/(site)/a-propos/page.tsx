@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
@@ -50,7 +50,7 @@ export default async function AProposPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">À propos</span>
+                <span className="sem-hero__badge"><KickerIcon label="À propos" bare />À propos</span>
                 Groupe ISCAE × BDO Maroc
               </p>
               <h1 id="about-title" className="sem-hero__title">
@@ -123,7 +123,7 @@ export default async function AProposPage() {
       <section className="about-inst" aria-labelledby="about-inst-title">
         <Container className="about-inst__inner">
           <header className="about-inst__head">
-            <p className="about-inst__index">Les institutions</p>
+            <p className="about-inst__index"><KickerIcon label="Les institutions" />Les institutions</p>
             <h2 id="about-inst-title" className="about-inst__title">
               Qui porte le certificat
             </h2>
@@ -173,7 +173,7 @@ export default async function AProposPage() {
       <section id="trophee" className="about-trophee" aria-labelledby="trophee-title">
         <Container className="about-trophee__inner">
           <div className="about-trophee__panel">
-            <p className="about-trophee__kicker">Le dispositif BDO</p>
+            <p className="about-trophee__kicker"><KickerIcon label="Le dispositif BDO" />Le dispositif BDO</p>
             <h2 id="trophee-title" className="about-trophee__title">
               Le Trophée BDO des DAF
             </h2>
@@ -220,7 +220,7 @@ export default async function AProposPage() {
               <span className="about-lead__frame" aria-hidden />
             </div>
             <div className="about-lead__copy">
-              <p className="about-lead__kicker">Signature pédagogique</p>
+              <p className="about-lead__kicker"><KickerIcon label="Signature pédagogique" />Signature pédagogique</p>
               <h2 id="about-lead-title" className="about-lead__name">
                 {zakaria.nom}
               </h2>
@@ -252,7 +252,7 @@ export default async function AProposPage() {
       <section id="contact" className="about-contact" aria-labelledby="contact-title">
         <Container className="about-contact__inner">
           <div className="about-contact__info">
-            <p className="about-contact__kicker">Contact</p>
+            <p className="about-contact__kicker"><KickerIcon label="Contact" />Contact</p>
             <h2 id="contact-title" className="about-contact__title">
               Écrire à l’équipe
             </h2>

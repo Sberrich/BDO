@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
-import { Container } from "@/components/ui";
+import { Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconTick } from "@/components/icons";
 import { RESOURCE_COVERS, RESOURCES_MENU, SHOW } from "@/lib/content";
 
@@ -118,7 +118,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
           </nav>
           <div className="doc-hero__grid">
             <div className="doc-hero__copy">
-              <p className="doc-hero__kicker">{d.kicker}</p>
+              <p className="doc-hero__kicker"><KickerIcon label={d.kicker} />{d.kicker}</p>
               <h1 id="doc-title" className="doc-hero__title">
                 {d.title}
               </h1>
@@ -171,7 +171,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
         <section className="doc-online" aria-labelledby="doc-online-title">
           <Container className="doc-online__inner">
             <div className="doc-online__head">
-              <p className="doc-online__kicker">Sans attendre le PDF</p>
+              <p className="doc-online__kicker"><KickerIcon label="Sans attendre le PDF" />Sans attendre le PDF</p>
               <h2 id="doc-online-title" className="doc-online__title">
                 Le contenu de la brochure, déjà en ligne
               </h2>

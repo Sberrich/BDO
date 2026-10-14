@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight, IconLinkedIn } from "@/components/icons";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { allSessions, SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
@@ -64,7 +64,7 @@ export default async function IntervenantsPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">Les intervenants</span>
+                <span className="sem-hero__badge"><KickerIcon label="Les intervenants" bare />Les intervenants</span>
                 {intervenants.length} experts · {allSessions().length} séances
               </p>
               <h1 id="iv-title" className="sem-hero__title">
@@ -108,7 +108,7 @@ export default async function IntervenantsPage() {
       <section id="equipe" className="iv-roster" aria-labelledby="iv-roster-title">
         <Container className="iv-roster__inner">
           <header className="iv-roster__head">
-            <p className="iv-roster__index">Le corps enseignant</p>
+            <p className="iv-roster__index"><KickerIcon label="Le corps enseignant" />Le corps enseignant</p>
             <h2 id="iv-roster-title" className="iv-roster__title">
               Une équipe plurielle
             </h2>
@@ -196,7 +196,7 @@ export default async function IntervenantsPage() {
           {SHOW.soutenance ? (
           <section className="iv-jury" aria-labelledby="iv-jury-title">
             <div>
-              <p className="iv-jury__kicker">Soutenance</p>
+              <p className="iv-jury__kicker"><KickerIcon label="Soutenance" />Soutenance</p>
               <h2 id="iv-jury-title" className="iv-jury__title">
                 Le jury de soutenance
               </h2>
@@ -215,7 +215,7 @@ export default async function IntervenantsPage() {
         <Container>
           <div className="cta-band__inner">
             <div>
-              <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+              <p className="cta-band__kicker"><KickerIcon label="Promotion 1 · rentrée le 30 octobre 2026" />Promotion 1 · rentrée le 30 octobre 2026</p>
               <h2 id="cta-band-title" className="cta-band__title">
                 Travaillez votre projet avec eux, séminaire après séminaire.
               </h2>

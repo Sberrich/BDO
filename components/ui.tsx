@@ -1,17 +1,22 @@
 import Link, { type LinkProps } from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import {
+  IconBarChart,
   IconBook,
   IconCal,
   IconCert,
   IconChart,
+  IconDownload,
   IconFileText,
   IconGrid,
+  IconJury,
   IconLayers,
+  IconMail,
   IconPhone,
   IconPlay,
   IconSearch,
   IconTick,
+  IconTrophy,
   IconUsers,
 } from "@/components/icons";
 
@@ -70,40 +75,50 @@ export function Container({
 
 /** First match wins; IconGrid otherwise. */
 const KICKER_ICONS: [RegExp, (props: { size?: number }) => ReactNode][] = [
-  [/session/i, IconPlay],
-  [/calendrier|séances?\b|\bdates?\b/i, IconCal],
+  [/session|vidéo|témoignage/i, IconPlay],
+  [/calendrier|séances?\b|\bdates?\b|promotion|rentrée|candidatures ouvertes/i, IconCal],
   [/fil rouge|parcours/i, IconLayers],
-  [/parler|rappel|contact/i, IconPhone],
-  [/candidat|mention|confidentialit|cgu|conditions|légal/i, IconFileText],
+  [/parler|rappel/i, IconPhone],
+  [/contact/i, IconMail],
+  [/constat|baromètre|enquête/i, IconBarChart],
+  [/livrable|produisez|candidat|admission|mention|confidentialit|cgu|conditions|légal/i, IconFileText],
   [/investissement|tarif|financement/i, IconChart],
-  [/erreur/i, IconSearch],
+  [/erreur|faq|question/i, IconSearch],
   [/confirmation/i, IconTick],
-  [/concours|partenaire|intervenant|équipe/i, IconUsers],
-  [/certificat|certification/i, IconCert],
-  [/séminaire|programme/i, IconBook],
+  [/dispositif|trophée/i, IconTrophy],
+  [/soutenance|jury|signature/i, IconJury],
+  [/concours|partenaire|intervenant|équipe|enseignant|profil/i, IconUsers],
+  [/institution|certificat|certification|cosign|à propos/i, IconCert],
+  [/séminaire|programme|workshop|conférence|clôture|insight|publication|aller plus loin|continuer/i, IconBook],
+  [/ressource|brochure|pdf|document/i, IconDownload],
 ];
 
-function kickerIcon(children: ReactNode) {
-  const label = typeof children === "string" ? children : "";
+/** Icon tile for section labels; colours follow the label's text colour. */
+export function KickerIcon({
+  label,
+  bare = false,
+  className = "",
+}: {
+  label: string;
+  bare?: boolean;
+  className?: string;
+}) {
   const Icon = KICKER_ICONS.find(([re]) => re.test(label))?.[1] ?? IconGrid;
-  return <Icon />;
+  return (
+    <span className={`kicker-icon${bare ? " is-bare" : ""} ${className}`} aria-hidden="true">
+      <Icon />
+    </span>
+  );
 }
 
 export function Kicker({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
     <p
-      className={`inline-flex items-center gap-2.5 text-[0.8125rem] font-bold uppercase tracking-[0.12em] ${
+      className={`inline-flex items-center text-[0.8125rem] font-bold uppercase tracking-[0.12em] ${
         light ? "text-white/75" : "text-navy"
       }`}
     >
-      <span
-        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg [&_svg]:h-4 [&_svg]:w-4 ${
-          light ? "bg-white/10 text-white" : "bg-blue/10 text-blue"
-        }`}
-        aria-hidden
-      >
-        {kickerIcon(children)}
-      </span>
+      <KickerIcon label={typeof children === "string" ? children : ""} className={light ? "text-white" : "text-blue"} />
       {children}
     </p>
   );

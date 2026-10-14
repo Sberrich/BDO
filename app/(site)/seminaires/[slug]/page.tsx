@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { getIntervenants } from "@/lib/cms";
@@ -101,7 +101,7 @@ export default async function SeminairePage({ params }: Props) {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">{indexLabel}</span>
+                <span className="sem-hero__badge"><KickerIcon label={indexLabel} bare />{indexLabel}</span>
                 {inaug ? "Ouverture du cycle" : `Séance ${i} sur ${seq.length - 1}`}
               </p>
               <h1 id="sem-title" className="sem-hero__title">
@@ -227,7 +227,7 @@ export default async function SeminairePage({ params }: Props) {
 
             {detail.livrable ? (
               <div className="sem-livrable">
-                <p className="sem-livrable__kicker">Ce que vous produisez</p>
+                <p className="sem-livrable__kicker"><KickerIcon label="Ce que vous produisez" />Ce que vous produisez</p>
                 <p className="sem-livrable__text">{detail.livrable}</p>
               </div>
             ) : null}
