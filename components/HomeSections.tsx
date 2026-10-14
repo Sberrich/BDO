@@ -9,7 +9,8 @@ import { PriceTeaser } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { PubCard } from "@/components/PubCard";
 import { VideoBlock } from "@/components/VideoBlock";
-import { VoicesVideos } from "@/components/VoicesVideos";
+import { allPlaylists } from "@/lib/playlists";
+import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
@@ -274,19 +275,19 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
       <FacultyShowcase speakers={speakers} lead={speakersLead} />
 
-      <section id="temoignages" className="voices" aria-labelledby="temoignages-title">
+      <section id="playlists" className="voices" aria-labelledby="playlists-title">
         <Container className="voices__inner">
           <header className="voices__head">
-            <p className="voices__index"><KickerIcon label="Les témoignages" />06 · Les témoignages</p>
-            <h2 id="temoignages-title" className="voices__title">
-              Ils racontent le certificat
+            <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
+            <h2 id="playlists-title" className="voices__title">
+              Le certificat en vidéo
             </h2>
             <p className="voices__lead">
-              Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
+              Témoignages et séminaires, réunis en playlists.
             </p>
           </header>
 
-          <VoicesVideos />
+          <Playlists playlists={allPlaylists()} />
         </Container>
       </section>
 
