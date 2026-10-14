@@ -10386,6 +10386,7 @@ img {
 }
 .pcal__item.is-open .pcal__item-code {
   background: var(--brand-red);
+  color: #fff !important;
 }
 .pcal__item.is-close .pcal__item-code {
   background: #fff;
