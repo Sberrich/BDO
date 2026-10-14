@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Slide = { src: string; alt: string };
 
-/** Full-bleed banner: slides horizontally, story-style progress bars, swipe on touch. */
+/** Full-bleed banner: slides horizontally with side arrows, swipe on touch. */
 export function AdSlider({
   slides,
   label,
@@ -41,8 +41,7 @@ export function AdSlider({
 
   return (
     <div
-      className={`ad-slider${paused ? " is-paused" : ""} ${className}`}
-      style={{ "--ad-interval": `${interval}ms` } as CSSProperties}
+      className={`ad-slider ${className}`}
       role="region"
       aria-roledescription="carrousel"
       aria-label={label}
@@ -77,20 +76,6 @@ export function AdSlider({
 
       {count > 1 ? (
         <>
-          <div className="ad-slider__bars">
-            {slides.map((s, i) => (
-              <button
-                key={s.src}
-                type="button"
-                className={`ad-slider__bar${i < index ? " is-done" : ""}${i === index ? " is-active" : ""}`}
-                onClick={() => go(i)}
-                aria-label={`Afficher la diapositive ${i + 1}`}
-                aria-current={i === index}
-              >
-                <span key={i === index ? `on-${index}` : "off"} />
-              </button>
-            ))}
-          </div>
           <button
             type="button"
             className="ad-slider__arrow is-prev"

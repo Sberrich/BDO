@@ -4,9 +4,9 @@ import Link from "next/link";
 import { AdSlider } from "@/components/AdSlider";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { BRAND, data, SHOW } from "@/lib/content";
+import { BRAND, data } from "@/lib/content";
 import { plain } from "@/lib/text";
-import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -204,22 +204,6 @@ export default function AProposPage() {
                 <span className="sr-only"> (nouvel onglet)</span>
                 <IconArrowUpRight />
               </a>
-              <section className="trophy-card__perk" aria-label="Avantage lauréats">
-                <span className="trophy-card__perk-icon" aria-hidden="true">
-                  <IconTrophy />
-                </span>
-                <div>
-                  <p className="trophy-card__perk-kicker">Lauréats du Trophée</p>
-                  <p className="trophy-card__perk-title">Conditions particulières pour le certificat</p>
-                </div>
-                <Link
-                  href={SHOW.tarif ? "/admissions#tarif" : "/admissions#rappel"}
-                  className="trophy-card__perk-link"
-                  aria-label={SHOW.tarif ? "Voir le tarif" : "Nous contacter"}
-                >
-                  <IconArrowRight />
-                </Link>
-              </section>
             </div>
 
             <AdSlider

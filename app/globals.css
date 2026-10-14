@@ -11797,57 +11797,6 @@ img {
 .ad-slider__slide img {
   object-fit: contain;
 }
-.ad-slider__bars {
-  position: absolute;
-  z-index: 2;
-  top: 0.9rem;
-  left: 1rem;
-  right: 1rem;
-  display: flex;
-  gap: 0.35rem;
-}
-.ad-slider__bar {
-  position: relative;
-  flex: 1;
-  height: 1.25rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-.ad-slider__bar::before,
-.ad-slider__bar span {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 3px;
-  margin-top: -1.5px;
-  border-radius: 999px;
-}
-.ad-slider__bar::before {
-  background: rgba(255, 255, 255, 0.3);
-}
-.ad-slider__bar span {
-  background: #fff;
-  transform: scaleX(0);
-  transform-origin: left;
-}
-.ad-slider__bar.is-done span {
-  transform: scaleX(1);
-}
-.ad-slider__bar.is-active span {
-  animation: ad-progress var(--ad-interval, 5000ms) linear forwards;
-}
-.ad-slider.is-paused .ad-slider__bar.is-active span {
-  animation-play-state: paused;
-}
-@keyframes ad-progress {
-  to {
-    transform: scaleX(1);
-  }
-}
 .ad-slider__arrow {
   position: absolute;
   z-index: 2;
@@ -11862,8 +11811,7 @@ img {
   background: rgba(255, 255, 255, 0.92);
   color: var(--brand-navy) !important;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 .ad-slider__arrow svg,
 .ad-slider__arrow svg * {
@@ -11871,29 +11819,32 @@ img {
 }
 .ad-slider__arrow.is-prev {
   left: 0.75rem;
-  transform: translateX(-6px);
 }
 .ad-slider__arrow.is-next {
   right: 0.75rem;
-  transform: translateX(6px);
 }
-.ad-slider:hover .ad-slider__arrow,
+.ad-slider__arrow:hover,
 .ad-slider__arrow:focus-visible {
-  opacity: 1;
-  transform: none;
+  background: #fff;
+  transform: scale(1.06);
 }
-@media (hover: none) {
+@media (max-width: 640px) {
   .ad-slider__arrow {
-    display: none;
+    width: 1.85rem;
+    height: 1.85rem;
+    margin-top: -0.925rem;
+    background: rgba(255, 255, 255, 0.75);
+  }
+  .ad-slider__arrow.is-prev {
+    left: 0.35rem;
+  }
+  .ad-slider__arrow.is-next {
+    right: 0.35rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .ad-slider__strip {
     transition: none;
-  }
-  .ad-slider__bar.is-active span {
-    animation: none;
-    transform: scaleX(1);
   }
 }
 .trophy-card__perk {
