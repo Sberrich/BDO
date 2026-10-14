@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { IconArrowRight, IconDownload } from "@/components/icons";
+import { IconDownload } from "@/components/icons";
 import { cls } from "@/components/ui";
+import { BRAND } from "@/lib/content";
 import { confirmationFor } from "@/lib/confirmation";
 
 /** Illustration, title, text and actions — shared by the popup and the /merci page. */
@@ -26,6 +26,7 @@ export function SuccessCard({
 }) {
   const c = confirmationFor(type);
   const Title = page ? "h1" : "h2";
+  const file = fichier || BRAND.brochure;
   return (
     <div className="success-dialog__panel">
       <div className="success-dialog__media">
@@ -37,17 +38,10 @@ export function SuccessCard({
         <p id="success-dialog-text">{c.text}</p>
       </div>
       <div className="success-dialog__actions">
-        {fichier ? (
-          <a className={cls("primary")} href={fichier} download={fichier.split("/").pop() || "document.pdf"}>
-            <IconDownload />
-            Télécharger maintenant
-          </a>
-        ) : (
-          <Link className={cls("primary")} href="/programme">
-            Parcourir le programme
-            <IconArrowRight />
-          </Link>
-        )}
+        <a className={cls("primary")} href={file} download={file.split("/").pop() || "document.pdf"}>
+          <IconDownload />
+          {file === BRAND.brochure ? "Télécharger la brochure" : "Télécharger maintenant"}
+        </a>
         {secondary}
       </div>
     </div>

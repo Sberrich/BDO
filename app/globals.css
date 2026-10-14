@@ -14394,7 +14394,7 @@ input[type="checkbox"][aria-invalid="true"] {
   border-radius: 28px;
   background: #fff;
   color: var(--brand-navy);
-  box-shadow: 0 30px 80px -20px rgba(0, 31, 61, 0.45);
+  box-shadow: none;
   overflow: auto;
 }
 .success-dialog[open] {
@@ -14433,7 +14433,6 @@ input[type="checkbox"][aria-invalid="true"] {
   background: #fff;
   color: var(--brand-red);
   cursor: pointer;
-  box-shadow: 0 4px 14px -6px rgba(0, 31, 61, 0.25);
 }
 .success-dialog__close svg {
   width: 1rem;
@@ -14495,6 +14494,5 @@ input[type="checkbox"][aria-invalid="true"] {
   margin: 0;
   overflow: visible;
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 24px 60px -32px rgba(0, 31, 61, 0.35);
   animation: success-in 320ms var(--ease-out);
 }
