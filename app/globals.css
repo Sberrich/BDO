@@ -1938,10 +1938,34 @@ body[data-nav="open"] .mobile-bar {
   padding-top: clamp(2.5rem, 6vw, 4.5rem);
   padding-bottom: clamp(2rem, 4vw, 3rem);
 }
+/* Phones / tablets: title, then photo, then description + buttons */
+@media (max-width: 1023px) {
+  .hero-light__inner {
+    gap: 1.5rem;
+  }
+  .hero-light__copy.is-rest .hero-light__lead {
+    margin-top: 0;
+  }
+}
 @media (min-width: 1024px) {
   .hero-light__inner {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: 4rem;
+    grid-template-areas:
+      "top media"
+      "rest media";
+    column-gap: 4rem;
+    row-gap: 0;
+  }
+  .hero-light__copy {
+    grid-area: top;
+    align-self: end;
+  }
+  .hero-light__copy.is-rest {
+    grid-area: rest;
+    align-self: start;
+  }
+  .hero-light__media {
+    grid-area: media;
   }
 }
 .hero-light__badge {
