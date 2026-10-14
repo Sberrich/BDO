@@ -186,37 +186,65 @@ export default function AProposPage() {
       </section>
 
       <section id="trophee" className="about-trophee" aria-labelledby="trophee-title">
-        <Container className="about-trophee__inner">
-          <div className="about-trophee__panel">
-            <p className="about-trophee__kicker"><KickerIcon label="Le dispositif BDO" />Le dispositif BDO</p>
-            <h2 id="trophee-title" className="about-trophee__title">
-              Le Trophée BDO des DAF
-            </h2>
-            <p className="about-trophee__text">
-              Le rendez-vous annuel des directions financières marocaines. Ses lauréats
-              bénéficient de conditions particulières pour le certificat.
-            </p>
-            <a
-              href="https://www.tropheebdo.ma/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="about-trophee__link"
-            >
-              Découvrir le Trophée
-              <IconArrowRight />
-            </a>
+        <Container>
+          <div className="trophy-card">
+            <div className="trophy-card__copy">
+              <Image
+                src="/images/logos/trophee-bdo-digital-cfos.png"
+                alt="Trophée BDO Digital CFOs"
+                width={160}
+                height={44}
+                className="trophy-card__logo"
+              />
+              <p className="about-trophee__kicker"><KickerIcon label="Le dispositif BDO" />Le dispositif BDO</p>
+              <h2 id="trophee-title" className="trophy-card__title">
+                Le Trophée BDO des DAF
+              </h2>
+              <p className="trophy-card__text">
+                Le rendez-vous annuel des directions financières marocaines : il distingue les DAF
+                qui portent la transformation digitale de leur organisation.
+              </p>
+              <a
+                href="https://www.tropheebdo.ma/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-card__link"
+              >
+                <span className="about-card__link-site" aria-hidden="true">
+                  <IconGlobe />
+                </span>
+                Découvrir le Trophée
+                <span className="sr-only"> (nouvel onglet)</span>
+                <IconArrowUpRight />
+              </a>
+            </div>
+
+            <div className="trophy-card__media">
+              <Image
+                src="/images/heroes/trophee-slider-1.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 960px) 32rem, 100vw"
+                className="trophy-card__img"
+              />
+              <section className="trophy-card__perk" aria-label="Avantage lauréats">
+                <span className="trophy-card__perk-icon" aria-hidden="true">
+                  <IconTrophy />
+                </span>
+                <div>
+                  <p className="trophy-card__perk-kicker">Lauréats du Trophée</p>
+                  <p className="trophy-card__perk-title">Conditions particulières pour le certificat</p>
+                </div>
+                <Link
+                  href={SHOW.tarif ? "/admissions#tarif" : "/admissions#rappel"}
+                  className="trophy-card__perk-link"
+                  aria-label={SHOW.tarif ? "Voir le tarif" : "Nous contacter"}
+                >
+                  <IconArrowRight />
+                </Link>
+              </section>
+            </div>
           </div>
-          <section className="about-trophee__perk" aria-label="Avantage lauréats">
-            <span className="about-trophee__icon">
-              <IconTrophy />
-            </span>
-            <p className="about-trophee__perk-kicker">Lauréats du Trophée</p>
-            <p className="about-trophee__perk-title">Conditions particulières pour le certificat</p>
-            <Link href={SHOW.tarif ? "/admissions#tarif" : "/admissions#rappel"} className="about-trophee__perk-link">
-              {SHOW.tarif ? "Voir le tarif" : "Nous contacter"}
-              <IconArrowRight />
-            </Link>
-          </section>
         </Container>
       </section>
 
