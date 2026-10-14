@@ -11,7 +11,7 @@ import {
   facultyPhotoSrc,
   facultyShowcase,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarPath, sessionCode, sessionLabel } from "@/lib/text";
+import { personLinkedIn, plain, seminarImage, seminarPath, sessionCode, sessionLabel } from "@/lib/text";
 
 const SECOND_SLUG = "ismail-lahsini";
 
@@ -25,6 +25,8 @@ function sessionsBySpeaker() {
         code: /^\d+$/.test(code) ? `S${Number(code)}` : code,
         titre: plain(s.titre),
         label: sessionLabel(s),
+        when: [plain(s.dates), plain(s.horaire)].filter(Boolean).join(" · "),
+        image: seminarImage(s.numero),
         href: seminarPath(s),
       });
       map.set(slug, list);
@@ -153,8 +155,10 @@ export default async function IntervenantsPage() {
                         <SpeakerProfile
                           person={{
                             slug: p.slug,
+                            index: String(i + 1).padStart(2, "0"),
                             name,
-                            role,
+                            fonction: plain(p.fonction),
+                            institution: p.institution ? plain(p.institution) : "",
                             bio: p.bio ? plain(p.bio) : "",
                             photo: photo ? facultyPhotoSrc(p) : null,
                             initials: p.initials,
