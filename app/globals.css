@@ -2147,24 +2147,8 @@ body[data-nav="open"] .mobile-bar {
   padding: 0.5rem 1rem;
   text-align: center;
 }
-.hero-cosign__item:last-child {
+.hero-cosign__item + .hero-cosign__item {
   border-left: 1px solid var(--border-subtle);
-}
-.hero-cosign__x {
-  position: absolute;
-  left: 0;
-  top: 2.25rem;
-  transform: translate(-50%, -50%);
-  display: grid;
-  place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  background: var(--surface-1);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--brand-red);
 }
 .hero-cosign__logo {
   display: flex;
@@ -2196,13 +2180,7 @@ body[data-nav="open"] .mobile-bar {
   .hero-cosign__item {
     padding-inline: 0.4rem;
   }
-  .hero-cosign__x {
-    top: 1.75rem;
-    width: 1.4rem;
-    height: 1.4rem;
-    font-size: 0.85rem;
-  }
-  .hero-cosign__logo {
+    .hero-cosign__logo {
     height: 2.5rem;
   }
   .hero-cosign__logo.is-iscae img {
@@ -13540,7 +13518,6 @@ img {
 .faq-explorer__nav-n,
 .faq-group__index,
 .hero-cosign__kicker,
-.hero-cosign__x,
 .prog-board__meta,
 .prog-piece__more,
 .prog__title em,

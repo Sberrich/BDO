@@ -102,13 +102,8 @@ export function Hero() {
               </p>
             </div>
             <ul className="hero-cosign__logos">
-              {PARTNERS.map((p, i) => (
+              {PARTNERS.map((p) => (
                 <li key={p.name} className="hero-cosign__item">
-                  {i === 1 ? (
-                    <span className="hero-cosign__x" aria-hidden="true">
-                      ×
-                    </span>
-                  ) : null}
                   <span className={`hero-cosign__logo ${p.size}`}>
                     <Image src={p.src} alt={p.name} width={p.w} height={p.h} sizes="100px" />
                   </span>
