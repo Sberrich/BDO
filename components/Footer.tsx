@@ -88,7 +88,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/insights">Insights</Link>
+                <Link href="/playlists">Playlists</Link>
               </li>
               <li>
                 <Link href="/a-propos">À propos</Link>
@@ -203,22 +203,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-export function MobileBar() {
-  return (
-    <nav
-      className="mobile-bar fixed inset-x-0 bottom-0 z-40 hidden flex-col gap-2 border-t border-line bg-white/95 px-4 py-3 backdrop-blur max-[720px]:flex"
-      style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
-      aria-label="Actions rapides"
-    >
-      <Link href="/candidater" className="rounded-[10px] border border-red bg-red py-3 text-center text-[0.9375rem] font-bold text-white">
-        Candidater
-      </Link>
-      <Link href="/admissions#rappel" className="rounded-[10px] border border-blue bg-white py-3 text-center text-[0.9375rem] font-bold text-blue">
-        Être rappelé
-      </Link>
-    </nav>
   );
 }

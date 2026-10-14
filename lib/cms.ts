@@ -1,5 +1,6 @@
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../keystatic.config";
+import type { PlaylistVideo } from "@/lib/playlists";
 
 export const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -87,6 +88,33 @@ export async function getInsightArticles(): Promise<InsightArticle[]> {
 export async function getInsightBySlug(slug: string) {
   const articles = await getInsightArticles();
   return articles.find((a) => a.slug === slug);
+}
+
+export async function getPlaylistsPage() {
+  const page = await reader.singletons.playlistsPage.read();
+  return {
+    chapeau: page?.chapeau || "Toutes les vidéos du certificat CFO 4.0, réunies en playlists.",
+  };
+}
+
+export async function getVideos(): Promise<PlaylistVideo[]> {
+  const entries = await reader.collections.videos.all();
+  return entries
+    .filter(({ entry }) => entry.fichier)
+    .map(({ slug, entry }) => ({
+      id: slug,
+      titre: slugName(entry.titre, slug),
+      playlist: entry.playlist?.trim() || "Témoignages",
+      ordre: entry.ordre ?? 1,
+      sousTitre: entry.sousTitre || undefined,
+      tag: entry.etiquette || undefined,
+      video: entry.fichier,
+      poster: entry.poster || "/images/home/iscae-entrance.png",
+      duree: entry.duree || undefined,
+      langue: entry.langue || "FR",
+      date: entry.date || undefined,
+      resume: entry.resume || undefined,
+    }));
 }
 
 export async function getIntervenantsPage() {

@@ -36,7 +36,7 @@ export default async function AProposPage() {
   const linkedin = zakaria ? personLinkedIn(zakaria.linkedin) : "";
   const photo = zakaria
     ? personPhoto(zakaria.photo, zakaria.slug)
-    : "/images/people/zakaria-fahim.jpg";
+    : "/images/people/zakaria-fahim-grey.png";
 
   return (
     <>

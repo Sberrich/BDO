@@ -83,19 +83,19 @@ export function personLinkedIn(url?: string) {
 export function personPhoto(photo?: string, slug?: string) {
   if (photo?.startsWith("/")) return photo;
   if (slug === "zakaria-fahim" || photo?.toLowerCase().includes("zakaria") || photo?.toLowerCase().includes("fahim")) {
-    return "/images/people/zakaria-fahim.jpg";
+    return "/images/people/zakaria-fahim-grey.png";
   }
   if (slug === "ismail-lahsini" || photo?.toLowerCase().includes("lahsini") || photo?.toLowerCase().includes("lahssini")) {
-    return "/images/people/ismail-lahsini.jpeg";
+    return "/images/people/ismail-lahsini-grey.png";
   }
   if (slug === "antonio-gomes" || photo?.includes("antonio-gomes")) {
     return "/images/people/antonio-gomes.jpg";
   }
   if (slug === "abdeljaouad-benhaddou" || photo?.includes("benhaddou")) {
-    return "/images/people/abdeljaouad-benhaddou.png";
+    return "/images/people/abdeljaouad-benhaddou-grey.png";
   }
   if (slug === "saad-belfakir" || photo?.includes("saad-belfakir")) {
-    return "/images/people/saad-belfakir.jpg";
+    return "/images/temoignages/saad-belfakir-cover.jpg";
   }
   return "/images/people/portrait.svg";
 }

@@ -6,7 +6,7 @@ const data = {
       "nom": "Zakaria Fahim",
       "fonction": "Managing Partner – Head of Advisory",
       "institution": "BDO Maroc",
-      "photo": "/images/people/zakaria-fahim.jpg",
+      "photo": "/images/people/zakaria-fahim-grey.png",
       "bio": "Associé gérant de BDO Maroc, Zakaria Fahim accompagne les directions générales et financières des grandes et moyennes entreprises marocaines sur leurs opérations de transformation. Il est à l’origine du Baromètre BDO des DAF et du Trophée BDO des CFOs, et intervient sur le workshop de management digital et sur le jury de soutenance.",
       "seminaires": [4, 8],
       "linkedin": "https://www.linkedin.com/in/zakaria-fahim-97286928"
@@ -16,7 +16,7 @@ const data = {
       "nom": "Ismaïl Lahsini",
       "fonction": "Directeur général",
       "institution": "Meducate",
-      "photo": "/images/people/ismail-lahsini.jpeg",
+      "photo": "/images/people/ismail-lahsini-grey.png",
       "bio": "Ismaïl Lahsini dirige Meducate et intervient sur la transformation de la fonction finance. Membre du jury du Trophée BDO des CFOs, il contribue aux séminaires data et à la soutenance du certificat.",
       "seminaires": [1, 8],
       "linkedin": "https://www.linkedin.com/in/lahsini"

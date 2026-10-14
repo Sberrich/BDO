@@ -238,59 +238,12 @@ const data = {
       "texte": "Présentation des projets devant le Groupe ISCAE et BDO. Remise des certificats."
     }
   ],
-  "temoignages": [
-    {
-      "nom": "Zakaria Fahim",
-      "fonction": "Managing Partner",
-      "organisation": "BDO Maroc",
-      "statut": "BDO Maroc",
-      "video": "/videos/temoignages/zakaria-fahim.mp4",
-      "poster": "/images/people/zakaria-fahim.jpg",
-      "duree": "1 min 03"
-    },
-    {
-      "nom": "Mouad Laghiti",
-      "fonction": "Directeur administratif et financier",
-      "organisation": "Groupe Finare",
-      "statut": "Participant · 2e cohorte",
-      "video": "/videos/temoignages/mouad-laghiti.mp4",
-      "poster": "/images/temoignages/mouad-laghiti-cover.jpg",
-      "duree": "2 min 34"
-    },
-    {
-      "nom": "Saad Belfakir",
-      "fonction": "Expert-comptable, commissaire aux comptes",
-      "organisation": "Exco AB Partners",
-      "statut": "Participant · 2e cohorte",
-      "video": "/videos/temoignages/saad-belfakir.mp4",
-      "poster": "/images/temoignages/saad-belfakir-cover.jpg",
-      "duree": "1 min 36"
-    },
-    {
-      "nom": "Fouad Machrouh",
-      "fonction": "Directeur",
-      "organisation": "ISCAE Rabat",
-      "statut": "Groupe ISCAE",
-      "video": "/videos/temoignages/fouad-machrouh.mp4",
-      "poster": "/images/temoignages/fouad-machrouh-cover.jpg",
-      "duree": "2 min 01"
-    },
-    {
-      "nom": "Antonio Gomes",
-      "fonction": "General Partner",
-      "organisation": "Blockchain Education Network",
-      "statut": "Intervenant",
-      "video": "/videos/temoignages/antonio-gomes.mp4",
-      "poster": "/images/temoignages/antonio-gomes-cover.jpg",
-      "duree": "2 min 11"
-    }
-  ],
   "video": {
     "titre": "Le certificat en quatre-vingt-dix secondes",
     "texte": "Zakaria Fahim et l’équipe pédagogique présentent le cycle, le projet de transformation et la soutenance.",
     "duree": "1 min 30",
     "fichier": "/videos/presentation.mp4",
-    "poster": "/images/people/zakaria-fahim.jpg",
+    "poster": "/images/temoignages/zakaria-fahim-cover.jpg",
     "disponible": false
   },
   "sessionInfo": {

@@ -75,7 +75,7 @@ export function Container({
 
 /** First match wins; IconGrid otherwise. */
 const KICKER_ICONS: [RegExp, (props: { size?: number }) => ReactNode][] = [
-  [/session|vidéo|témoignage/i, IconPlay],
+  [/session|vidéo|témoignage|playlist/i, IconPlay],
   [/calendrier|séances?\b|\bdates?\b|promotion|rentrée|candidatures ouvertes/i, IconCal],
   [/fil rouge|parcours/i, IconLayers],
   [/parler|rappel/i, IconPhone],

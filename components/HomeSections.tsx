@@ -9,7 +9,8 @@ import { PriceTeaser } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { PubCard } from "@/components/PubCard";
 import { VideoBlock } from "@/components/VideoBlock";
-import { VoicesVideos } from "@/components/VoicesVideos";
+import type { Playlist } from "@/lib/playlists";
+import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
@@ -21,9 +22,10 @@ const TROPHEE_LOGO = { src: "/images/logos/trophee-bdo-digital-cfos.png", width:
 type Props = {
   speakers: Intervenant[];
   speakersLead?: string;
+  playlists: Playlist[];
 };
 
-export function HomeSections({ speakers, speakersLead }: Props) {
+export function HomeSections({ speakers, speakersLead, playlists }: Props) {
   const site = data.site;
   const c = site.constat;
   const haut = c.chiffres[0];
@@ -274,11 +276,11 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
       <FacultyShowcase speakers={speakers} lead={speakersLead} />
 
-      <section id="temoignages" className="voices" aria-labelledby="temoignages-title">
+      <section id="playlists" className="voices" aria-labelledby="playlists-title">
         <Container className="voices__inner">
           <header className="voices__head">
-            <p className="voices__index"><KickerIcon label="Les témoignages" />06 · Les témoignages</p>
-            <h2 id="temoignages-title" className="voices__title">
+            <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
+            <h2 id="playlists-title" className="voices__title">
               Ils racontent le certificat
             </h2>
             <p className="voices__lead">
@@ -286,7 +288,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </p>
           </header>
 
-          <VoicesVideos />
+          <Playlists playlists={playlists} />
         </Container>
       </section>
 

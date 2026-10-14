@@ -60,10 +60,10 @@ export const RESOURCES_MENU = [
     cover: RESOURCE_COVERS.livreblanc,
   },
   {
-    href: "/insights",
-    label: "Insights",
-    desc: "Analyses et lectures CFO 4.0",
-    icon: "insights" as const,
+    href: "/playlists",
+    label: "Playlists",
+    desc: "Témoignages et vidéos du certificat",
+    icon: "playlists" as const,
     cover: null,
   },
 ] as const;

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NAV, RESOURCES_MENU } from "@/lib/content";
-import { IconArrowRight, IconFileText, IconLayers, IconPhone } from "@/components/icons";
+import { IconArrowRight, IconFileText, IconPhone, IconPlay } from "@/components/icons";
 
 function isCurrent(href: string, pathname: string) {
   if (href === "/programme") {
@@ -14,7 +14,7 @@ function isCurrent(href: string, pathname: string) {
   }
   if (href === "/candidater") return pathname.startsWith("/candidater");
   if (href === "/ressources") {
-    return pathname.startsWith("/ressources") || pathname.startsWith("/insights");
+    return pathname.startsWith("/ressources") || pathname.startsWith("/insights") || pathname.startsWith("/playlists");
   }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -33,9 +33,16 @@ function ResourceThumb({
       </span>
     );
   }
+  if (icon === "playlists") {
+    return (
+      <span className="site-header__dd-cover is-icon" aria-hidden>
+        <IconPlay />
+      </span>
+    );
+  }
   return (
     <span className="site-header__dd-icon" aria-hidden>
-      {icon === "insights" ? <IconLayers size={18} /> : <IconFileText size={18} />}
+      <IconFileText size={18} />
     </span>
   );
 }
