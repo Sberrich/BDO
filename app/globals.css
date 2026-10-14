@@ -11447,6 +11447,27 @@ img {
   font-weight: 700;
   line-height: 1.2;
 }
+/* Programme hero: session images instead of portraits, each tile tagged with its code */
+.iv-faces.is-programme .iv-faces__img {
+  object-position: center;
+}
+.iv-faces__code {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--brand-navy);
+}
+.iv-faces.is-programme .iv-faces__item.is-1 .iv-faces__code {
+  background: var(--brand-red);
+  color: #fff;
+}
 
 /* ——— À propos: facts strip ——— */
 .about-facts {
