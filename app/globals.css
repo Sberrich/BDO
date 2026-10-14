@@ -15109,6 +15109,55 @@ input[type="checkbox"][aria-invalid="true"] {
 }
 .iv-faces__more.is-cta .iv-faces__more-label {
   font-size: 0.875rem;
+  text-align: center;
+}
+
+/* À propos hero: logo tiles open each institution's site */
+.iv-faces .iv-faces__logo {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border: 1px solid var(--border-subtle) !important;
+  background: #fff !important;
+}
+.iv-faces .iv-faces__logo:hover,
+.iv-faces .iv-faces__logo:focus-visible {
+  border-color: var(--brand-blue) !important;
+}
+.iv-faces__logo-img {
+  width: 100%;
+  height: auto;
+  max-height: 4.5rem;
+  object-fit: contain;
+}
+.iv-faces__logo-go {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--brand-blue-soft);
+  color: var(--brand-blue) !important;
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+.iv-faces__logo-go svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+.iv-faces__logo-go svg,
+.iv-faces__logo-go svg * {
+  color: inherit !important;
+}
+.iv-faces__logo:hover .iv-faces__logo-go,
+.iv-faces__logo:focus-visible .iv-faces__logo-go {
+  background: var(--brand-blue);
+  color: #fff !important;
+}
+.iv-faces.is-about .iv-faces__stat strong {
+  font-size: 1.6rem;
 }
 
 /* Admissions « L'essentiel »: two fact tiles, then the countdown in a tinted block */

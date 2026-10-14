@@ -7,7 +7,7 @@ import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
-import { IconArrowRight, IconArrowUpRight, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -18,6 +18,22 @@ const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: numbe
   "Groupe ISCAE": { src: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", w: 351, h: 184, role: "Excellence académique" },
   "BDO Maroc": { src: "/images/logo-bdo-header.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
 };
+
+/** Hero mosaic: each institution's logo (to its site), photos, key facts and a contact tile. */
+const ABOUT_TILES: (
+  | { src: string }
+  | { logo: string; alt: string; href: string; w: number; h: number }
+  | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
+)[] = [
+  { logo: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 351, h: 184 },
+  { src: "/images/home/iscae-entrance.png" },
+  { icon: IconBook, num: "1971", unit: "", label: "Groupe ISCAE, école pionnière" },
+  { src: "/images/home/conference.png" },
+  { icon: IconCert, num: "2", unit: "institutions", label: "une signature commune", dark: true },
+  { src: "/images/home/about.png" },
+  { icon: IconGlobe, num: "5e", unit: "réseau", label: "mondial d’audit · BDO" },
+  { logo: "/images/logo-bdo-header.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
+];
 
 export default async function AProposPage() {
   const c = data.site.contact;
@@ -68,41 +84,45 @@ export default async function AProposPage() {
               </div>
             </div>
 
-            <div className="about-hero__partners" aria-label="Institutions cosignataires">
-              <article className="about-glass is-iscae">
-                <span className="about-glass__shine" aria-hidden />
-                <span className="about-glass__orb" aria-hidden />
-                <Image
-                  src="/images/logo-iscae.png"
-                  alt="Groupe ISCAE"
-                  width={220}
-                  height={70}
-                  className="about-glass__logo is-iscae"
-                  priority
-                />
-                <p className="about-glass__label">Groupe ISCAE</p>
-                <p className="about-glass__hint">Excellence académique</p>
-              </article>
-
-              <span className="about-glass__join" aria-hidden>
-                ×
-              </span>
-
-              <article className="about-glass is-bdo">
-                <span className="about-glass__shine" aria-hidden />
-                <span className="about-glass__orb" aria-hidden />
-                <Image
-                  src="/images/logo-bdo.png"
-                  alt="BDO Maroc"
-                  width={180}
-                  height={62}
-                  className="about-glass__logo is-bdo"
-                  priority
-                />
-                <p className="about-glass__label">BDO Maroc</p>
-                <p className="about-glass__hint">Expertise terrain</p>
-              </article>
-            </div>
+            <ul className="iv-faces is-admissions is-about" aria-label="Institutions cosignataires">
+              {ABOUT_TILES.map((t, i) => (
+                <li key={i} className={`iv-faces__item is-${i + 1}`} aria-hidden={"src" in t || undefined}>
+                  {"src" in t ? (
+                    <span className="iv-faces__link">
+                      <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" />
+                    </span>
+                  ) : "logo" in t ? (
+                    <a
+                      href={t.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="iv-faces__link iv-faces__logo"
+                      aria-label={`${t.alt} (site officiel, nouvel onglet)`}
+                    >
+                      <Image src={t.logo} alt="" width={t.w} height={t.h} className="iv-faces__logo-img" />
+                      <span className="iv-faces__logo-go" aria-hidden="true">
+                        <IconArrowUpRight />
+                      </span>
+                    </a>
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true"><t.icon /></span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <a href="#contact" className="iv-faces__link iv-faces__more is-cta">
+                  <IconMail />
+                  <span className="iv-faces__more-label">Écrire à l’équipe</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
