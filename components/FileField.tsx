@@ -14,7 +14,7 @@ function extension(name: string) {
 
 /**
  * File picker with a light button, then a chip showing the chosen file (thumbnail for images)
- * with « Voir », « Remplacer » and « Retirer ». The native input stays in the form for FormData
+ * with view, replace and remove icon buttons. The native input stays in the form for FormData
  * and constraint validation.
  */
 export function FileField({
@@ -56,7 +56,7 @@ export function FileField({
   const isImage = file?.type.startsWith("image/");
 
   return (
-    <div className="block text-sm font-semibold">
+    <div className="block min-w-0 text-sm font-semibold">
       <span id={`cand-${rule.field}-label`}>
         {rule.label}
         {rule.required ? " *" : " (facultatif)"}
@@ -91,15 +91,44 @@ export function FileField({
             </span>
             <span className="file-field__actions">
               {url ? (
-                <a className="file-field__btn" href={url} target="_blank" rel="noopener noreferrer">
-                  Voir
+                <a
+                  className="file-field__btn"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Voir ${file.name}`}
+                  title="Voir"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
                 </a>
               ) : null}
-              <button type="button" className="file-field__btn" onClick={() => inputRef.current?.click()}>
-                Remplacer
+              <button
+                type="button"
+                className="file-field__btn"
+                onClick={() => inputRef.current?.click()}
+                aria-label={`Remplacer ${file.name}`}
+                title="Remplacer"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" />
+                  <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
+                  <path d="M21 3v5h-5M3 21v-5h5" />
+                </svg>
               </button>
-              <button type="button" className="file-field__btn is-danger" onClick={remove} aria-label={`Retirer ${file.name}`}>
-                Retirer
+              <button
+                type="button"
+                className="file-field__btn is-danger"
+                onClick={remove}
+                aria-label={`Retirer ${file.name}`}
+                title="Retirer"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+                  <path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6M10 11v6M14 11v6" />
+                </svg>
               </button>
             </span>
           </>

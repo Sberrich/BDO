@@ -110,11 +110,9 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
           </nav>
           <div className="doc-hero__grid">
             <div className="doc-hero__copy">
-              <p className="doc-hero__kicker"><KickerIcon label={d.kicker} bare />{d.kicker}</p>
-              <h1 id="doc-title" className="doc-hero__title">
+              <h1 id="doc-title" className="sr-only">
                 {d.title}
               </h1>
-              <p className="doc-hero__lead">{d.lead}</p>
 
               <div className={`doc-hero__preview ${landscape ? "is-landscape" : ""}`}>
                 <div className="doc-book">
@@ -143,6 +141,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
                       </li>
                     ))}
                   </ul>
+                  <p className="doc-hero__lead doc-hero__desc">{d.lead}</p>
                   <p className="doc-hero__format">
                     PDF envoyé par e-mail, téléchargeable immédiatement après l’envoi.
                   </p>
