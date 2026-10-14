@@ -11488,8 +11488,20 @@ img {
 
 /* ——— À propos: facts strip (icon, value, label) ——— */
 .about-facts {
-  background: #fff;
-  border-block: 1px solid var(--border-subtle);
+  background: var(--brand-navy);
+}
+.about-facts .about-facts__item {
+  border: 0 !important;
+}
+.about-facts .about-facts__icon {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+.about-facts .about-facts__item dd {
+  color: #fff !important;
+}
+.about-facts .about-facts__item dt {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 .about-facts__list {
   display: grid;
