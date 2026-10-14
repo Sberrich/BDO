@@ -6,7 +6,7 @@ import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
 import { plain } from "@/lib/text";
-import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight, IconBook, IconCal, IconCert, IconGlobe, IconJury, IconPin, IconTrophy, IconUsers, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -38,11 +38,11 @@ export default function AProposPage() {
   const c = data.site.contact;
   const seminarCount = allSessions().filter((s) => s.numero > 0).length;
   const facts = [
-    { value: String(seminarCount), label: "séminaires" },
-    { value: String(facultyShowcase().length), label: "intervenants" },
-    { value: "25", label: "places par promotion" },
-    { value: "Oct → déc.", label: "calendrier 2026" },
-    { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
+    { icon: IconBook, value: String(seminarCount), label: "Séminaires" },
+    { icon: IconJury, value: String(facultyShowcase().length), label: "Intervenants" },
+    { icon: IconUsers, value: "25 places", label: "Par promotion" },
+    { icon: IconCal, value: "Oct → déc.", label: "Calendrier 2026" },
+    { icon: IconPin, value: "Casablanca", label: "Ouverture à Rabat" },
   ];
 
   return (
@@ -123,6 +123,9 @@ export default function AProposPage() {
           <dl className="about-facts__list">
             {facts.map((f) => (
               <div key={f.label} className="about-facts__item">
+                <span className="about-facts__icon" aria-hidden="true">
+                  <f.icon />
+                </span>
                 <dt>{f.label}</dt>
                 <dd>{f.value}</dd>
               </div>
