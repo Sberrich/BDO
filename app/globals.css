@@ -13600,6 +13600,7 @@ img {
 /* ——— Playlists (home): three videos per playlist, « Voir plus » reveals the rest ——— */
 .playlists {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(2.5rem, 5vw, 3.5rem);
 }
 .playlist__head {
@@ -13910,6 +13911,70 @@ img {
   .playlist-card__img,
   .playlist-card__play {
     transition: none;
+  }
+}
+/* Playlist carousel: same loop and centre focus as the speakers */
+.press-carousel.is-videos .press-carousel__heading {
+  flex: 1;
+  min-width: 0;
+}
+.press-carousel.is-videos .playlist__head {
+  margin-bottom: 0;
+}
+.press-carousel.is-videos .press-track__item {
+  display: flex;
+}
+.press-carousel.is-videos .playlist-card {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.press-carousel.is-videos .playlist-card__thumb {
+  border-radius: 0;
+}
+.press-carousel.is-videos .playlist-card__body {
+  padding: 1rem 1.1rem 1.15rem;
+}
+@media (min-width: 1024px) {
+  .press-carousel.is-videos .press-track__item {
+    flex-basis: calc((100% - 2.5rem) / 3);
+  }
+}
+@media (max-width: 640px) {
+  .press-carousel.is-videos .press-track {
+    gap: 0.5rem;
+    margin-inline: calc(50% - 50vw);
+    padding: 0.75rem 11vw 1rem;
+    scroll-padding-inline: 11vw;
+  }
+  .press-carousel.is-videos .press-track__item {
+    flex: 0 0 78vw;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+  .press-carousel.is-videos .playlist-card {
+    transform: scale(calc(0.88 + 0.12 * var(--focus, 1)));
+    opacity: calc(0.45 + 0.55 * var(--focus, 1));
+    box-shadow: 0 18px 40px -22px rgba(0, 31, 61, calc(0.55 * var(--focus, 1)));
+    transition: none;
+    will-change: transform, opacity;
+  }
+  .press-carousel.is-videos .playlist-card__num {
+    display: inline-block;
+  }
+  .press-carousel.is-videos .playlist-card__play {
+    width: 3rem;
+    height: 3rem;
+  }
+  .press-carousel.is-videos .playlist-card__play svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  .press-carousel.is-videos .press-carousel__dots {
+    margin-top: 0.5rem;
   }
 }
 /* Player keeps a 16:9 frame whatever the clip's orientation, and fits short screens with its caption bar */
