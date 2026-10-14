@@ -221,12 +221,17 @@ export default function AdmissionsPage() {
             <SectionHeading
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
-              lead="Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se règlent mieux au téléphone."
             />
-            <p className="mt-4 text-sm">
-              Vous pouvez aussi écrire à{" "}
-              <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
-            </p>
+            <div className="rappel-band__text">
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">
+                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+                règlent mieux au téléphone.
+              </p>
+              <p className="mt-4 text-sm">
+                Vous pouvez aussi écrire à{" "}
+                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
+              </p>
+            </div>
             <div className="rappel-band__media">
               <Image
                 src="/images/home/hero.png"
