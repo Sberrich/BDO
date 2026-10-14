@@ -77,6 +77,7 @@ export function FacultyShowcase({ speakers, lead }: Props) {
       <Container className="faculty__inner">
         <LoopCarousel
           className="is-faculty"
+          centered
           heading={
             <header className="faculty__head">
               <div>

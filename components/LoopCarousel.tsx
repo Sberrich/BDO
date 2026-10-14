@@ -15,10 +15,12 @@ type Props = {
   prevLabel: string;
   nextLabel: string;
   className?: string;
+  /** Expose each slide's closeness to the track centre as `--focus` (0–1) for centre-focus styling. */
+  centered?: boolean;
 };
 
 /** Swipe or arrows, autoplay one slide every 2 s, endless loop, dots. */
-export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, className = "" }: Props) {
+export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, className = "", centered = false }: Props) {
   const trackRef = useRef<HTMLUListElement>(null);
   const interactedUntil = useRef(0);
   const [active, setActive] = useState(0);
@@ -62,11 +64,22 @@ export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, cl
     let settle = 0;
     let frame = 0;
 
+    const paintFocus = (step: number) => {
+      if (!centered || !step) return;
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      for (const item of track.querySelectorAll<HTMLElement>(".press-track__item")) {
+        const d = Math.abs(item.offsetLeft + item.offsetWidth / 2 - mid) / step;
+        item.style.setProperty("--focus", Math.max(0, 1 - d).toFixed(3));
+      }
+    };
+
     const onScroll = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const m = metrics();
-        if (m?.step) setActive(Math.round(track.scrollLeft / m.step) % n);
+        if (!m?.step) return;
+        setActive(Math.round(track.scrollLeft / m.step) % n);
+        paintFocus(m.step);
       });
       window.clearTimeout(settle);
       settle = window.setTimeout(() => {
@@ -77,9 +90,15 @@ export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, cl
       }, 120);
     };
     track.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return () => track.removeEventListener("scroll", onScroll);
+      return () => {
+        cancelAnimationFrame(frame);
+        track.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      };
     }
 
     let visible = false;
@@ -108,6 +127,7 @@ export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, cl
       cancelAnimationFrame(frame);
       io.disconnect();
       track.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       track.removeEventListener("pointerenter", pause);
       track.removeEventListener("pointerleave", resume);
       track.removeEventListener("focusin", pause);
@@ -115,7 +135,7 @@ export function LoopCarousel({ slides, labels, heading, prevLabel, nextLabel, cl
       track.removeEventListener("touchstart", touched);
       track.removeEventListener("wheel", touched);
     };
-  }, [metrics, n]);
+  }, [metrics, n, centered]);
 
   return (
     <div className={`press-carousel ${className}`}>
