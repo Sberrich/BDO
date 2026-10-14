@@ -121,11 +121,13 @@ export default function ProgrammePage() {
 
       <section id="seances" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
-          <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
-          <ButtonLink href="/ressources/brochure" variant="ghost" className="prog-brochure">
-            <IconDownload />
-            Télécharger la brochure
-          </ButtonLink>
+          <div className="prog-seances__head">
+            <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
+            <ButtonLink href="/ressources/brochure" variant="ghost" className="prog-brochure">
+              <IconDownload />
+              Télécharger la brochure
+            </ButtonLink>
+          </div>
           <div className="mt-8">
             <ProgrammeGrid />
           </div>

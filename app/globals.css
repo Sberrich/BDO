@@ -13480,8 +13480,20 @@ img {
   color: #fff;
 }
 
+.prog-seances__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
 .prog-brochure {
-  margin-top: 1.25rem;
+  flex-shrink: 0;
+}
+@media (max-width: 639px) {
+  .prog-brochure {
+    width: 100%;
+  }
 }
 .prog-brochure svg {
   width: 1.05rem;
