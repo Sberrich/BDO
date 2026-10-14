@@ -23,8 +23,6 @@ import {
 
 const steps = ["Coordonnées", "Inscription", "Fonction et parcours", "Motivation"];
 const KEY = "cfo40-candidature";
-const CV_STEP = 0;
-
 type Choices = { participation: string; secteur: string; niveau: string; decouverte: string };
 const EMPTY: Choices = { participation: "", secteur: "", niveau: "", decouverte: "" };
 
@@ -37,6 +35,7 @@ export function CandidatureForm() {
   const [status, setStatus] = useState("");
   const [choices, setChoices] = useState<Choices>(EMPTY);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [focusName, setFocusName] = useState<{ name: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const inFlight = useRef(false);
@@ -75,6 +74,12 @@ export function CandidatureForm() {
       });
     } catch {}
   }, []);
+
+  useEffect(() => {
+    const el = focusName && formRef.current?.elements.namedItem(focusName.name);
+    const field = el instanceof RadioNodeList ? el[0] : el;
+    if (isField(field)) focusField(field);
+  }, [focusName]);
 
   function persist(form: HTMLFormElement, nextStep = step) {
     const payload: Record<string, string> = {};
@@ -130,9 +135,22 @@ export function CandidatureForm() {
       focusField(first);
       return;
     }
+    setStatus("");
     const nextStep = Math.min(step + 1, steps.length - 1);
     persist(form, nextStep);
     setStep(nextStep);
+  }
+
+  /** Opens the step holding `name` and focuses that field once it is visible. */
+  function showField(form: HTMLFormElement, name: string) {
+    const el = form.elements.namedItem(name);
+    const field = el instanceof RadioNodeList ? el[0] : el;
+    const fieldset = field instanceof Element ? field.closest("fieldset") : null;
+    const target = fieldset ? Array.from(form.querySelectorAll("fieldset")).indexOf(fieldset) : -1;
+    if (target < 0) return;
+    setStep(target);
+    setFocusName({ name });
+    if (target !== step) setStatus(`Il manque une information à l’étape « ${steps[target]} ».`);
   }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -140,14 +158,13 @@ export function CandidatureForm() {
     if (step < steps.length - 1) return next(e);
     if (inFlight.current) return;
     const form = e.currentTarget;
-    const fd = new FormData(form);
-    const cv = fd.get("cv");
-    if (!(cv instanceof File) || cv.size === 0) {
-      setErrors({ cv: "Merci de joindre votre CV." });
-      setStep(CV_STEP);
-      setStatus(`Merci de joindre votre CV à l’étape « ${steps[CV_STEP]} ».`);
+    const { errors: found, first } = collectErrors(form, { includeHidden: true });
+    setErrors(found);
+    if (first) {
+      showField(form, first.name);
       return;
     }
+    const fd = new FormData(form);
     inFlight.current = true;
     setSending(true);
     setStatus("");
@@ -160,12 +177,12 @@ export function CandidatureForm() {
       const res = await fetch("/api/submit", { method: "POST", body: fd });
       const json = (await res.json()) as { ok: boolean; message: string; field?: string };
       if (!res.ok || !json.ok) {
+        setStatus(json.message);
         const upload = UPLOADS.find((rule) => rule.field === json.field);
         if (upload) {
           setErrors((errs) => ({ ...errs, [upload.field]: json.message }));
-          setStep(CV_STEP);
+          showField(form, upload.field);
         }
-        setStatus(json.message);
         setSending(false);
         inFlight.current = false;
         return;
@@ -207,7 +224,7 @@ export function CandidatureForm() {
                 type="radio"
                 name={name}
                 value={o.value}
-                required={step === s}
+                required
                 className="h-4 w-4 shrink-0 accent-blue"
               />
               {o.label}
@@ -225,7 +242,7 @@ export function CandidatureForm() {
         {label} *
         <input
           className={fieldClass}
-          required={step === s}
+          required
           name={`${name}_autre`}
           placeholder="Votre réponse"
           maxLength={200}
@@ -290,13 +307,13 @@ export function CandidatureForm() {
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 0}>
-        <NameInput kind="prenom" required={step === 0} />
-        <NameInput kind="nom" required={step === 0} />
+        <NameInput kind="prenom" required />
+        <NameInput kind="nom" required />
         <label className="block text-sm font-semibold">
           E-mail *
           <input
             className={fieldClass}
-            required={step === 0}
+            required
             type="email"
             name="email"
             autoComplete="email"
@@ -306,12 +323,12 @@ export function CandidatureForm() {
           />
           {err("email")}
         </label>
-        <PhoneInput label="GSM" required={step === 0} />
+        <PhoneInput label="GSM" required />
         <label className="block text-sm font-semibold sm:col-span-2">
           Ville *
           <input
             className={fieldClass}
-            required={step === 0}
+            required
             name="ville"
             autoComplete="address-level2"
             placeholder="Ex. Casablanca"
@@ -328,7 +345,7 @@ export function CandidatureForm() {
               type="file"
               name={rule.field}
               accept={rule.accept}
-              required={rule.required && step === 0}
+              required={rule.required}
               onChange={onFile(rule)}
               aria-invalid={errors[rule.field] ? true : undefined}
               aria-describedby={`cand-${rule.field}-error`}
@@ -357,7 +374,7 @@ export function CandidatureForm() {
           Diplômes obtenus *
           <textarea
             className={`${fieldClass} min-h-28`}
-            required={step === 2}
+            required
             maxLength={800}
             name="diplome"
             placeholder="Ex. Master en finance, ISCAE Casablanca, 2015"
@@ -384,7 +401,7 @@ export function CandidatureForm() {
           demande *
           <textarea
             className={`${fieldClass} min-h-32`}
-            required={step === 3}
+            required
             maxLength={1500}
             name="interet"
             placeholder="Vos objectifs, le projet de transformation que vous souhaitez mener dans votre entreprise…"
@@ -400,7 +417,7 @@ export function CandidatureForm() {
           >
             <input
               type="checkbox"
-              required={step === 3}
+              required
               name="consentement"
               value="oui"
               className="mt-0.5 h-4 w-4 accent-blue"

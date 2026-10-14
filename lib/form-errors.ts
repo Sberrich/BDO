@@ -43,11 +43,13 @@ export function fieldMessage(el: Field) {
  * Checks every field of the form (firing `invalid` so self-reporting inputs show their message)
  * and returns the messages of the other invalid fields, keyed by name, plus the first invalid field.
  */
-export function collectErrors(form: HTMLFormElement) {
+export function collectErrors(form: HTMLFormElement, { includeHidden = false } = {}) {
   const errors: Record<string, string> = {};
   let first: Field | null = null;
   for (const el of Array.from(form.elements)) {
-    if (!isField(el) || el.disabled || el.closest("fieldset[hidden]") || el.checkValidity()) continue;
+    if (!isField(el) || el.disabled) continue;
+    if (!includeHidden && el.closest("fieldset[hidden]")) continue;
+    if (el.checkValidity()) continue;
     first ??= el;
     if (!SELF_REPORTING.includes(el.name) && !(el.name in errors)) errors[el.name] = fieldMessage(el);
   }
