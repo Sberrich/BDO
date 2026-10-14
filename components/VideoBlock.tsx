@@ -111,8 +111,11 @@ export function VideoBlock() {
               type="button"
               className="videoband__close"
               onClick={() => setOpen(false)}
+              aria-label="Fermer la vidéo"
             >
-              Fermer
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
             </button>
             <div className="videoband__embed">
               <video
@@ -120,8 +123,9 @@ export function VideoBlock() {
                 controls
                 autoPlay
                 playsInline
-                poster={poster}
+                preload="auto"
                 src={src}
+                onLoadedData={(e) => e.currentTarget.classList.add("is-ready")}
               >
                 Votre navigateur ne lit pas la vidéo.
               </video>

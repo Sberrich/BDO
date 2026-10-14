@@ -91,6 +91,7 @@ const KICKER_ICONS: [RegExp, (props: { size?: number }) => ReactNode][] = [
   [/institution|certificat|certification|cosign|à propos/i, IconCert],
   [/séminaire|programme|workshop|conférence|clôture|insight|publication|aller plus loin|continuer/i, IconBook],
   [/ressource|brochure|pdf|document/i, IconDownload],
+  [/presse|médias?\b/i, IconFileText],
 ];
 
 /** Icon tile for section labels; colours follow the label's text colour. */

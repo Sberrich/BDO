@@ -294,16 +294,18 @@ export function HomeSections({ speakers, speakersLead }: Props) {
 
       <section id="medias" className="press-band" aria-labelledby="medias-title">
         <Container className="press-band__inner">
-          <div className="press-band__head">
+          <MediaPressStrip items={site.medias}>
+            <p className="press-band__kicker">
+              <KickerIcon label="Revue de presse" />
+              Revue de presse
+            </p>
             <h2 id="medias-title" className="press-band__title">
               Ils en ont parlé
             </h2>
-            <p className="press-band__hint">
-              <span className="max-sm:hidden">Survolez un média pour lire l’article.</span>
-              <span className="sm:hidden">Faites glisser pour voir tous les médias.</span>
+            <p className="press-band__lead">
+              {site.medias.length} médias marocains ont couvert le lancement du certificat.
             </p>
-          </div>
-          <MediaPressStrip items={site.medias} />
+          </MediaPressStrip>
         </Container>
       </section>
 
