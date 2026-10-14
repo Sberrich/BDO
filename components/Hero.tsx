@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ButtonLink, Container } from "@/components/ui";
+import { HeroVideo } from "@/components/HeroVideo";
 import { JourneyPanel } from "@/components/JourneyPanel";
 import { SHOW } from "@/lib/content";
 import { IconArrowRight, IconCal, IconDownload, IconPin, IconUsers } from "@/components/icons";
@@ -88,16 +89,7 @@ export function Hero() {
             </ul>
           </div>
 
-          <div className="hero-light__media hero-panel-enter" aria-hidden="true">
-            <Image
-              src="/images/home/iscae-entrance.png"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 1024px) 34rem, 0px"
-              className="hero-light__photo"
-            />
-          </div>
+          <HeroVideo />
         </Container>
 
         <Container className="hero-light__proof">

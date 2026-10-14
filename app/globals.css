@@ -2021,19 +2021,82 @@ body[data-nav="open"] .mobile-bar {
 }
 .hero-light__media {
   position: relative;
-  display: none;
-  aspect-ratio: 1 / 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
   background: var(--surface-1);
+  cursor: pointer;
 }
 @media (min-width: 1024px) {
   .hero-light__media {
-    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
   }
 }
 .hero-light__photo {
   object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+.hero-light__tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 55, 104, 0.28);
+  mix-blend-mode: multiply;
+  transition: background-color 0.3s ease;
+}
+.hero-light__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(4.5rem, 10vw, 6rem);
+  height: clamp(4.5rem, 10vw, 6rem);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--brand-navy);
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s var(--ease-out);
+}
+.hero-light__play::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  animation: videoband-pulse 2.2s ease-out infinite;
+}
+.hero-light__play svg {
+  width: 38%;
+  height: 38%;
+  margin-left: 6%;
+}
+.hero-light__media:hover .hero-light__photo {
+  transform: scale(1.03);
+}
+.hero-light__media:hover .hero-light__tint {
+  background: rgba(0, 55, 104, 0.18);
+}
+.hero-light__media:hover .hero-light__play,
+.hero-light__media:focus-visible .hero-light__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.hero-light__media:focus-visible {
+  outline: 3px solid var(--brand-blue);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-light__play::before {
+    animation: none;
+  }
+  .hero-light__photo,
+  .hero-light__play {
+    transition: none;
+  }
 }
 .hero-light__proof {
   padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
