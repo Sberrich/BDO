@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { FadeSlider } from "@/components/FadeSlider";
+import { AdSlider } from "@/components/AdSlider";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { BRAND, data, SHOW } from "@/lib/content";
@@ -204,10 +204,6 @@ export default function AProposPage() {
                 <span className="sr-only"> (nouvel onglet)</span>
                 <IconArrowUpRight />
               </a>
-            </div>
-
-            <div className="trophy-card__media">
-              <FadeSlider slides={TROPHY_SLIDES} label="Lauréats du Trophée BDO Digital des CFO’s 2026" />
               <section className="trophy-card__perk" aria-label="Avantage lauréats">
                 <span className="trophy-card__perk-icon" aria-hidden="true">
                   <IconTrophy />
@@ -225,6 +221,12 @@ export default function AProposPage() {
                 </Link>
               </section>
             </div>
+
+            <AdSlider
+              className="trophy-card__media"
+              slides={TROPHY_SLIDES}
+              label="Lauréats du Trophée BDO Digital des CFO’s 2026"
+            />
           </div>
         </Container>
       </section>

@@ -11764,89 +11764,136 @@ img {
 .trophy-card__copy .about-card__link {
   margin-top: 0.75rem;
 }
-.trophy-card__media {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  padding: clamp(1rem, 2.5vw, 1.5rem);
-  background: #1a2fb0;
-  background: linear-gradient(160deg, #1d33c4, #0f1f8a);
+.trophy-card__copy .trophy-card__perk {
+  margin-top: 1rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-1);
 }
 
-/* Single-slide crossfade slider */
-.fade-slider {
-  display: grid;
-  gap: 0.75rem;
-}
-.fade-slider__track {
+/* Ad banner slider: full-bleed, slides horizontally, story-style progress bars */
+.ad-slider {
   position: relative;
-  aspect-ratio: 763 / 430;
   overflow: hidden;
-  border-radius: 12px;
-  background: #0f1f8a;
+  aspect-ratio: 763 / 430;
+  background: #000c87;
+  touch-action: pan-y;
 }
-.fade-slider__slide {
+@media (min-width: 860px) {
+  .trophy-card .ad-slider {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+}
+.ad-slider__strip {
+  display: flex;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.ad-slider__slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+}
+.ad-slider__slide img {
+  object-fit: contain;
+}
+.ad-slider__bars {
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-.fade-slider__slide.is-active {
-  opacity: 1;
-}
-.fade-slider__slide img {
-  object-fit: cover;
-}
-.fade-slider__nav {
+  z-index: 2;
+  top: 0.9rem;
+  left: 1rem;
+  right: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  gap: 0.35rem;
 }
-.fade-slider__arrow {
-  display: grid;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  background: transparent;
-  color: #fff !important;
-  cursor: pointer;
-  transition: background var(--duration-fast) ease, border-color var(--duration-fast) ease;
-}
-.fade-slider__arrow svg,
-.fade-slider__arrow svg * {
-  color: inherit !important;
-}
-.fade-slider__arrow:hover,
-.fade-slider__arrow:focus-visible {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-}
-.fade-slider__dots {
-  display: flex;
-  gap: 0.4rem;
-}
-.fade-slider__dot {
-  width: 0.5rem;
-  height: 0.5rem;
+.ad-slider__bar {
+  position: relative;
+  flex: 1;
+  height: 1.25rem;
   padding: 0;
   border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.4);
+  background: none;
   cursor: pointer;
-  transition: width 0.25s ease, background 0.25s ease;
 }
-.fade-slider__dot.is-active {
-  width: 1.5rem;
+.ad-slider__bar::before,
+.ad-slider__bar span {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 999px;
+}
+.ad-slider__bar::before {
+  background: rgba(255, 255, 255, 0.3);
+}
+.ad-slider__bar span {
   background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.ad-slider__bar.is-done span {
+  transform: scaleX(1);
+}
+.ad-slider__bar.is-active span {
+  animation: ad-progress var(--ad-interval, 5000ms) linear forwards;
+}
+.ad-slider.is-paused .ad-slider__bar.is-active span {
+  animation-play-state: paused;
+}
+@keyframes ad-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+.ad-slider__arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: -1.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--brand-navy) !important;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.ad-slider__arrow svg,
+.ad-slider__arrow svg * {
+  color: inherit !important;
+}
+.ad-slider__arrow.is-prev {
+  left: 0.75rem;
+  transform: translateX(-6px);
+}
+.ad-slider__arrow.is-next {
+  right: 0.75rem;
+  transform: translateX(6px);
+}
+.ad-slider:hover .ad-slider__arrow,
+.ad-slider__arrow:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .ad-slider__arrow {
+    display: none;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fade-slider__slide,
-  .fade-slider__dot {
+  .ad-slider__strip {
     transition: none;
+  }
+  .ad-slider__bar.is-active span {
+    animation: none;
+    transform: scaleX(1);
   }
 }
 .trophy-card__perk {
