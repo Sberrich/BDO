@@ -13929,6 +13929,26 @@ img {
 .prog-piece:hover .prog-piece__num {
   background: var(--brand-blue);
 }
+/* Same pill as the opening-conference CTA (.prog-board__open-go). */
+.prog-piece__more {
+  align-self: flex-start;
+  gap: 0.45rem;
+  min-height: 2.6rem;
+  margin-top: 1.25rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  background: var(--surface-1);
+  color: var(--brand-navy);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.prog-piece__more svg {
+  stroke: currentColor;
+}
+.prog-piece:hover .prog-piece__more,
+.prog-piece:focus-visible .prog-piece__more {
+  background: var(--brand-navy);
+  color: #fff;
+}
 
 .prog-goals {
   padding: clamp(3rem, 7vw, 5.5rem) 0;
