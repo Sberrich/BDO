@@ -13684,6 +13684,11 @@ img {
   background: var(--brand-red);
   color: #fff;
 }
+@media (min-width: 641px) {
+  .playlist__all-bottom {
+    display: none;
+  }
+}
 
 .playlist__grid {
   display: grid;
@@ -13920,10 +13925,16 @@ img {
     grid-area: meta;
     font-size: 0.8125rem;
   }
-  .playlist__all {
-    grid-area: play;
-    min-height: 2.5rem;
-    padding-right: 1rem;
+  .playlist__head .playlist__all {
+    display: none;
+  }
+  .playlist__all-bottom {
+    margin-top: 1.25rem;
+  }
+  .playlist__all-bottom .playlist__all-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0.4rem 0.35rem 0.4rem 0.45rem;
   }
   .playlist__more {
     display: flex;

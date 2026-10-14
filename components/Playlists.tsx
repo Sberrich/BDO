@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { IconArrowRight } from "@/components/icons";
 import { LoopCarousel } from "@/components/LoopCarousel";
-import { ButtonLink } from "@/components/ui";
+import { Button, ButtonLink } from "@/components/ui";
 import { CAROUSEL_MAX } from "@/lib/carousel";
 import { Reveal } from "@/components/motion";
 import {
@@ -104,6 +104,12 @@ function PlaylistBlock({
           prevLabel="Vidéo précédente"
           nextLabel="Vidéo suivante"
         />
+        <div className="prog__all playlist__all-bottom">
+          <Button type="button" variant="ghost" onClick={() => onPlay(0)}>
+            <PlayIcon className="playlist__all-icon" />
+            Tout lire
+          </Button>
+        </div>
         {videos.length > CAROUSEL_MAX ? (
           <div className="prog__all">
             <ButtonLink href={`/playlists?playlist=${id}#videos`} variant="ghost" aria-label={`Voir toutes les vidéos : ${titre}`}>
