@@ -12,6 +12,8 @@ import { VideoBlock } from "@/components/VideoBlock";
 import type { Playlist } from "@/lib/playlists";
 import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
+import { LoopCarousel } from "@/components/LoopCarousel";
+import { CAROUSEL_MAX } from "@/lib/carousel";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
@@ -40,8 +42,8 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
   const sessions = allSessions();
-  const sessionCount = sessions.length;
-  const featured = sessions.filter((s) => s.numero > 0).slice(0, 3);
+  const dispo = site.dispositif.items.slice(0, CAROUSEL_MAX);
+  const featured = sessions.filter((s) => s.numero > 0).slice(0, CAROUSEL_MAX);
 
   return (
     <>
@@ -193,46 +195,48 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="programme" className="prog" aria-labelledby="programme-title">
         <Container className="prog__inner">
-          <div className="prog__top">
-            <header>
-              <p className="prog__index"><KickerIcon label="Le programme" />03 · Le programme</p>
-              <h2 id="programme-title" className="prog__title">
-                Neuf séances. <em>Une feuille de route.</em>
-              </h2>
-            </header>
-            <div className="prog__aside">
-              <p>
-                Chaque séance produit une pièce de votre transformation, jusqu’à la
-                soutenance des projets.
-              </p>
-            </div>
-          </div>
-          <ol className="prog-pieces__grid prog-pieces__grid--home">
-            {featured.map((s) => (
-              <li key={s.numero}>
-                <Link href={sessionHref(s)} className="prog-piece">
-                  <span className="prog-piece__media" aria-hidden="true">
-                    <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 90vw" />
-                  </span>
-                  <span className="prog-piece__row">
-                    <span className="prog-piece__num">{sessionCode(s)}</span>
-                    <span className="prog-piece__date">{plain(s.dates)}</span>
-                  </span>
-                  <span className="prog-piece__title">{plain(s.titre)}</span>
-                  {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
-                  <span className="prog-piece__more">
-                    Voir la séance <IconArrowRight />
-                  </span>
-                </Link>
-              </li>
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="prog__index"><KickerIcon label="Le programme" />03 · Le programme</p>
+                <h2 id="programme-title" className="prog__title">
+                  Neuf séances. <em>Une feuille de route.</em>
+                </h2>
+                <p className="carousel-head__lead">
+                  Chaque séance produit une pièce de votre transformation, jusqu’à la soutenance des projets.
+                </p>
+              </header>
+            }
+            slides={featured.map((s) => (
+              <Link key={s.numero} href={sessionHref(s)} className="prog-piece">
+                <span className="prog-piece__media" aria-hidden="true">
+                  <Image src={seminarImage(s.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 80vw" />
+                </span>
+                <span className="prog-piece__row">
+                  <span className="prog-piece__num">{sessionCode(s)}</span>
+                  <span className="prog-piece__date">{plain(s.dates)}</span>
+                </span>
+                <span className="prog-piece__title">{plain(s.titre)}</span>
+                {s.livrable ? <span className="prog-piece__out">{plain(s.livrable)}</span> : null}
+                <span className="prog-piece__more">
+                  Voir la séance <IconArrowRight />
+                </span>
+              </Link>
             ))}
-          </ol>
-          <div className="prog__all">
-            <ButtonLink href="/programme" variant="secondary">
-              Voir tout le programme ({sessionCount} séances)
-              <IconArrowRight />
-            </ButtonLink>
-          </div>
+            labels={featured.map((s) => `Afficher ${plain(s.titre)}`)}
+            prevLabel="Séance précédente"
+            nextLabel="Séance suivante"
+          />
+          {sessions.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/programme" variant="ghost" aria-label="Voir tout le programme">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
+            </div>
+          ) : null}
         </Container>
       </section>
 
@@ -416,14 +420,18 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="dispositif" className="dispo" aria-labelledby="dispositif-title">
         <Container className="dispo__inner">
-          <header className="dispo__head">
-            <p className="dispo__index"><KickerIcon label="Le dispositif BDO" />08 · Le dispositif BDO</p>
-            <h2 id="dispositif-title" className="dispo__title">
-              {site.dispositif.titre}
-            </h2>
-          </header>
-          <div className="dispo__grid">
-            {site.dispositif.items.map((it) => {
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="dispo__index"><KickerIcon label="Le dispositif BDO" />08 · Le dispositif BDO</p>
+                <h2 id="dispositif-title" className="dispo__title">
+                  {site.dispositif.titre}
+                </h2>
+              </header>
+            }
+            slides={dispo.map((it) => {
               const baro = it.lien.includes("barometre");
               const livre = it.lien.includes("livre-blanc");
               return (
@@ -440,7 +448,18 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 />
               );
             })}
-          </div>
+            labels={dispo.map((it) => `Afficher ${it.titre}`)}
+            prevLabel="Publication précédente"
+            nextLabel="Publication suivante"
+          />
+          {site.dispositif.items.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/ressources" variant="ghost" aria-label="Voir toutes les ressources">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
+            </div>
+          ) : null}
         </Container>
       </section>
 

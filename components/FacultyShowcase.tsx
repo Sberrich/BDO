@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Intervenant } from "@/lib/cms";
 import { LoopCarousel } from "@/components/LoopCarousel";
+import { CAROUSEL_MAX } from "@/lib/carousel";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconLinkedIn } from "@/components/icons";
 import {
@@ -69,7 +70,7 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
 export function FacultyShowcase({ speakers, lead }: Props) {
   const all = facultyShowcase(speakers);
   const first = facultyHome(speakers);
-  const people = [...first, ...all.filter((p) => !first.some((f) => f.slug === p.slug))];
+  const people = [...first, ...all.filter((p) => !first.some((f) => f.slug === p.slug))].slice(0, CAROUSEL_MAX);
 
   return (
     <section id="intervenants" className="faculty" aria-labelledby="intervenants-title">

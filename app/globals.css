@@ -13909,6 +13909,57 @@ img {
     transition: none;
   }
 }
+/* Home card carousels (programme, dispositif): header like the press carousel, three cards per view */
+.carousel-head .carousel-head__lead {
+  max-width: 38rem;
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.press-carousel.is-cards .press-carousel__heading {
+  flex: 1;
+  min-width: 0;
+}
+.press-carousel.is-cards .press-track__item {
+  display: flex;
+}
+.press-carousel.is-cards .press-track__item > * {
+  width: 100%;
+}
+@media (min-width: 641px) {
+  .press-carousel.is-cards .press-track__item {
+    flex-basis: calc((100% - 1rem) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .press-carousel.is-cards .press-track__item {
+    flex-basis: calc((100% - 2.5rem) / 3);
+  }
+}
+@media (max-width: 640px) {
+  .press-carousel.is-cards .press-track {
+    gap: 0.5rem;
+    margin-inline: calc(50% - 50vw);
+    padding: 0.75rem 11vw 1rem;
+    scroll-padding-inline: 11vw;
+  }
+  .press-carousel.is-cards .press-track__item {
+    flex: 0 0 78vw;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+  .press-carousel.is-cards .press-track__item > * {
+    transform: scale(calc(0.9 + 0.1 * var(--focus, 1)));
+    opacity: calc(0.45 + 0.55 * var(--focus, 1));
+    transition: none;
+    will-change: transform, opacity;
+  }
+  .press-carousel.is-cards .press-carousel__dots {
+    margin-top: 0.5rem;
+  }
+}
+
 /* Playlist carousel: same loop and centre focus as the speakers */
 .press-carousel.is-videos .press-carousel__heading {
   flex: 1;
