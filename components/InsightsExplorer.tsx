@@ -15,7 +15,7 @@ import {
   IconSearch,
   IconSort,
 } from "@/components/icons";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import type { InsightArticle, InsightCategory } from "@/lib/cms";
 
 type Props = {
@@ -235,7 +235,7 @@ export function InsightsExplorer({ categories, articles }: Props) {
         <Container>
           <div className="cta-band__inner">
             <div>
-              <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+              <p className="cta-band__kicker"><KickerIcon label="Promotion 1 · rentrée le 30 octobre 2026" />Promotion 1 · rentrée le 30 octobre 2026</p>
               <h2 id="insights-band-title" className="cta-band__title">
                 De l’analyse à la feuille de route de votre direction.
               </h2>

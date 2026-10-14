@@ -26,7 +26,7 @@ const CV_STEP = 0;
 type Choices = { participation: string; secteur: string; niveau: string; decouverte: string };
 const EMPTY: Choices = { participation: "", secteur: "", niveau: "", decouverte: "" };
 
-const fileClass = `${fieldClass} cursor-pointer text-sm file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-white`;
+const fileClass = `${fieldClass} cursor-pointer text-sm file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-white max-sm:file:px-4 max-sm:file:py-2.5 max-sm:file:text-base`;
 
 export function CandidatureForm() {
   const router = useRouter();

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
-import { Container } from "@/components/ui";
+import { Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconTick } from "@/components/icons";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
@@ -23,7 +23,6 @@ const DOCS: Record<
     coverSize: [number, number];
     contents: string[];
     formTitle: string;
-    online?: { label: string; desc: string; href: string }[];
   }
 > = {
   brochure: {
@@ -43,11 +42,6 @@ const DOCS: Record<
       "Le processus d’admission",
     ],
     formTitle: "Recevoir la brochure",
-    online: [
-      { label: "Le programme", desc: "Les séminaires et leurs livrables", href: "/programme#seances" },
-      { label: "Le tarif", desc: "Les formules et les conditions", href: "/admissions#tarif" },
-      { label: "L’admission", desc: "Le processus, étape par étape", href: "/admissions#processus" },
-    ],
   },
   barometre: {
     path: "/ressources/barometre",
@@ -116,7 +110,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
           </nav>
           <div className="doc-hero__grid">
             <div className="doc-hero__copy">
-              <p className="doc-hero__kicker">{d.kicker}</p>
+              <p className="doc-hero__kicker"><KickerIcon label={d.kicker} bare />{d.kicker}</p>
               <h1 id="doc-title" className="doc-hero__title">
                 {d.title}
               </h1>
@@ -165,46 +159,14 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
         </Container>
       </section>
 
-      {d.online ? (
-        <section className="doc-online" aria-labelledby="doc-online-title">
-          <Container className="doc-online__inner">
-            <div className="doc-online__head">
-              <p className="doc-online__kicker">Sans attendre le PDF</p>
-              <h2 id="doc-online-title" className="doc-online__title">
-                Le contenu de la brochure, déjà en ligne
-              </h2>
-            </div>
-            <ol className="doc-online__grid">
-              {d.online.map((o, i) => (
-                <li key={o.href}>
-                  <Link href={o.href} className="doc-online__card">
-                    <span className="doc-online__n" aria-hidden>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="doc-online__label">{o.label}</span>
-                    <span className="doc-online__desc">{o.desc}</span>
-                    <span className="doc-online__go" aria-hidden>
-                      <IconArrowRight />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </Container>
-        </section>
-      ) : null}
-
       {others.length ? (
         <section className="doc-others" aria-labelledby="doc-others-title">
           <Container className="doc-others__inner">
             <div className="doc-others__head">
+              <p className="doc-others__kicker"><KickerIcon label="Publications" />Pour aller plus loin</p>
               <h2 id="doc-others-title" className="doc-others__title">
                 Autres publications
               </h2>
-              <Link href="/ressources" className="doc-others__all">
-                Toutes les ressources
-                <IconArrowRight />
-              </Link>
             </div>
             <ul className="doc-others__grid">
               {others.map((r) => (
@@ -230,6 +192,12 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
                 </li>
               ))}
             </ul>
+            <div className="doc-others__foot">
+              <Link href="/ressources" className="doc-others__all">
+                Toutes les ressources
+                <IconArrowRight />
+              </Link>
+            </div>
           </Container>
         </section>
       ) : null}

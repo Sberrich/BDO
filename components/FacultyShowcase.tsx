@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Intervenant } from "@/lib/cms";
 import { Reveal } from "@/components/motion";
-import { Container } from "@/components/ui";
+import { Container, KickerIcon } from "@/components/ui";
 import { IconLinkedIn } from "@/components/icons";
 import {
   facultyHasPhoto,
@@ -91,7 +91,7 @@ export function FacultyShowcase({ speakers, lead }: Props) {
       <Container className="faculty__inner">
         <header className="faculty__head">
           <div>
-            <p className="faculty__index">05 · Les intervenants</p>
+            <p className="faculty__index"><KickerIcon label="Les intervenants" />05 · Les intervenants</p>
             <h2 id="intervenants-title" className="faculty__title">
               La chaire vivante du certificat
             </h2>

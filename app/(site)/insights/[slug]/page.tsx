@@ -10,7 +10,7 @@ import {
   IconLayers,
   IconJuryMark,
 } from "@/components/icons";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { getInsightArticles, getInsightBySlug } from "@/lib/cms";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -118,7 +118,7 @@ export default async function InsightArticlePage({ params }: Props) {
 
           <div className="insight-aside">
             <div className="insight-aside__card">
-              <p className="insight-aside__kicker">Aller plus loin</p>
+              <p className="insight-aside__kicker"><KickerIcon label="Aller plus loin" />Aller plus loin</p>
               <p className="insight-aside__text">
                 Téléchargez la publication liée à cette analyse, ou déposez votre
                 candidature pour le prochain cycle.
@@ -141,7 +141,7 @@ export default async function InsightArticlePage({ params }: Props) {
         <section className="insight-more" aria-labelledby="more-insights">
           <Container>
             <header className="insight-more__head">
-              <p className="insight-more__kicker">Continuer</p>
+              <p className="insight-more__kicker"><KickerIcon label="Continuer" />Continuer</p>
               <h2 id="more-insights" className="insight-more__title">
                 D’autres analyses
               </h2>

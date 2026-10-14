@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PubCard } from "@/components/PubCard";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconLayers } from "@/components/icons";
 import { getInsightArticles } from "@/lib/cms";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
@@ -37,7 +37,7 @@ export default async function RessourcesPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">Ressources</span>
+                <span className="sem-hero__badge"><KickerIcon label="Ressources" bare />Ressources</span>
                 {docs.length} documents · Insights
               </p>
               <h1 id="res-title" className="sem-hero__title">
@@ -127,7 +127,7 @@ export default async function RessourcesPage() {
         <Container>
           <div className="cta-band__inner">
             <div>
-              <p className="cta-band__kicker">Promotion 1 · rentrée le 30 octobre 2026</p>
+              <p className="cta-band__kicker"><KickerIcon label="Promotion 1 · rentrée le 30 octobre 2026" />Promotion 1 · rentrée le 30 octobre 2026</p>
               <h2 id="res-cta-title" className="cta-band__title">
                 Une question sur le certificat ?
               </h2>

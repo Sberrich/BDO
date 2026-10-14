@@ -6,7 +6,7 @@ import { ButtonLink, Container, Kicker } from "@/components/ui";
 export const metadata: Metadata = { title: "Page introuvable", robots: { index: false } };
 
 const LINKS = [
-  { href: "/admissions", label: "Admissions et tarif" },
+  { href: "/admissions", label: "Admissions" },
   { href: "/candidater", label: "Déposer une candidature" },
   { href: "/faq", label: "Questions fréquentes" },
   { href: "/ressources", label: "Brochure et publications" },

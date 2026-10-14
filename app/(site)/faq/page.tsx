@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqList } from "@/components/FaqList";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import {
   IconArrowRight,
   IconMail,
@@ -32,14 +32,14 @@ export default function FaqPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">FAQ</span>
+                <span className="sem-hero__badge"><KickerIcon label="FAQ" bare />FAQ</span>
                 {total} questions · {data.faq.groupes.length} thèmes
               </p>
               <h1 id="faq-title" className="sem-hero__title">
                 Les questions que vous vous posez
               </h1>
               <p className="sem-hero__lead">
-                Les réponses, regroupées par thème, du programme au tarif.
+                Les réponses, regroupées par thème, du programme au financement.
               </p>
             </div>
             <section className="faq-help" aria-labelledby="faq-help-title">
@@ -102,6 +102,7 @@ export default function FaqPage() {
           <div className="cta-band__inner">
             <div>
               <p className="cta-band__kicker">
+                <KickerIcon label="Candidatures ouvertes" />
                 Candidatures ouvertes jusqu’au{" "}
                 {plain(data.site.admission.dateLimite)}
               </p>

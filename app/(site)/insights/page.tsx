@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { InsightsExplorer } from "@/components/InsightsExplorer";
-import { Container } from "@/components/ui";
+import { Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight } from "@/components/icons";
 import { getInsightArticles, getInsightsPage, INSIGHT_CATEGORIES } from "@/lib/cms";
 import { RESOURCES_MENU } from "@/lib/content";
@@ -31,7 +31,7 @@ export default async function InsightsPage() {
           <div className="sem-hero__grid-layout">
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
-                <span className="sem-hero__badge">Insights</span>
+                <span className="sem-hero__badge"><KickerIcon label="Insights" bare />Insights</span>
                 {articles.length} analyses
               </p>
               <h1 id="insights-title" className="sem-hero__title">

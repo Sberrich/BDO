@@ -12,7 +12,7 @@ import { VideoBlock } from "@/components/VideoBlock";
 import { VoicesVideos } from "@/components/VoicesVideos";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
-import { ButtonLink, Container, Kicker, SectionHeading } from "@/components/ui";
+import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
 import { IconArrowRight } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
 
@@ -39,7 +39,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="constat__inner">
           <div className="constat-top">
             <header className="constat-head">
-              <p className="constat-head__index">01 · Le constat</p>
+              <p className="constat-head__index"><KickerIcon label="Le constat" />01 · Le constat</p>
               <h2 id="constat-title" className="constat-head__title">
                 {(() => {
                   const parts = c.titre.split(/(?<=\.)\s+/);
@@ -126,7 +126,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             ))}
 
             <Reveal className="constat-resolve" delay={200}>
-              <p className="constat-resolve__eyebrow">Pourquoi ce certificat</p>
+              <p className="constat-resolve__eyebrow"><KickerIcon label="Pourquoi ce certificat" />Pourquoi ce certificat</p>
               <p className="constat-resolve__text">{c.conclusion}</p>
               <Link href="/candidater" className="constat-resolve__cta">
                 Combler l’écart
@@ -144,7 +144,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="carry__inner">
           <header className="carry__head">
             <div>
-              <p className="carry__index">02 · Le livrable</p>
+              <p className="carry__index"><KickerIcon label="Le livrable" />02 · Le livrable</p>
               <h2 id="livrable-title" className="carry__title">
                 {site.livrable.titre}
               </h2>
@@ -201,7 +201,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="prog__inner">
           <div className="prog__top">
             <header>
-              <p className="prog__index">03 · Le programme</p>
+              <p className="prog__index"><KickerIcon label="Le programme" />03 · Le programme</p>
               <h2 id="programme-title" className="prog__title">
                 Neuf séances. <em>Une feuille de route.</em>
               </h2>
@@ -246,7 +246,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container className="who__inner">
           <header className="who__head">
             <div>
-              <p className="who__index">04 · Le profil</p>
+              <p className="who__index"><KickerIcon label="Le profil" />04 · Le profil</p>
               <h2 id="profil-title" className="who__title">
                 {site.profil.titre}
               </h2>
@@ -277,7 +277,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="temoignages" className="voices" aria-labelledby="temoignages-title">
         <Container className="voices__inner">
           <header className="voices__head">
-            <p className="voices__index">06 · Les témoignages</p>
+            <p className="voices__index"><KickerIcon label="Les témoignages" />06 · Les témoignages</p>
             <h2 id="temoignages-title" className="voices__title">
               Ils racontent le certificat
             </h2>
@@ -298,12 +298,16 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <h2 id="medias-title" className="press-band__title">
               Ils en ont parlé
             </h2>
-            <p className="press-band__hint">Survolez un média pour lire l’article.</p>
+            <p className="press-band__hint">
+              <span className="max-sm:hidden">Survolez un média pour lire l’article.</span>
+              <span className="sm:hidden">Faites glisser pour voir tous les médias.</span>
+            </p>
           </div>
           <MediaPressStrip items={site.medias} />
         </Container>
       </section>
 
+      {SHOW.calendrier || SHOW.tarif ? (
       <section
         id={SHOW.calendrier ? "calendrier" : "tarif"}
         className="cal-band"
@@ -316,7 +320,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <>
               <header className="cal-band__head">
                 <div>
-                  <p className="cal-band__index">07 · Calendrier et tarif</p>
+                  <p className="cal-band__index"><KickerIcon label="Calendrier" />{SHOW.tarif ? "07 · Calendrier et tarif" : "07 · Le calendrier"}</p>
                   <h2 id="calendrier-title" className="cal-band__title">
                     Calendrier de la promotion 1.
                     <br />
@@ -334,7 +338,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           ) : (
             <header className="cal-band__head">
               <div>
-                <p className="cal-band__index">07 · Le tarif</p>
+                <p className="cal-band__index"><KickerIcon label="Tarif" />07 · Le tarif</p>
                 <h2 id="calendrier-title" className="cal-band__title">
                   Tarif de la promotion 1.
                 </h2>
@@ -342,12 +346,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </header>
           )}
 
-          <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
-            {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
-            <PriceTeaser showCta />
-          </div>
+          {SHOW.tarif ? (
+            <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
+              {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
+              <PriceTeaser showCta />
+            </div>
+          ) : null}
         </Container>
       </section>
+      ) : null}
 
 
       {SHOW.sessionInfo ? (
@@ -377,7 +384,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <span className="videoband__grid" aria-hidden="true" />
         <Container className="videoband__inner">
           <div className="videoband__copy">
-            <p className="videoband__index">En vidéo</p>
+            <p className="videoband__index"><KickerIcon label="En vidéo" />En vidéo</p>
             <h2 id="video-title" className="videoband__title">
               Le certificat en{" "}
               <em>quatre-vingt-dix secondes</em>
@@ -411,7 +418,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
       <section id="dispositif" className="dispo" aria-labelledby="dispositif-title">
         <Container className="dispo__inner">
           <header className="dispo__head">
-            <p className="dispo__index">08 · Le dispositif BDO</p>
+            <p className="dispo__index"><KickerIcon label="Le dispositif BDO" />08 · Le dispositif BDO</p>
             <h2 id="dispositif-title" className="dispo__title">
               {site.dispositif.titre}
             </h2>
@@ -442,7 +449,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         <Container>
           <div className="final-cta__card">
             <div className="final-cta__copy">
-              <p className="final-cta__kicker">Promotion 1 · 25 places</p>
+              <p className="final-cta__kicker"><KickerIcon label="Promotion 1 · 25 places" />Promotion 1 · 25 places</p>
               <h2 id="final-cta-title" className="final-cta__title">
                 Prêt à rejoindre la promotion&nbsp;1&nbsp;?
               </h2>
