@@ -14023,3 +14023,46 @@ img {
 .foot__heading-icon {
   background: var(--brand-blue-soft) !important;
 }
+
+/* Footer cosign card */
+.foot__brand-card {
+  padding: 1.15rem;
+}
+.foot__brand-kicker {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-red) !important;
+}
+.foot__brand-card .foot__logos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: var(--surface-1);
+}
+.foot__brand-card .foot__logo {
+  justify-self: center;
+  max-width: 100%;
+}
+.foot__brand-card .foot__logo.is-iscae {
+  height: 2.6rem;
+}
+.foot__brand-card .foot__logo.is-bdo {
+  height: 1.55rem;
+}
+.foot__brand-card .foot__logo-rule {
+  width: 1px;
+  height: 2.25rem;
+  background: var(--border-strong);
+}
+.foot__brand-card .foot__brand-text {
+  margin-top: 0.85rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}

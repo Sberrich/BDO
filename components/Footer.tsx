@@ -42,6 +42,7 @@ export function Footer() {
         <div className="foot__grid">
           <div className="foot__brand">
             <div className="foot__brand-card">
+            <p className="foot__brand-kicker">Un certificat cosigné</p>
             <div className="foot__logos">
               <Image
                 src="/images/logo-iscae-header.png"
@@ -61,7 +62,9 @@ export function Footer() {
                 className="foot__logo is-bdo"
               />
             </div>
-            <p className="foot__brand-text">{data.site.cosignature}.</p>
+            <p className="foot__brand-text">
+              Délivré par le Groupe ISCAE et BDO Maroc, en partenariat avec l’Ordre des Experts Comptables.
+            </p>
             </div>
             <address className="foot__address">
               <span className="foot__address-icon" aria-hidden="true">
