@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
-import { IconArrowRight, IconTick } from "@/components/icons";
+import { IconArrowRight, IconSend } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 import {
@@ -383,7 +383,7 @@ export function CandidatureForm() {
           ) : step === steps.length - 1 ? (
             <>
               Envoyer
-              <IconTick size={18} />
+              <IconSend size={17} />
             </>
           ) : (
             <>
