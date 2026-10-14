@@ -11410,15 +11410,30 @@ img {
 .about-hero2 .about-hero__partners {
   width: 100%;
 }
+.about-inst .about-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.about-inst .about-card > :not(.about-card__logo, .about-card__role, .about-card__index, .about-card__link) {
+  align-self: stretch;
+}
+.about-inst .about-card__link {
+  margin-top: auto;
+}
+.about-inst .about-card__points {
+  margin-bottom: 1.25rem;
+}
 .about-inst .about-card__logo {
-  min-height: 3.25rem;
+  min-height: 4.5rem;
+  margin-bottom: 1.25rem;
 }
 .about-inst .about-card .about-card__logo img {
-  height: 3rem;
-  max-width: 11rem;
+  height: 4.25rem;
+  max-width: 15rem;
 }
 .about-inst .about-card.is-2 .about-card__logo img {
-  height: 2.25rem;
+  height: 3rem;
 }
 
 .iv-faces__more {
@@ -13284,20 +13299,51 @@ img {
 .about-card__link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  align-self: flex-start;
+  gap: 0.6rem;
   min-height: 44px;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+  padding: 0.35rem 1.1rem 0.35rem 0.35rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: #fff;
   font-size: 0.9375rem;
-  font-weight: 800;
-  color: var(--brand-blue);
+  font-weight: 700;
+  color: var(--brand-navy) !important;
   text-decoration: none;
+  transition: border-color var(--duration-fast) ease, color var(--duration-fast) ease;
 }
 .about-card__link:hover {
-  text-decoration: underline;
+  border-color: var(--brand-red);
+  color: var(--brand-red) !important;
 }
-.about-card__link svg {
+.about-card__link > svg {
   width: 1rem;
   height: 1rem;
+  transition: transform var(--duration-fast) ease;
+}
+.about-card__link:hover > svg {
+  transform: translate(2px, -2px);
+}
+.about-card__link-site {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--surface-muted, #eef2f7);
+  color: var(--brand-blue);
+}
+.about-card__link-site svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+@media (max-width: 640px) {
+  .about-card__link {
+    align-self: stretch;
+    justify-content: center;
+    border-radius: var(--radius-md);
+  }
 }
 
 /* Mobile: call-to-action buttons span the full width and share the mobile menu button shape (text links and filter chips excluded) */

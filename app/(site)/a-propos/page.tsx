@@ -7,7 +7,7 @@ import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
-import { IconArrowRight, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number; role: string }> = {
-  "Groupe ISCAE": { src: "/images/logo-iscae.png", alt: "Groupe ISCAE", w: 160, h: 50, role: "Excellence académique" },
-  "BDO Maroc": { src: "/images/logo-bdo.png", alt: "BDO", w: 120, h: 42, role: "Expertise terrain" },
+  "Groupe ISCAE": { src: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", w: 351, h: 184, role: "Excellence académique" },
+  "BDO Maroc": { src: "/images/logo-bdo-header.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
 };
 
 export default async function AProposPage() {
@@ -160,8 +160,12 @@ export default async function AProposPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
+                    <span className="about-card__link-site" aria-hidden="true">
+                      <IconGlobe />
+                    </span>
                     {x.lienLibelle}
-                    <IconArrowRight />
+                    <span className="sr-only"> (nouvel onglet)</span>
+                    <IconArrowUpRight />
                   </a>
                 </article>
               );
