@@ -225,10 +225,8 @@ export function LeadForm({
           value="oui"
         />
         <span>
-          J’accepte de recevoir les publications et les invitations du
-          certificat CFO 4.0, du Groupe ISCAE et de BDO Maroc. Ce consentement
-          est distinct du traitement de ma demande et peut être retiré à tout
-          moment.
+          J’accepte de recevoir les actualités du certificat CFO 4.0 (facultatif,
+          retrait à tout moment).
         </span>
       </label>
       <Button

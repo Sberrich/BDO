@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
@@ -7,8 +6,19 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconBook, IconChart, IconClock, IconGauge, IconUsers } from "@/components/icons";
-import { data, SHOW } from "@/lib/content";
+import {
+  IconArrowRight,
+  IconBook,
+  IconChart,
+  IconClock,
+  IconGauge,
+  IconMail,
+  IconPhone,
+  IconPin,
+  IconUsers,
+  IconWhatsApp,
+} from "@/components/icons";
+import { BRAND, data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -234,25 +244,48 @@ export default function AdmissionsPage() {
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
             />
-            <div className="rappel-band__media">
-              <Image
-                src="/images/home/hero.png"
-                alt="Participants du certificat CFO 4.0 échangeant autour d’un ordinateur"
-                fill
-                sizes="(min-width: 768px) 34rem, 100vw"
-                className="object-cover object-center"
-              />
-            </div>
-            <div className="rappel-band__text">
-              <p className="max-w-2xl text-lg leading-relaxed text-muted">
-                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
-                règlent mieux au téléphone.
-              </p>
-              <p className="mt-4 text-sm">
-                Vous pouvez aussi écrire à{" "}
-                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
-              </p>
-            </div>
+            <p className="rappel-band__lead">
+              Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+              règlent mieux au téléphone.
+            </p>
+            <ul className="rappel-contacts">
+              <li>
+                <a href={BRAND.phoneHref} className="rappel-contact">
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPhone /></span>
+                  <span className="rappel-contact__label">Téléphone</span>
+                  <span className="rappel-contact__value">{BRAND.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="rappel-contact">
+                  <span className="rappel-contact__icon is-wa" aria-hidden="true"><IconWhatsApp /></span>
+                  <span className="rappel-contact__label">WhatsApp</span>
+                  <span className="rappel-contact__value">Écrire un message</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${plain(c.email)}`} className="rappel-contact">
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
+                  <span className="rappel-contact__label">E-mail</span>
+                  <span className="rappel-contact__value">
+                    {plain(c.email).split("@")[0]}@<wbr />
+                    {plain(c.email).split("@")[1]}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plain(c.adresseIscae))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rappel-contact"
+                >
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPin /></span>
+                  <span className="rappel-contact__label">Campus</span>
+                  <span className="rappel-contact__value">ISCAE Casablanca</span>
+                </a>
+              </li>
+            </ul>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
             <LeadForm kind="rappel" prefix="r" />
