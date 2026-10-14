@@ -15756,22 +15756,12 @@ html:has(.iv-modal[open]) {
   color: inherit !important;
 }
 
-/* Portrait: transparent cut-out standing on a navy stage */
+/* Portrait: transparent cut-out on the same grey stage as the cards */
 .iv-modal__media {
   position: relative;
   min-height: 18rem;
   overflow: hidden;
-  background:
-    radial-gradient(120% 70% at 50% 100%, rgba(0, 120, 200, 0.55), transparent 70%),
-    linear-gradient(160deg, #0b3a6b 0%, var(--brand-navy) 70%) !important;
-}
-.iv-modal__media::before {
-  content: "";
-  position: absolute;
-  inset: auto -20% -35% -20%;
-  height: 70%;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
 }
 @media (min-width: 760px) {
   .iv-modal__media {
@@ -15809,17 +15799,16 @@ html:has(.iv-modal[open]) {
   align-items: center;
   gap: 0.4rem;
   padding: 0.3rem 0.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.92);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--text-secondary) !important;
 }
 .iv-modal__index b {
-  color: #fff !important;
+  color: var(--brand-navy) !important;
 }
 
 .iv-modal__body {
