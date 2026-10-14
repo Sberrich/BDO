@@ -7,7 +7,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconDownload } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
 import { plain, seminarImage, sessionCode } from "@/lib/text";
 
@@ -122,6 +122,10 @@ export default function ProgrammePage() {
       <section id="seances" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="Le calendrier" title="Les séances, date par date" />
+          <ButtonLink href="/ressources/brochure" variant="ghost" className="prog-brochure">
+            <IconDownload />
+            Télécharger la brochure
+          </ButtonLink>
           <div className="mt-8">
             <ProgrammeGrid />
           </div>

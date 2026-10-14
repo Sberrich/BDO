@@ -13480,6 +13480,13 @@ img {
   color: #fff;
 }
 
+.prog-brochure {
+  margin-top: 1.25rem;
+}
+.prog-brochure svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
 .prog-goals {
   padding: clamp(3rem, 7vw, 5.5rem) 0;
   background: #fff;
