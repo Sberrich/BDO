@@ -280,10 +280,10 @@ export function HomeSections({ speakers, speakersLead }: Props) {
           <header className="voices__head">
             <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
             <h2 id="playlists-title" className="voices__title">
-              Le certificat en vidéo
+              Ils racontent le certificat
             </h2>
             <p className="voices__lead">
-              Témoignages et séminaires, réunis en playlists.
+              Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
             </p>
           </header>
 

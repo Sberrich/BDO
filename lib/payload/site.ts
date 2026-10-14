@@ -289,24 +289,8 @@ const data = {
     {
       "id": "temoignages",
       "titre": "Témoignages",
-      "description": "Participants, direction de l’ISCAE, BDO Maroc et intervenants racontent le certificat.",
       "source": "temoignages",
       "videos": []
-    },
-    {
-      "id": "seminaires",
-      "titre": "Séminaires",
-      "description": "Un aperçu en images de chaque séance du cycle, de la conférence inaugurale à la soutenance.",
-      "videos": [
-        { "seance": 0, "video": "/videos/seminaires/0.mp4", "duree": "10 s" },
-        { "seance": 1, "video": "/videos/seminaires/1.mp4", "duree": "10 s" },
-        { "seance": 2, "video": "/videos/seminaires/2.mp4", "duree": "12 s" },
-        { "seance": 3, "video": "/videos/seminaires/3.mp4", "duree": "10 s" },
-        { "seance": 4, "video": "/videos/seminaires/6.mp4", "duree": "10 s" },
-        { "seance": 5, "video": "/videos/seminaires/4.mp4", "duree": "15 s" },
-        { "seance": 7, "video": "/videos/seminaires/7.mp4", "duree": "10 s" },
-        { "seance": 8, "video": "/videos/seminaires/8.mp4", "duree": "10 s" }
-      ]
     }
   ],
   "video": {
