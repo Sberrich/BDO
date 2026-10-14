@@ -10627,44 +10627,6 @@ img {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.7);
 }
-.adm-facts__list {
-  margin: 0;
-}
-.adm-facts__list > div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.adm-facts__list dt {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-.adm-facts__list dd {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 800;
-  color: #fff;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-.adm-facts__list dd span {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-}
-.adm-facts__list dd.is-text {
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-.adm-facts__countdown {
-  display: flex;
-  width: 100%;
-  margin-top: 1.25rem;
-  justify-content: space-between;
-}
 
 .adm-conds {
   list-style: none;
@@ -12969,12 +12931,6 @@ img {
   flex-wrap: wrap;
   gap: 0.75rem;
 }
-.adm-facts__list dd a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ——— Institutional palette ———
    Red is reserved for primary actions, the "Promotion" badge, the CFO 4.0 wordmark
    and the gap in the constat chart. Everything else uses navy, BDO blue and greys. */
@@ -14862,5 +14818,116 @@ input[type="checkbox"][aria-invalid="true"] {
   .file-field__btn {
     width: 2.35rem;
     height: 2.35rem;
+  }
+}
+
+/* Admissions « L'essentiel »: two fact tiles, then the countdown in a tinted block */
+.adm-hero .adm-facts {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: var(--radius-lg);
+}
+.adm-hero .adm-facts__title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+}
+.adm-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+.adm-hero .adm-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.adm-fact.is-wide {
+  grid-column: 1 / -1;
+}
+.adm-hero .adm-fact dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.adm-hero .adm-fact .adm-fact__icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: var(--brand-blue-soft);
+  color: var(--brand-blue);
+}
+.adm-fact__icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+.adm-hero .adm-fact dd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+}
+.adm-hero .adm-fact dd strong {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--brand-navy);
+  font-variant-numeric: tabular-nums;
+}
+.adm-hero .adm-fact dd strong::first-letter {
+  text-transform: uppercase;
+}
+.adm-hero .adm-fact dd span {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+.adm-hero .adm-fact dd a {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.adm-hero .adm-facts .adm-facts__countdown {
+  display: grid;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 1rem;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+}
+.adm-hero .adm-facts .adm-facts__countdown .countdown__units {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.adm-hero .adm-facts .adm-facts__countdown .countdown__unit {
+  min-width: 0;
+  padding: 0.7rem 0.25rem 0.6rem;
+}
+.adm-hero .adm-facts .adm-facts__countdown .countdown__unit:not(:first-child) {
+  background: #fff;
+}
+.adm-hero .adm-facts .adm-facts__countdown .countdown__value {
+  font-size: 1.6rem;
+}
+@media (max-width: 380px) {
+  .adm-facts__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
