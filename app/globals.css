@@ -9197,23 +9197,24 @@ a.about-contact__card:focus-visible {
   position: relative;
   flex: 1;
   min-height: 15rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
   background: var(--surface-1);
 }
+.rappel-band__text {
+  margin-top: 1.5rem;
+}
 @media (max-width: 767px) {
   .rappel-band__media {
-    order: 1;
     flex: none;
     aspect-ratio: 4 / 3;
     min-height: 0;
     margin-top: 1.25rem;
   }
   .rappel-band__text {
-    order: 2;
-    margin-top: 0.25rem;
+    margin-top: 1.25rem;
   }
 }
 @media (min-width: 961px) and (max-width: 1099px) {

@@ -222,16 +222,6 @@ export default function AdmissionsPage() {
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
             />
-            <div className="rappel-band__text">
-              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">
-                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
-                règlent mieux au téléphone.
-              </p>
-              <p className="mt-4 text-sm">
-                Vous pouvez aussi écrire à{" "}
-                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
-              </p>
-            </div>
             <div className="rappel-band__media">
               <Image
                 src="/images/home/hero.png"
@@ -240,6 +230,16 @@ export default function AdmissionsPage() {
                 sizes="(min-width: 768px) 34rem, 100vw"
                 className="object-cover object-center"
               />
+            </div>
+            <div className="rappel-band__text">
+              <p className="max-w-2xl text-lg leading-relaxed text-muted">
+                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+                règlent mieux au téléphone.
+              </p>
+              <p className="mt-4 text-sm">
+                Vous pouvez aussi écrire à{" "}
+                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
+              </p>
             </div>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
