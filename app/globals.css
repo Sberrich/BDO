@@ -14134,3 +14134,41 @@ img {
     bottom: max(1.25rem, env(safe-area-inset-bottom));
   }
 }
+
+/* ——— Speakers: grey gradient tiles, home carousel shared with the press section ——— */
+.faculty-card .faculty-card__media,
+.faculty-card[class*="tone-"] .faculty-card__media {
+  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
+}
+.faculty-card__mono {
+  color: var(--brand-navy) !important;
+}
+.press-carousel.is-faculty .press-carousel__heading {
+  flex: 1;
+  min-width: 0;
+}
+.press-carousel.is-faculty .faculty__head {
+  margin-bottom: 0;
+}
+.press-carousel.is-faculty .press-track__item {
+  display: flex;
+}
+.press-carousel.is-faculty .faculty-card {
+  width: 100%;
+}
+.press-carousel.is-faculty .faculty-card__media {
+  aspect-ratio: 4 / 5;
+}
+@media (min-width: 641px) {
+  .press-carousel.is-faculty .press-track__item {
+    flex-basis: calc((100% - 2rem) / 3);
+  }
+}
+@media (min-width: 1024px) {
+  .press-carousel.is-faculty .press-track__item {
+    flex-basis: calc((100% - 3.75rem) / 4);
+  }
+}
+.faculty__link {
+  margin-top: 1.25rem;
+}
