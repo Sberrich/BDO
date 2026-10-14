@@ -3,10 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { getIntervenants } from "@/lib/cms";
 import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
-import { personLinkedIn, personPhoto, plain } from "@/lib/text";
+import { plain } from "@/lib/text";
 import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -35,7 +34,7 @@ const ABOUT_TILES: (
   { logo: "/images/logo-bdo-header.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
 ];
 
-export default async function AProposPage() {
+export default function AProposPage() {
   const c = data.site.contact;
   const seminarCount = allSessions().filter((s) => s.numero > 0).length;
   const facts = [
@@ -45,14 +44,6 @@ export default async function AProposPage() {
     { value: "Oct → déc.", label: "calendrier 2026" },
     { value: "Casablanca", label: "lieu des séminaires · ouverture à Rabat" },
   ];
-  const speakers = await getIntervenants();
-  const zakaria =
-    speakers.find((p) => p.slug === "zakaria-fahim") ||
-    speakers.find((p) => /zakaria|fahim/i.test(p.nom));
-  const linkedin = zakaria ? personLinkedIn(zakaria.linkedin) : "";
-  const photo = zakaria
-    ? personPhoto(zakaria.photo, zakaria.slug)
-    : "/images/people/zakaria-fahim-grey.png";
 
   return (
     <>
@@ -228,50 +219,6 @@ export default async function AProposPage() {
           </section>
         </Container>
       </section>
-
-      {zakaria ? (
-        <section className="about-lead" aria-labelledby="about-lead-title">
-          <Container className="about-lead__inner">
-            <div className="about-lead__media">
-              <Image
-                src={photo}
-                alt={zakaria.nom}
-                fill
-                sizes="(min-width: 800px) 22rem, 80vw"
-                className="about-lead__img"
-                priority
-              />
-              <span className="about-lead__frame" aria-hidden />
-            </div>
-            <div className="about-lead__copy">
-              <p className="about-lead__kicker"><KickerIcon label="Signature pédagogique" />Signature pédagogique</p>
-              <h2 id="about-lead-title" className="about-lead__name">
-                {zakaria.nom}
-              </h2>
-              <p className="about-lead__role">
-                {zakaria.fonction}
-                {zakaria.institution ? ` · ${zakaria.institution}` : ""}
-              </p>
-              <p className="about-lead__bio">{zakaria.bio}</p>
-              <div className="about-lead__actions">
-                {linkedin ? (
-                  <a
-                    href={linkedin}
-                    className="about-lead__li"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Profil LinkedIn
-                  </a>
-                ) : null}
-                <ButtonLink href="/intervenants" variant="secondary">
-                  Voir les intervenants
-                </ButtonLink>
-              </div>
-            </div>
-          </Container>
-        </section>
-      ) : null}
 
       <section id="contact" className="about-contact" aria-labelledby="contact-title">
         <Container className="about-contact__inner">
