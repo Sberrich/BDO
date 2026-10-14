@@ -14099,3 +14099,37 @@ img {
     transition: none;
   }
 }
+
+/* Ressources menu: Playlists thumbnail framed like the document covers, red play badge */
+.site-header__dd-cover.is-video {
+  position: relative;
+}
+.site-header__dd-cover.is-video .site-header__dd-cover-img {
+  object-position: center 18%;
+}
+.site-header__dd-play {
+  position: absolute;
+  right: 0.2rem;
+  bottom: 0.2rem;
+  display: grid;
+  place-items: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: var(--brand-red);
+  color: #fff !important;
+  box-shadow: 0 0 0 1.5px #fff;
+  transition: transform 200ms var(--ease-out);
+}
+.site-header__dd-play svg {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-left: 0.08rem;
+}
+:is(.site-header__dd-item, .site-header__mobile-sublink):hover .site-header__dd-play {
+  transform: scale(1.12);
+}
+.site-header__dd-icon {
+  background: rgba(227, 6, 19, 0.08);
+  color: var(--brand-red);
+}

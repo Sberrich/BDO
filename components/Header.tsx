@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NAV, RESOURCES_MENU } from "@/lib/content";
-import { IconArrowRight, IconFileText, IconPhone, IconPlay } from "@/components/icons";
+import { IconArrowRight, IconFileText, IconPhone } from "@/components/icons";
 
 function isCurrent(href: string, pathname: string) {
   if (href === "/programme") {
@@ -18,6 +18,8 @@ function isCurrent(href: string, pathname: string) {
   }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+const PLAYLISTS_COVER = "/images/people/zakaria-fahim.jpg";
 
 function ResourceThumb({
   icon,
@@ -33,9 +35,21 @@ function ResourceThumb({
       </span>
     );
   }
+  if (icon === "playlists") {
+    return (
+      <span className="site-header__dd-cover is-video" aria-hidden>
+        <Image src={PLAYLISTS_COVER} alt="" width={72} height={96} className="site-header__dd-cover-img" />
+        <span className="site-header__dd-play">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5.5v13l11-6.5L8 5.5z" />
+          </svg>
+        </span>
+      </span>
+    );
+  }
   return (
     <span className="site-header__dd-icon" aria-hidden>
-      {icon === "insights" ? <IconPlay /> : <IconFileText size={18} />}
+      <IconFileText size={18} />
     </span>
   );
 }

@@ -63,7 +63,7 @@ export const RESOURCES_MENU = [
     href: "/playlists",
     label: "Playlists",
     desc: "Témoignages et vidéos du certificat",
-    icon: "insights" as const,
+    icon: "playlists" as const,
     cover: null,
   },
 ] as const;
