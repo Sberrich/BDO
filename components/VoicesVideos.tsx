@@ -173,8 +173,10 @@ export function VoicesVideos() {
           onClick={close}
         >
           <div className="videoband__dialog voices-player" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="videoband__close" onClick={close}>
-              Fermer
+            <button type="button" className="videoband__close" onClick={close} aria-label="Fermer la vidéo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
             </button>
             <div className="videoband__embed">
               <video
@@ -183,8 +185,9 @@ export function VoicesVideos() {
                 controls
                 autoPlay
                 playsInline
-                poster={active.poster}
+                preload="auto"
                 src={active.video}
+                onLoadedData={(e) => e.currentTarget.classList.add("is-ready")}
                 onEnded={() => {
                   if (index < voices.length - 1) go(1);
                 }}
