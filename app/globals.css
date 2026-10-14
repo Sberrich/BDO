@@ -10633,7 +10633,7 @@ body[data-form-page] #cmp-floating-icon {
   margin: 0;
   padding: 0 0.75rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--brand-red);
   font-size: 0.75rem;
   font-weight: 700;
   color: #fff;

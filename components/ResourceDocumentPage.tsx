@@ -110,7 +110,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
           </nav>
           <div className="doc-hero__grid">
             <div className="doc-hero__copy">
-              <p className="doc-hero__kicker"><KickerIcon label={d.kicker} />{d.kicker}</p>
+              <p className="doc-hero__kicker"><KickerIcon label={d.kicker} bare />{d.kicker}</p>
               <h1 id="doc-title" className="doc-hero__title">
                 {d.title}
               </h1>
