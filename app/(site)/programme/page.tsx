@@ -88,21 +88,22 @@ export default function ProgrammePage() {
 
       <section id="objectifs" className="prog-goals" aria-labelledby="prog-goals-title">
         <Container className="prog-goals__inner">
-          <div className="prog-goals__media" aria-hidden="true">
-            <Image
-              src="/images/home/conference.png"
-              alt=""
-              fill
-              sizes="(min-width: 900px) 26rem, 90vw"
-            />
-          </div>
           <div className="prog-goals__copy">
             <p className="sem-kicker">Objectifs</p>
             <h2 id="prog-goals-title" className="prog-goals__title">
               {data.site.objectifs.titre}
             </h2>
             <p className="prog-goals__lead">{data.site.objectifs.chapeau}</p>
-            <ol className="prog-goals__list">
+            <div className="prog-goals__media" aria-hidden="true">
+              <Image
+                src="/images/home/conference.png"
+                alt=""
+                fill
+                sizes="(min-width: 900px) 30rem, 90vw"
+              />
+            </div>
+          </div>
+          <ol className="prog-goals__list">
               {data.site.objectifs.liste.map((o, i) => (
                 <li key={o.titre} className="prog-goals__item">
                   <span className="prog-goals__num" aria-hidden="true">
@@ -114,8 +115,7 @@ export default function ProgrammePage() {
                   </span>
                 </li>
               ))}
-            </ol>
-          </div>
+          </ol>
         </Container>
       </section>
 
