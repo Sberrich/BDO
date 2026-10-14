@@ -11765,20 +11765,89 @@ img {
   margin-top: 0.75rem;
 }
 .trophy-card__media {
-  position: relative;
-  min-height: 18rem;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
   padding: clamp(1rem, 2.5vw, 1.5rem);
+  background: #1a2fb0;
+  background: linear-gradient(160deg, #1d33c4, #0f1f8a);
 }
-.trophy-card__img {
-  object-fit: cover;
+
+/* Single-slide crossfade slider */
+.fade-slider {
+  display: grid;
+  gap: 0.75rem;
 }
-.trophy-card__media::after {
-  content: "";
+.fade-slider__track {
+  position: relative;
+  aspect-ratio: 763 / 430;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #0f1f8a;
+}
+.fade-slider__slide {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 20, 45, 0.7), rgba(0, 20, 45, 0.05) 60%);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.fade-slider__slide.is-active {
+  opacity: 1;
+}
+.fade-slider__slide img {
+  object-fit: cover;
+}
+.fade-slider__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.fade-slider__arrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff !important;
+  cursor: pointer;
+  transition: background var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+.fade-slider__arrow svg,
+.fade-slider__arrow svg * {
+  color: inherit !important;
+}
+.fade-slider__arrow:hover,
+.fade-slider__arrow:focus-visible {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+.fade-slider__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+.fade-slider__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+.fade-slider__dot.is-active {
+  width: 1.5rem;
+  background: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-slider__slide,
+  .fade-slider__dot {
+    transition: none;
+  }
 }
 .trophy-card__perk {
   position: relative;

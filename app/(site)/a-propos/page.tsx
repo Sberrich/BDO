@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { FadeSlider } from "@/components/FadeSlider";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { BRAND, data, SHOW } from "@/lib/content";
@@ -31,6 +32,14 @@ const ABOUT_TILES: (
   { src: "/images/home/about.png" },
   { icon: IconGlobe, num: "5e", unit: "réseau", label: "mondial d’audit · BDO" },
   { logo: "/images/logo-bdo-header.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
+];
+
+const TROPHY_SLIDES = [
+  { src: "/images/trophee/01-laureats-2026.png", alt: "Découvrez les lauréats des 3 catégories du Trophée BDO Digital des CFO’s 2026" },
+  { src: "/images/trophee/02-cfo-digital-annee.png", alt: "CFO Digital de l’année 2026 : Ibtissam Tirafi, Ora Technologies" },
+  { src: "/images/trophee/03-cfo-digital-grande-entreprise.png", alt: "CFO Digital Grande Entreprise 2026 : Kenza Bennani et Ikram Gouri, CBI" },
+  { src: "/images/trophee/04-coup-de-coeur-jury.png", alt: "CFO Digital Coup de cœur du jury 2026 : Sara Blouz, Procia (IT Global Services)" },
+  { src: "/images/trophee/05-rendez-vous.png", alt: "À l’année prochaine pour écrire un nouveau chapitre" },
 ];
 
 export default function AProposPage() {
@@ -198,13 +207,7 @@ export default function AProposPage() {
             </div>
 
             <div className="trophy-card__media">
-              <Image
-                src="/images/heroes/trophee-slider-1.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 960px) 32rem, 100vw"
-                className="trophy-card__img"
-              />
+              <FadeSlider slides={TROPHY_SLIDES} label="Lauréats du Trophée BDO Digital des CFO’s 2026" />
               <section className="trophy-card__perk" aria-label="Avantage lauréats">
                 <span className="trophy-card__perk-icon" aria-hidden="true">
                   <IconTrophy />
