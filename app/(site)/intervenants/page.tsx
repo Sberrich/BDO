@@ -10,7 +10,7 @@ import {
   facultyPhotoSrc,
   facultyShowcase,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarPath, sessionCode } from "@/lib/text";
+import { personLinkedIn, plain, seminarImage, seminarPath, sessionCode, sessionLabel } from "@/lib/text";
 
 const SECOND_SLUG = "ismail-lahsini";
 
@@ -20,7 +20,10 @@ export const metadata: Metadata = {
 };
 
 function seminarsBySpeaker() {
-  const map = new Map<string, { numero: number; code: string; href: string; titre: string }[]>();
+  const map = new Map<
+    string,
+    { numero: number; code: string; href: string; titre: string; label: string; image: string }[]
+  >();
   for (const s of allSessions()) {
     for (const slug of s.intervenants ?? []) {
       const list = map.get(slug) ?? [];
@@ -30,6 +33,8 @@ function seminarsBySpeaker() {
         code: /^\d+$/.test(code) ? `S${Number(code)}` : code,
         href: seminarPath(s),
         titre: plain(s.titre),
+        label: sessionLabel(s),
+        image: seminarImage(s.numero),
       });
       map.set(slug, list);
     }
@@ -173,13 +178,25 @@ export default async function IntervenantsPage() {
                       ) : null}
                       {teaches.length ? (
                         <div className="iv-card__teaches">
-                          <span className="iv-card__teaches-label">Intervient sur</span>
+                          <span className="iv-card__teaches-label">
+                            Intervient sur
+                            <b>{teaches.length}</b>
+                          </span>
                           <ul>
                             {teaches.map((t) => (
                               <li key={t.numero}>
-                                <Link href={t.href} className="iv-card__sem" title={t.titre}>
-                                  <span>{t.code}</span>
-                                  <em>{t.titre}</em>
+                                <Link href={t.href} className="iv-sem">
+                                  <span className="iv-sem__thumb" aria-hidden="true">
+                                    <Image src={t.image} alt="" fill sizes="56px" className="iv-sem__img" />
+                                    <span className="iv-sem__code">{t.code}</span>
+                                  </span>
+                                  <span className="iv-sem__text">
+                                    <span className="iv-sem__label">{t.label}</span>
+                                    <span className="iv-sem__title">{t.titre}</span>
+                                  </span>
+                                  <span className="iv-sem__go" aria-hidden="true">
+                                    <IconArrowRight />
+                                  </span>
                                 </Link>
                               </li>
                             ))}
