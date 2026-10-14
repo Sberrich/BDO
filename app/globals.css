@@ -270,7 +270,7 @@ input[type="radio"] {
 }
 @media (max-width: 720px) {
   .wa-fab {
-    bottom: calc(9rem + env(safe-area-inset-bottom));
+    bottom: calc(5.75rem + env(safe-area-inset-bottom));
     right: max(0.85rem, env(safe-area-inset-right));
     width: 3.25rem;
     height: 3.25rem;
@@ -9438,7 +9438,7 @@ a.about-contact__card:focus-visible {
 }
 @media (max-width: 720px) {
   .foot {
-    padding-bottom: 9rem;
+    padding-bottom: 5.5rem;
   }
 }
 .foot__inner {
@@ -14182,30 +14182,4 @@ img {
 }
 .faculty__link {
   margin-top: 1.25rem;
-}
-
-/* Mobile bar slides away while the page's own Candidater / Être rappelé buttons are on screen */
-.mobile-bar {
-  transition:
-    transform 280ms var(--ease-out),
-    opacity 200ms ease;
-}
-.mobile-bar.is-tucked {
-  transform: translateY(110%);
-  opacity: 0;
-  pointer-events: none;
-}
-@media (max-width: 720px) {
-  .wa-fab {
-    transition: bottom 280ms var(--ease-out);
-  }
-  body:has(.mobile-bar.is-tucked) .wa-fab {
-    bottom: max(1.25rem, env(safe-area-inset-bottom));
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .mobile-bar,
-  .wa-fab {
-    transition: none;
-  }
 }
