@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { IconArrowRight, IconArrowUpRight } from "@/components/icons";
 import { plain } from "@/lib/text";
 
 export type MediaItem = {
@@ -15,45 +16,30 @@ export type MediaItem = {
 };
 
 const AUTOPLAY_MS = 2000;
-const RESUME_AFTER_TOUCH_MS = 4000;
+const RESUME_AFTER_INTERACTION_MS = 4000;
 
 function PressCard({ m, clone }: { m: MediaItem; clone: boolean }) {
   return (
-    <li className="press-logos__item" aria-hidden={clone || undefined}>
+    <li className="press-track__item" aria-hidden={clone || undefined}>
       <a
         href={m.lien}
         target="_blank"
         rel="noopener noreferrer"
-        className="press-logo"
-        aria-label={`${plain(m.nom)} : ${plain(m.titre)}`}
+        className="press-card"
+        aria-label={`${plain(m.nom)} : ${plain(m.titre)} (nouvel onglet)`}
         tabIndex={clone ? -1 : undefined}
       >
-        <span className="press-logo__mark">
-          <Image src={m.logo} alt="" width={240} height={64} className="press-logo__img" />
+        <span className="press-card__logo">
+          <Image src={m.logo} alt="" width={240} height={64} className="press-card__img" />
         </span>
-        <span className="press-logo__meta">
-          <span className="press-logo__name">{plain(m.nom)}</span>
-          <span className="press-logo__host">{m.domaine}</span>
-        </span>
-
-        <span className="press-preview" aria-hidden="true">
-          <span className="press-preview__chrome">
-            <span className="press-preview__dots" />
-            <span className="press-preview__url">{m.domaine}</span>
+        <span className="press-card__title">{plain(m.titre)}</span>
+        <span className="press-card__foot">
+          <span className="press-card__src">
+            <span className="press-card__name">{plain(m.nom)}</span>
+            <span className="press-card__host">{m.domaine}</span>
           </span>
-          <span className="press-preview__shot">
-            <Image
-              src={m.apercu}
-              alt=""
-              width={640}
-              height={360}
-              sizes="320px"
-              className="press-preview__img"
-            />
-          </span>
-          <span className="press-preview__body">
-            <span className="press-preview__title">{plain(m.titre)}</span>
-            <span className="press-preview__desc">{plain(m.description)}</span>
+          <span className="press-card__go" aria-hidden="true">
+            <IconArrowUpRight />
           </span>
         </span>
       </a>
@@ -61,51 +47,84 @@ function PressCard({ m, clone }: { m: MediaItem; clone: boolean }) {
   );
 }
 
-/** Swipeable strip that advances one card every 2 s and loops (the list is rendered twice). */
-export function MediaPressStrip({ items }: { items: readonly MediaItem[] }) {
+/** Press carousel: swipe or arrows, autoplay one card every 2 s, endless loop (the list is rendered twice). */
+export function MediaPressStrip({ items, children }: { items: readonly MediaItem[]; children?: ReactNode }) {
   const trackRef = useRef<HTMLUListElement>(null);
+  const interactedUntil = useRef(0);
+  const [active, setActive] = useState(0);
+  const n = items.length;
+
+  const metrics = useCallback(() => {
+    const track = trackRef.current;
+    const cards = track?.querySelectorAll<HTMLElement>(".press-track__item");
+    if (!track || !cards || cards.length < 2) return null;
+    const step = cards[1].offsetLeft - cards[0].offsetLeft;
+    const loop = cards.length > n ? cards[n].offsetLeft - cards[0].offsetLeft : 0;
+    return { track, step, loop };
+  }, [n]);
+
+  const go = useCallback(
+    (dir: 1 | -1) => {
+      const m = metrics();
+      if (!m) return;
+      interactedUntil.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
+      if (dir < 0 && m.track.scrollLeft < 2 && m.loop) {
+        m.track.scrollTo({ left: m.loop, behavior: "instant" });
+      }
+      m.track.scrollBy({ left: dir * m.step, behavior: "smooth" });
+    },
+    [metrics],
+  );
+
+  const goTo = useCallback(
+    (i: number) => {
+      const m = metrics();
+      if (!m) return;
+      interactedUntil.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
+      m.track.scrollTo({ left: i * m.step, behavior: "smooth" });
+    },
+    [metrics],
+  );
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let visible = false;
-    let hovered = false;
-    let touchedUntil = 0;
+    if (!track) return;
     let settle = 0;
-
-    const cards = () => track.querySelectorAll<HTMLElement>(".press-logos__item");
-    const loopWidth = () => {
-      const all = cards();
-      return all.length > items.length ? all[items.length].offsetLeft - all[0].offsetLeft : 0;
-    };
-    const step = () => {
-      const all = cards();
-      return all.length > 1 ? all[1].offsetLeft - all[0].offsetLeft : 0;
-    };
-
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 });
-    io.observe(track);
-
-    const timer = window.setInterval(() => {
-      if (!visible || hovered || document.hidden || Date.now() < touchedUntil) return;
-      track.scrollBy({ left: step(), behavior: "smooth" });
-    }, AUTOPLAY_MS);
+    let frame = 0;
 
     const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const m = metrics();
+        if (m?.step) setActive(Math.round(track.scrollLeft / m.step) % n);
+      });
       window.clearTimeout(settle);
       settle = window.setTimeout(() => {
-        const w = loopWidth();
-        if (w && track.scrollLeft >= w - 2) {
-          track.scrollTo({ left: track.scrollLeft - w, behavior: "instant" });
+        const m = metrics();
+        if (m?.loop && track.scrollLeft >= m.loop - 2) {
+          track.scrollTo({ left: track.scrollLeft - m.loop, behavior: "instant" });
         }
       }, 120);
     };
+    track.addEventListener("scroll", onScroll, { passive: true });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return () => track.removeEventListener("scroll", onScroll);
+    }
+
+    let visible = false;
+    let hovered = false;
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 });
+    io.observe(track);
+    const timer = window.setInterval(() => {
+      if (!visible || hovered || document.hidden || Date.now() < interactedUntil.current) return;
+      const m = metrics();
+      if (m) track.scrollBy({ left: m.step, behavior: "smooth" });
+    }, AUTOPLAY_MS);
+
     const pause = () => (hovered = true);
     const resume = () => (hovered = false);
-    const touched = () => (touchedUntil = Date.now() + RESUME_AFTER_TOUCH_MS);
-
-    track.addEventListener("scroll", onScroll, { passive: true });
+    const touched = () => (interactedUntil.current = Date.now() + RESUME_AFTER_INTERACTION_MS);
     track.addEventListener("pointerenter", pause);
     track.addEventListener("pointerleave", resume);
     track.addEventListener("focusin", pause);
@@ -116,6 +135,7 @@ export function MediaPressStrip({ items }: { items: readonly MediaItem[] }) {
     return () => {
       window.clearInterval(timer);
       window.clearTimeout(settle);
+      cancelAnimationFrame(frame);
       io.disconnect();
       track.removeEventListener("scroll", onScroll);
       track.removeEventListener("pointerenter", pause);
@@ -125,16 +145,43 @@ export function MediaPressStrip({ items }: { items: readonly MediaItem[] }) {
       track.removeEventListener("touchstart", touched);
       track.removeEventListener("wheel", touched);
     };
-  }, [items.length]);
+  }, [metrics, n]);
 
   return (
-    <ul ref={trackRef} className="press-logos">
-      {items.map((m) => (
-        <PressCard key={m.nom} m={m} clone={false} />
-      ))}
-      {items.map((m) => (
-        <PressCard key={`${m.nom}-clone`} m={m} clone />
-      ))}
-    </ul>
+    <div className="press-carousel">
+      <div className="press-carousel__head">
+        <div className="press-carousel__heading">{children}</div>
+        <div className="press-carousel__nav">
+          <button type="button" className="press-carousel__arrow is-prev" onClick={() => go(-1)} aria-label="Média précédent">
+            <IconArrowRight />
+          </button>
+          <button type="button" className="press-carousel__arrow" onClick={() => go(1)} aria-label="Média suivant">
+            <IconArrowRight />
+          </button>
+        </div>
+      </div>
+
+      <ul ref={trackRef} className="press-track">
+        {items.map((m) => (
+          <PressCard key={m.nom} m={m} clone={false} />
+        ))}
+        {items.map((m) => (
+          <PressCard key={`${m.nom}-clone`} m={m} clone />
+        ))}
+      </ul>
+
+      <div className="press-carousel__dots">
+        {items.map((m, i) => (
+          <button
+            key={m.nom}
+            type="button"
+            className={`press-carousel__dot${i === active ? " is-active" : ""}`}
+            onClick={() => goTo(i)}
+            aria-label={`Afficher ${plain(m.nom)}`}
+            aria-current={i === active || undefined}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
