@@ -9,6 +9,7 @@ import { PhoneInput } from "@/components/PhoneInput";
 import { IconArrowRight, IconSend } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
+import { collectErrors, fieldMessage, focusField, isField } from "@/lib/form-errors";
 import {
   DECOUVERTES,
   NIVEAUX,
@@ -35,7 +36,7 @@ export function CandidatureForm() {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
   const [choices, setChoices] = useState<Choices>(EMPTY);
-  const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const inFlight = useRef(false);
@@ -91,24 +92,33 @@ export function CandidatureForm() {
     if (target instanceof HTMLInputElement && target.type === "radio" && target.name in choices) {
       setChoices((c) => ({ ...c, [target.name]: target.value }));
     }
+    revalidate(e);
     persist(e.currentTarget);
+  }
+
+  function revalidate(e: FormEvent<HTMLFormElement>) {
+    const el = e.target;
+    if (!isField(el) || !(el.name in errors)) return;
+    const message = el.type === "radio" ? "" : fieldMessage(el);
+    setErrors((errs) => ({ ...errs, [el.name]: message }));
   }
 
   function onFile(rule: UploadRule) {
     return (e: ChangeEvent<HTMLInputElement>) => {
       const input = e.currentTarget;
       const file = input.files?.[0];
-      const message = file ? checkUpload(rule, file) : "";
-      input.setCustomValidity(message);
-      setFileErrors((errs) => ({ ...errs, [rule.field]: message }));
+      input.setCustomValidity(file ? checkUpload(rule, file) : "");
+      setErrors((errs) => ({ ...errs, [rule.field]: fieldMessage(input) }));
     };
   }
 
   function next(e: FormEvent) {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    const { errors: found, first } = collectErrors(form);
+    setErrors(found);
+    if (first) {
+      focusField(first);
       return;
     }
     const nextStep = Math.min(step + 1, steps.length - 1);
@@ -124,6 +134,7 @@ export function CandidatureForm() {
     const fd = new FormData(form);
     const cv = fd.get("cv");
     if (!(cv instanceof File) || cv.size === 0) {
+      setErrors({ cv: "Merci de joindre votre CV." });
       setStep(CV_STEP);
       setStatus(`Merci de joindre votre CV à l’étape « ${steps[CV_STEP]} ».`);
       return;
@@ -142,7 +153,7 @@ export function CandidatureForm() {
       if (!res.ok || !json.ok) {
         const upload = UPLOADS.find((rule) => rule.field === json.field);
         if (upload) {
-          setFileErrors((errs) => ({ ...errs, [upload.field]: json.message }));
+          setErrors((errs) => ({ ...errs, [upload.field]: json.message }));
           setStep(CV_STEP);
         }
         setStatus(json.message);
@@ -161,8 +172,17 @@ export function CandidatureForm() {
     }
   }
 
+  const err = (name: string) =>
+    errors[name] ? (
+      <span id={`cand-${name}-error`} role="alert" className="field-error">
+        {errors[name]}
+      </span>
+    ) : null;
+  const errProps = (name: string) =>
+    errors[name] ? { "aria-invalid": true as const, "aria-describedby": `cand-${name}-error` } : {};
+
   const cards = (name: keyof Choices, s: number, question: string, options: Option[]) => (
-    <div role="radiogroup" aria-label={question}>
+    <div role="radiogroup" aria-label={question} {...errProps(name)}>
       <p className="text-sm font-semibold">{question} *</p>
       <div className="mt-2 grid gap-2">
         {options.map((o) => {
@@ -171,7 +191,7 @@ export function CandidatureForm() {
             <label
               key={o.value}
               className={`flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white px-4 py-3 text-sm transition hover:border-muted ${
-                checked ? "border-blue ring-2 ring-blue/20" : "border-line"
+                checked ? "border-blue ring-2 ring-blue/20" : errors[name] ? "border-red" : "border-line"
               }`}
             >
               <input
@@ -186,6 +206,7 @@ export function CandidatureForm() {
           );
         })}
       </div>
+      {err(name)}
     </div>
   );
 
@@ -199,7 +220,9 @@ export function CandidatureForm() {
           name={`${name}_autre`}
           placeholder="Votre réponse"
           maxLength={200}
+          {...errProps(`${name}_autre`)}
         />
+        {err(`${name}_autre`)}
       </label>
     ) : null;
 
@@ -208,6 +231,7 @@ export function CandidatureForm() {
       ref={formRef}
       onSubmit={onSubmit}
       onChange={onFormChange}
+      noValidate
       encType="multipart/form-data"
       className="space-y-6"
     >
@@ -269,8 +293,9 @@ export function CandidatureForm() {
             autoComplete="email"
             placeholder="nom@entreprise.ma"
             pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
-            title="Adresse e-mail complète, par exemple nom@entreprise.ma"
+            {...errProps("email")}
           />
+          {err("email")}
         </label>
         <PhoneInput label="GSM" required={step === 0} />
         <label className="block text-sm font-semibold sm:col-span-2">
@@ -281,7 +306,9 @@ export function CandidatureForm() {
             name="ville"
             autoComplete="address-level2"
             placeholder="Ex. Casablanca"
+            {...errProps("ville")}
           />
+          {err("ville")}
         </label>
         {UPLOADS.map((rule) => (
           <label key={rule.field} className="block text-sm font-semibold">
@@ -294,11 +321,15 @@ export function CandidatureForm() {
               accept={rule.accept}
               required={rule.required && step === 0}
               onChange={onFile(rule)}
+              aria-invalid={errors[rule.field] ? true : undefined}
+              aria-describedby={`cand-${rule.field}-error`}
             />
             <span
-              className={`mt-1 block text-xs font-normal ${fileErrors[rule.field] ? "text-red" : "text-muted"}`}
+              id={`cand-${rule.field}-error`}
+              role={errors[rule.field] ? "alert" : undefined}
+              className={errors[rule.field] ? "field-error" : "mt-1 block text-xs font-normal text-muted"}
             >
-              {fileErrors[rule.field] || `Fichiers acceptés : ${rule.hint}`}
+              {errors[rule.field] || `Fichiers acceptés : ${rule.hint}`}
             </span>
           </label>
         ))}
@@ -321,7 +352,9 @@ export function CandidatureForm() {
             maxLength={800}
             name="diplome"
             placeholder="Ex. Master en finance, ISCAE Casablanca, 2015"
+            {...errProps("diplome")}
           />
+          {err("diplome")}
         </label>
         <label className="block text-sm font-semibold">
           Études complémentaires non sanctionnées par un diplôme
@@ -346,24 +379,34 @@ export function CandidatureForm() {
             maxLength={1500}
             name="interet"
             placeholder="Vos objectifs, le projet de transformation que vous souhaitez mener dans votre entreprise…"
+            {...errProps("interet")}
           />
+          {err("interet")}
         </label>
-        <label className="flex items-start gap-3 rounded-[10px] bg-cream px-4 py-3 text-sm">
-          <input
-            type="checkbox"
-            required={step === 3}
-            name="consentement"
-            value="oui"
-            className="mt-0.5 h-4 w-4 accent-blue"
-          />
-          <span>
-            J’accepte les{" "}
-            <Link href="/cgu" target="_blank" className="font-semibold text-blue underline">
-              conditions générales
-            </Link>{" "}
-            avant de soumettre ma candidature. *
-          </span>
-        </label>
+        <div>
+          <label
+            className={`flex items-start gap-3 rounded-[10px] border bg-cream px-4 py-3 text-sm ${
+              errors.consentement ? "border-red" : "border-transparent"
+            }`}
+          >
+            <input
+              type="checkbox"
+              required={step === 3}
+              name="consentement"
+              value="oui"
+              className="mt-0.5 h-4 w-4 accent-blue"
+              {...errProps("consentement")}
+            />
+            <span>
+              J’accepte les{" "}
+              <Link href="/cgu" target="_blank" className="font-semibold text-blue underline">
+                conditions générales
+              </Link>{" "}
+              avant de soumettre ma candidature. *
+            </span>
+          </label>
+          {err("consentement")}
+        </div>
       </fieldset>
 
       <div className="flex flex-wrap justify-between gap-3">

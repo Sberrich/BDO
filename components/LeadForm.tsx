@@ -6,6 +6,7 @@ import { BRAND, data } from "@/lib/content";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Button, fieldClass } from "@/components/ui";
+import { collectErrors, fieldMessage, focusField, isField } from "@/lib/form-errors";
 import { plain } from "@/lib/text";
 
 type Kind = "rappel" | "session" | "document";
@@ -18,20 +19,6 @@ const docs = [
     label: "Livre blanc : La Fonction Financière Augmentée",
   },
 ];
-
-/** Fields without their own error display (NameInput and PhoneInput handle theirs). */
-const GENERIC = ["fonction", "email", "moment", "creneau"];
-
-function messageFor(el: HTMLInputElement | HTMLSelectElement) {
-  if (el.validity.valid) return "";
-  if (el.validity.valueMissing) {
-    return el instanceof HTMLSelectElement ? "Choisissez une option." : "Ce champ est obligatoire.";
-  }
-  if ((el.validity.typeMismatch || el.validity.patternMismatch) && el.type === "email") {
-    return "Adresse e-mail non valide (exemple : nom@entreprise.ma).";
-  }
-  return el.validationMessage;
-}
 
 export function LeadForm({
   kind,
@@ -58,25 +45,18 @@ export function LeadForm({
 
   function revalidate(e: FormEvent<HTMLFormElement>) {
     const el = e.target;
-    if (!(el instanceof HTMLInputElement || el instanceof HTMLSelectElement) || !(el.name in errors)) return;
-    setErrors((errs) => ({ ...errs, [el.name]: messageFor(el) }));
+    if (!isField(el) || !(el.name in errors)) return;
+    setErrors((errs) => ({ ...errs, [el.name]: fieldMessage(el) }));
   }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inFlight.current) return;
     const form = e.currentTarget;
-    const invalid = Array.from(form.elements).filter(
-      (el): el is HTMLInputElement | HTMLSelectElement =>
-        (el instanceof HTMLInputElement || el instanceof HTMLSelectElement) && !el.checkValidity(),
-    );
-    setErrors(
-      Object.fromEntries(
-        invalid.filter((el) => GENERIC.includes(el.name)).map((el) => [el.name, messageFor(el)]),
-      ),
-    );
-    if (invalid.length) {
-      invalid[0].focus();
+    const { errors: found, first } = collectErrors(form);
+    setErrors(found);
+    if (first) {
+      focusField(first);
       return;
     }
     inFlight.current = true;
@@ -128,7 +108,7 @@ export function LeadForm({
 
   const fieldError = (name: string) =>
     errors[name] ? (
-      <span id={`${prefix}-${name}-error`} role="alert" className="mt-1 block text-xs font-normal text-red">
+      <span id={`${prefix}-${name}-error`} role="alert" className="field-error">
         {errors[name]}
       </span>
     ) : null;
