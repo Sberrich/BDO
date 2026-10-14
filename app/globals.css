@@ -3564,12 +3564,6 @@ body[data-nav="open"] .mobile-bar {
   gap: 1rem 3rem;
   margin-bottom: clamp(2.25rem, 4.5vw, 3rem);
 }
-@media (min-width: 900px) {
-  .who__head {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-    align-items: end;
-  }
-}
 .who__index {
   margin: 0;
   font-size: 0.75rem;
@@ -3586,12 +3580,6 @@ body[data-nav="open"] .mobile-bar {
   letter-spacing: -0.035em;
   color: var(--brand-navy);
   text-wrap: balance;
-}
-.who__lead {
-  margin: 0;
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
 }
 .who__panels {
   list-style: none;

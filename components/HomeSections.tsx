@@ -250,7 +250,6 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 {site.profil.prerequis}
               </p>
             </div>
-            <p className="who__lead">{site.profil.chapeau}</p>
           </header>
           <ul className="who__panels">
             {site.profil.profils.map((p, i) => {
