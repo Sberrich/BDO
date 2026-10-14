@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
 import { CguLink } from "@/components/CguDialog";
+import { FileField } from "@/components/FileField";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { SuccessDialog } from "@/components/SuccessDialog";
@@ -27,7 +28,6 @@ const KEY = "cfo40-candidature";
 type Choices = { participation: string; secteur: string; niveau: string; decouverte: string };
 const EMPTY: Choices = { participation: "", secteur: "", niveau: "", decouverte: "" };
 
-const fileClass = `${fieldClass} cursor-pointer text-sm file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-white max-sm:file:px-4 max-sm:file:py-2.5 max-sm:file:text-base`;
 
 export function CandidatureForm() {
   const router = useRouter();
@@ -124,7 +124,7 @@ export function CandidatureForm() {
       const input = e.currentTarget;
       const file = input.files?.[0];
       input.setCustomValidity(file ? checkUpload(rule, file) : "");
-      setErrors((errs) => ({ ...errs, [rule.field]: fieldMessage(input) }));
+      setErrors((errs) => (file || errs[rule.field] ? { ...errs, [rule.field]: fieldMessage(input) } : errs));
     };
   }
 
@@ -334,27 +334,7 @@ export function CandidatureForm() {
           {err("ville")}
         </label>
         {UPLOADS.map((rule) => (
-          <label key={rule.field} className="block text-sm font-semibold">
-            {rule.label}
-            {rule.required ? " *" : " (facultatif)"}
-            <input
-              className={fileClass}
-              type="file"
-              name={rule.field}
-              accept={rule.accept}
-              required={rule.required}
-              onChange={onFile(rule)}
-              aria-invalid={errors[rule.field] ? true : undefined}
-              aria-describedby={`cand-${rule.field}-error`}
-            />
-            <span
-              id={`cand-${rule.field}-error`}
-              role={errors[rule.field] ? "alert" : undefined}
-              className={errors[rule.field] ? "field-error" : "mt-1 block text-xs font-normal text-muted"}
-            >
-              {errors[rule.field] || `Fichiers acceptés : ${rule.hint}`}
-            </span>
-          </label>
+          <FileField key={rule.field} rule={rule} error={errors[rule.field]} onFileChange={onFile(rule)} />
         ))}
       </fieldset>
 
