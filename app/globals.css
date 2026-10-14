@@ -14116,7 +14116,7 @@ img {
   height: 1rem;
 }
 
-/* Mobile: call-to-action buttons span the full width (text links and filter chips excluded) */
+/* Mobile: call-to-action buttons span the full width and share the mobile menu button shape (text links and filter chips excluded) */
 @media (max-width: 640px) {
   main .btn-icon:not(.\!px-1),
   main form button[type="submit"],
@@ -14129,6 +14129,11 @@ img {
   .about-lead__li {
     display: flex;
     width: 100%;
+    min-height: 3rem;
+    align-items: center;
     justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.9375rem;
   }
 }
