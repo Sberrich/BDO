@@ -58,7 +58,7 @@ function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (inde
   const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLOListElement>(null);
   const headRef = useRef<HTMLElement>(null);
-  const { id, titre, description, videos } = playlist;
+  const { id, titre, videos } = playlist;
   const hidden = videos.length - PLAYLIST_PREVIEW;
   const total = videos.reduce((acc, v) => acc + durationSeconds(v.duree), 0);
 
@@ -82,7 +82,6 @@ function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (inde
             <h3 id={`playlist-${id}`} className="playlist__title">
               {titre}
             </h3>
-            {description ? <p className="playlist__desc">{description}</p> : null}
           </div>
           <div className="playlist__actions">
             <p className="playlist__meta">
@@ -134,7 +133,7 @@ function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (inde
   );
 }
 
-function PlaylistPlayer({
+export function PlaylistPlayer({
   playlist,
   index,
   onIndex,
@@ -208,7 +207,7 @@ function PlaylistPlayer({
             <span>
               <strong>{active.titre}</strong>
               <span className="voices-player__role">
-                {[playlist.titre, active.sousTitre].filter(Boolean).join(" · ")}
+                {[active.playlist, active.sousTitre].filter(Boolean).join(" · ")}
               </span>
             </span>
           </p>

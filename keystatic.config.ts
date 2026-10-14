@@ -35,11 +35,23 @@ export default config({
   ui: {
     brand: { name: "CFO 4.0 · Éditeur", mark: BrandMark },
     navigation: {
-      Contenu: ["insights", "intervenants"],
-      "Textes de page": ["insightsPage", "intervenantsPage"],
+      Contenu: ["videos", "insights", "intervenants"],
+      "Textes de page": ["playlistsPage", "insightsPage", "intervenantsPage"],
     },
   },
   singletons: {
+    playlistsPage: singleton({
+      label: "Page Playlists — introduction",
+      path: "content/playlists-page",
+      schema: {
+        chapeau: fields.text({
+          label: "Chapeau",
+          description: "Texte affiché sous le titre de la page /playlists.",
+          multiline: true,
+          validation: { length: { min: 1, max: 280 } },
+        }),
+      },
+    }),
     insightsPage: singleton({
       label: "Page Insights — introduction",
       path: "content/insights-page",
@@ -66,6 +78,70 @@ export default config({
     }),
   },
   collections: {
+    videos: collection({
+      label: "Vidéos (playlists)",
+      slugField: "titre",
+      path: "content/videos/*",
+      columns: ["playlist", "duree"],
+      schema: {
+        titre: fields.slug({
+          name: {
+            label: "Titre",
+            description: "Titre de la vidéo ou nom de la personne. Ex. « Zakaria Fahim ».",
+            validation: { length: { min: 1, max: 120 } },
+          },
+        }),
+        playlist: fields.text({
+          label: "Playlist",
+          description:
+            "Nom de la playlist. Ex. « Témoignages ». Un nouveau nom crée automatiquement une nouvelle playlist sur le site.",
+          defaultValue: "Témoignages",
+          validation: { length: { min: 1, max: 60 } },
+        }),
+        ordre: fields.integer({
+          label: "Ordre dans la playlist",
+          description: "1 = première vidéo. Les trois premières sont visibles avant « Voir plus ».",
+          defaultValue: 1,
+        }),
+        sousTitre: fields.text({
+          label: "Sous-titre",
+          description: "Ex. « Managing Partner · BDO Maroc ».",
+        }),
+        etiquette: fields.text({
+          label: "Étiquette",
+          description: "Petit texte au-dessus du titre. Ex. « Participant · 2e cohorte ».",
+        }),
+        fichier: fields.text({
+          label: "Fichier vidéo",
+          description: "Chemin public du fichier .mp4. Ex. /videos/temoignages/zakaria-fahim.mp4",
+          validation: { length: { min: 1 } },
+        }),
+        poster: fields.text({
+          label: "Image de couverture",
+          description: "Chemin public de l’image. Ex. /images/temoignages/mouad-laghiti-cover.jpg",
+        }),
+        duree: fields.text({ label: "Durée", description: "Ex. « 2 min 34 » ou « 45 s »." }),
+        langue: fields.select({
+          label: "Langue",
+          options: [
+            { label: "Français", value: "FR" },
+            { label: "Anglais", value: "EN" },
+            { label: "Arabe", value: "AR" },
+          ],
+          defaultValue: "FR",
+        }),
+        date: fields.date({
+          label: "Date de publication",
+          description: "Sert au tri « Plus récent » de la page Playlists.",
+        }),
+        resume: fields.text({
+          label: "Résumé",
+          description: "Une ou deux phrases, facultatif.",
+          multiline: true,
+          validation: { length: { max: 300 } },
+        }),
+      },
+    }),
     insights: collection({
       label: "Articles Insights",
       slugField: "titre",

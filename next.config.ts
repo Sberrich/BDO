@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/index.html", destination: "/", permanent: true },
+      { source: "/insights", destination: "/playlists", permanent: true },
       { source: "/inscription", destination: "/candidater", permanent: false },
       { source: "/confidentialite/", destination: "/confidentialite", permanent: true },
       ...htmlPages.map((p) => ({

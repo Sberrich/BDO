@@ -76,7 +76,7 @@ export default async function InsightArticlePage({ params }: Props) {
           <nav className="insight-hero__crumbs" aria-label="Fil d’Ariane">
             <Link href="/">Accueil</Link>
             <span aria-hidden>/</span>
-            <Link href="/insights">Insights</Link>
+            <Link href="/ressources">Ressources</Link>
             <span aria-hidden>/</span>
             <span>{article.category}</span>
           </nav>
@@ -130,8 +130,8 @@ export default async function InsightArticlePage({ params }: Props) {
                 </ButtonLink>
               </div>
             </div>
-            <Link href="/insights" className="insight-aside__back">
-              ← Tous les insights
+            <Link href="/ressources" className="insight-aside__back">
+              ← Toutes les ressources
             </Link>
           </div>
         </Container>

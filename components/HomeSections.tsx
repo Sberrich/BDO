@@ -9,7 +9,7 @@ import { PriceTeaser } from "@/components/PricingBlock";
 import { FacultyShowcase } from "@/components/FacultyShowcase";
 import { PubCard } from "@/components/PubCard";
 import { VideoBlock } from "@/components/VideoBlock";
-import { allPlaylists } from "@/lib/playlists";
+import type { Playlist } from "@/lib/playlists";
 import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
@@ -22,9 +22,10 @@ const TROPHEE_LOGO = { src: "/images/logos/trophee-bdo-digital-cfos.png", width:
 type Props = {
   speakers: Intervenant[];
   speakersLead?: string;
+  playlists: Playlist[];
 };
 
-export function HomeSections({ speakers, speakersLead }: Props) {
+export function HomeSections({ speakers, speakersLead, playlists }: Props) {
   const site = data.site;
   const c = site.constat;
   const haut = c.chiffres[0];
@@ -287,7 +288,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </p>
           </header>
 
-          <Playlists playlists={allPlaylists()} />
+          <Playlists playlists={playlists} />
         </Container>
       </section>
 

@@ -3,13 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { PubCard } from "@/components/PubCard";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { IconArrowRight, IconLayers } from "@/components/icons";
-import { getInsightArticles } from "@/lib/cms";
+import { IconArrowRight, IconPlay } from "@/components/icons";
+import { getVideos } from "@/lib/cms";
+import { groupPlaylists } from "@/lib/playlists";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Ressources",
-  description: "Brochure, Baromètre BDO des DAF, livre blanc et Insights du certificat CFO 4.0.",
+  description: "Brochure, Baromètre BDO des DAF, livre blanc et playlists vidéo du certificat CFO 4.0.",
 };
 
 const TYPES: Record<string, string> = {
@@ -20,10 +21,7 @@ const TYPES: Record<string, string> = {
 
 export default async function RessourcesPage() {
   const docs = RESOURCES_MENU.filter((r) => r.cover);
-  const articles = (await getInsightArticles())
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 3);
+  const playlists = groupPlaylists(await getVideos());
 
   return (
     <>
@@ -44,15 +42,15 @@ export default async function RessourcesPage() {
                 Les publications qui documentent le programme
               </h1>
               <p className="sem-hero__lead">
-                Brochure, Baromètre, livre blanc et analyses : chaque document a sa page dédiée.
+                Brochure, Baromètre, livre blanc et playlists vidéo : chaque ressource a sa page dédiée.
               </p>
               <div className="sem-hero__ctas">
                 <ButtonLink href="/ressources/brochure" className="sem-hero__cta-primary">
                   Recevoir la brochure
                   <IconArrowRight />
                 </ButtonLink>
-                <ButtonLink href="/insights" variant="ghost" className="sem-hero__cta-secondary">
-                  Lire les Insights
+                <ButtonLink href="/playlists" variant="ghost" className="sem-hero__cta-secondary">
+                  Voir les playlists
                 </ButtonLink>
               </div>
             </div>
@@ -95,26 +93,26 @@ export default async function RessourcesPage() {
             ))}
           </ul>
 
-          <Link href="/insights" className="res-insights">
+          <Link href="/playlists" className="res-insights">
             <span className="res-insights__icon" aria-hidden>
-              <IconLayers size={26} />
+              <IconPlay />
             </span>
             <span className="res-insights__copy">
-              <span className="pub-card__type">Insights</span>
-              <span className="res-insights__title">Analyses et lectures CFO 4.0</span>
+              <span className="pub-card__type">Playlists</span>
+              <span className="res-insights__title">Le certificat en vidéo</span>
               <span className="res-insights__go">
-                Lire les analyses
+                Voir les vidéos
                 <IconArrowRight />
               </span>
             </span>
-            {articles.length ? (
+            {playlists.length ? (
               <ul className="res-insights__list">
-                {articles.map((a) => (
-                  <li key={a.slug}>
+                {playlists.map((p) => (
+                  <li key={p.id}>
                     <span className="res-insights__meta">
-                      {a.category} · {a.dateLabel}
+                      {p.videos.length} vidéo{p.videos.length > 1 ? "s" : ""}
                     </span>
-                    <span className="res-insights__name">{a.titre}</span>
+                    <span className="res-insights__name">{p.titre}</span>
                   </li>
                 ))}
               </ul>

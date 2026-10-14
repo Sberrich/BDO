@@ -96,7 +96,7 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
   const d = DOCS[kind];
   const landscape = d.coverSize[0] > d.coverSize[1];
   const others = RESOURCES_MENU.filter(
-    (r) => r.href !== d.path && r.href !== "/insights" && r.cover,
+    (r) => r.href !== d.path && r.href !== "/playlists" && r.cover,
   ).slice(0, 2);
 
   return (

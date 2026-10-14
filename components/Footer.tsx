@@ -88,7 +88,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/insights">Insights</Link>
+                <Link href="/playlists">Playlists</Link>
               </li>
               <li>
                 <Link href="/a-propos">À propos</Link>
