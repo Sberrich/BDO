@@ -11322,7 +11322,10 @@ img {
 
 /* Intervenants cards: photo carries number + LinkedIn, seminars pinned at the bottom */
 .iv-grid .iv-card__media {
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 549 / 581;
+}
+.iv-grid .iv-card__media.has-photo .iv-card__img {
+  transform: none;
 }
 .iv-grid .iv-card__num {
   top: 0.75rem;

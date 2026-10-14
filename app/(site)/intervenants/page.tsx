@@ -111,8 +111,7 @@ export default async function IntervenantsPage() {
                           alt=""
                           fill
                           className="iv-card__img"
-                          sizes="(min-width: 900px) 20rem, 50vw"
-                        />
+                          sizes="(min-width: 900px) 24rem, 100vw"                        />
                       ) : (
                         <span
                           className={`faculty-mono tone-${p.tone} iv-card__mono`}
