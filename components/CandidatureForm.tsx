@@ -1,14 +1,17 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { CguLink } from "@/components/CguDialog";
+import { FileField } from "@/components/FileField";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
-import { IconArrowRight, IconTick } from "@/components/icons";
+import { SuccessDialog } from "@/components/SuccessDialog";
+import { IconArrowRight, IconSend, IconTick } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
+import { collectErrors, fieldMessage, focusField, isField } from "@/lib/form-errors";
 import {
   DECOUVERTES,
   NIVEAUX,
@@ -22,12 +25,9 @@ import {
 
 const steps = ["Coordonnées", "Inscription", "Fonction et parcours", "Motivation"];
 const KEY = "cfo40-candidature";
-const CV_STEP = 0;
-
 type Choices = { participation: string; secteur: string; niveau: string; decouverte: string };
 const EMPTY: Choices = { participation: "", secteur: "", niveau: "", decouverte: "" };
 
-const fileClass = `${fieldClass} cursor-pointer text-sm file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-white max-sm:file:px-4 max-sm:file:py-2.5 max-sm:file:text-base`;
 
 export function CandidatureForm() {
   const router = useRouter();
@@ -35,7 +35,9 @@ export function CandidatureForm() {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
   const [choices, setChoices] = useState<Choices>(EMPTY);
-  const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [focusName, setFocusName] = useState<{ name: string } | null>(null);
+  const [done, setDone] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const inFlight = useRef(false);
@@ -75,6 +77,12 @@ export function CandidatureForm() {
     } catch {}
   }, []);
 
+  useEffect(() => {
+    const el = focusName && formRef.current?.elements.namedItem(focusName.name);
+    const field = el instanceof RadioNodeList ? el[0] : el;
+    if (isField(field)) focusField(field);
+  }, [focusName]);
+
   function persist(form: HTMLFormElement, nextStep = step) {
     const payload: Record<string, string> = {};
     new FormData(form).forEach((value, key) => {
@@ -91,29 +99,60 @@ export function CandidatureForm() {
     if (target instanceof HTMLInputElement && target.type === "radio" && target.name in choices) {
       setChoices((c) => ({ ...c, [target.name]: target.value }));
     }
+    revalidate(e);
     persist(e.currentTarget);
+  }
+
+  function revalidate(e: FormEvent<HTMLFormElement>) {
+    const el = e.target;
+    if (!isField(el) || !(el.name in errors)) return;
+    const message = el.type === "radio" ? "" : fieldMessage(el);
+    setErrors((errs) => ({ ...errs, [el.name]: message }));
+  }
+
+  function acceptCgu() {
+    const form = formRef.current;
+    const box = form?.elements.namedItem("consentement");
+    if (!form || !(box instanceof HTMLInputElement)) return;
+    box.checked = true;
+    setErrors((errs) => ({ ...errs, consentement: "" }));
+    persist(form);
   }
 
   function onFile(rule: UploadRule) {
     return (e: ChangeEvent<HTMLInputElement>) => {
       const input = e.currentTarget;
       const file = input.files?.[0];
-      const message = file ? checkUpload(rule, file) : "";
-      input.setCustomValidity(message);
-      setFileErrors((errs) => ({ ...errs, [rule.field]: message }));
+      input.setCustomValidity(file ? checkUpload(rule, file) : "");
+      setErrors((errs) => (file || errs[rule.field] ? { ...errs, [rule.field]: fieldMessage(input) } : errs));
     };
   }
 
   function next(e: FormEvent) {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    const { errors: found, first } = collectErrors(form);
+    setErrors(found);
+    if (first) {
+      focusField(first);
       return;
     }
+    setStatus("");
     const nextStep = Math.min(step + 1, steps.length - 1);
     persist(form, nextStep);
     setStep(nextStep);
+  }
+
+  /** Opens the step holding `name` and focuses that field once it is visible. */
+  function showField(form: HTMLFormElement, name: string) {
+    const el = form.elements.namedItem(name);
+    const field = el instanceof RadioNodeList ? el[0] : el;
+    const fieldset = field instanceof Element ? field.closest("fieldset") : null;
+    const target = fieldset ? Array.from(form.querySelectorAll("fieldset")).indexOf(fieldset) : -1;
+    if (target < 0) return;
+    setStep(target);
+    setFocusName({ name });
+    if (target !== step) setStatus(`Il manque une information à l’étape « ${steps[target]} ».`);
   }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -121,13 +160,13 @@ export function CandidatureForm() {
     if (step < steps.length - 1) return next(e);
     if (inFlight.current) return;
     const form = e.currentTarget;
-    const fd = new FormData(form);
-    const cv = fd.get("cv");
-    if (!(cv instanceof File) || cv.size === 0) {
-      setStep(CV_STEP);
-      setStatus(`Merci de joindre votre CV à l’étape « ${steps[CV_STEP]} ».`);
+    const { errors: found, first } = collectErrors(form, { includeHidden: true });
+    setErrors(found);
+    if (first) {
+      showField(form, first.name);
       return;
     }
+    const fd = new FormData(form);
     inFlight.current = true;
     setSending(true);
     setStatus("");
@@ -140,12 +179,12 @@ export function CandidatureForm() {
       const res = await fetch("/api/submit", { method: "POST", body: fd });
       const json = (await res.json()) as { ok: boolean; message: string; field?: string };
       if (!res.ok || !json.ok) {
+        setStatus(json.message);
         const upload = UPLOADS.find((rule) => rule.field === json.field);
         if (upload) {
-          setFileErrors((errs) => ({ ...errs, [upload.field]: json.message }));
-          setStep(CV_STEP);
+          setErrors((errs) => ({ ...errs, [upload.field]: json.message }));
+          showField(form, upload.field);
         }
-        setStatus(json.message);
         setSending(false);
         inFlight.current = false;
         return;
@@ -153,7 +192,7 @@ export function CandidatureForm() {
       try {
         localStorage.removeItem(KEY);
       } catch {}
-      router.push("/merci?type=candidature");
+      setDone(true);
     } catch {
       setStatus("L’envoi n’a pas abouti. Écrivez-nous à " + BRAND.email);
       setSending(false);
@@ -161,8 +200,17 @@ export function CandidatureForm() {
     }
   }
 
+  const err = (name: string) =>
+    errors[name] ? (
+      <span id={`cand-${name}-error`} role="alert" className="field-error">
+        {errors[name]}
+      </span>
+    ) : null;
+  const errProps = (name: string) =>
+    errors[name] ? { "aria-invalid": true as const, "aria-describedby": `cand-${name}-error` } : {};
+
   const cards = (name: keyof Choices, s: number, question: string, options: Option[]) => (
-    <div role="radiogroup" aria-label={question}>
+    <div role="radiogroup" aria-label={question} {...errProps(name)}>
       <p className="text-sm font-semibold">{question} *</p>
       <div className="mt-2 grid gap-2">
         {options.map((o) => {
@@ -170,15 +218,15 @@ export function CandidatureForm() {
           return (
             <label
               key={o.value}
-              className={`flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white px-4 py-3 text-sm transition hover:border-muted ${
-                checked ? "border-blue ring-2 ring-blue/20" : "border-line"
+              className={`cand-choice flex cursor-pointer items-center gap-3 rounded-[10px] border bg-white transition hover:border-muted ${
+                checked ? "border-blue ring-2 ring-blue/20" : errors[name] ? "border-red" : "border-line"
               }`}
             >
               <input
                 type="radio"
                 name={name}
                 value={o.value}
-                required={step === s}
+                required
                 className="h-4 w-4 shrink-0 accent-blue"
               />
               {o.label}
@@ -186,6 +234,7 @@ export function CandidatureForm() {
           );
         })}
       </div>
+      {err(name)}
     </div>
   );
 
@@ -195,11 +244,13 @@ export function CandidatureForm() {
         {label} *
         <input
           className={fieldClass}
-          required={step === s}
+          required
           name={`${name}_autre`}
           placeholder="Votre réponse"
           maxLength={200}
+          {...errProps(`${name}_autre`)}
         />
+        {err(`${name}_autre`)}
       </label>
     ) : null;
 
@@ -208,16 +259,17 @@ export function CandidatureForm() {
       ref={formRef}
       onSubmit={onSubmit}
       onChange={onFormChange}
+      noValidate
       encType="multipart/form-data"
-      className="space-y-6"
+      className="cand-form space-y-6"
     >
       <div>
-        <ol className="flex justify-between text-[0.8125rem]">
+        <ol className="cand-steps text-[0.8125rem]">
           {steps.map((label, i) => (
             <li
               key={label}
               aria-current={i === step ? "step" : undefined}
-              className="flex"
+              className={`cand-steps__item${i < step ? " is-done" : ""}`}
             >
               <button
                 type="button"
@@ -232,21 +284,16 @@ export function CandidatureForm() {
                     i <= step ? "bg-blue text-white" : "bg-cream text-muted"
                   } ${i === step ? "ring-2 ring-blue/25 ring-offset-2" : ""} ${i < step ? "group-hover:bg-blue-dark" : ""}`}
                 >
-                  {i + 1}
+                  {i < step ? <IconTick size={15} /> : i + 1}
                 </span>
                 <span className="sr-only">Étape {i + 1} : </span>
                 <span className="sr-only md:not-sr-only">{label}</span>
               </button>
+              {i < steps.length - 1 ? <span className="cand-steps__line" aria-hidden /> : null}
             </li>
           ))}
         </ol>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-sm bg-cream">
-          <div
-            className="h-full bg-blue transition-all"
-            style={{ width: `${((step + 1) / steps.length) * 100}%` }}
-          />
-        </div>
-        <p className="mt-2 text-xs text-muted">
+        <p className="mt-4 text-xs text-muted">
           Brouillon conservé dans ce navigateur, sur cet appareil uniquement. Vous pouvez
           reprendre plus tard ; les fichiers (CV, photo) sont à joindre à nouveau.
         </p>
@@ -257,50 +304,37 @@ export function CandidatureForm() {
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2" hidden={step !== 0}>
-        <NameInput kind="prenom" required={step === 0} />
-        <NameInput kind="nom" required={step === 0} />
+        <NameInput kind="prenom" required />
+        <NameInput kind="nom" required />
         <label className="block text-sm font-semibold">
           E-mail *
           <input
             className={fieldClass}
-            required={step === 0}
+            required
             type="email"
             name="email"
             autoComplete="email"
             placeholder="nom@entreprise.ma"
             pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
-            title="Adresse e-mail complète, par exemple nom@entreprise.ma"
+            {...errProps("email")}
           />
+          {err("email")}
         </label>
-        <PhoneInput label="GSM" required={step === 0} />
+        <PhoneInput label="GSM" required />
         <label className="block text-sm font-semibold sm:col-span-2">
           Ville *
           <input
             className={fieldClass}
-            required={step === 0}
+            required
             name="ville"
             autoComplete="address-level2"
             placeholder="Ex. Casablanca"
+            {...errProps("ville")}
           />
+          {err("ville")}
         </label>
         {UPLOADS.map((rule) => (
-          <label key={rule.field} className="block text-sm font-semibold">
-            {rule.label}
-            {rule.required ? " *" : " (facultatif)"}
-            <input
-              className={fileClass}
-              type="file"
-              name={rule.field}
-              accept={rule.accept}
-              required={rule.required && step === 0}
-              onChange={onFile(rule)}
-            />
-            <span
-              className={`mt-1 block text-xs font-normal ${fileErrors[rule.field] ? "text-red" : "text-muted"}`}
-            >
-              {fileErrors[rule.field] || `Fichiers acceptés : ${rule.hint}`}
-            </span>
-          </label>
+          <FileField key={rule.field} rule={rule} error={errors[rule.field]} onFileChange={onFile(rule)} />
         ))}
       </fieldset>
 
@@ -317,11 +351,13 @@ export function CandidatureForm() {
           Diplômes obtenus *
           <textarea
             className={`${fieldClass} min-h-28`}
-            required={step === 2}
+            required
             maxLength={800}
             name="diplome"
             placeholder="Ex. Master en finance, ISCAE Casablanca, 2015"
+            {...errProps("diplome")}
           />
+          {err("diplome")}
         </label>
         <label className="block text-sm font-semibold">
           Études complémentaires non sanctionnées par un diplôme
@@ -342,28 +378,34 @@ export function CandidatureForm() {
           demande *
           <textarea
             className={`${fieldClass} min-h-32`}
-            required={step === 3}
+            required
             maxLength={1500}
             name="interet"
             placeholder="Vos objectifs, le projet de transformation que vous souhaitez mener dans votre entreprise…"
+            {...errProps("interet")}
           />
+          {err("interet")}
         </label>
-        <label className="flex items-start gap-3 rounded-[10px] bg-cream px-4 py-3 text-sm">
-          <input
-            type="checkbox"
-            required={step === 3}
-            name="consentement"
-            value="oui"
-            className="mt-0.5 h-4 w-4 accent-blue"
-          />
-          <span>
-            J’accepte les{" "}
-            <Link href="/cgu" target="_blank" className="font-semibold text-blue underline">
-              conditions générales
-            </Link>{" "}
-            avant de soumettre ma candidature. *
-          </span>
-        </label>
+        <div>
+          <label
+            className={`flex items-start gap-3 rounded-[10px] border bg-cream px-4 py-3 text-sm ${
+              errors.consentement ? "border-red" : "border-transparent"
+            }`}
+          >
+            <input
+              type="checkbox"
+              required
+              name="consentement"
+              value="oui"
+              className="mt-0.5 h-4 w-4 accent-blue"
+              {...errProps("consentement")}
+            />
+            <span>
+              J’accepte les <CguLink onAccept={acceptCgu} /> avant de soumettre ma candidature. *
+            </span>
+          </label>
+          {err("consentement")}
+        </div>
       </fieldset>
 
       <div className="flex flex-wrap justify-between gap-3">
@@ -383,7 +425,7 @@ export function CandidatureForm() {
           ) : step === steps.length - 1 ? (
             <>
               Envoyer
-              <IconTick size={18} />
+              <IconSend size={17} />
             </>
           ) : (
             <>
@@ -397,6 +439,9 @@ export function CandidatureForm() {
       <p className="text-xs text-muted">
         Clôture des candidatures le {plain(data.site.admission.dateLimite)}.
       </p>
+      {done ? (
+        <SuccessDialog type="candidature" closeLabel="Retour à l’accueil" onClose={() => router.push("/")} />
+      ) : null}
     </form>
   );
 }

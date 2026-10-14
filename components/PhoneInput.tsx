@@ -48,7 +48,7 @@ export function PhoneInput({ label, required }: { label: string; required?: bool
         onBlur={(e) => check(e.currentTarget, true)}
         onInvalid={(e) => check(e.currentTarget, true)}
       />
-      <span id={`${id}-hint`} className={`mt-1 block text-xs font-normal ${error ? "text-red" : "text-muted"}`} role={error ? "alert" : undefined}>
+      <span id={`${id}-hint`} className={error ? "field-error" : "mt-1 block text-xs font-normal text-muted"} role={error ? "alert" : undefined}>
         {error || PHONE_HINT}
       </span>
     </label>

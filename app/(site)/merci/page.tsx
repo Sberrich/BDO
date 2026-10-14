@@ -1,41 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
-import { ButtonLink, Container, Kicker, cls } from "@/components/ui";
-
-const NEXT_STEPS = [
-  { href: "/programme", label: "Parcourir le programme" },
-  { href: "/ressources", label: "Télécharger les publications" },
-];
-
-const cases: Record<string, [string, string]> = {
-  candidature: [
-    "Votre candidature est enregistrée",
-    "Notre équipe étudie votre éligibilité au programme sur la base des informations et documents transmis. La réponse vous est communiquée sous deux jours ouvrés après réception du dossier complet.",
-  ],
-  document: [
-    "Votre publication est prête",
-    "Le téléchargement a démarré. Si rien ne s’est passé, utilisez le bouton ci-dessous.",
-  ],
-  session: [
-    "Votre place est réservée",
-    "Le lien de connexion vous sera envoyé la veille de la session.",
-  ],
-  rappel: [
-    "Votre demande de rappel est enregistrée",
-    "Un membre de l’équipe pédagogique vous appelle sous 24 heures ouvrées.",
-  ],
-  default: ["Votre demande est enregistrée", "Nous revenons vers vous rapidement."],
-};
-
-function safeDocPath(fichier: string | null) {
-  if (!fichier) return null;
-  if (!/^\/docs\/[A-Za-z0-9._-]+\.pdf$/.test(fichier)) return null;
-  return fichier;
-}
+import { SuccessCard } from "@/components/SuccessDialog";
+import { ButtonLink } from "@/components/ui";
+import { safeDocPath } from "@/lib/confirmation";
 
 function MerciInner() {
   const p = useSearchParams();
@@ -43,50 +12,20 @@ function MerciInner() {
 }
 
 function MerciView({ type, fichier }: { type: string; fichier: string | null }) {
-  const pair = cases[type] || cases.default;
-
   return (
-    <section className="bg-cream py-[clamp(3rem,7vw,5.5rem)]">
-      <Container className="max-w-3xl">
-        <span className="merci__badge" aria-hidden>
-          <IconTick size={26} />
-        </span>
-        <div className="mt-6">
-          <Kicker>Confirmation</Kicker>
-        </div>
-        <h1 className="mt-3 text-[clamp(2.05rem,1.5rem+2.2vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.025em]">
-          {pair[0]}
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{pair[1]}</p>
-        {fichier && (
-          <p className="mt-6">
-            <a
-              className={cls("primary")}
-              href={fichier}
-              download={fichier.split("/").pop() || "document.pdf"}
-            >
-              <IconDownload />
-              Télécharger maintenant
-            </a>
-          </p>
-        )}
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-          {NEXT_STEPS.map((step) => (
-            <li key={step.href}>
-              <Link href={step.href} className="merci__step card-lift">
-                {step.label}
-                <IconArrowRight />
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-8 flex flex-wrap gap-3">
-          {type !== "candidature" && <ButtonLink href="/candidater">Candidater</ButtonLink>}
-          <ButtonLink href="/" variant="ghost">
-            Retour à l’accueil
-          </ButtonLink>
-        </div>
-      </Container>
+    <section className="merci-page">
+      <div className="success-dialog is-page">
+        <SuccessCard
+          page
+          type={type}
+          fichier={fichier}
+          secondary={
+            <ButtonLink href="/" variant="ghost">
+              Retour à l’accueil
+            </ButtonLink>
+          }
+        />
+      </div>
     </section>
   );
 }

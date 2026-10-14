@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { LoopCarousel } from "@/components/LoopCarousel";
 import { Reveal } from "@/components/motion";
 import {
-  PLAYLIST_PREVIEW,
   durationLabel,
   durationSeconds,
   type Playlist,
@@ -15,14 +15,6 @@ function PlayIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M8 5.5v13l11-6.5L8 5.5z" />
-    </svg>
-  );
-}
-
-function Chevron({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className={className} aria-hidden="true">
-      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -55,79 +47,50 @@ function Card({ v, index, onPlay }: { v: PlaylistVideo; index: number; onPlay: (
 }
 
 function PlaylistBlock({ playlist, onPlay }: { playlist: Playlist; onPlay: (index: number) => void }) {
-  const [open, setOpen] = useState(false);
-  const listRef = useRef<HTMLOListElement>(null);
-  const headRef = useRef<HTMLElement>(null);
   const { id, titre, videos } = playlist;
-  const hidden = videos.length - PLAYLIST_PREVIEW;
   const total = videos.reduce((acc, v) => acc + durationSeconds(v.duree), 0);
 
-  const toggle = () => {
-    const next = !open;
-    setOpen(next);
-    requestAnimationFrame(() => {
-      if (next) {
-        listRef.current?.querySelectorAll<HTMLButtonElement>(".playlist-card")[PLAYLIST_PREVIEW]?.focus({ preventScroll: true });
-      } else if (headRef.current && headRef.current.getBoundingClientRect().top < 0) {
-        headRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
-      }
-    });
-  };
+  const head = (
+    <header className="playlist__head">
+      <div className="playlist__intro">
+        <h3 id={`playlist-${id}`} className="playlist__title">
+          {titre}
+        </h3>
+      </div>
+      <div className="playlist__actions">
+        <p className="playlist__meta">
+          <strong>
+            {videos.length} vidéo{videos.length > 1 ? "s" : ""}
+          </strong>
+          {total ? (
+            <>
+              <span aria-hidden="true">·</span>
+              {durationLabel(total)}
+            </>
+          ) : null}
+        </p>
+        <button type="button" className="playlist__all" onClick={() => onPlay(0)}>
+          <PlayIcon className="playlist__all-icon" />
+          Tout lire
+        </button>
+      </div>
+    </header>
+  );
 
   return (
     <Reveal className="playlist" delay={40}>
       <section aria-labelledby={`playlist-${id}`}>
-        <header ref={headRef} className="playlist__head">
-          <div className="playlist__intro">
-            <h3 id={`playlist-${id}`} className="playlist__title">
-              {titre}
-            </h3>
-          </div>
-          <div className="playlist__actions">
-            <p className="playlist__meta">
-              <strong>
-                {videos.length} vidéo{videos.length > 1 ? "s" : ""}
-              </strong>
-              {total ? (
-                <>
-                  <span aria-hidden="true">·</span>
-                  {durationLabel(total)}
-                </>
-              ) : null}
-            </p>
-            <button type="button" className="playlist__all" onClick={() => onPlay(0)}>
-              <PlayIcon className="playlist__all-icon" />
-              Tout lire
-            </button>
-          </div>
-        </header>
-
-        <ol ref={listRef} id={`playlist-${id}-videos`} className="playlist__grid">
-          {videos.map((v, i) => (
-            <li
-              key={v.id}
-              className={i >= PLAYLIST_PREVIEW ? "playlist__extra" : undefined}
-              hidden={!open && i >= PLAYLIST_PREVIEW}
-            >
-              <Card v={v} index={i} onPlay={() => onPlay(i)} />
-            </li>
+        <LoopCarousel
+          className="is-videos"
+          centered
+          heading={head}
+          slides={videos.map((v, i) => (
+            <Card key={v.id} v={v} index={i} onPlay={() => onPlay(i)} />
           ))}
-        </ol>
-
-        {hidden > 0 ? (
-          <div className="playlist__foot">
-            <button
-              type="button"
-              className="playlist__more"
-              aria-expanded={open}
-              aria-controls={`playlist-${id}-videos`}
-              onClick={toggle}
-            >
-              {open ? "Voir moins" : `Voir plus (${hidden})`}
-              <Chevron className={`playlist__more-icon${open ? " is-open" : ""}`} />
-            </button>
-          </div>
-        ) : null}
+          labels={videos.map((v) => `Afficher « ${v.titre} »`)}
+          prevLabel="Vidéo précédente"
+          nextLabel="Vidéo suivante"
+        />
       </section>
     </Reveal>
   );
@@ -243,7 +206,7 @@ export function PlaylistPlayer({
   );
 }
 
-/** Every playlist of `site.playlists`: the first videos, « Voir plus » for the rest, one shared player. */
+/** Every playlist of `site.playlists` as a looping carousel, one shared player. */
 export function Playlists({ playlists }: { playlists: Playlist[] }) {
   const [playing, setPlaying] = useState<{ list: number; index: number } | null>(null);
   const close = useCallback(() => setPlaying(null), []);

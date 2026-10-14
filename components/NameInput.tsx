@@ -38,7 +38,7 @@ export function NameInput({ kind, required }: { kind: NameKind; required?: boole
         onInvalid={(e) => check(e.currentTarget, true)}
       />
       {error ? (
-        <span id={`${id}-error`} role="alert" className="mt-1 block text-xs font-normal text-red">
+        <span id={`${id}-error`} role="alert" className="field-error">
           {error}
         </span>
       ) : null}

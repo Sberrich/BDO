@@ -57,6 +57,11 @@ export function Hero() {
             <h1 className="hero-light__title">
               Pilotez la transformation de votre direction financière.
             </h1>
+          </div>
+
+          <HeroVideo />
+
+          <div className="hero-light__copy is-rest hero-enter">
             <p className="hero-light__lead">
               Le certificat exécutif du Groupe ISCAE et de BDO Maroc : trois mois pour
               conduire un projet appliqué à votre entreprise, du diagnostic à la mise en œuvre.
@@ -88,8 +93,6 @@ export function Hero() {
               </li>
             </ul>
           </div>
-
-          <HeroVideo />
         </Container>
 
         <Container className="hero-light__proof">

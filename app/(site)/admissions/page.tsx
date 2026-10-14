@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
@@ -6,7 +7,7 @@ import { FaqList } from "@/components/FaqList";
 import { LeadForm } from "@/components/LeadForm";
 import { PricingBlock } from "@/components/PricingBlock";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconClock, IconGauge, IconUsers } from "@/components/icons";
 import { data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
@@ -78,23 +79,35 @@ export default function AdmissionsPage() {
 
             <section className="adm-facts" aria-label="L’essentiel">
               <p className="adm-facts__title">L’essentiel</p>
-              <dl className="adm-facts__list">
+              <dl className="adm-facts__grid">
+                <div className="adm-fact">
+                  <dt>
+                    <span className="adm-fact__icon" aria-hidden="true"><IconUsers /></span>
+                    Places
+                  </dt>
+                  <dd>
+                    <strong>25</strong>
+                    <span>participants par promotion</span>
+                  </dd>
+                </div>
+                <div className="adm-fact">
+                  <dt>
+                    <span className="adm-fact__icon" aria-hidden="true"><IconClock /></span>
+                    Réponse
+                  </dt>
+                  <dd>
+                    <strong>{a.delaiReponse}</strong>
+                    <span>après réception du dossier complet</span>
+                  </dd>
+                </div>
                 {SHOW.tarif ? (
-                  <div>
+                  <div className="adm-fact is-wide">
                     <dt>Tarif</dt>
-                    <dd className="is-text">
+                    <dd>
                       <a href="#tarif">Détail et conditions ci-dessous</a>
                     </dd>
                   </div>
                 ) : null}
-                <div>
-                  <dt>Places</dt>
-                  <dd>25</dd>
-                </div>
-                <div>
-                  <dt>Réponse</dt>
-                  <dd className="is-text">sous {a.delaiReponse} après réception du dossier complet</dd>
-                </div>
               </dl>
               <DeadlineCountdown className="adm-facts__countdown" />
             </section>
@@ -216,16 +229,30 @@ export default function AdmissionsPage() {
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container className="grid gap-10 md:grid-cols-2">
-          <div>
+          <div className="rappel-band__intro">
             <SectionHeading
               kicker="Parler à quelqu’un"
               title="Être rappelé sous 24 heures ouvrées"
-              lead="Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se règlent mieux au téléphone."
             />
-            <p className="mt-4 text-sm">
-              Vous pouvez aussi écrire à{" "}
-              <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
-            </p>
+            <div className="rappel-band__media">
+              <Image
+                src="/images/home/hero.png"
+                alt="Participants du certificat CFO 4.0 échangeant autour d’un ordinateur"
+                fill
+                sizes="(min-width: 768px) 34rem, 100vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="rappel-band__text">
+              <p className="max-w-2xl text-lg leading-relaxed text-muted">
+                Le financement, l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+                règlent mieux au téléphone.
+              </p>
+              <p className="mt-4 text-sm">
+                Vous pouvez aussi écrire à{" "}
+                <a className="font-semibold text-blue" href={`mailto:${plain(c.email)}`}>{plain(c.email)}</a>.
+              </p>
+            </div>
           </div>
           <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
             <LeadForm kind="rappel" prefix="r" />

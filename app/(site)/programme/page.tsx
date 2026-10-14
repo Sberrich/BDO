@@ -8,7 +8,7 @@ import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeCalendar, type CalendarSession } from "@/components/ProgrammeCalendar";
 import { ProgrammeGrid, splitDate } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconCal, IconClock, IconMap } from "@/components/icons";
+import { IconArrowRight } from "@/components/icons";
 import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
 import { plain, seminarImage, sessionCode } from "@/lib/text";
 
@@ -73,20 +73,7 @@ export default function ProgrammePage() {
                 Une conférence inaugurale, six séminaires et un workshop, jusqu’à la soutenance des projets du
                 26 décembre.
               </p>
-              <ul className="sem-hero__meta" aria-label="Repères">
-                <li>
-                  <IconCal />
-                  <span>Du 30 octobre au 26 décembre 2026</span>
-                </li>
-                <li>
-                  <IconClock />
-                  <span>Ven. 15 h – 21 h · Sam. 9 h – 16 h</span>
-                </li>
-                <li>
-                  <IconMap />
-                  <span>Campus ISCAE Casablanca · ouverture au campus ISCAE de Rabat</span>
-                </li>
-              </ul>
+              <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Candidater
@@ -96,7 +83,6 @@ export default function ProgrammePage() {
                   Recevoir la brochure
                 </ButtonLink>
               </div>
-              <DeadlineCountdown className="prog-hero__countdown" />
             </div>
 
             <ProgrammeCalendar sessions={calendarSessions(sessions)} />
