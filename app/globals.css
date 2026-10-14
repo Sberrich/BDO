@@ -13418,6 +13418,13 @@ img {
 :is(.foot__list a, .foot__bottom a):hover {
   color: var(--brand-blue) !important;
 }
+.foot__n {
+  color: rgba(0, 55, 104, 0.45) !important;
+}
+.foot__n.is-in,
+.foot__list a:is(:hover, :focus-visible) .foot__n {
+  color: var(--brand-red) !important;
+}
 .foot__logo {
   filter: none;
 }
