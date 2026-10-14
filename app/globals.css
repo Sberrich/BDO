@@ -10204,7 +10204,10 @@ img {
 
 /* ——— Programme page ——— */
 .prog-hero__countdown {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
+}
+.prog-hero__countdown + .sem-hero__ctas {
+  margin-top: 1.25rem;
 }
 .pcal {
   padding: 1.5rem;
