@@ -1926,7 +1926,9 @@ body[data-nav="open"] .mobile-bar {
 }/* Home hero — light */
 .hero-light {
   position: relative;
-  background: linear-gradient(180deg, #fff 0%, var(--surface-1) 100%);
+  background:
+    radial-gradient(60rem 30rem at 85% 0%, rgba(0, 55, 104, 0.1), transparent 70%),
+    linear-gradient(180deg, #e6eef7 0%, #f4f7fb 100%);
   color: var(--brand-navy);
 }
 .hero-light__inner {
