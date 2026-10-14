@@ -5148,6 +5148,20 @@ body[data-nav="open"] .mobile-bar {
   visibility: visible;
   transform: translateY(0);
 }
+/* Touch: a swipe triggers :hover, so no preview (tap opens the article) and no room reserved for it. */
+@media (hover: none), (max-width: 640px) {
+  .press-preview {
+    display: none;
+  }
+  .press-logos {
+    padding-top: 0.25rem;
+    margin-top: 0.75rem;
+  }
+  .press-logo:hover {
+    transform: none;
+    border-color: var(--border-subtle);
+  }
+}
 .press-preview__chrome {
   display: flex;
   align-items: center;
