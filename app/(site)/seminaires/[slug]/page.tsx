@@ -18,6 +18,7 @@ import {
   IconArrowRight,
   IconCal,
   IconClock,
+  IconDownload,
   IconLinkedIn,
   IconMap,
 } from "@/components/icons";
@@ -149,18 +150,19 @@ export default async function SeminairePage({ params }: Props) {
               </ul>
               <div className="sem-hero__ctas">
                 <ButtonLink
+                  href="/ressources/brochure"
+                  variant="ghost"
+                  className="sem-hero__cta-secondary"
+                >
+                  <IconDownload />
+                  Recevoir la brochure
+                </ButtonLink>
+                <ButtonLink
                   href="/candidater"
                   className="sem-hero__cta-primary"
                 >
                   Candidater
                   <IconArrowRight />
-                </ButtonLink>
-                <ButtonLink
-                  href="/ressources/brochure"
-                  variant="ghost"
-                  className="sem-hero__cta-secondary"
-                >
-                  Recevoir la brochure
                 </ButtonLink>
               </div>
             </div>
@@ -356,6 +358,7 @@ export default async function SeminairePage({ params }: Props) {
                   variant="ghost"
                   className="sem-side__secondary"
                 >
+                  <IconDownload />
                   Recevoir la brochure
                 </ButtonLink>
               </div>

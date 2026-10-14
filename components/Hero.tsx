@@ -68,13 +68,13 @@ export function Hero() {
             </p>
 
             <div className="hero-light__actions">
-              <ButtonLink href="/candidater" className="hero-light__cta">
-                Candidater
-                <IconArrowRight />
-              </ButtonLink>
               <ButtonLink href="/ressources/brochure" variant="ghost" className="hero-light__cta is-ghost">
                 <IconDownload />
                 Recevoir la brochure
+              </ButtonLink>
+              <ButtonLink href="/candidater" className="hero-light__cta">
+                Candidater
+                <IconArrowRight />
               </ButtonLink>
             </div>
 

@@ -51,12 +51,13 @@ export default function ProgrammePage() {
               </p>
               <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
+                <ButtonLink href="/ressources/brochure" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconDownload />
+                  Recevoir la brochure
+                </ButtonLink>
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Candidater
                   <IconArrowRight />
-                </ButtonLink>
-                <ButtonLink href="/ressources/brochure" variant="ghost" className="sem-hero__cta-secondary">
-                  Recevoir la brochure
                 </ButtonLink>
               </div>
             </div>
