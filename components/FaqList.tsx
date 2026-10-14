@@ -136,7 +136,7 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
                   type="search"
                   autoComplete="off"
                   className="faq-explorer__search-input"
-                  placeholder="tarif, calendrier, admission…"
+                  placeholder="financement, calendrier, admission…"
                   value={query}
                   onChange={(e) => onQueryChange(e.target.value)}
                 />

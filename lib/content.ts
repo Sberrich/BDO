@@ -4,7 +4,32 @@ import seminaires from "@/lib/payload/seminaires";
 import site from "@/lib/payload/site";
 import { seminarPath } from "@/lib/text";
 
-export const data = { site, seminaires, faq, calendrier };
+/** Set a flag back to true to show the section again everywhere on the site. */
+export const SHOW = {
+  calendrier: false,
+  soutenance: false,
+  sessionInfo: false,
+  video: false,
+  parcours: false,
+  partenaires: false,
+  tarif: false,
+} as const;
+
+/** FAQ answers that state prices; hidden while SHOW.tarif is false. */
+const PRICE_FAQ: string[] = ["faq-tarif-montant", "faq-tarif-groupe"];
+
+const visibleFaq = SHOW.tarif
+  ? faq
+  : {
+      ...faq,
+      groupes: faq.groupes.map((g) =>
+        g.id === "tarif"
+          ? { ...g, titre: "Le financement", questions: g.questions.filter((q) => !PRICE_FAQ.includes(q.id)) }
+          : g,
+      ),
+    };
+
+export const data = { site, seminaires, faq: visibleFaq, calendrier };
 
 export const RESOURCE_COVERS = {
   brochure: "/images/covers/brochure.jpg",
@@ -42,16 +67,6 @@ export const RESOURCES_MENU = [
     cover: null,
   },
 ] as const;
-
-/** Set a flag back to true to show the section again everywhere on the site. */
-export const SHOW = {
-  calendrier: false,
-  soutenance: false,
-  sessionInfo: false,
-  video: false,
-  parcours: false,
-  partenaires: false,
-} as const;
 
 export const NAV = [
   { href: "/programme", label: "Le programme" },

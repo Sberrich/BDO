@@ -4,7 +4,7 @@ import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { Container } from "@/components/ui";
 import { IconArrowRight, IconTick } from "@/components/icons";
-import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
+import { RESOURCE_COVERS, RESOURCES_MENU, SHOW } from "@/lib/content";
 
 type DocKind = "brochure" | "barometre" | "livreblanc";
 
@@ -45,7 +45,9 @@ const DOCS: Record<
     formTitle: "Recevoir la brochure",
     online: [
       { label: "Le programme", desc: "Les séminaires et leurs livrables", href: "/programme#seances" },
-      { label: "Le tarif", desc: "Les formules et les conditions", href: "/admissions#tarif" },
+      ...(SHOW.tarif
+        ? [{ label: "Le tarif", desc: "Les formules et les conditions", href: "/admissions#tarif" }]
+        : []),
       { label: "L’admission", desc: "Le processus, étape par étape", href: "/admissions#processus" },
     ],
   },

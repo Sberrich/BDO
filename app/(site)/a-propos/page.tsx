@@ -4,7 +4,7 @@ import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ButtonLink, Container } from "@/components/ui";
 import { getIntervenants } from "@/lib/cms";
-import { allSessions, BRAND, data } from "@/lib/content";
+import { allSessions, BRAND, data, SHOW } from "@/lib/content";
 import { facultyShowcase } from "@/lib/faculty-roster";
 import { personLinkedIn, personPhoto, plain } from "@/lib/text";
 import { IconArrowRight, IconTrophy, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
@@ -197,8 +197,8 @@ export default async function AProposPage() {
             </span>
             <p className="about-trophee__perk-kicker">Lauréats du Trophée</p>
             <p className="about-trophee__perk-title">Conditions particulières pour le certificat</p>
-            <Link href="/admissions#tarif" className="about-trophee__perk-link">
-              Voir le tarif
+            <Link href={SHOW.tarif ? "/admissions#tarif" : "/admissions#rappel"} className="about-trophee__perk-link">
+              {SHOW.tarif ? "Voir le tarif" : "Nous contacter"}
               <IconArrowRight />
             </Link>
           </section>

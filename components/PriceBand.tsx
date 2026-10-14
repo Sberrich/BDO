@@ -1,7 +1,9 @@
 import { PriceTeaser } from "@/components/PricingBlock";
 import { Container } from "@/components/ui";
+import { SHOW } from "@/lib/content";
 
 export function PriceBand() {
+  if (!SHOW.tarif) return null;
   return (
     <section className="sem-price" aria-labelledby="sem-price-title">
       <Container>

@@ -304,6 +304,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
         </Container>
       </section>
 
+      {SHOW.calendrier || SHOW.tarif ? (
       <section
         id={SHOW.calendrier ? "calendrier" : "tarif"}
         className="cal-band"
@@ -316,7 +317,7 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <>
               <header className="cal-band__head">
                 <div>
-                  <p className="cal-band__index">07 · Calendrier et tarif</p>
+                  <p className="cal-band__index">{SHOW.tarif ? "07 · Calendrier et tarif" : "07 · Le calendrier"}</p>
                   <h2 id="calendrier-title" className="cal-band__title">
                     Calendrier de la promotion 1.
                     <br />
@@ -342,12 +343,15 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             </header>
           )}
 
-          <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
-            {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
-            <PriceTeaser showCta />
-          </div>
+          {SHOW.tarif ? (
+            <div className="cal-band__block is-tarif" id={SHOW.calendrier ? "tarif" : undefined}>
+              {SHOW.calendrier ? <p className="cal-band__block-label">Le tarif</p> : null}
+              <PriceTeaser showCta />
+            </div>
+          ) : null}
         </Container>
       </section>
+      ) : null}
 
 
       {SHOW.sessionInfo ? (

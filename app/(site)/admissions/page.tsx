@@ -12,7 +12,9 @@ import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Admissions",
-  description: "Tarif, éligibilité, financement et processus d’admission du certificat CFO 4.0.",
+  description: SHOW.tarif
+    ? "Tarif, éligibilité, financement et processus d’admission du certificat CFO 4.0."
+    : "Éligibilité, financement et processus d’admission du certificat CFO 4.0.",
 };
 
 const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
@@ -25,7 +27,7 @@ export default function AdmissionsPage() {
   const c = data.site.contact;
   const tarif = data.site.tarif;
   const jump = [
-    ["#tarif", "Le tarif"],
+    ...(SHOW.tarif ? [["#tarif", "Le tarif"]] : []),
     ...(SHOW.calendrier ? [["#calendrier", "Le calendrier"]] : []),
     ["#profil", "L’éligibilité"],
     ["#processus", "Le processus"],
@@ -52,7 +54,9 @@ export default function AdmissionsPage() {
                 Rejoindre le certificat CFO 4.0
               </h1>
               <p className="sem-hero__lead">
-                Le tarif, l’éligibilité, le financement et le processus d’admission, en une page.
+                {SHOW.tarif
+                  ? "Le tarif, l’éligibilité, le financement et le processus d’admission, en une page."
+                  : "L’éligibilité, le financement et le processus d’admission, en une page."}
               </p>
               <nav className="adm-jump" aria-label="Sur cette page">
                 {jump.map(([href, label]) => (
@@ -75,12 +79,14 @@ export default function AdmissionsPage() {
             <section className="adm-facts" aria-label="L’essentiel">
               <p className="adm-facts__title">L’essentiel</p>
               <dl className="adm-facts__list">
-                <div>
-                  <dt>Tarif</dt>
-                  <dd className="is-text">
-                    <a href="#tarif">Détail et conditions ci-dessous</a>
-                  </dd>
-                </div>
+                {SHOW.tarif ? (
+                  <div>
+                    <dt>Tarif</dt>
+                    <dd className="is-text">
+                      <a href="#tarif">Détail et conditions ci-dessous</a>
+                    </dd>
+                  </div>
+                ) : null}
                 <div>
                   <dt>Places</dt>
                   <dd>25</dd>
@@ -96,6 +102,7 @@ export default function AdmissionsPage() {
         </Container>
       </section>
 
+      {SHOW.tarif ? (
       <section id="tarif" className="bg-cream py-[clamp(2.5rem,6vw,4.5rem)]">
         <Container>
           <SectionHeading kicker="Investissement" title="Le tarif" />
@@ -113,6 +120,7 @@ export default function AdmissionsPage() {
           </ul>
         </Container>
       </section>
+      ) : null}
       {SHOW.calendrier ? (
         <section id="calendrier" className="bg-white py-[clamp(2.5rem,6vw,4.5rem)]">
           <Container>
@@ -191,7 +199,7 @@ export default function AdmissionsPage() {
               Les questions fréquentes
             </h2>
             <p className="adm-head__lead">
-              Les réponses aux questions que l’on nous pose le plus sur l’admission, le tarif et le financement.
+              Les réponses aux questions que l’on nous pose le plus sur l’admission et le financement.
             </p>
             <div className="adm-faq__ctas">
               <ButtonLink href="/faq" variant="ghost" className="adm-faq__all">
