@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
+import { IconArrowRight, IconTick } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
 import {
@@ -368,13 +369,28 @@ export function CandidatureForm() {
       <div className="flex flex-wrap justify-between gap-3">
         {step > 0 ? (
           <Button type="button" variant="ghost" onClick={() => setStep((s) => s - 1)}>
+            <span className="inline-flex -scale-x-100">
+              <IconArrowRight />
+            </span>
             Retour
           </Button>
         ) : (
           <span />
         )}
         <Button type="submit" disabled={sending}>
-          {sending ? "Envoi…" : step === steps.length - 1 ? "Envoyer" : "Suivant"}
+          {sending ? (
+            "Envoi…"
+          ) : step === steps.length - 1 ? (
+            <>
+              Envoyer
+              <IconTick size={18} />
+            </>
+          ) : (
+            <>
+              Suivant
+              <IconArrowRight />
+            </>
+          )}
         </Button>
       </div>
       {status && <p className="text-sm text-red">{status}</p>}
