@@ -179,11 +179,11 @@ export default async function IntervenantsPage() {
                           href={linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="iv-card__li"
+                          className="li-icon iv-card__li"
                           aria-label={`Profil LinkedIn de ${name}`}
+                          title="LinkedIn"
                         >
                           <IconLinkedIn size={16} />
-                          LinkedIn
                         </a>
                       ) : null}
                     </div>

@@ -13,11 +13,12 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
+import { personLinkedIn, plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
   IconClock,
+  IconLinkedIn,
   IconMap,
 } from "@/components/icons";
 
@@ -417,15 +418,16 @@ function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
             Voir le profil
             <IconArrowRight />
           </Link>
-          {person.linkedin ? (
+          {personLinkedIn(person.linkedin) ? (
             <a
-              href={person.linkedin}
-              className="sem-speaker__li"
+              href={personLinkedIn(person.linkedin)}
+              className="li-icon sem-speaker__li"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Profil LinkedIn de ${plain(person.nom)}`}
+              title="LinkedIn"
             >
-              LinkedIn
-              <IconArrowRight />
+              <IconLinkedIn size={16} />
             </a>
           ) : null}
         </div>

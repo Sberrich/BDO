@@ -54,11 +54,11 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
             href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="faculty-card__li"
+            className="li-icon faculty-card__li"
             aria-label={`Profil LinkedIn de ${name}`}
+            title="LinkedIn"
           >
-            <IconLinkedIn size={15} />
-            LinkedIn
+            <IconLinkedIn size={16} />
           </a>
         ) : null}
       </div>

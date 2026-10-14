@@ -4042,6 +4042,39 @@ body[data-nav="open"] .mobile-bar {
 .faculty-card__li:focus-visible {
   box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.35);
 }
+/* LinkedIn: icon-only square button wherever a speaker is listed */
+a.li-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  border: 1px solid rgba(10, 102, 194, 0.28);
+  border-radius: 10px;
+  background: rgba(10, 102, 194, 0.06);
+  color: #0a66c2 !important;
+  text-decoration: none;
+  transition: background var(--duration-fast) ease, border-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+a.li-icon:hover,
+a.li-icon:focus-visible {
+  border-color: #0a66c2;
+  background: #0a66c2;
+  color: #fff !important;
+}
+a.li-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+a.li-icon svg,
+a.li-icon svg * {
+  color: inherit !important;
+}
+.sem-speaker__links {
+  align-items: center;
+}
 .faculty__more {
   display: flex;
   justify-content: center;
