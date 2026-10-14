@@ -14391,7 +14391,7 @@ input[type="checkbox"][aria-invalid="true"] {
   margin: auto;
   padding: 0;
   border: 0;
-  border-radius: 28px;
+  border-radius: var(--radius-lg);
   background: #fff;
   color: var(--brand-navy);
   box-shadow: none;
@@ -14412,7 +14412,7 @@ input[type="checkbox"][aria-invalid="true"] {
   display: grid;
   place-items: center;
   padding: 1.25rem 1rem 0.5rem;
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   background: linear-gradient(180deg, #f6f7f9 0%, #eef1f4 100%);
 }
 .success-dialog__art {
@@ -14463,6 +14463,7 @@ input[type="checkbox"][aria-invalid="true"] {
 }
 .success-dialog__actions > * {
   width: 100%;
+  border-radius: var(--radius-md) !important;
 }
 @keyframes success-in {
   from {
