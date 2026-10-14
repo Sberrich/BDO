@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CalendarTable } from "@/components/CalendarTable";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
@@ -9,6 +10,7 @@ import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/
 import {
   IconArrowRight,
   IconBook,
+  IconCal,
   IconChart,
   IconClock,
   IconGauge,
@@ -29,6 +31,21 @@ export const metadata: Metadata = {
 };
 
 const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
+
+/** Hero mosaic: photos alternate with the key facts; a « Candidater » tile closes the grid. */
+const ADM_TILES: (
+  | { src: string }
+  | { icon: () => React.JSX.Element; value: string; label: string; dark?: boolean }
+)[] = [
+  { src: "/images/home/campus.png" },
+  { icon: IconUsers, value: "25", label: "places par promotion" },
+  { src: "/images/home/about.png" },
+  { icon: IconClock, value: "delai", label: "pour la réponse" },
+  { src: "/images/home/hero.png" },
+  { src: "/images/home/conference.png" },
+  { src: "/images/home/objectives.png" },
+  { icon: IconCal, value: "22 oct.", label: "clôture des candidatures", dark: true },
+];
 
 /** The tarif section above already answers this one. */
 const ADM_FAQ_EXCLUDE = ["faq-tarif-montant"];
@@ -76,6 +93,7 @@ export default function AdmissionsPage() {
                   </a>
                 ))}
               </nav>
+              <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Déposer ma candidature
@@ -87,40 +105,29 @@ export default function AdmissionsPage() {
               </div>
             </div>
 
-            <section className="adm-facts" aria-label="L’essentiel">
-              <p className="adm-facts__title">L’essentiel</p>
-              <dl className="adm-facts__grid">
-                <div className="adm-fact">
-                  <dt>
-                    <span className="adm-fact__icon" aria-hidden="true"><IconUsers /></span>
-                    Places
-                  </dt>
-                  <dd>
-                    <strong>25</strong>
-                    <span>participants par promotion</span>
-                  </dd>
-                </div>
-                <div className="adm-fact">
-                  <dt>
-                    <span className="adm-fact__icon" aria-hidden="true"><IconClock /></span>
-                    Réponse
-                  </dt>
-                  <dd>
-                    <strong>{a.delaiReponse}</strong>
-                    <span>après réception du dossier complet</span>
-                  </dd>
-                </div>
-                {SHOW.tarif ? (
-                  <div className="adm-fact is-wide">
-                    <dt>Tarif</dt>
-                    <dd>
-                      <a href="#tarif">Détail et conditions ci-dessous</a>
-                    </dd>
-                  </div>
-                ) : null}
-              </dl>
-              <DeadlineCountdown className="adm-facts__countdown" />
-            </section>
+            <ul className="iv-faces is-admissions" aria-label="L’essentiel">
+              {ADM_TILES.map((t, i) => (
+                <li key={i} className={`iv-faces__item is-${i + 1}`} aria-hidden={"src" in t || undefined}>
+                  {"src" in t ? (
+                    <span className="iv-faces__link">
+                      <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" />
+                    </span>
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true"><t.icon /></span>
+                      <strong>{t.value === "delai" ? a.delaiReponse : t.value}</strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <Link href="/candidater" className="iv-faces__link iv-faces__more is-cta">
+                  <IconArrowRight />
+                  <span className="iv-faces__more-label">Candidater</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
