@@ -298,7 +298,10 @@ export function HomeSections({ speakers, speakersLead }: Props) {
             <h2 id="medias-title" className="press-band__title">
               Ils en ont parlé
             </h2>
-            <p className="press-band__hint">Survolez un média pour lire l’article.</p>
+            <p className="press-band__hint">
+              <span className="max-sm:hidden">Survolez un média pour lire l’article.</span>
+              <span className="sm:hidden">Faites glisser pour voir tous les médias.</span>
+            </p>
           </div>
           <MediaPressStrip items={site.medias} />
         </Container>

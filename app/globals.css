@@ -5011,30 +5011,44 @@ body[data-nav="open"] .mobile-bar {
 }
 
 /* Press logos — Ils en ont parlé */
+/* Carousel: swipe on touch, autoplay one card every 2 s (MediaPressStrip). Top padding leaves room for the hover preview. */
 .press-logos {
   list-style: none;
   margin: 0;
-  padding: 12.5rem 0 0;
-  margin-top: -11.5rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 21rem 0 0.25rem;
+  margin-top: -20rem;
+  pointer-events: none;
+  display: flex;
   gap: 0.75rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
-@media (min-width: 640px) {
-  .press-logos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-@media (min-width: 960px) {
-  .press-logos {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
+.press-logos::-webkit-scrollbar {
+  display: none;
 }
 .press-logos__item {
   position: relative;
   z-index: 1;
+  flex: 0 0 72%;
   min-width: 0;
+  pointer-events: auto;
+  scroll-snap-align: start;
+}
+@media (min-width: 640px) {
+  .press-logos__item {
+    flex-basis: calc((100% - 1.5rem) / 3);
+  }
+}
+@media (min-width: 960px) {
+  .press-logos {
+    gap: 0.85rem;
+  }
+  .press-logos__item {
+    flex-basis: calc((100% - 2.55rem) / 4);
+  }
 }
 .press-logos__item:hover,
 .press-logos__item:focus-within {
@@ -5110,10 +5124,10 @@ body[data-nav="open"] .mobile-bar {
 /* Browser preview on hover */
 .press-preview {
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: calc(100% + 0.75rem);
-  width: min(19.5rem, calc(100vw - 1.5rem));
-  transform: translateX(-50%) translateY(8px);
+  transform: translateY(8px);
   transform-origin: bottom center;
   border-radius: var(--radius-lg);
   background: var(--surface-0);
@@ -5132,19 +5146,7 @@ body[data-nav="open"] .mobile-bar {
 .press-logo:focus-visible .press-preview {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-.press-logos__item:nth-child(5n) .press-preview,
-.press-logos__item:nth-child(5n + 4) .press-preview {
-  left: auto;
-  right: 0;
-  transform: translateX(0) translateY(8px);
-}
-.press-logos__item:nth-child(5n) .press-logo:hover .press-preview,
-.press-logos__item:nth-child(5n) .press-logo:focus-visible .press-preview,
-.press-logos__item:nth-child(5n + 4) .press-logo:hover .press-preview,
-.press-logos__item:nth-child(5n + 4) .press-logo:focus-visible .press-preview {
-  transform: translateX(0) translateY(0);
+  transform: translateY(0);
 }
 .press-preview__chrome {
   display: flex;
@@ -5213,17 +5215,6 @@ body[data-nav="open"] .mobile-bar {
   font-size: 0.75rem;
   line-height: 1.4;
   color: var(--text-secondary);
-}
-@media (max-width: 640px) {
-  .press-logos__item:nth-child(even) .press-preview {
-    left: auto;
-    right: 0;
-    transform: translateX(0) translateY(8px);
-  }
-  .press-logos__item:nth-child(even) .press-logo:hover .press-preview,
-  .press-logos__item:nth-child(even) .press-logo:focus-visible .press-preview {
-    transform: translateX(0) translateY(0);
-  }
 }
 
 
