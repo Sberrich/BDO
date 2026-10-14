@@ -226,7 +226,7 @@ export default config({
         institution: fields.text({ label: "Institution" }),
         photo: fields.text({
           label: "Photo",
-          description: "Chemin public de l’image. Ex. /images/people/zakaria-fahim.jpg",
+          description: "Chemin public de l’image. Ex. /images/people/zakaria-fahim-grey.png (PNG détouré, fond transparent)",
         }),
         bio: fields.text({ label: "Biographie", multiline: true }),
         linkedin: fields.url({ label: "Profil LinkedIn" }),

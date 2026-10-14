@@ -14137,10 +14137,21 @@ img {
 
 /* ——— Speakers: grey gradient tiles, home carousel shared with the press section ——— */
 .faculty-card .faculty-card__media,
-.faculty-card[class*="tone-"] .faculty-card__media {
+.faculty-card[class*="tone-"] .faculty-card__media,
+.iv-card__media,
+.iv-faces__link,
+.sem-speaker__media {
   background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
 }
-.faculty-card__mono {
+/* Transparent cut-out portraits: keep the shoulders on the bottom edge */
+.faculty-card__media img[src*="-grey.png"],
+.iv-card__img[src*="-grey.png"],
+.iv-faces__img[src*="-grey.png"],
+.sem-speaker__img[src*="-grey.png"] {
+  object-position: center bottom !important;
+}
+.faculty-card__mono,
+.sem-speaker__mono {
   color: var(--brand-navy) !important;
 }
 .press-carousel.is-faculty .press-carousel__heading {

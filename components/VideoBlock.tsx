@@ -21,7 +21,7 @@ export function VideoBlock() {
     disponible?: boolean;
   };
   const src = v.fichier?.startsWith("/") ? v.fichier : "";
-  const poster = v.poster?.startsWith("/") ? v.poster : "/images/people/zakaria-fahim.jpg";
+  const poster = v.poster?.startsWith("/") ? v.poster : "/images/temoignages/zakaria-fahim-cover.jpg";
   const ready = Boolean(v.disponible && src);
 
   useEffect(() => {

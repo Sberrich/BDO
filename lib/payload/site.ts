@@ -243,7 +243,7 @@ const data = {
     "texte": "Zakaria Fahim et l’équipe pédagogique présentent le cycle, le projet de transformation et la soutenance.",
     "duree": "1 min 30",
     "fichier": "/videos/presentation.mp4",
-    "poster": "/images/people/zakaria-fahim.jpg",
+    "poster": "/images/temoignages/zakaria-fahim-cover.jpg",
     "disponible": false
   },
   "sessionInfo": {
