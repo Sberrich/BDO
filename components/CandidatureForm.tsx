@@ -1,9 +1,9 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BRAND, data } from "@/lib/content";
+import { CguLink } from "@/components/CguDialog";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
 import { IconArrowRight, IconSend } from "@/components/icons";
@@ -101,6 +101,15 @@ export function CandidatureForm() {
     if (!isField(el) || !(el.name in errors)) return;
     const message = el.type === "radio" ? "" : fieldMessage(el);
     setErrors((errs) => ({ ...errs, [el.name]: message }));
+  }
+
+  function acceptCgu() {
+    const form = formRef.current;
+    const box = form?.elements.namedItem("consentement");
+    if (!form || !(box instanceof HTMLInputElement)) return;
+    box.checked = true;
+    setErrors((errs) => ({ ...errs, consentement: "" }));
+    persist(form);
   }
 
   function onFile(rule: UploadRule) {
@@ -398,11 +407,7 @@ export function CandidatureForm() {
               {...errProps("consentement")}
             />
             <span>
-              J’accepte les{" "}
-              <Link href="/cgu" target="_blank" className="font-semibold text-blue underline">
-                conditions générales
-              </Link>{" "}
-              avant de soumettre ma candidature. *
+              J’accepte les <CguLink onAccept={acceptCgu} /> avant de soumettre ma candidature. *
             </span>
           </label>
           {err("consentement")}

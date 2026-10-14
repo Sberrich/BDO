@@ -14299,3 +14299,117 @@ input[type="checkbox"][aria-invalid="true"] {
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E") center / contain no-repeat;
 }
+
+/* CGU popup (application form) */
+.cgu-dialog {
+  width: min(40rem, calc(100vw - 2rem));
+  max-height: min(44rem, calc(100dvh - 2rem));
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--brand-navy);
+  box-shadow: 0 30px 80px -20px rgba(0, 31, 61, 0.45);
+  overflow: hidden;
+}
+.cgu-dialog[open] {
+  display: flex;
+  animation: cgu-in 220ms var(--ease-out);
+}
+.cgu-dialog::backdrop {
+  background: rgba(0, 31, 61, 0.55);
+  backdrop-filter: blur(3px);
+}
+.cgu-dialog__panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+.cgu-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.cgu-dialog__head h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.cgu-dialog__close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--brand-navy);
+  cursor: pointer;
+}
+.cgu-dialog__close svg {
+  width: 1rem;
+  height: 1rem;
+}
+.cgu-dialog__close:hover {
+  background: var(--surface-1);
+}
+.cgu-dialog__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem 1.5rem 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.cgu-dialog__lead {
+  margin: 0 0 1rem;
+}
+.cgu-dialog__body section {
+  margin-top: 1rem;
+}
+.cgu-dialog__body h3 {
+  margin: 0 0 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+}
+.cgu-dialog__body p {
+  margin: 0;
+}
+.cgu-dialog__body a {
+  font-weight: 600;
+  color: var(--brand-blue, var(--brand-navy));
+  text-decoration: underline;
+}
+.cgu-dialog__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+}
+@media (max-width: 640px) {
+  .cgu-dialog__foot > * {
+    flex: 1;
+  }
+}
+@keyframes cgu-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cgu-dialog[open] {
+    animation: none;
+  }
+}
