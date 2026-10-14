@@ -11731,7 +11731,8 @@ img {
 }
 @media (min-width: 860px) {
   .trophy-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: center;
   }
 }
 .trophy-card__copy {
@@ -11775,13 +11776,15 @@ img {
   position: relative;
   overflow: hidden;
   aspect-ratio: 763 / 430;
-  background: #000c87;
   touch-action: pan-y;
+}
+.trophy-card .ad-slider {
+  margin: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 2vw, 1.25rem);
+  border-radius: 14px;
 }
 @media (min-width: 860px) {
   .trophy-card .ad-slider {
-    aspect-ratio: auto;
-    min-height: 100%;
+    margin: clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 2vw, 1.25rem) 0;
   }
 }
 .ad-slider__strip {
@@ -11795,7 +11798,7 @@ img {
   height: 100%;
 }
 .ad-slider__slide img {
-  object-fit: contain;
+  object-fit: cover;
 }
 .ad-slider__arrow {
   position: absolute;
