@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
-import { Footer, MobileBar } from "@/components/Footer";
+import { Footer } from "@/components/Footer";
+import { MobileBar } from "@/components/MobileBar";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { ScrollProgress } from "@/components/motion";
 
