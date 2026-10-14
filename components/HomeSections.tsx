@@ -43,6 +43,7 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
   const extras = c.chiffres.slice(2);
   const sessions = allSessions();
   const dispo = site.dispositif.items.slice(0, CAROUSEL_MAX);
+  const profils = site.profil.profils.slice(0, CAROUSEL_MAX);
   const featured = sessions.filter((s) => s.numero > 0).slice(0, CAROUSEL_MAX);
 
   return (
@@ -242,34 +243,47 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="profil" className="who" aria-labelledby="profil-title">
         <Container className="who__inner">
-          <header className="who__head">
-            <div>
-              <p className="who__index"><KickerIcon label="Le profil" />04 · Le profil</p>
-              <h2 id="profil-title" className="who__title">
-                {site.profil.titre}
-              </h2>
-              <p className="who__prereq">
-                <strong>Prérequis</strong>
-                <span aria-hidden="true">·</span>
-                {site.profil.prerequis}
-              </p>
-            </div>
-          </header>
-          <ul className="who__panels">
-            {site.profil.profils.map((p, i) => {
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="who__index"><KickerIcon label="Le profil" />04 · Le profil</p>
+                <h2 id="profil-title" className="who__title">
+                  {site.profil.titre}
+                </h2>
+                <p className="who__prereq">
+                  <strong>Prérequis</strong>
+                  <span aria-hidden="true">·</span>
+                  {site.profil.prerequis}
+                </p>
+              </header>
+            }
+            slides={profils.map((p, i) => {
               const Icon = PROFILE_ICONS[i % PROFILE_ICONS.length];
               return (
-                <Reveal as="li" key={p.titre} delay={i * 90} className={`who__panel is-${i + 1}`}>
+                <article key={p.titre} className="who__panel">
                   <span className="who__panel-icon" aria-hidden="true">
                     <Icon />
                   </span>
                   <span className="who__panel-rule" aria-hidden="true" />
                   <h3 className="who__panel-title">{p.titre}</h3>
                   <p className="who__panel-text">{p.texte}</p>
-                </Reveal>
+                </article>
               );
             })}
-          </ul>
+            labels={profils.map((p) => `Afficher ${p.titre}`)}
+            prevLabel="Profil précédent"
+            nextLabel="Profil suivant"
+          />
+          {site.profil.profils.length > CAROUSEL_MAX ? (
+            <div className="prog__all">
+              <ButtonLink href="/admissions#profil" variant="ghost" aria-label="Voir tous les profils">
+                Voir tout
+                <IconArrowRight />
+              </ButtonLink>
+            </div>
+          ) : null}
         </Container>
       </section>
 
@@ -277,17 +291,20 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="playlists" className="voices" aria-labelledby="playlists-title">
         <Container className="voices__inner">
-          <header className="voices__head">
-            <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
-            <h2 id="playlists-title" className="voices__title">
-              Ils racontent le certificat
-            </h2>
-            <p className="voices__lead">
-              Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
-            </p>
-          </header>
-
-          <Playlists playlists={playlists} />
+          <Playlists
+            playlists={playlists}
+            intro={
+              <header className="carousel-head">
+                <p className="voices__index"><KickerIcon label="Playlists" />06 · Playlists</p>
+                <h2 id="playlists-title" className="voices__title">
+                  Ils racontent le certificat
+                </h2>
+                <p className="carousel-head__lead">
+                  Participants, direction de l’ISCAE, BDO Maroc et intervenants, en vidéo.
+                </p>
+              </header>
+            }
+          />
         </Container>
       </section>
 

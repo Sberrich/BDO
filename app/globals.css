@@ -13968,6 +13968,9 @@ img {
 .press-carousel.is-videos .playlist__head {
   margin-bottom: 0;
 }
+.press-carousel.is-videos .press-carousel__head + .playlist__head {
+  margin: 1.75rem 0 0.75rem;
+}
 .press-carousel.is-videos .press-track__item {
   display: flex;
 }
