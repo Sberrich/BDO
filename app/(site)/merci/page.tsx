@@ -5,37 +5,12 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { IconArrowRight, IconDownload, IconTick } from "@/components/icons";
 import { ButtonLink, Container, Kicker, cls } from "@/components/ui";
+import { confirmationFor, safeDocPath } from "@/lib/confirmation";
 
 const NEXT_STEPS = [
   { href: "/programme", label: "Parcourir le programme" },
   { href: "/ressources", label: "Télécharger les publications" },
 ];
-
-const cases: Record<string, [string, string]> = {
-  candidature: [
-    "Votre candidature est enregistrée",
-    "Notre équipe étudie votre éligibilité au programme sur la base des informations et documents transmis. La réponse vous est communiquée sous deux jours ouvrés après réception du dossier complet.",
-  ],
-  document: [
-    "Votre publication est prête",
-    "Le téléchargement a démarré. Si rien ne s’est passé, utilisez le bouton ci-dessous.",
-  ],
-  session: [
-    "Votre place est réservée",
-    "Le lien de connexion vous sera envoyé la veille de la session.",
-  ],
-  rappel: [
-    "Votre demande de rappel est enregistrée",
-    "Un membre de l’équipe pédagogique vous appelle sous 24 heures ouvrées.",
-  ],
-  default: ["Votre demande est enregistrée", "Nous revenons vers vous rapidement."],
-};
-
-function safeDocPath(fichier: string | null) {
-  if (!fichier) return null;
-  if (!/^\/docs\/[A-Za-z0-9._-]+\.pdf$/.test(fichier)) return null;
-  return fichier;
-}
 
 function MerciInner() {
   const p = useSearchParams();
@@ -43,7 +18,7 @@ function MerciInner() {
 }
 
 function MerciView({ type, fichier }: { type: string; fichier: string | null }) {
-  const pair = cases[type] || cases.default;
+  const c = confirmationFor(type);
 
   return (
     <section className="bg-cream py-[clamp(3rem,7vw,5.5rem)]">
@@ -55,9 +30,9 @@ function MerciView({ type, fichier }: { type: string; fichier: string | null }) 
           <Kicker>Confirmation</Kicker>
         </div>
         <h1 className="mt-3 text-[clamp(2.05rem,1.5rem+2.2vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.025em]">
-          {pair[0]}
+          {c.title}
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{pair[1]}</p>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{c.text}</p>
         {fichier && (
           <p className="mt-6">
             <a

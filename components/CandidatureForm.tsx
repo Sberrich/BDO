@@ -6,6 +6,7 @@ import { BRAND, data } from "@/lib/content";
 import { CguLink } from "@/components/CguDialog";
 import { NameInput } from "@/components/NameInput";
 import { PhoneInput } from "@/components/PhoneInput";
+import { SuccessDialog } from "@/components/SuccessDialog";
 import { IconArrowRight, IconSend } from "@/components/icons";
 import { Button, fieldClass } from "@/components/ui";
 import { plain } from "@/lib/text";
@@ -36,6 +37,7 @@ export function CandidatureForm() {
   const [choices, setChoices] = useState<Choices>(EMPTY);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focusName, setFocusName] = useState<{ name: string } | null>(null);
+  const [done, setDone] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const inFlight = useRef(false);
@@ -190,7 +192,7 @@ export function CandidatureForm() {
       try {
         localStorage.removeItem(KEY);
       } catch {}
-      router.push("/merci?type=candidature");
+      setDone(true);
     } catch {
       setStatus("L’envoi n’a pas abouti. Écrivez-nous à " + BRAND.email);
       setSending(false);
@@ -462,6 +464,9 @@ export function CandidatureForm() {
       <p className="text-xs text-muted">
         Clôture des candidatures le {plain(data.site.admission.dateLimite)}.
       </p>
+      {done ? (
+        <SuccessDialog type="candidature" closeLabel="Retour à l’accueil" onClose={() => router.push("/")} />
+      ) : null}
     </form>
   );
 }

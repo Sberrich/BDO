@@ -14413,3 +14413,103 @@ input[type="checkbox"][aria-invalid="true"] {
     animation: none;
   }
 }
+
+/* Success popup after a form submission */
+.success-dialog {
+  width: min(26rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: #fff;
+  color: var(--brand-navy);
+  box-shadow: 0 30px 80px -20px rgba(0, 31, 61, 0.45);
+  overflow: auto;
+}
+.success-dialog[open] {
+  animation: success-in 320ms var(--ease-out);
+}
+.success-dialog::backdrop {
+  background: rgba(0, 31, 61, 0.55);
+  backdrop-filter: blur(3px);
+}
+.success-dialog__panel {
+  padding: 0.75rem 0.75rem 1rem;
+}
+.success-dialog__media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem 1rem 0.5rem;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f6f7f9 0%, #eef1f4 100%);
+}
+.success-dialog__art {
+  width: min(12.5rem, 60%);
+  height: auto;
+  animation: success-art 520ms 120ms var(--ease-out) both;
+}
+.success-dialog__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--brand-red);
+  cursor: pointer;
+  box-shadow: 0 4px 14px -6px rgba(0, 31, 61, 0.25);
+}
+.success-dialog__close svg {
+  width: 1rem;
+  height: 1rem;
+}
+.success-dialog__body {
+  padding: 1.25rem 0.75rem 0.25rem;
+  text-align: center;
+}
+.success-dialog__body h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.success-dialog__body p {
+  margin: 0.6rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.success-dialog__actions {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+.success-dialog__actions > * {
+  width: 100%;
+}
+@keyframes success-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+@keyframes success-art {
+  from {
+    opacity: 0;
+    transform: scale(0.85) rotate(-4deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .success-dialog[open],
+  .success-dialog__art {
+    animation: none;
+  }
+}
