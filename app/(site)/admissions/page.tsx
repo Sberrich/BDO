@@ -95,12 +95,13 @@ export default function AdmissionsPage() {
               </nav>
               <DeadlineCountdown className="prog-hero__countdown" />
               <div className="sem-hero__ctas">
+                <ButtonLink href="#rappel" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconPhone />
+                  Être rappelé
+                </ButtonLink>
                 <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                   Déposer ma candidature
                   <IconArrowRight />
-                </ButtonLink>
-                <ButtonLink href="#rappel" variant="ghost" className="sem-hero__cta-secondary">
-                  Être rappelé sous 24 h
                 </ButtonLink>
               </div>
             </div>
