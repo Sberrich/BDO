@@ -14079,4 +14079,7 @@ img {
     border-radius: var(--radius-md) !important;
     font-size: 0.9375rem;
   }
+  main form select {
+    min-height: 4rem;
+  }
 }
