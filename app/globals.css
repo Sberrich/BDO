@@ -14278,7 +14278,13 @@ img {
   min-width: 0;
 }
 .press-carousel.is-faculty .faculty__head {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
   margin-bottom: 0;
+}
+.press-carousel.is-faculty .faculty__lead {
+  max-width: 38rem;
+  font-size: 1rem;
 }
 .press-carousel.is-faculty .press-track__item {
   display: flex;
