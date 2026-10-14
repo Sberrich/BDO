@@ -98,7 +98,7 @@ export function SectionHeading({
 }
 
 export const fieldClass =
-  "mt-1 w-full rounded-[10px] border border-line bg-white px-3.5 py-[0.7rem] text-ink outline-none placeholder:font-normal placeholder:text-muted transition hover:border-muted focus:border-blue focus:ring-2 focus:ring-blue/20";
+  "mt-1 w-full rounded-[10px] border border-line bg-white px-3.5 py-[0.7rem] text-ink outline-none max-sm:px-4 max-sm:py-3.5 max-sm:text-base placeholder:font-normal placeholder:text-muted transition hover:border-muted focus:border-blue focus:ring-2 focus:ring-blue/20";
 
 export function PageHero({
   kicker,
