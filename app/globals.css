@@ -3625,11 +3625,18 @@ body[data-nav="open"] .mobile-bar {
   border-color: rgba(0, 32, 64, 0.2);
   box-shadow: none;
 }
-.who__panel-num {
-  font-size: 0.8125rem;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: var(--brand-red);
+.who__panel-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background: var(--brand-blue-soft);
+  color: var(--brand-blue);
+}
+.who__panel-icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
 }
 .who__panel-rule {
   display: block;
@@ -13024,9 +13031,6 @@ img {
 .res-insights__go,
 .sem-price__kicker,
 .sem-speaker__role,
-.who__panel-num {
-  color: var(--brand-blue);
-}
 .pricing__tick svg,
 .prog-board__when svg,
 .prog-piece__more svg,

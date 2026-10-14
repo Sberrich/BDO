@@ -14,8 +14,10 @@ import { Playlists } from "@/components/Playlists";
 import { DeadlineCountdown } from "@/components/DeadlineCountdown";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
+
+const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
 
 const CARRY_ART = [
   "/images/livrables/feuille-de-route.png",
@@ -246,16 +248,19 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
             <p className="who__lead">{site.profil.chapeau}</p>
           </header>
           <ul className="who__panels">
-            {site.profil.profils.map((p, i) => (
-              <Reveal as="li" key={p.titre} delay={i * 90} className={`who__panel is-${i + 1}`}>
-                <span className="who__panel-num" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <span className="who__panel-rule" aria-hidden="true" />
-                <h3 className="who__panel-title">{p.titre}</h3>
-                <p className="who__panel-text">{p.texte}</p>
-              </Reveal>
-            ))}
+            {site.profil.profils.map((p, i) => {
+              const Icon = PROFILE_ICONS[i % PROFILE_ICONS.length];
+              return (
+                <Reveal as="li" key={p.titre} delay={i * 90} className={`who__panel is-${i + 1}`}>
+                  <span className="who__panel-icon" aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <span className="who__panel-rule" aria-hidden="true" />
+                  <h3 className="who__panel-title">{p.titre}</h3>
+                  <p className="who__panel-text">{p.texte}</p>
+                </Reveal>
+              );
+            })}
           </ul>
           <p className="who__prereq">
             <span className="who__prereq-tag">Prérequis</span>
