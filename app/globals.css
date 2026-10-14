@@ -14787,8 +14787,10 @@ input[type="checkbox"][aria-invalid="true"] {
 .cand-form .cand-choice {
   min-height: 3.5rem;
   padding: 0.9rem 1.15rem;
+  border-style: solid;
   border-radius: 12px;
   font-size: 1rem;
+  box-shadow: none !important;
 }
 .cand-form .cand-choice input {
   width: 1.15rem;
