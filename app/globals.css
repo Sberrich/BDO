@@ -14136,4 +14136,17 @@ img {
     border-radius: var(--radius-md) !important;
     font-size: 0.9375rem;
   }
+  .adm-jump {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .adm-jump a {
+    width: 100%;
+    min-height: 3rem;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
 }
