@@ -250,13 +250,6 @@ export function LeadForm({
       {status && (
         <p className={`text-sm ${ok ? "text-navy" : "text-red"}`}>{status}</p>
       )}
-      <p className="text-xs leading-relaxed text-muted">
-        {data.site.conformite.mention}{" "}
-        <a href="/confidentialite" className="font-semibold text-blue">
-          Voir la politique de protection des données
-        </a>
-        .
-      </p>
     </form>
   );
 }
