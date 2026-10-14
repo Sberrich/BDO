@@ -16,7 +16,7 @@ import { LoopCarousel } from "@/components/LoopCarousel";
 import { CAROUSEL_MAX } from "@/lib/carousel";
 import { CountUp, Reveal } from "@/components/motion";
 import { ButtonLink, Container, Kicker, KickerIcon, SectionHeading } from "@/components/ui";
-import { IconArrowRight, IconBook, IconChart, IconGauge, IconUsers } from "@/components/icons";
+import { IconArrowRight, IconBook, IconChart, IconGauge, IconPhone, IconUsers } from "@/components/icons";
 import { appHref, plain, seminarImage, sessionCode } from "@/lib/text";
 
 const PROFILE_ICONS = [IconUsers, IconChart, IconGauge, IconBook];
@@ -493,16 +493,17 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 {data.site.admission.delaiReponse} après réception du dossier complet.
               </p>
               <div className="final-cta__actions">
-                <ButtonLink href="/candidater" className="final-cta__primary">
-                  Candidater
-                  <span aria-hidden="true">→</span>
-                </ButtonLink>
                 <ButtonLink
                   href="/admissions#rappel"
                   variant="ghost"
                   className="final-cta__secondary"
                 >
+                  <IconPhone />
                   Être rappelé
+                </ButtonLink>
+                <ButtonLink href="/candidater" className="final-cta__primary">
+                  Candidater
+                  <span aria-hidden="true">→</span>
                 </ButtonLink>
               </div>
             </div>

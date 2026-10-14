@@ -9426,6 +9426,10 @@ a.about-contact__card:focus-visible {
   color: #fff !important;
   box-shadow: none !important;
 }
+.final-cta__secondary svg {
+  width: 1rem;
+  height: 1rem;
+}
 .final-cta__secondary:hover,
 .final-cta__secondary:focus-visible {
   border-color: #fff !important;

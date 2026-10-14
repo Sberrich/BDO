@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BRAND, NAV, data } from "@/lib/content";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
-import { IconArrowRight, IconBook, IconCert, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconBook, IconCert, IconDownload, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
 import { plain, seminarPath, sessionCode } from "@/lib/text";
 
 export function Footer() {
@@ -28,12 +28,13 @@ export function Footer() {
               Candidatures ouvertes jusqu’au 22 octobre 2026
             </p>
             <div className="foot__cta-row">
+              <Link href="/ressources/brochure" className="foot__btn is-ghost">
+                <IconDownload />
+                Recevoir la brochure
+              </Link>
               <Link href="/candidater" className="foot__btn is-primary">
                 Candidater
                 <IconArrowRight />
-              </Link>
-              <Link href="/ressources/brochure" className="foot__btn is-ghost">
-                Recevoir la brochure
               </Link>
             </div>
           </div>
