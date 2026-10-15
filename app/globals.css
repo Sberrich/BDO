@@ -17075,3 +17075,22 @@ html:has(.iv-modal[open]) {
   background: #fff !important;
   color: var(--brand-navy) !important;
 }
+
+/* All card CTAs: full width, pinned to the bottom of the card */
+:is(.prog-piece, .pub-card, .doc-pub) {
+  display: flex;
+  flex-direction: column;
+}
+:is(.pub-card__body, .doc-pub__body) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more) {
+  align-self: stretch !important;
+  width: 100% !important;
+  margin-top: auto !important;
+}
+:is(.prog-piece__out, .pub-card__text, .pub-card__desc, .doc-pub__text, .doc-pub__desc) {
+  margin-bottom: 1.25rem;
+}
