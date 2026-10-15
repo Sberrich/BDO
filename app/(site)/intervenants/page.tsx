@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconCal } from "@/components/icons";
 import { LinkedInButton, SpeakerProfile, type SpeakerSession } from "@/components/SpeakerProfile";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { allSessions, SHOW } from "@/lib/content";
@@ -75,12 +75,13 @@ export default async function IntervenantsPage() {
               </h1>
               {chapeau ? <p className="sem-hero__lead">{chapeau}</p> : null}
               <div className="sem-hero__ctas">
+                <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconCal />
+                  Voir le programme
+                </ButtonLink>
                 <ButtonLink href="#equipe" className="sem-hero__cta-primary">
                   Découvrir l’équipe
                   <IconArrowRight />
-                </ButtonLink>
-                <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
-                  Voir le programme
                 </ButtonLink>
               </div>
             </div>
