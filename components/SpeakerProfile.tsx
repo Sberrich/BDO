@@ -43,7 +43,15 @@ export function LinkedInButton({ href, name }: { href: string; name: string }) {
   );
 }
 
-export function SpeakerProfile({ person }: { person: SpeakerProfileData }) {
+export function SpeakerProfile({
+  person,
+  label = "Lire la suite",
+  className = "iv-card__more",
+}: {
+  person: SpeakerProfileData;
+  label?: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = `${person.slug}-profile-title`;
   const n = person.sessions.length;
@@ -52,11 +60,11 @@ export function SpeakerProfile({ person }: { person: SpeakerProfileData }) {
     <>
       <button
         type="button"
-        className="iv-card__more"
+        className={className}
         aria-haspopup="dialog"
         onClick={() => ref.current?.showModal()}
       >
-        Lire la suite
+        {label}
         <span className="sr-only"> : {person.name}</span>
         <IconArrowRight />
       </button>

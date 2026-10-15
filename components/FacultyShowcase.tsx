@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Intervenant } from "@/lib/cms";
 import { LoopCarousel } from "@/components/LoopCarousel";
+import { SpeakerProfile, type SpeakerSession } from "@/components/SpeakerProfile";
 import { CAROUSEL_MAX } from "@/lib/carousel";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconLinkedIn } from "@/components/icons";
@@ -11,6 +12,7 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
+import { sessionsBySpeaker } from "@/lib/speakers";
 import { personLinkedIn, plain } from "@/lib/text";
 
 type Props = {
@@ -18,7 +20,15 @@ type Props = {
   lead?: string;
 };
 
-function PersonCard({ person }: { person: FacultyShowcasePerson }) {
+function PersonCard({
+  person,
+  index,
+  sessions,
+}: {
+  person: FacultyShowcasePerson;
+  index: number;
+  sessions: SpeakerSession[];
+}) {
   const name = plain(person.nom);
   const linkedin = personLinkedIn(person.linkedin);
   const photo = facultyHasPhoto(person);
@@ -61,6 +71,23 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
             <IconLinkedIn size={16} />
           </a>
         ) : null}
+        <SpeakerProfile
+          label="Voir le profil"
+          className="iv-card__more faculty-card__profile"
+          person={{
+            slug: person.slug,
+            index: String(index + 1).padStart(2, "0"),
+            name,
+            fonction: plain(person.fonction),
+            institution: person.institution ? plain(person.institution) : "",
+            bio: person.bio ? plain(person.bio) : "",
+            photo: photo ? facultyPhotoSrc(person) : null,
+            initials: person.initials,
+            tone: String(person.tone),
+            linkedin: linkedin || null,
+            sessions,
+          }}
+        />
       </div>
     </article>
   );
@@ -70,6 +97,7 @@ function PersonCard({ person }: { person: FacultyShowcasePerson }) {
 export function FacultyShowcase({ speakers, lead }: Props) {
   const all = facultyShowcase(speakers);
   const first = facultyHome(speakers);
+  const bySpeaker = sessionsBySpeaker();
   const people = [...first, ...all.filter((p) => !first.some((f) => f.slug === p.slug))].slice(0, CAROUSEL_MAX);
 
   return (
@@ -92,8 +120,8 @@ export function FacultyShowcase({ speakers, lead }: Props) {
               </p>
             </header>
           }
-          slides={people.map((p) => (
-            <PersonCard key={p.slug} person={p} />
+          slides={people.map((p, i) => (
+            <PersonCard key={p.slug} person={p} index={i} sessions={bySpeaker.get(p.slug) ?? []} />
           ))}
           labels={people.map((p) => `Afficher ${plain(p.nom)}`)}
           prevLabel="Intervenant précédent"

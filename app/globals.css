@@ -16902,3 +16902,65 @@ html:has(.iv-modal[open]) {
 .rappel-contacts__wide {
   grid-column: 1 / -1;
 }
+
+/* Home speaker carousel: « Voir le profil » opens the profile popup */
+.faculty-card__body {
+  display: flex;
+  flex-direction: column;
+}
+.faculty-card .faculty-card__profile {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-top: auto;
+  padding: 0 1.25rem;
+  border: 1px solid #e4e9ee;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--brand-navy) !important;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.faculty-card .faculty-card__profile svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.faculty-card .faculty-card__profile:hover,
+.faculty-card .faculty-card__profile:focus-visible {
+  border-color: var(--brand-navy);
+}
+.faculty-card__role + .faculty-card__profile,
+.faculty-card__li + .faculty-card__profile {
+  margin-top: 1rem;
+}
+@media (max-width: 640px) {
+  .faculty-card .faculty-card__profile {
+    align-self: stretch;
+    min-height: 3.1875rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+}
+.is-faculty .faculty-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.is-faculty .faculty-card__body {
+  flex: 1 1 auto;
+}
+.faculty-card .faculty-card__body > .faculty-card__profile {
+  margin-top: auto;
+}
+.faculty-card__body:has(> .faculty-card__profile) {
+  gap: 0;
+}
+.faculty-card__body > .faculty-card__role {
+  margin-bottom: 1rem;
+}
