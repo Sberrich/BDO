@@ -448,7 +448,6 @@ function PagerLink({
     <Link href={sessionHref(session)} className={`sem-pager__link is-${dir}`}>
       <span className="sem-pager__thumb" aria-hidden>
         <Image src={seminarImage(session.numero)} alt="" fill sizes="80px" />
-        <b>{sessionCode(session)}</b>
       </span>
       <span className="sem-pager__text">
         <span className="sem-pager__dir">
