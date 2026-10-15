@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight, IconCal } from "@/components/icons";
-import { LinkedInButton, SpeakerProfile, type SpeakerSession } from "@/components/SpeakerProfile";
+import { SpeakerCard } from "@/components/SpeakerCard";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { allSessions, SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
@@ -11,29 +11,10 @@ import {
   facultyPhotoSrc,
   facultyShowcase,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarImage, seminarPath, sessionCode, sessionLabel } from "@/lib/text";
+import { sessionsBySpeaker } from "@/lib/speakers";
+import { plain } from "@/lib/text";
 
 const SECOND_SLUG = "ismail-lahsini";
-
-function sessionsBySpeaker() {
-  const map = new Map<string, SpeakerSession[]>();
-  for (const s of allSessions()) {
-    for (const slug of s.intervenants ?? []) {
-      const code = sessionCode(s);
-      const list = map.get(slug) ?? [];
-      list.push({
-        code: /^\d+$/.test(code) ? `S${Number(code)}` : code,
-        titre: plain(s.titre),
-        label: sessionLabel(s),
-        when: [plain(s.dates), plain(s.horaire)].filter(Boolean).join(" · "),
-        image: seminarImage(s.numero),
-        href: seminarPath(s),
-      });
-      map.set(slug, list);
-    }
-  }
-  return map;
-}
 
 export const metadata: Metadata = {
   title: "Intervenants",
@@ -120,61 +101,11 @@ export default async function IntervenantsPage() {
           </header>
 
           <ul className="iv-grid">
-            {intervenants.map((p, i) => {
-              const linkedin = personLinkedIn(p.linkedin);
-              const name = plain(p.nom);
-              const photo = facultyHasPhoto(p);
-              const role = `${plain(p.fonction)}${p.institution ? ` · ${plain(p.institution)}` : ""}`;
-              return (
-                <li key={p.slug}>
-                  <article id={p.slug} className="iv-card">
-                    <div className={`iv-card__media ${photo ? "has-photo" : ""}`}>
-                      {photo ? (
-                        <Image
-                          src={facultyPhotoSrc(p)}
-                          alt=""
-                          fill
-                          className="iv-card__img"
-                          sizes="(min-width: 900px) 24rem, 100vw"                        />
-                      ) : (
-                        <span
-                          className={`faculty-mono tone-${p.tone} iv-card__mono`}
-                          aria-hidden
-                        >
-                          {p.initials}
-                        </span>
-                      )}
-                      <span className="iv-card__num" aria-hidden>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <div className="iv-card__body">
-                      <h3 className="iv-card__name">{name}</h3>
-                      <p className="iv-card__role">{role}</p>
-                      {p.bio ? <p className="iv-card__bio">{plain(p.bio)}</p> : null}
-                      <div className="iv-card__actions">
-                        {linkedin ? <LinkedInButton href={linkedin} name={name} /> : null}
-                        <SpeakerProfile
-                          person={{
-                            slug: p.slug,
-                            index: String(i + 1).padStart(2, "0"),
-                            name,
-                            fonction: plain(p.fonction),
-                            institution: p.institution ? plain(p.institution) : "",
-                            bio: p.bio ? plain(p.bio) : "",
-                            photo: photo ? facultyPhotoSrc(p) : null,
-                            initials: p.initials,
-                            tone: String(p.tone),
-                            linkedin: linkedin || null,
-                            sessions: bySpeaker.get(p.slug) ?? [],
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </article>
-                </li>
-              );
-            })}
+            {intervenants.map((p, i) => (
+              <li key={p.slug}>
+                <SpeakerCard person={p} index={i} sessions={bySpeaker.get(p.slug) ?? []} />
+              </li>
+            ))}
           </ul>
 
           {SHOW.soutenance ? (

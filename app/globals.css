@@ -16273,3 +16273,14 @@ html:has(.iv-modal[open]) {
 .sem-speaker__links > .sem-speaker__profile {
   margin-left: auto;
 }
+
+/* ——— Séminaire: speakers reuse the Intervenants card + profile popup ——— */
+.iv-grid.sem-faculty__cards {
+  margin: 0;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .iv-grid.sem-faculty__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

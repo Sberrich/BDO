@@ -4,8 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { PriceBand } from "@/components/PriceBand";
+import { SpeakerCard } from "@/components/SpeakerCard";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { getIntervenants } from "@/lib/cms";
+import { sessionsBySpeaker } from "@/lib/speakers";
 import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
 import {
   facultyHasPhoto,
@@ -13,13 +15,12 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
+import { plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
   IconClock,
   IconDownload,
-  IconLinkedIn,
   IconMap,
 } from "@/components/icons";
 
@@ -76,6 +77,7 @@ export default async function SeminairePage({ params }: Props) {
       };
     })
     .filter((p): p is FacultyShowcasePerson => Boolean(p));
+  const bySpeaker = sessionsBySpeaker();
   const inaug = s.numero === 0;
   const detail = s as {
     jour1?: { matin: string; apresMidi: string };
@@ -244,9 +246,11 @@ export default async function SeminairePage({ params }: Props) {
                 <h2 id="sem-faculty-title" className="sem-block__title">
                   {people.length > 1 ? "Les intervenants" : "L’intervenant"}
                 </h2>
-                <ul className="sem-faculty__grid">
-                  {people.map((p) => (
-                    <SpeakerCard key={p.slug} person={p} />
+                <ul className="iv-grid sem-faculty__cards">
+                  {people.map((p, i) => (
+                    <li key={p.slug}>
+                      <SpeakerCard person={p} index={i} sessions={bySpeaker.get(p.slug) ?? []} />
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -384,57 +388,5 @@ export default async function SeminairePage({ params }: Props) {
         </Container>
       </section>
     </>
-  );
-}
-
-function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
-  const photo = facultyHasPhoto(person);
-  return (
-    <li className={`sem-speaker tone-${person.tone}`}>
-      <div className="sem-speaker__media" aria-hidden={!photo}>
-        {photo ? (
-          <Image
-            src={facultyPhotoSrc(person)}
-            alt=""
-            width={112}
-            height={112}
-            className="sem-speaker__img"
-          />
-        ) : (
-          <span className="sem-speaker__mono">{person.initials}</span>
-        )}
-      </div>
-      <div className="sem-speaker__body">
-        <p className="sem-speaker__name">{plain(person.nom)}</p>
-        <p className="sem-speaker__role">
-          {plain(person.fonction)}
-          {person.institution ? ` · ${plain(person.institution)}` : ""}
-        </p>
-        {person.bio ? (
-          <p className="sem-speaker__bio">{plain(person.bio)}</p>
-        ) : null}
-        <div className="sem-speaker__links">
-          {personLinkedIn(person.linkedin) ? (
-            <a
-              href={personLinkedIn(person.linkedin)}
-              className="li-icon sem-speaker__li"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Profil LinkedIn de ${plain(person.nom)}`}
-              title="LinkedIn"
-            >
-              <IconLinkedIn size={16} />
-            </a>
-          ) : null}
-          <Link
-            href={`/intervenants#${person.slug}`}
-            className="sem-speaker__li sem-speaker__profile"
-          >
-            Voir le profil
-            <IconArrowRight />
-          </Link>
-        </div>
-      </div>
-    </li>
   );
 }
