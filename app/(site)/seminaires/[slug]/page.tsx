@@ -414,13 +414,6 @@ function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
           <p className="sem-speaker__bio">{plain(person.bio)}</p>
         ) : null}
         <div className="sem-speaker__links">
-          <Link
-            href={`/intervenants#${person.slug}`}
-            className="sem-speaker__li"
-          >
-            Voir le profil
-            <IconArrowRight />
-          </Link>
           {personLinkedIn(person.linkedin) ? (
             <a
               href={personLinkedIn(person.linkedin)}
@@ -433,6 +426,13 @@ function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
               <IconLinkedIn size={16} />
             </a>
           ) : null}
+          <Link
+            href={`/intervenants#${person.slug}`}
+            className="sem-speaker__li sem-speaker__profile"
+          >
+            Voir le profil
+            <IconArrowRight />
+          </Link>
         </div>
       </div>
     </li>

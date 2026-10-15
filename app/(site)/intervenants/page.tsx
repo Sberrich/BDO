@@ -153,6 +153,7 @@ export default async function IntervenantsPage() {
                       <p className="iv-card__role">{role}</p>
                       {p.bio ? <p className="iv-card__bio">{plain(p.bio)}</p> : null}
                       <div className="iv-card__actions">
+                        {linkedin ? <LinkedInButton href={linkedin} name={name} /> : null}
                         <SpeakerProfile
                           person={{
                             slug: p.slug,
@@ -168,7 +169,6 @@ export default async function IntervenantsPage() {
                             sessions: bySpeaker.get(p.slug) ?? [],
                           }}
                         />
-                        {linkedin ? <LinkedInButton href={linkedin} name={name} /> : null}
                       </div>
                     </div>
                   </article>

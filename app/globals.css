@@ -16268,3 +16268,8 @@ html:has(.iv-modal[open]) {
     align-items: flex-end;
   }
 }
+
+/* Speaker blocks: LinkedIn on the left, the « next » link on the right */
+.sem-speaker__links > .sem-speaker__profile {
+  margin-left: auto;
+}
