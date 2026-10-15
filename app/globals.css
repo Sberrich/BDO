@@ -17125,3 +17125,20 @@ html:has(.iv-modal[open]) {
     order: 1;
   }
 }
+
+/* FAQ answers open in full; their CTA sits on the right */
+.faq-item__link {
+  display: flex;
+  justify-content: flex-end;
+}
+@media (min-width: 1024px) {
+  .adm-faq__inner {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  }
+  .adm-faq__head {
+    order: 2;
+  }
+}
+.faq-panel__inner > .faq-detail__body.faq-answer {
+  padding: 0.6rem 1.35rem 0.25rem;
+}
