@@ -16324,3 +16324,17 @@ html:has(.iv-modal[open]) {
     margin-left: auto;
   }
 }
+
+/* Séminaire hero mosaic: cover, speakers, key facts, neighbouring séances */
+.iv-faces.is-seminar .iv-faces__img.is-face {
+  object-position: center 18%;
+}
+.iv-faces.is-seminar .iv-faces__link.is-current:hover {
+  transform: none;
+}
+.iv-faces.is-seminar .iv-faces__link.is-current:hover .iv-faces__img {
+  transform: scale(1.02);
+}
+#intervenants {
+  scroll-margin-top: 6rem;
+}

@@ -21,10 +21,13 @@ import {
   IconCal,
   IconClock,
   IconDownload,
+  IconGrid,
   IconMap,
 } from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
+type PictureTile = { src: string; name: string; code?: string; href?: string; face?: boolean };
+type StatTile = { icon: (props: { size?: number }) => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean };
 
 export function generateStaticParams() {
   return allSessions().flatMap((s) => {
@@ -89,6 +92,37 @@ export default async function SeminairePage({ params }: Props) {
   const cover = seminarImage(s.numero);
   const indexLabel = sessionLabel(s);
   const lieu = s.lieu ?? "Campus ISCAE Casablanca";
+  const total = seq.length - 1;
+  const day = /^(\p{L}+)\s+(\d{1,2})\s+(\p{L}+)/u.exec(plain(s.dates));
+  const month = day ? (day[3].length > 4 ? `${day[3].slice(0, 3)}.` : day[3]) : "";
+  const pictures: PictureTile[] = [
+    { src: cover, name: plain(s.titre), code: sessionCode(s) },
+    ...people
+      .filter((p) => facultyHasPhoto(p))
+      .map((p) => ({ src: facultyPhotoSrc(p), name: plain(p.nom), href: "#intervenants", face: true })),
+    ...[next, prev, ...seq.filter((x) => x !== s && x !== next && x !== prev)]
+      .filter((x): x is NonNullable<typeof x> => Boolean(x))
+      .map((x) => ({ src: seminarImage(x.numero), name: plain(x.titre), code: sessionCode(x), href: sessionHref(x) })),
+  ].slice(0, 5);
+  const stats: StatTile[] = [
+    day
+      ? { icon: IconCal, num: day[2], unit: month, label: day[1] }
+      : { icon: IconCal, num: plain(s.dates), unit: "", label: plain(s.horaire) },
+    inaug
+      ? { icon: IconGrid, num: String(total), unit: "séances", label: "au programme" }
+      : { icon: IconGrid, num: String(i), unit: `/ ${total}`, label: "séance du cycle" },
+    { icon: IconClock, num: String(s.heures ?? ""), unit: "h", label: "de formation en présentiel", dark: true },
+  ];
+  const tiles: (PictureTile | StatTile)[] = [
+    pictures[0],
+    stats[0],
+    pictures[1],
+    stats[1],
+    pictures[2],
+    pictures[3],
+    pictures[4],
+    stats[2],
+  ].filter(Boolean);
 
   return (
     <>
@@ -169,26 +203,43 @@ export default async function SeminairePage({ params }: Props) {
               </div>
             </div>
 
-            <div className="sem-hero__aside" aria-hidden="true">
-              <div className="sem-hero__card">
-                <Image
-                  className="sem-hero__card-img"
-                  src={cover}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 32rem, 90vw"
-                  priority
-                />
-                <span className="sem-hero__card-veil" />
-                <span className="sem-hero__card-frame" />
-                <span className="sem-hero__card-mark">
-                  {sessionCode(s)}
-                </span>
-                <span className="sem-hero__card-caption">
-                  {inaug ? "Ouverture" : `Séance ${i}`}
-                </span>
-              </div>
-            </div>
+            <ul className="iv-faces is-programme is-seminar" aria-label="La séance en bref">
+              {tiles.map((t, ti) => (
+                <li key={ti} className={`iv-faces__item is-${ti + 1}`}>
+                  {"src" in t ? (
+                    t.href ? (
+                      <Link href={t.href} className="iv-faces__link" aria-label={t.name}>
+                        <Image src={t.src} alt="" fill sizes="180px" className={`iv-faces__img${t.face ? " is-face" : ""}`} />
+                        {t.code ? <span className="iv-faces__code" aria-hidden>{t.code}</span> : null}
+                        <span className="iv-faces__name" aria-hidden>{t.name}</span>
+                      </Link>
+                    ) : (
+                      <span className="iv-faces__link is-current" aria-hidden>
+                        <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" priority />
+                        {t.code ? <span className="iv-faces__code">{t.code}</span> : null}
+                      </span>
+                    )
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true">
+                        <t.icon />
+                      </span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <Link href="/candidater" className="iv-faces__link iv-faces__more is-cta">
+                  <IconArrowRight />
+                  <span className="iv-faces__more-label">Candidater</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
@@ -242,7 +293,7 @@ export default async function SeminairePage({ params }: Props) {
             ) : null}
 
             {people.length > 0 ? (
-              <div className="sem-block" aria-labelledby="sem-faculty-title">
+              <div id="intervenants" className="sem-block" aria-labelledby="sem-faculty-title">
                 <h2 id="sem-faculty-title" className="sem-block__title">
                   {people.length > 1 ? "Les intervenants" : "L’intervenant"}
                 </h2>
