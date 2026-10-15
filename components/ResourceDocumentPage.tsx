@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BookCover3D } from "@/components/BookCover3D";
 import { LeadForm } from "@/components/LeadForm";
 import { Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconTick } from "@/components/icons";
@@ -118,18 +117,16 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
               <div className={`doc-hero__preview ${landscape ? "is-landscape" : ""}`}>
                 <div className="doc-book">
                   <span className="doc-book__glow" aria-hidden />
-                  <BookCover3D cover={d.cover} size={d.coverSize}>
-                    <div className="doc-book__page">
-                      <Image
-                        src={d.cover}
-                        alt={`Couverture : ${d.title}`}
-                        width={d.coverSize[0]}
-                        height={d.coverSize[1]}
-                        priority
-                        sizes={landscape ? "(min-width: 1024px) 22rem, 70vw" : "(min-width: 1024px) 15rem, 45vw"}
-                      />
-                    </div>
-                  </BookCover3D>
+                  <div className="doc-book__page">
+                    <Image
+                      src={d.cover}
+                      alt={`Couverture : ${d.title}`}
+                      width={d.coverSize[0]}
+                      height={d.coverSize[1]}
+                      priority
+                      sizes={landscape ? "(min-width: 1024px) 22rem, 70vw" : "(min-width: 1024px) 15rem, 45vw"}
+                    />
+                  </div>
                   <span className="doc-book__tag">PDF · {d.kicker}</span>
                 </div>
                 <div>
