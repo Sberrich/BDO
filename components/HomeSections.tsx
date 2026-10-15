@@ -455,7 +455,6 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
                 <PubCard
                   key={it.titre}
                   href={appHref(it.lien)}
-                  type={baro ? "Enquête · 2024" : livre ? "Livre blanc" : "Événement annuel"}
                   title={it.titre}
                   text={it.texte}
                   action={it.action}

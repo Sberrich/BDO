@@ -17094,3 +17094,15 @@ html:has(.iv-modal[open]) {
 :is(.prog-piece__out, .pub-card__text, .pub-card__desc, .doc-pub__text, .doc-pub__desc) {
   margin-bottom: 1.25rem;
 }
+
+/* Standalone outline buttons fill navy on hover, like the hero « Recevoir la brochure » */
+.btn-outline:is(:hover, :focus-visible),
+.faq-item__link a:is(:hover, :focus-visible) {
+  border-color: #0b2545 !important;
+  background: #0b2545 !important;
+  color: #fff !important;
+}
+.btn-outline:is(:hover, :focus-visible) :is(svg, svg *),
+.faq-item__link a:is(:hover, :focus-visible) :is(svg, svg *) {
+  color: #fff !important;
+}
