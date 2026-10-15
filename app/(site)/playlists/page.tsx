@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { VideoCatalog } from "@/components/VideoCatalog";
 import { Container, KickerIcon } from "@/components/ui";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconClock, IconPlay, IconUsers } from "@/components/icons";
 import { getVideos } from "@/lib/cms";
 import {
   durationLabel,
   durationSeconds,
   groupCategories,
   groupPlaylists,
+  playlistId,
+  videoCategory,
   type PlaylistVideo,
 } from "@/lib/playlists";
 
@@ -30,6 +32,9 @@ function frenchList(items: string[]) {
   if (items.length < 2) return items.join("");
   return `${items.slice(0, -1).join(", ")} et ${items[items.length - 1]}`;
 }
+
+type Stat = { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean };
+type Tile = { video: PlaylistVideo } | Stat;
 
 function totalSeconds(videos: readonly PlaylistVideo[]) {
   return videos.reduce((acc, v) => acc + durationSeconds(v.duree), 0);
@@ -52,6 +57,25 @@ export default async function PlaylistsPage({
         videos.length > 1 ? "s" : ""
       }${total ? `, ${durationLabel(total)}` : ""} pour découvrir le certificat CFO 4.0 de l’intérieur.`
     : "Les premières vidéos du certificat CFO 4.0 arrivent bientôt.";
+  const minutes = Math.round(total / 60);
+  const posters = [...videos].sort((a, b) => a.ordre - b.ordre).slice(0, 5);
+  const stats: Stat[] = [
+    { icon: IconPlay, num: String(videos.length), unit: videos.length > 1 ? "vidéos" : "vidéo", label: "en accès libre" },
+    { icon: IconUsers, num: String(categories.length), unit: categories.length > 1 ? "catégories" : "catégorie", label: "de témoignages" },
+    { icon: IconClock, num: String(minutes), unit: "min", label: "de vidéo au total", dark: true },
+  ];
+  const tiles: Tile[] = [
+    posters[0],
+    stats[0],
+    posters[1],
+    stats[1],
+    posters[2],
+    posters[3],
+    posters[4],
+    stats[2],
+  ]
+    .filter(Boolean)
+    .map((t) => ("ordre" in t ? { video: t } : t));
 
   return (
     <>
@@ -77,33 +101,46 @@ export default async function PlaylistsPage({
               </h1>
               <p className="sem-hero__lead pl-hero__sub">{subtitle}</p>
             </div>
-            {categories.length ? (
-              <section className="ins-sources" aria-label="Les catégories">
-                <p className="ins-sources__title">Les catégories</p>
-                <ul>
-                  {categories.map((c) => {
-                    const secs = totalSeconds(c.videos);
-                    return (
-                      <li key={c.id}>
-                        <Link href={`/playlists?categorie=${c.id}#videos`} className="ins-source">
-                          <span className="ins-source__cover" aria-hidden>
-                            <Image src={c.videos[0].poster} alt="" fill sizes="80px" className="object-cover" />
-                          </span>
-                          <span className="ins-source__body">
-                            <span className="ins-source__label">{c.titre}</span>
-                            <span className="ins-source__desc">
-                              {c.videos.length} vidéo{c.videos.length > 1 ? "s" : ""}
-                              {secs ? ` · ${durationLabel(secs)}` : ""}
-                            </span>
-                          </span>
-                          <IconArrowRight />
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            ) : null}
+            <ul className="iv-faces is-playlists" aria-label="La vidéothèque en bref">
+              {tiles.map((t, i) => (
+                <li key={i} className={`iv-faces__item is-${i + 1}`}>
+                  {"video" in t ? (
+                    <Link
+                      href={`/playlists?categorie=${playlistId(videoCategory(t.video))}#videos`}
+                      className="iv-faces__link"
+                      aria-label={`${t.video.titre} · ${videoCategory(t.video)}`}
+                    >
+                      <Image src={t.video.poster} alt="" fill sizes="180px" className="iv-faces__img" />
+                      <span className="iv-faces__play" aria-hidden>
+                        <svg viewBox="0 0 24 24">
+                          <path d="M8 5.5v13l11-6.5L8 5.5z" />
+                        </svg>
+                      </span>
+                      <span className="iv-faces__name" aria-hidden>
+                        {t.video.titre}
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true">
+                        <t.icon />
+                      </span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <a href="#videos" className="iv-faces__link iv-faces__more is-cta">
+                  <IconArrowRight />
+                  <span className="iv-faces__more-label">Voir les vidéos</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>

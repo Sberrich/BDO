@@ -16210,3 +16210,36 @@ html:has(.iv-modal[open]) {
     align-self: flex-end;
   }
 }
+
+/* Playlists hero mosaic: video covers with a play badge */
+.iv-faces.is-playlists .iv-faces__img {
+  object-position: center 30%;
+}
+.iv-faces__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: var(--brand-red);
+  color: #fff !important;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s ease;
+}
+.iv-faces__play svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-left: 2px;
+}
+.iv-faces__play svg,
+.iv-faces__play svg * {
+  color: inherit !important;
+  fill: currentColor;
+}
+.iv-faces__link:hover .iv-faces__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
