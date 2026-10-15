@@ -15,6 +15,10 @@ const htmlPages = [
 ];
 
 const nextConfig: NextConfig = {
+  // Keystatic reads content/ from disk at request time; dynamic routes (e.g. /playlists) need it bundled.
+  outputFileTracingIncludes: {
+    "/**": ["./content/**/*"],
+  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: "inline",

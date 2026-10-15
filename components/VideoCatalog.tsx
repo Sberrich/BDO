@@ -2,14 +2,23 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { IconGrid, IconInbox, IconPlay, IconSearch, IconSort } from "@/components/icons";
+import { IconGrid, IconInbox, IconPlay, IconSearch, IconSort, IconUsers } from "@/components/icons";
 import { PlaylistPlayer } from "@/components/Playlists";
 import { ButtonLink, Container } from "@/components/ui";
-import { durationLabel, durationSeconds, type Playlist, type PlaylistVideo } from "@/lib/playlists";
+import {
+  durationLabel,
+  durationSeconds,
+  groupCategories,
+  videoCategory,
+  type Playlist,
+  type PlaylistVideo,
+} from "@/lib/playlists";
 
 /** Cards shown at first, and added by each « Afficher plus ». */
 const PAGE_SIZE = 9;
-const ALL = "Toutes";
+const ALL = "all";
+
+type Option = { key: string; titre: string; count: number; kind: "all" | "playlist" | "category" };
 
 type Sort = "playlist" | "newest" | "shortest";
 
@@ -51,14 +60,32 @@ function VideoCard({ v, onPlay }: { v: PlaylistVideo; onPlay: () => void }) {
 export function VideoCatalog({
   playlists,
   initialPlaylist,
+  initialCategory,
 }: {
   playlists: Playlist[];
   initialPlaylist?: string;
+  initialCategory?: string;
 }) {
   const videos = useMemo(() => playlists.flatMap((p) => p.videos), [playlists]);
-  const [filter, setFilter] = useState(
-    playlists.find((p) => p.id === initialPlaylist)?.titre ?? ALL,
-  );
+  const options = useMemo<Option[]>(() => {
+    const cats = groupCategories(videos);
+    return [
+      { key: ALL, titre: "Toutes", count: videos.length, kind: "all" },
+      ...(playlists.length > 1
+        ? playlists.map((p) => ({ key: `p:${p.titre}`, titre: p.titre, count: p.videos.length, kind: "playlist" as const }))
+        : []),
+      ...(cats.length > 1
+        ? cats.map((c) => ({ key: `c:${c.titre}`, titre: c.titre, count: c.videos.length, kind: "category" as const }))
+        : []),
+    ];
+  }, [videos, playlists]);
+  const [filter, setFilter] = useState(() => {
+    const p = playlists.find((x) => x.id === initialPlaylist);
+    if (p) return `p:${p.titre}`;
+    const c = groupCategories(videos).find((x) => x.id === initialCategory);
+    return c ? `c:${c.titre}` : ALL;
+  });
+  const current = options.find((o) => o.key === filter) ?? options[0];
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<Sort>("playlist");
   const [shown, setShown] = useState(PAGE_SIZE);
@@ -67,7 +94,8 @@ export function VideoCatalog({
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     const list = videos.filter((v) => {
-      if (filter !== ALL && v.playlist !== filter) return false;
+      if (filter.startsWith("p:") && v.playlist !== filter.slice(2)) return false;
+      if (filter.startsWith("c:") && videoCategory(v) !== filter.slice(2)) return false;
       if (!q) return true;
       return [v.titre, v.sousTitre, v.tag, v.playlist, v.resume].some((s) => s?.toLowerCase().includes(q));
     });
@@ -78,8 +106,8 @@ export function VideoCatalog({
 
   const visible = filtered.slice(0, shown);
   const total = filtered.reduce((acc, v) => acc + durationSeconds(v.duree), 0);
-  const choose = (name: string) => {
-    setFilter(name);
+  const choose = (key: string) => {
+    setFilter(key);
     setShown(PAGE_SIZE);
   };
 
@@ -119,35 +147,33 @@ export function VideoCatalog({
         <div className="insights-head">
           <div>
             <h2 id="videos-title" className="insights-head__title">
-              {filter === ALL ? "Toutes les vidéos" : filter}
+              {current.kind === "all" ? "Toutes les vidéos" : current.titre}
             </h2>
             <p className="insights-head__count" aria-live="polite">
               {filtered.length} vidéo{filtered.length > 1 ? "s" : ""}
               {total ? ` · ${durationLabel(total)}` : ""}
             </p>
           </div>
-          <div role="radiogroup" aria-label="Filtrer par playlist" className="insights-filters">
-            {[{ titre: ALL, count: videos.length }, ...playlists.map((p) => ({ titre: p.titre, count: p.videos.length }))].map(
-              (p) => {
-                const active = filter === p.titre;
-                return (
-                  <button
-                    key={p.titre}
-                    type="button"
-                    role="radio"
-                    aria-checked={active}
-                    onClick={() => choose(p.titre)}
-                    className={`insights-filter ${active ? "is-active" : ""}`}
-                  >
-                    <span className="insights-filter__icon" aria-hidden>
-                      {p.titre === ALL ? <IconGrid size={14} /> : <IconPlay />}
-                    </span>
-                    {p.titre}
-                    <span className="vcat-count">{p.count}</span>
-                  </button>
-                );
-              },
-            )}
+          <div role="radiogroup" aria-label="Filtrer par catégorie" className="insights-filters">
+            {options.map((o) => {
+              const active = filter === o.key;
+              return (
+                <button
+                  key={o.key}
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  onClick={() => choose(o.key)}
+                  className={`insights-filter ${active ? "is-active" : ""}`}
+                >
+                  <span className="insights-filter__icon" aria-hidden>
+                    {o.kind === "all" ? <IconGrid size={14} /> : o.kind === "playlist" ? <IconPlay /> : <IconUsers />}
+                  </span>
+                  {o.titre}
+                  <span className="vcat-count">{o.count}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -194,7 +220,7 @@ export function VideoCatalog({
 
       {playing !== null ? (
         <PlaylistPlayer
-          playlist={{ id: "catalogue", titre: filter === ALL ? "Playlists" : filter, videos: filtered }}
+          playlist={{ id: "catalogue", titre: current.kind === "all" ? "Playlists" : current.titre, videos: filtered }}
           index={playing}
           onIndex={setPlaying}
           onClose={() => setPlaying(null)}

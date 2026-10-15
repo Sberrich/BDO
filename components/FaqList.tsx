@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { IconArrowRight } from "@/components/icons";
 import { data } from "@/lib/content";
 import { appHref, plain, rich } from "@/lib/text";
 
@@ -250,7 +251,7 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
                           <p className="faq-item__link">
                             <a href={appHref(item.lien.href)}>
                               {item.lien.texte}
-                              <span aria-hidden="true"> →</span>
+                              <IconArrowRight />
                             </a>
                           </p>
                         )}

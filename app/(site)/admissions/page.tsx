@@ -274,7 +274,7 @@ export default function AdmissionsPage() {
                   <span className="rappel-contact__value">Écrire un message</span>
                 </a>
               </li>
-              <li>
+              <li className="rappel-contacts__wide">
                 <a href={`mailto:${plain(c.email)}`} className="rappel-contact">
                   <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
                   <span className="rappel-contact__label">E-mail</span>
@@ -284,17 +284,33 @@ export default function AdmissionsPage() {
                   </span>
                 </a>
               </li>
-              <li>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plain(c.adresseIscae))}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rappel-contact"
-                >
-                  <span className="rappel-contact__icon" aria-hidden="true"><IconPin /></span>
-                  <span className="rappel-contact__label">Campus</span>
-                  <span className="rappel-contact__value">ISCAE Casablanca</span>
-                </a>
+              <li className="rappel-contacts__map">
+                <div className="rappel-contact is-map">
+                  <iframe
+                    className="rappel-map"
+                    title="Plan d’accès au campus ISCAE Casablanca"
+                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=15&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  <div className="rappel-map__row">
+                    <span className="rappel-contact__icon" aria-hidden="true"><IconPin /></span>
+                    <span className="rappel-map__text">
+                      <span className="rappel-contact__label">Campus</span>
+                      <span className="rappel-contact__value">ISCAE Casablanca</span>
+                      <span className="rappel-map__addr">Km 9,5 Route de Nouasseur, Casablanca</span>
+                    </span>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=Groupe%20ISCAE%20Casablanca"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rappel-map__go"
+                    >
+                      Itinéraire
+                      <IconArrowRight />
+                    </a>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>

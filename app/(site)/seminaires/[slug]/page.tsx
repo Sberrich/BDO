@@ -4,8 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { PriceBand } from "@/components/PriceBand";
-import { ProgrammeGrid } from "@/components/ProgrammeGrid";
+import { SpeakerCard } from "@/components/SpeakerCard";
+import { LoopCarousel } from "@/components/LoopCarousel";
 import { getIntervenants } from "@/lib/cms";
+import { sessionsBySpeaker } from "@/lib/speakers";
 import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
 import {
   facultyHasPhoto,
@@ -13,17 +15,28 @@ import {
   facultyShowcase,
   type FacultyShowcasePerson,
 } from "@/lib/faculty-roster";
-import { personLinkedIn, plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
+import { plain, seminarImage, sessionCode, sessionLabel } from "@/lib/text";
 import {
   IconArrowRight,
   IconCal,
   IconClock,
   IconDownload,
-  IconLinkedIn,
+  IconGauge,
+  IconGrid,
   IconMap,
+  IconPin,
 } from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
+type PictureTile = { src: string; name: string; code?: string; href?: string; face?: boolean };
+type StatTile = {
+  icon: (props: { size?: number }) => React.JSX.Element;
+  num: string;
+  unit: string;
+  label: string;
+  dark?: boolean;
+  text?: boolean;
+};
 
 export function generateStaticParams() {
   return allSessions().flatMap((s) => {
@@ -76,6 +89,8 @@ export default async function SeminairePage({ params }: Props) {
       };
     })
     .filter((p): p is FacultyShowcasePerson => Boolean(p));
+  const bySpeaker = sessionsBySpeaker();
+  const others = [...seq.slice(i + 1), ...seq.slice(0, i)];
   const inaug = s.numero === 0;
   const detail = s as {
     jour1?: { matin: string; apresMidi: string };
@@ -87,6 +102,29 @@ export default async function SeminairePage({ params }: Props) {
   const cover = seminarImage(s.numero);
   const indexLabel = sessionLabel(s);
   const lieu = s.lieu ?? "Campus ISCAE Casablanca";
+  const total = seq.length - 1;
+  const day = /^(\p{L}+)\s+(\d{1,2})\s+(\p{L}+)/u.exec(plain(s.dates));
+  const month = day ? (day[3].length > 4 ? `${day[3].slice(0, 3)}.` : day[3]) : "";
+  const city = lieu.split(/\s+/).pop() ?? lieu;
+  const faces: PictureTile[] = people
+    .filter((p) => facultyHasPhoto(p))
+    .slice(0, 2)
+    .map((p) => ({ src: facultyPhotoSrc(p), name: plain(p.nom), href: "#intervenants", face: true }));
+  const extras: StatTile[] = [
+    { icon: IconMap, num: city, unit: "", label: lieu.slice(0, lieu.length - city.length).trim() || "Campus ISCAE", text: true },
+    inaug
+      ? { icon: IconGrid, num: String(total), unit: "séances", label: "au programme" }
+      : { icon: IconGrid, num: String(i), unit: `/ ${total}`, label: "séance du cycle" },
+  ];
+  const tiles: (PictureTile | StatTile)[] = [
+    { src: cover, name: plain(s.titre), code: sessionCode(s) },
+    day
+      ? { icon: IconCal, num: day[2], unit: month, label: day[1] }
+      : { icon: IconCal, num: plain(s.dates), unit: "", label: plain(s.horaire) },
+    { icon: IconClock, num: String(s.heures ?? ""), unit: "h", label: plain(s.horaire), dark: true },
+    ...faces,
+    ...extras.slice(0, 2 - faces.length),
+  ];
 
   return (
     <>
@@ -167,26 +205,47 @@ export default async function SeminairePage({ params }: Props) {
               </div>
             </div>
 
-            <div className="sem-hero__aside" aria-hidden="true">
-              <div className="sem-hero__card">
-                <Image
-                  className="sem-hero__card-img"
-                  src={cover}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 32rem, 90vw"
-                  priority
-                />
-                <span className="sem-hero__card-veil" />
-                <span className="sem-hero__card-frame" />
-                <span className="sem-hero__card-mark">
-                  {sessionCode(s)}
-                </span>
-                <span className="sem-hero__card-caption">
-                  {inaug ? "Ouverture" : `Séance ${i}`}
-                </span>
-              </div>
-            </div>
+            <ul className="iv-faces is-programme is-seminar" aria-label="La séance en bref">
+              {tiles.map((t, ti) => (
+                <li key={ti} className={`iv-faces__item is-${ti + 1}`}>
+                  {"src" in t ? (
+                    t.href ? (
+                      <Link href={t.href} className="iv-faces__link" aria-label={t.name}>
+                        <Image src={t.src} alt="" fill sizes="180px" className={`iv-faces__img${t.face ? " is-face" : ""}`} />
+                        {t.code ? <span className="iv-faces__code" aria-hidden>{t.code}</span> : null}
+                        <span className="iv-faces__name" aria-hidden>{t.name}</span>
+                      </Link>
+                    ) : (
+                      <span className="iv-faces__link is-current" aria-hidden>
+                        <Image src={t.src} alt="" fill sizes="(min-width: 960px) 18rem, 1px" className="iv-faces__img" priority />
+                        {t.code ? <span className="iv-faces__code">{t.code}</span> : null}
+                        <span className="iv-faces__cover">
+                          {indexLabel !== t.name ? <small>{indexLabel}</small> : null}
+                          {t.name}
+                        </span>
+                      </span>
+                    )
+                  ) : (
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}${t.text ? " is-text" : ""}`}>
+                      <span className="iv-faces__stat-icon" aria-hidden="true">
+                        <t.icon />
+                      </span>
+                      <strong>
+                        {t.num}
+                        <small>{t.unit}</small>
+                      </strong>
+                      <span>{t.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+              <li className="iv-faces__item">
+                <Link href="/candidater" className="iv-faces__link iv-faces__more is-cta">
+                  <IconArrowRight />
+                  <span className="iv-faces__more-label">Candidater</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
@@ -195,7 +254,7 @@ export default async function SeminairePage({ params }: Props) {
         <Container className="sem-body__layout">
           <div className="sem-body__main">
             <div className="sem-objectif">
-              <p className="sem-kicker">Objectif</p>
+              <p className="sem-kicker sem-objectif__kicker"><KickerIcon label="Objectif" />Objectif</p>
               <p className="sem-objectif__text">{plain(detail.objectif)}</p>
             </div>
 
@@ -208,20 +267,23 @@ export default async function SeminairePage({ params }: Props) {
                     { n: "02", label: "Approfondissement", day: detail.jour2 },
                   ].map((part) => (
                     <li key={part.n} className="sem-part">
-                      <p className="sem-part__head">
+                      <header className="sem-part__head">
                         <span className="sem-part__num">{part.n}</span>
-                        Partie {Number(part.n)} · {part.label}
-                      </p>
-                      <dl className="sem-part__steps">
-                        <div>
-                          <dt>Premier temps</dt>
-                          <dd>{part.day.matin}</dd>
-                        </div>
-                        <div>
-                          <dt>Second temps</dt>
-                          <dd>{part.day.apresMidi}</dd>
-                        </div>
-                      </dl>
+                        <span className="sem-part__titles">
+                          <span className="sem-part__kicker">Partie {Number(part.n)}</span>
+                          <span className="sem-part__title">{part.label}</span>
+                        </span>
+                      </header>
+                      <ol className="sem-part__steps">
+                        <li>
+                          <span className="sem-part__step">Premier temps</span>
+                          <p>{part.day.matin}</p>
+                        </li>
+                        <li>
+                          <span className="sem-part__step">Second temps</span>
+                          <p>{part.day.apresMidi}</p>
+                        </li>
+                      </ol>
                     </li>
                   ))}
                 </ol>
@@ -240,74 +302,63 @@ export default async function SeminairePage({ params }: Props) {
             ) : null}
 
             {people.length > 0 ? (
-              <div className="sem-block" aria-labelledby="sem-faculty-title">
+              <div id="intervenants" className="sem-block" aria-labelledby="sem-faculty-title">
                 <h2 id="sem-faculty-title" className="sem-block__title">
                   {people.length > 1 ? "Les intervenants" : "L’intervenant"}
                 </h2>
-                <ul className="sem-faculty__grid">
-                  {people.map((p) => (
-                    <SpeakerCard key={p.slug} person={p} />
+                <ul className="iv-grid sem-faculty__cards">
+                  {people.map((p, i) => (
+                    <li key={p.slug}>
+                      <SpeakerCard person={p} index={i} sessions={bySpeaker.get(p.slug) ?? []} />
+                    </li>
                   ))}
                 </ul>
               </div>
             ) : null}
 
             <nav className="sem-pager" aria-label="Séances adjacentes">
-              {prev ? (
-                <Link
-                  href={sessionHref(prev)}
-                  className="sem-pager__link is-prev"
-                >
-                  <span>← Séance précédente</span>
-                  <strong>{plain(prev.titre)}</strong>
-                  <em>
-                    {sessionLabel(prev)}{" "}
-                    · {prev.dates}
-                  </em>
-                </Link>
-              ) : (
-                <span />
-              )}
-              {next ? (
-                <Link
-                  href={sessionHref(next)}
-                  className="sem-pager__link is-next"
-                >
-                  <span>Séance suivante →</span>
-                  <strong>{plain(next.titre)}</strong>
-                  <em>
-                    {sessionLabel(next)}{" "}
-                    · {next.dates}
-                  </em>
-                </Link>
-              ) : (
-                <span />
-              )}
+              {prev ? <PagerLink session={prev} dir="prev" /> : <span />}
+              {next ? <PagerLink session={next} dir="next" /> : <span />}
             </nav>
           </div>
 
           <section className="sem-side" aria-label="En bref">
             <div className="sem-side__card">
-              <p className="sem-side__title">En bref</p>
+              <header className="sem-side__head">
+                <p className="sem-side__title">En bref</p>
+                <span className="sem-side__code">{indexLabel}</span>
+              </header>
               <dl className="sem-side__facts">
                 <div>
-                  <dt>Date</dt>
+                  <dt>
+                    <IconCal />
+                    Date
+                  </dt>
                   <dd>{s.dates}</dd>
                 </div>
                 {s.horaire ? (
                   <div>
-                    <dt>Horaire</dt>
+                    <dt>
+                      <IconClock />
+                      Horaire
+                    </dt>
                     <dd>{s.horaire}</dd>
                   </div>
                 ) : null}
                 {s.heures ? (
                   <div>
-                    <dt>Durée</dt>
+                    <dt>
+                      <IconGauge />
+                      Durée
+                    </dt>
                     <dd>{s.heures}&nbsp;h</dd>
                   </div>
                 ) : null}
                 <div>
-                  <dt>Lieu</dt>
+                  <dt>
+                    <IconPin />
+                    Lieu
+                  </dt>
                   <dd>{lieu}</dd>
                 </div>
               </dl>
@@ -316,7 +367,7 @@ export default async function SeminairePage({ params }: Props) {
                   {people.map((p) => (
                     <li key={p.slug}>
                       <Link
-                        href={`/intervenants#${p.slug}`}
+                        href="#intervenants"
                         className="sem-side__person"
                       >
                         {facultyHasPhoto(p) ? (
@@ -336,11 +387,11 @@ export default async function SeminairePage({ params }: Props) {
                           </span>
                         )}
                         <span>
-                          <span className="sem-side__person-label">
-                            Intervenant
-                          </span>
                           <span className="sem-side__person-name">
                             {plain(p.nom)}
+                          </span>
+                          <span className="sem-side__person-label">
+                            {plain(p.fonction)}
                           </span>
                         </span>
                       </Link>
@@ -372,14 +423,49 @@ export default async function SeminairePage({ params }: Props) {
 
       <PriceBand />
 
-      <section className="sem-others">
-        <Container>
-          <header className="sem-others__head">
-            <p className="sem-kicker">Le programme</p>
-            <h2 className="sem-others__title">Les autres séances</h2>
-          </header>
-          <div className="sem-others__grid">
-            <ProgrammeGrid excludeNumero={s.numero} />
+      <section className="prog sem-others" aria-labelledby="sem-others-title">
+        <Container className="prog__inner">
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="prog__index"><KickerIcon label="Le programme" />Le programme</p>
+                <h2 id="sem-others-title" className="prog__title">
+                  Les autres <em>séances</em>
+                </h2>
+                <p className="carousel-head__lead">
+                  {next
+                    ? `Prochaine étape : ${plain(next.titre)}, ${plain(next.dates).toLowerCase()}.`
+                    : "Chaque séance produit une pièce de votre transformation, jusqu’à la soutenance des projets."}
+                </p>
+              </header>
+            }
+            slides={others.map((x) => (
+              <Link key={x.numero} href={sessionHref(x)} className="prog-piece">
+                <span className="prog-piece__media" aria-hidden="true">
+                  <Image src={seminarImage(x.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 80vw" />
+                </span>
+                <span className="prog-piece__row">
+                  <span className="prog-piece__num">{sessionCode(x)}</span>
+                  <span className="prog-piece__date">{plain(x.dates)}</span>
+                </span>
+                <span className="prog-piece__title">{plain(x.titre)}</span>
+                {x.livrable ? <span className="prog-piece__out">{plain(x.livrable)}</span> : null}
+                <span className="prog-piece__more">
+                  Voir la séance <IconArrowRight />
+                </span>
+              </Link>
+            ))}
+            labels={others.map((x) => `Afficher ${plain(x.titre)}`)}
+            prevLabel="Séance précédente"
+            nextLabel="Séance suivante"
+          />
+          <div className="prog__all">
+            <ButtonLink href="/programme" variant="ghost" aria-label="Voir tout le programme">
+              Voir tout le programme
+              <IconArrowRight />
+            </ButtonLink>
           </div>
         </Container>
       </section>
@@ -387,54 +473,29 @@ export default async function SeminairePage({ params }: Props) {
   );
 }
 
-function SpeakerCard({ person }: { person: FacultyShowcasePerson }) {
-  const photo = facultyHasPhoto(person);
+function PagerLink({
+  session,
+  dir,
+}: {
+  session: NonNullable<ReturnType<typeof sessionBySlug>>;
+  dir: "prev" | "next";
+}) {
   return (
-    <li className={`sem-speaker tone-${person.tone}`}>
-      <div className="sem-speaker__media" aria-hidden={!photo}>
-        {photo ? (
-          <Image
-            src={facultyPhotoSrc(person)}
-            alt=""
-            width={112}
-            height={112}
-            className="sem-speaker__img"
-          />
-        ) : (
-          <span className="sem-speaker__mono">{person.initials}</span>
-        )}
-      </div>
-      <div className="sem-speaker__body">
-        <p className="sem-speaker__name">{plain(person.nom)}</p>
-        <p className="sem-speaker__role">
-          {plain(person.fonction)}
-          {person.institution ? ` · ${plain(person.institution)}` : ""}
-        </p>
-        {person.bio ? (
-          <p className="sem-speaker__bio">{plain(person.bio)}</p>
-        ) : null}
-        <div className="sem-speaker__links">
-          <Link
-            href={`/intervenants#${person.slug}`}
-            className="sem-speaker__li"
-          >
-            Voir le profil
-            <IconArrowRight />
-          </Link>
-          {personLinkedIn(person.linkedin) ? (
-            <a
-              href={personLinkedIn(person.linkedin)}
-              className="li-icon sem-speaker__li"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Profil LinkedIn de ${plain(person.nom)}`}
-              title="LinkedIn"
-            >
-              <IconLinkedIn size={16} />
-            </a>
-          ) : null}
-        </div>
-      </div>
-    </li>
+    <Link href={sessionHref(session)} className={`sem-pager__link is-${dir}`}>
+      <span className="sem-pager__thumb" aria-hidden>
+        <Image src={seminarImage(session.numero)} alt="" fill sizes="80px" />
+      </span>
+      <span className="sem-pager__text">
+        <strong>{plain(session.titre)}</strong>
+        <em>
+          {sessionLabel(session)} · {session.dates}
+        </em>
+        <span className="sem-pager__dir card-btn">
+          {dir === "prev" ? <IconArrowRight /> : null}
+          {dir === "prev" ? "Séance précédente" : "Séance suivante"}
+          {dir === "next" ? <IconArrowRight /> : null}
+        </span>
+      </span>
+    </Link>
   );
 }
