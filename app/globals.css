@@ -16968,8 +16968,27 @@ html:has(.iv-modal[open]) {
 @media (min-width: 760px) {
   .sem-faculty__cards .iv-card__actions > a.li-btn {
     width: 2.75rem;
+    height: 2.75rem;
     padding: 0;
     justify-content: center;
+    border: 1px solid rgba(10, 102, 194, 0.28);
+    border-radius: 12px;
+    background: rgba(10, 102, 194, 0.06);
+    color: #0a66c2 !important;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn:hover,
+  .sem-faculty__cards .iv-card__actions > a.li-btn:focus-visible {
+    border-color: #0a66c2;
+    background: #0a66c2;
+    color: #fff !important;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg,
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg * {
+    color: inherit !important;
   }
   .sem-faculty__cards .li-btn__label {
     position: absolute;
