@@ -27,7 +27,14 @@ import {
 
 type Props = { params: Promise<{ slug: string }> };
 type PictureTile = { src: string; name: string; code?: string; href?: string; face?: boolean };
-type StatTile = { icon: (props: { size?: number }) => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean };
+type StatTile = {
+  icon: (props: { size?: number }) => React.JSX.Element;
+  num: string;
+  unit: string;
+  label: string;
+  dark?: boolean;
+  text?: boolean;
+};
 
 export function generateStaticParams() {
   return allSessions().flatMap((s) => {
@@ -95,34 +102,26 @@ export default async function SeminairePage({ params }: Props) {
   const total = seq.length - 1;
   const day = /^(\p{L}+)\s+(\d{1,2})\s+(\p{L}+)/u.exec(plain(s.dates));
   const month = day ? (day[3].length > 4 ? `${day[3].slice(0, 3)}.` : day[3]) : "";
-  const pictures: PictureTile[] = [
-    { src: cover, name: plain(s.titre), code: sessionCode(s) },
-    ...people
-      .filter((p) => facultyHasPhoto(p))
-      .map((p) => ({ src: facultyPhotoSrc(p), name: plain(p.nom), href: "#intervenants", face: true })),
-    ...[next, prev, ...seq.filter((x) => x !== s && x !== next && x !== prev)]
-      .filter((x): x is NonNullable<typeof x> => Boolean(x))
-      .map((x) => ({ src: seminarImage(x.numero), name: plain(x.titre), code: sessionCode(x), href: sessionHref(x) })),
-  ].slice(0, 5);
-  const stats: StatTile[] = [
-    day
-      ? { icon: IconCal, num: day[2], unit: month, label: day[1] }
-      : { icon: IconCal, num: plain(s.dates), unit: "", label: plain(s.horaire) },
+  const city = lieu.split(/\s+/).pop() ?? lieu;
+  const faces: PictureTile[] = people
+    .filter((p) => facultyHasPhoto(p))
+    .slice(0, 2)
+    .map((p) => ({ src: facultyPhotoSrc(p), name: plain(p.nom), href: "#intervenants", face: true }));
+  const extras: StatTile[] = [
+    { icon: IconMap, num: city, unit: "", label: lieu.slice(0, lieu.length - city.length).trim() || "Campus ISCAE", text: true },
     inaug
       ? { icon: IconGrid, num: String(total), unit: "séances", label: "au programme" }
       : { icon: IconGrid, num: String(i), unit: `/ ${total}`, label: "séance du cycle" },
-    { icon: IconClock, num: String(s.heures ?? ""), unit: "h", label: "de formation en présentiel", dark: true },
   ];
   const tiles: (PictureTile | StatTile)[] = [
-    pictures[0],
-    stats[0],
-    pictures[1],
-    stats[1],
-    pictures[2],
-    pictures[3],
-    pictures[4],
-    stats[2],
-  ].filter(Boolean);
+    { src: cover, name: plain(s.titre), code: sessionCode(s) },
+    day
+      ? { icon: IconCal, num: day[2], unit: month, label: day[1] }
+      : { icon: IconCal, num: plain(s.dates), unit: "", label: plain(s.horaire) },
+    { icon: IconClock, num: String(s.heures ?? ""), unit: "h", label: plain(s.horaire), dark: true },
+    ...faces,
+    ...extras.slice(0, 2 - faces.length),
+  ];
 
   return (
     <>
@@ -215,12 +214,16 @@ export default async function SeminairePage({ params }: Props) {
                       </Link>
                     ) : (
                       <span className="iv-faces__link is-current" aria-hidden>
-                        <Image src={t.src} alt="" fill sizes="180px" className="iv-faces__img" priority />
+                        <Image src={t.src} alt="" fill sizes="(min-width: 960px) 18rem, 1px" className="iv-faces__img" priority />
                         {t.code ? <span className="iv-faces__code">{t.code}</span> : null}
+                        <span className="iv-faces__cover">
+                          {indexLabel !== t.name ? <small>{indexLabel}</small> : null}
+                          {t.name}
+                        </span>
                       </span>
                     )
                   ) : (
-                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}`}>
+                    <span className={`iv-faces__link iv-faces__stat${t.dark ? " is-dark" : ""}${t.text ? " is-text" : ""}`}>
                       <span className="iv-faces__stat-icon" aria-hidden="true">
                         <t.icon />
                       </span>

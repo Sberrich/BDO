@@ -16338,3 +16338,44 @@ html:has(.iv-modal[open]) {
 #intervenants {
   scroll-margin-top: 6rem;
 }
+.iv-faces.is-seminar .iv-faces__item {
+  transform: none;
+}
+.iv-faces.is-seminar .iv-faces__item.is-1 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.iv-faces.is-seminar .iv-faces__item.is-1 .iv-faces__link {
+  height: 100%;
+  aspect-ratio: auto;
+}
+.iv-faces.is-seminar .iv-faces__item.is-1 .iv-faces__code {
+  top: 0.85rem;
+  left: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8125rem;
+}
+.iv-faces__cover {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 2.5rem 1rem 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff !important;
+  background: linear-gradient(to top, rgba(0, 20, 45, 0.9), transparent);
+}
+.iv-faces__cover small {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.iv-faces .iv-faces__stat.is-text strong {
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
