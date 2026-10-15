@@ -16808,3 +16808,8 @@ html:has(.iv-modal[open]) {
   color: #fff !important;
 }
 #questions { scroll-margin-top: 5rem; }
+
+/* Publication cards: same grey gradient stage as the speaker portraits */
+.pub-card .pub-card__visual {
+  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
+}
