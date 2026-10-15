@@ -17117,3 +17117,11 @@ html:has(.iv-modal[open]) {
 .sem-pager__link.is-next .sem-pager__dir.card-btn {
   align-self: flex-start;
 }
+@media (min-width: 641px) {
+  .sem-pager__link.is-prev .sem-pager__thumb {
+    order: 2;
+  }
+  .sem-pager__link.is-prev .sem-pager__text {
+    order: 1;
+  }
+}
