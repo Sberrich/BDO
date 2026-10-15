@@ -25,6 +25,19 @@ function pagesTexture(THREE: typeof import("three")) {
   return t;
 }
 
+/** Soft contact shadow under the floating book. */
+function shadowTexture(THREE: typeof import("three")) {
+  const c = document.createElement("canvas");
+  c.width = c.height = 128;
+  const g = c.getContext("2d")!;
+  const r = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  r.addColorStop(0, "rgba(0,32,64,0.35)");
+  r.addColorStop(1, "rgba(0,32,64,0)");
+  g.fillStyle = r;
+  g.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(c);
+}
+
 export function BookCover3D({ cover, size, children }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
@@ -98,6 +111,14 @@ export function BookCover3D({ cover, size, children }: Props) {
       pivot.add(book);
       scene.add(pivot);
 
+      const shadow = new THREE.Mesh(
+        new THREE.PlaneGeometry(bookW * 1.5, bookW * 0.5),
+        new THREE.MeshBasicMaterial({ map: shadowTexture(THREE), transparent: true, depthWrite: false }),
+      );
+      shadow.rotation.x = -Math.PI / 2;
+      shadow.position.y = -bookH / 2 - 0.35;
+      scene.add(shadow);
+
       const resize = () => {
         const host = el.getBoundingClientRect();
         const r = renderer.domElement.getBoundingClientRect();
@@ -151,6 +172,10 @@ export function BookCover3D({ cover, size, children }: Props) {
         pivot.rotation.y = -0.42 + Math.sin(t * 0.55) * 0.1 + cur.x * 0.55 + hover * 0.22;
         pivot.rotation.x = 0.06 + cur.y * 0.3 + Math.sin(t * 0.8) * 0.02;
         pivot.rotation.z = -0.02 + Math.sin(t * 0.45) * 0.015;
+
+        const s = 1 - (float + 0.06) * 0.6;
+        shadow.scale.set(s, s, 1);
+        (shadow.material as InstanceType<typeof THREE.MeshBasicMaterial>).opacity = 0.75 - float * 2;
 
         glint.intensity = 1.6 * hover;
         glint.position.x = cur.x * 2;
