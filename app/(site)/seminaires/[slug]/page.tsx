@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { PriceBand } from "@/components/PriceBand";
 import { SpeakerCard } from "@/components/SpeakerCard";
-import { ProgrammeGrid } from "@/components/ProgrammeGrid";
+import { LoopCarousel } from "@/components/LoopCarousel";
 import { getIntervenants } from "@/lib/cms";
 import { sessionsBySpeaker } from "@/lib/speakers";
 import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
@@ -90,6 +90,7 @@ export default async function SeminairePage({ params }: Props) {
     })
     .filter((p): p is FacultyShowcasePerson => Boolean(p));
   const bySpeaker = sessionsBySpeaker();
+  const others = [...seq.slice(i + 1), ...seq.slice(0, i)];
   const inaug = s.numero === 0;
   const detail = s as {
     jour1?: { matin: string; apresMidi: string };
@@ -422,14 +423,49 @@ export default async function SeminairePage({ params }: Props) {
 
       <PriceBand />
 
-      <section className="sem-others">
-        <Container>
-          <header className="sem-others__head">
-            <p className="sem-kicker">Le programme</p>
-            <h2 className="sem-others__title">Les autres séances</h2>
-          </header>
-          <div className="sem-others__grid">
-            <ProgrammeGrid excludeNumero={s.numero} />
+      <section className="prog sem-others" aria-labelledby="sem-others-title">
+        <Container className="prog__inner">
+          <LoopCarousel
+            className="is-cards"
+            centered
+            heading={
+              <header className="carousel-head">
+                <p className="prog__index"><KickerIcon label="Le programme" />Le programme</p>
+                <h2 id="sem-others-title" className="prog__title">
+                  Les autres <em>séances</em>
+                </h2>
+                <p className="carousel-head__lead">
+                  {next
+                    ? `Prochaine étape : ${plain(next.titre)}, ${plain(next.dates).toLowerCase()}.`
+                    : "Chaque séance produit une pièce de votre transformation, jusqu’à la soutenance des projets."}
+                </p>
+              </header>
+            }
+            slides={others.map((x) => (
+              <Link key={x.numero} href={sessionHref(x)} className="prog-piece">
+                <span className="prog-piece__media" aria-hidden="true">
+                  <Image src={seminarImage(x.numero)} alt="" fill sizes="(min-width: 900px) 22rem, (min-width: 640px) 45vw, 80vw" />
+                </span>
+                <span className="prog-piece__row">
+                  <span className="prog-piece__num">{sessionCode(x)}</span>
+                  <span className="prog-piece__date">{plain(x.dates)}</span>
+                </span>
+                <span className="prog-piece__title">{plain(x.titre)}</span>
+                {x.livrable ? <span className="prog-piece__out">{plain(x.livrable)}</span> : null}
+                <span className="prog-piece__more">
+                  Voir la séance <IconArrowRight />
+                </span>
+              </Link>
+            ))}
+            labels={others.map((x) => `Afficher ${plain(x.titre)}`)}
+            prevLabel="Séance précédente"
+            nextLabel="Séance suivante"
+          />
+          <div className="prog__all">
+            <ButtonLink href="/programme" variant="ghost" aria-label="Voir tout le programme">
+              Voir tout le programme
+              <IconArrowRight />
+            </ButtonLink>
           </div>
         </Container>
       </section>
