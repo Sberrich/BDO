@@ -17220,3 +17220,21 @@ html:has(.iv-modal[open]) {
     font-size: 0.9375rem;
   }
 }
+
+/* Séance cards: titles and descriptions take the same room on every card */
+.prog-piece .prog-piece__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: calc(2 * 1.3em);
+  line-height: 1.3;
+}
+.prog-piece .prog-piece__out {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: calc(3 * 1.55em);
+  line-height: 1.55;
+}
