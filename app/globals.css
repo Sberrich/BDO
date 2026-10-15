@@ -16379,3 +16379,11 @@ html:has(.iv-modal[open]) {
   font-size: 1.15rem;
   letter-spacing: -0.01em;
 }
+
+/* Séminaire hero: the mosaic carries date, hours and place on desktop */
+@media (min-width: 960px) {
+  .sem-hero:has(.iv-faces.is-seminar) .sem-steps,
+  .sem-hero:has(.iv-faces.is-seminar) .sem-hero__meta {
+    display: none;
+  }
+}
