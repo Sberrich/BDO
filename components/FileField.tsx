@@ -14,7 +14,7 @@ function extension(name: string) {
 
 /**
  * File picker with a light button, then a chip showing the chosen file (thumbnail for images)
- * with view, replace and remove icon buttons. The native input stays in the form for FormData
+ * with a single « Modifier » button that reopens the picker. The native input stays in the form for FormData
  * and constraint validation.
  */
 export function FileField({
@@ -45,15 +45,8 @@ export function FileField({
     onFileChange(e);
   }
 
-  function remove() {
-    const input = inputRef.current;
-    if (!input) return;
-    input.value = "";
-    input.dispatchEvent(new Event("change", { bubbles: true }));
-    input.focus();
-  }
-
   const isImage = file?.type.startsWith("image/");
+  const isPdf = file ? extension(file.name) === "PDF" : false;
 
   return (
     <div className="block min-w-0 text-sm font-semibold">
@@ -77,7 +70,7 @@ export function FileField({
         />
         {file ? (
           <>
-            <span className="file-field__thumb" aria-hidden>
+            <span className={`file-field__thumb${isPdf ? " is-pdf" : ""}`} aria-hidden>
               {/* eslint-disable-next-line @next/next/no-img-element -- local object URL preview */}
               {isImage && url ? <img src={url} alt="" /> : <span>{extension(file.name)}</span>}
             </span>
@@ -90,45 +83,17 @@ export function FileField({
               </span>
             </span>
             <span className="file-field__actions">
-              {url ? (
-                <a
-                  className="file-field__btn"
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Voir ${file.name}`}
-                  title="Voir"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </a>
-              ) : null}
               <button
                 type="button"
-                className="file-field__btn"
+                className="file-field__edit"
                 onClick={() => inputRef.current?.click()}
-                aria-label={`Remplacer ${file.name}`}
-                title="Remplacer"
+                aria-label={`Modifier ${file.name}`}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" />
-                  <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
-                  <path d="M21 3v5h-5M3 21v-5h5" />
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
                 </svg>
-              </button>
-              <button
-                type="button"
-                className="file-field__btn is-danger"
-                onClick={remove}
-                aria-label={`Retirer ${file.name}`}
-                title="Retirer"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
-                  <path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6M10 11v6M14 11v6" />
-                </svg>
+                Modifier
               </button>
             </span>
           </>
