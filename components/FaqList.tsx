@@ -237,16 +237,10 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
                           className="faq-answer faq-answer__short"
                           dangerouslySetInnerHTML={{ __html: rich(item.court) }}
                         />
-                        <details className="faq-detail">
-                          <summary className="faq-detail__toggle">
-                            <span className="faq-detail__more">Voir le détail</span>
-                            <span className="faq-detail__less">Masquer le détail</span>
-                          </summary>
-                          <div
-                            className="faq-answer faq-detail__body"
-                            dangerouslySetInnerHTML={{ __html: rich(item.r) }}
-                          />
-                        </details>
+                        <div
+                          className="faq-answer faq-detail__body"
+                          dangerouslySetInnerHTML={{ __html: rich(item.r) }}
+                        />
                         {item.lien && (
                           <p className="faq-item__link">
                             <a href={appHref(item.lien.href)}>

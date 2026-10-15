@@ -81,12 +81,6 @@ const DOCS: Record<
   },
 };
 
-const PUB_TYPE: Record<string, string> = {
-  brochure: "Brochure · PDF",
-  barometre: "Enquête · PDF",
-  livreblanc: "Livre blanc · PDF",
-};
-
 export function resourceMetadata(kind: DocKind): Metadata {
   const d = DOCS[kind];
   return { title: d.metaTitle, description: d.metaDesc };
@@ -179,7 +173,6 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
                       ) : null}
                     </span>
                     <span className="doc-pub__body">
-                      <span className="doc-pub__type">{PUB_TYPE[r.icon] ?? "Publication"}</span>
                       <span className="doc-pub__title">{r.label}</span>
                       <span className="doc-pub__desc">{r.desc}</span>
                       <span className="doc-pub__more">

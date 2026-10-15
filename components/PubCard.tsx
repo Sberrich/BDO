@@ -5,7 +5,6 @@ import { IconArrowRight } from "@/components/icons";
 
 type Props = {
   href: string;
-  type: string;
   title: string;
   text: string;
   action: string;
@@ -20,7 +19,6 @@ type Props = {
 
 export function PubCard({
   href,
-  type,
   title,
   text,
   action,
@@ -57,7 +55,6 @@ export function PubCard({
         )}
       </span>
       <span className="pub-card__body">
-        <span className="pub-card__type">{type}</span>
         <span className="pub-card__title">{title}</span>
         <span className="pub-card__text">{text}</span>
         {children}

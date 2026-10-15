@@ -13,12 +13,6 @@ export const metadata: Metadata = {
   description: "Brochure, Baromètre BDO des DAF, livre blanc et playlists vidéo du certificat CFO 4.0.",
 };
 
-const TYPES: Record<string, string> = {
-  brochure: "Brochure · PDF",
-  barometre: "Enquête · PDF",
-  livreblanc: "Livre blanc · PDF",
-};
-
 export default async function RessourcesPage() {
   const docs = RESOURCES_MENU.filter((r) => r.cover);
   const playlists = groupPlaylists(await getVideos());
@@ -82,7 +76,6 @@ export default async function RessourcesPage() {
               <li key={r.href}>
                 <PubCard
                   href={r.href}
-                  type={TYPES[r.icon] ?? "Publication"}
                   title={r.label}
                   text={r.desc}
                   action="Recevoir le document"
@@ -98,7 +91,6 @@ export default async function RessourcesPage() {
               <IconPlay />
             </span>
             <span className="res-insights__copy">
-              <span className="pub-card__type">Playlists</span>
               <span className="res-insights__title">Le certificat en vidéo</span>
               <span className="res-insights__go">
                 Voir les vidéos

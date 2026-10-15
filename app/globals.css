@@ -16246,8 +16246,6 @@ html:has(.iv-modal[open]) {
 
 /* Standalone « next » buttons (label + right arrow) sit on the right */
 @media (min-width: 641px) {
-  .prog__all,
-  .faculty__more,
   .doc-others__foot {
     justify-content: flex-end;
     text-align: right;
@@ -16901,4 +16899,411 @@ html:has(.iv-modal[open]) {
 }
 .rappel-contacts__wide {
   grid-column: 1 / -1;
+}
+
+/* Home speaker carousel: « Voir le profil » opens the profile popup */
+.faculty-card__body {
+  display: flex;
+  flex-direction: column;
+}
+.faculty-card .faculty-card__profile {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-top: auto;
+  padding: 0 1.25rem;
+  border: 1px solid #e4e9ee;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--brand-navy) !important;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.faculty-card .faculty-card__profile svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.faculty-card .faculty-card__profile:hover,
+.faculty-card .faculty-card__profile:focus-visible {
+  border-color: var(--brand-navy);
+}
+.faculty-card__role + .faculty-card__profile,
+.faculty-card__li + .faculty-card__profile {
+  margin-top: 1rem;
+}
+@media (max-width: 640px) {
+  .faculty-card .faculty-card__profile {
+    align-self: stretch;
+    min-height: 3.1875rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+}
+.is-faculty .faculty-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.is-faculty .faculty-card__body {
+  flex: 1 1 auto;
+}
+.faculty-card .faculty-card__body > .faculty-card__profile {
+  margin-top: auto;
+}
+.faculty-card__body:has(> .faculty-card__profile) {
+  gap: 0;
+}
+.faculty-card__body > .faculty-card__role {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 760px) {
+  .sem-faculty__cards .iv-card__actions > a.li-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    justify-content: center;
+    border: 1px solid rgba(10, 102, 194, 0.28);
+    border-radius: 12px;
+    background: rgba(10, 102, 194, 0.06);
+    color: #0a66c2 !important;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn:hover,
+  .sem-faculty__cards .iv-card__actions > a.li-btn:focus-visible {
+    border-color: #0a66c2;
+    background: #0a66c2;
+    color: #fff !important;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg,
+  .sem-faculty__cards .iv-card__actions > a.li-btn svg * {
+    color: inherit !important;
+  }
+  .sem-faculty__cards .li-btn__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Séminaire pager: flush square image filling the card's side */
+.sem-pager .sem-pager__link,
+.sem-pager .sem-pager__link.is-next {
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.sem-pager .sem-pager__thumb {
+  flex: 0 0 7.5rem;
+  height: auto;
+  min-height: 7.5rem;
+  border-radius: 0;
+}
+.sem-pager .sem-pager__text,
+.sem-pager__link.is-next .sem-pager__text {
+  justify-content: center;
+  padding: 1.1rem 1.15rem;
+  text-align: left;
+}
+.sem-pager__link.is-next .sem-pager__dir.card-btn {
+  align-self: flex-end;
+}
+@media (max-width: 640px) {
+  .sem-pager .sem-pager__thumb {
+    flex-basis: 7rem;
+    min-height: 7rem;
+  }
+  .sem-pager .sem-pager__text,
+  .sem-pager__link.is-next .sem-pager__text {
+    padding: 1rem 1.1rem;
+  }
+  .sem-pager__link.is-next .sem-pager__dir.card-btn {
+    align-self: flex-start;
+  }
+}
+
+/* Home carousels: full-width card CTA pinned to the bottom */
+#programme .prog-piece .prog-piece__more,
+.faculty-card .faculty-card__profile {
+  align-self: stretch !important;
+  width: 100%;
+  margin-top: auto;
+}
+#programme .prog-piece__out {
+  margin-bottom: 1.25rem;
+}
+.faculty-card__body > .faculty-card__role {
+  margin-bottom: 1.1rem;
+}
+
+/* Hover system: standalone outline buttons fill their background;
+   buttons inside a card stay still and the card's border lights up instead */
+.btn-outline,
+.faq-item__link a {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:is(:hover, :focus-visible),
+.faq-item__link a:is(:hover, :focus-visible) {
+  border-color: #e4e9ee !important;
+  background: #eef2f6 !important;
+  color: var(--brand-navy) !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card) {
+  transition: border-color 0.2s ease, transform 0.25s var(--ease-out);
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile),
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile) {
+  border-color: #e4e9ee !important;
+  background: #fff !important;
+  color: var(--brand-navy) !important;
+}
+
+/* All card CTAs: full width, pinned to the bottom of the card */
+:is(.prog-piece, .pub-card, .doc-pub) {
+  display: flex;
+  flex-direction: column;
+}
+:is(.pub-card__body, .doc-pub__body) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more) {
+  align-self: stretch !important;
+  width: 100% !important;
+  margin-top: auto !important;
+}
+:is(.prog-piece__out, .pub-card__text, .pub-card__desc, .doc-pub__text, .doc-pub__desc) {
+  margin-bottom: 1.25rem;
+}
+
+/* Standalone outline buttons fill navy on hover, like the hero « Recevoir la brochure » */
+.btn-outline:is(:hover, :focus-visible),
+.faq-item__link a:is(:hover, :focus-visible) {
+  border-color: #0b2545 !important;
+  background: #0b2545 !important;
+  color: #fff !important;
+}
+.btn-outline:is(:hover, :focus-visible) :is(svg, svg *),
+.faq-item__link a:is(:hover, :focus-visible) :is(svg, svg *) {
+  color: #fff !important;
+}
+
+/* Séminaire pager: both cards read image → text → button */
+.sem-pager__link.is-next .sem-pager__thumb {
+  order: 0;
+}
+.sem-pager__link.is-next .sem-pager__text {
+  order: 1;
+}
+.sem-pager__link.is-next .sem-pager__dir.card-btn {
+  align-self: flex-start;
+}
+@media (min-width: 641px) {
+  .sem-pager__link.is-prev .sem-pager__thumb {
+    order: 2;
+  }
+  .sem-pager__link.is-prev .sem-pager__text {
+    order: 1;
+  }
+}
+
+/* FAQ answers open in full; their CTA sits on the right */
+.faq-item__link {
+  display: flex;
+  justify-content: flex-end;
+}
+@media (min-width: 1024px) {
+  .adm-faq__inner {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  }
+  .adm-faq__head {
+    order: 2;
+  }
+}
+.faq-panel__inner > .faq-detail__body.faq-answer {
+  padding: 0.6rem 1.35rem 0.25rem;
+}
+
+/* FAQ everywhere: one card per question, as on Admissions */
+.faq-explorer .faq-accordion {
+  display: grid;
+  gap: 0.6rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.faq-explorer .faq-item,
+.faq-explorer .faq-item:first-child {
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  background: #fff;
+  transition: border-color 0.25s ease;
+}
+.faq-explorer .faq-item:hover {
+  border-color: rgba(0, 32, 64, 0.2);
+}
+.faq-explorer .faq-item.is-open {
+  border-color: rgba(0, 55, 104, 0.45);
+  background: #fff;
+}
+.faq-explorer .faq-item__trigger {
+  align-items: center;
+}
+.faq-explorer .faq-item__icon {
+  margin-top: 0;
+}
+.faq-item.is-open .faq-item__icon,
+.faq-item.is-open .faq-item__trigger:hover .faq-item__icon {
+  transform: none;
+}
+
+/* Admissions FAQ: help panel beside the questions */
+.adm-faq__help {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  background: #fff;
+}
+.adm-faq__help-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+.adm-faq__help-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-muted, #5b6b7c);
+}
+.adm-faq__help-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+.adm-faq__help-ctas > a {
+  flex: 1 1 auto;
+  min-height: 3rem;
+  font-size: 0.875rem;
+}
+@media (max-width: 640px) {
+  .adm-faq__help-ctas > a {
+    flex-basis: 100%;
+    min-height: 3.1875rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+}
+
+/* Séance cards: titles and descriptions take the same room on every card */
+.prog-piece .prog-piece__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: calc(2 * 1.3em);
+  line-height: 1.3;
+}
+.prog-piece .prog-piece__out {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: calc(3 * 1.55em);
+  line-height: 1.55;
+}
+
+/* Rappel contacts: icon and value on one row, no label */
+.rappel-contact.is-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.85rem;
+}
+.rappel-contact.is-row .rappel-contact__icon {
+  flex-shrink: 0;
+  margin: 0;
+}
+.rappel-contact.is-row .rappel-contact__value {
+  min-width: 0;
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .rappel-contacts {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+.rappel-contact.is-row .rappel-contact__value {
+  white-space: nowrap;
+}
+
+/* Hover accents are blue, never red (red stays for the primary buttons) */
+:is(.iv-modal__session, .iv-sem, .iv-card__sem):is(:hover, :focus-visible) {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+  background: rgba(0, 55, 104, 0.03) !important;
+}
+.iv-card__sem:hover span,
+:is(.iv-sem:hover, .iv-sem:focus-visible) .iv-sem__go,
+:is(.prog-board__row:hover, .prog-board__row:focus-visible) .prog-board__arrow,
+:is(.sem-pager__link:hover, .sem-pager__link:focus-visible) .sem-pager__go,
+:is(.site-header__dd-item, .site-header__mobile-sublink):hover .site-header__dd-cover.is-icon,
+.prog-piece:hover .prog-piece__num {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+.prog-board__month .prog-board__row:hover .prog-board__day {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+}
+:is(.home-sec__link, .sem-pager__link .sem-pager__dir):is(:hover, :focus-visible),
+.sem-pager__link:hover .sem-pager__dir {
+  color: var(--brand-navy) !important;
+}
+:is(.trophy-card__perk-link, .about-card__link, .playlist__all):is(:hover, :focus-visible) {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+:is(.trophy-card__perk-link, .about-card__link, .playlist__all):is(:hover, :focus-visible) :is(svg, svg *) {
+  color: #fff !important;
+}
+
+/* Campus map: sized by its width, so the pin stays centred at any size */
+.rappel-map,
+.rappel-map {
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  min-height: 13rem;
+  max-height: 22rem;
+}
+@media (max-width: 640px) {
+  .rappel-map {
+    aspect-ratio: 4 / 3;
+    min-height: 15rem;
+  }
 }

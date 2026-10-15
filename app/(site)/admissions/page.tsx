@@ -235,14 +235,24 @@ export default function AdmissionsPage() {
             <p className="adm-head__lead">
               Les réponses aux questions que l’on nous pose le plus sur l’admission et le financement.
             </p>
-            <div className="adm-faq__ctas">
-              <ButtonLink href="/faq" variant="ghost" className="adm-faq__all">
-                Voir toutes les questions
-                <IconArrowRight />
-              </ButtonLink>
-              <a href="#rappel" className="adm-faq__rappel">
-                Une autre question ? Être rappelé
-              </a>
+            <div className="adm-faq__help">
+              <span className="rappel-contact__icon" aria-hidden="true">
+                <IconPhone />
+              </span>
+              <p className="adm-faq__help-title">Une autre question ?</p>
+              <p className="adm-faq__help-text">
+                Un conseiller vous rappelle sous 24 h ouvrées pour en parler, sans engagement.
+              </p>
+              <div className="adm-faq__help-ctas">
+                <ButtonLink href="/faq" variant="ghost">
+                  <IconBook />
+                  Toutes les questions
+                </ButtonLink>
+                <ButtonLink href="#rappel">
+                  Être rappelé
+                  <IconArrowRight />
+                </ButtonLink>
+              </div>
             </div>
           </header>
           <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} />
@@ -260,36 +270,12 @@ export default function AdmissionsPage() {
               règlent mieux au téléphone.
             </p>
             <ul className="rappel-contacts">
-              <li>
-                <a href={BRAND.phoneHref} className="rappel-contact">
-                  <span className="rappel-contact__icon" aria-hidden="true"><IconPhone /></span>
-                  <span className="rappel-contact__label">Téléphone</span>
-                  <span className="rappel-contact__value">{BRAND.phone}</span>
-                </a>
-              </li>
-              <li>
-                <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="rappel-contact">
-                  <span className="rappel-contact__icon is-wa" aria-hidden="true"><IconWhatsApp /></span>
-                  <span className="rappel-contact__label">WhatsApp</span>
-                  <span className="rappel-contact__value">Écrire un message</span>
-                </a>
-              </li>
-              <li className="rappel-contacts__wide">
-                <a href={`mailto:${plain(c.email)}`} className="rappel-contact">
-                  <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
-                  <span className="rappel-contact__label">E-mail</span>
-                  <span className="rappel-contact__value">
-                    {plain(c.email).split("@")[0]}@<wbr />
-                    {plain(c.email).split("@")[1]}
-                  </span>
-                </a>
-              </li>
               <li className="rappel-contacts__map">
                 <div className="rappel-contact is-map">
                   <iframe
                     className="rappel-map"
                     title="Plan d’accès au campus ISCAE Casablanca"
-                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=15&output=embed"
+                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=16&hl=fr&iwloc=near&output=embed"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
@@ -311,6 +297,27 @@ export default function AdmissionsPage() {
                     </a>
                   </div>
                 </div>
+              </li>
+              <li>
+                <a href={BRAND.phoneHref} className="rappel-contact is-row" aria-label={`Téléphone : ${BRAND.phone}`}>
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPhone /></span>
+                  <span className="rappel-contact__value">{BRAND.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="rappel-contact is-row" aria-label="WhatsApp : écrire un message (nouvel onglet)">
+                  <span className="rappel-contact__icon is-wa" aria-hidden="true"><IconWhatsApp /></span>
+                  <span className="rappel-contact__value">Écrire un message</span>
+                </a>
+              </li>
+              <li className="rappel-contacts__wide">
+                <a href={`mailto:${plain(c.email)}`} className="rappel-contact is-row" aria-label={`E-mail : ${plain(c.email)}`}>
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
+                  <span className="rappel-contact__value">
+                    {plain(c.email).split("@")[0]}@<wbr />
+                    {plain(c.email).split("@")[1]}
+                  </span>
+                </a>
               </li>
             </ul>
           </div>
