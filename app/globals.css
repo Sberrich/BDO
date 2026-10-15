@@ -16243,3 +16243,28 @@ html:has(.iv-modal[open]) {
 .iv-faces__link:hover .iv-faces__play {
   transform: translate(-50%, -50%) scale(1.08);
 }
+
+/* Standalone « next » buttons (label + right arrow) sit on the right */
+@media (min-width: 641px) {
+  .prog__all,
+  .faculty__more,
+  .doc-others__foot {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  .constat-resolve__cta,
+  .prog-board__open-go {
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  .adm-process__cta {
+    justify-content: flex-end;
+  }
+  .adm-process__cta > span {
+    order: -1;
+    margin-right: auto;
+  }
+  .adm-faq__ctas {
+    align-items: flex-end;
+  }
+}
