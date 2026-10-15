@@ -17261,3 +17261,34 @@ html:has(.iv-modal[open]) {
 .rappel-contact.is-row .rappel-contact__value {
   white-space: nowrap;
 }
+
+/* Hover accents are blue, never red (red stays for the primary buttons) */
+:is(.iv-modal__session, .iv-sem, .iv-card__sem):is(:hover, :focus-visible) {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+  background: rgba(0, 55, 104, 0.03) !important;
+}
+.iv-card__sem:hover span,
+:is(.iv-sem:hover, .iv-sem:focus-visible) .iv-sem__go,
+:is(.prog-board__row:hover, .prog-board__row:focus-visible) .prog-board__arrow,
+:is(.sem-pager__link:hover, .sem-pager__link:focus-visible) .sem-pager__go,
+:is(.site-header__dd-item, .site-header__mobile-sublink):hover .site-header__dd-cover.is-icon,
+.prog-piece:hover .prog-piece__num {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+.prog-board__month .prog-board__row:hover .prog-board__day {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+}
+:is(.home-sec__link, .sem-pager__link .sem-pager__dir):is(:hover, :focus-visible),
+.sem-pager__link:hover .sem-pager__dir {
+  color: var(--brand-navy) !important;
+}
+:is(.trophy-card__perk-link, .about-card__link, .playlist__all):is(:hover, :focus-visible) {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+:is(.trophy-card__perk-link, .about-card__link, .playlist__all):is(:hover, :focus-visible) :is(svg, svg *) {
+  color: #fff !important;
+}
