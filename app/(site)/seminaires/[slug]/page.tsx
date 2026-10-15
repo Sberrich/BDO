@@ -450,13 +450,15 @@ function PagerLink({
         <Image src={seminarImage(session.numero)} alt="" fill sizes="80px" />
       </span>
       <span className="sem-pager__text">
-        <span className="sem-pager__dir">
-          {dir === "prev" ? "← Séance précédente" : "Séance suivante →"}
-        </span>
         <strong>{plain(session.titre)}</strong>
         <em>
           {sessionLabel(session)} · {session.dates}
         </em>
+        <span className="sem-pager__dir card-btn">
+          {dir === "prev" ? <IconArrowRight /> : null}
+          {dir === "prev" ? "Séance précédente" : "Séance suivante"}
+          {dir === "next" ? <IconArrowRight /> : null}
+        </span>
       </span>
     </Link>
   );
