@@ -16999,3 +16999,40 @@ html:has(.iv-modal[open]) {
     white-space: nowrap;
   }
 }
+
+/* Séminaire pager: flush square image filling the card's side */
+.sem-pager .sem-pager__link,
+.sem-pager .sem-pager__link.is-next {
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.sem-pager .sem-pager__thumb {
+  flex: 0 0 7.5rem;
+  height: auto;
+  min-height: 7.5rem;
+  border-radius: 0;
+}
+.sem-pager .sem-pager__text,
+.sem-pager__link.is-next .sem-pager__text {
+  justify-content: center;
+  padding: 1.1rem 1.15rem;
+  text-align: left;
+}
+.sem-pager__link.is-next .sem-pager__dir.card-btn {
+  align-self: flex-end;
+}
+@media (max-width: 640px) {
+  .sem-pager .sem-pager__thumb {
+    flex-basis: 7rem;
+    min-height: 7rem;
+  }
+  .sem-pager .sem-pager__text,
+  .sem-pager__link.is-next .sem-pager__text {
+    padding: 1rem 1.1rem;
+  }
+  .sem-pager__link.is-next .sem-pager__dir.card-btn {
+    align-self: flex-start;
+  }
+}
