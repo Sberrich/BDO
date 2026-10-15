@@ -316,36 +316,8 @@ export default async function SeminairePage({ params }: Props) {
             ) : null}
 
             <nav className="sem-pager" aria-label="Séances adjacentes">
-              {prev ? (
-                <Link
-                  href={sessionHref(prev)}
-                  className="sem-pager__link is-prev"
-                >
-                  <span>← Séance précédente</span>
-                  <strong>{plain(prev.titre)}</strong>
-                  <em>
-                    {sessionLabel(prev)}{" "}
-                    · {prev.dates}
-                  </em>
-                </Link>
-              ) : (
-                <span />
-              )}
-              {next ? (
-                <Link
-                  href={sessionHref(next)}
-                  className="sem-pager__link is-next"
-                >
-                  <span>Séance suivante →</span>
-                  <strong>{plain(next.titre)}</strong>
-                  <em>
-                    {sessionLabel(next)}{" "}
-                    · {next.dates}
-                  </em>
-                </Link>
-              ) : (
-                <span />
-              )}
+              {prev ? <PagerLink session={prev} dir="prev" /> : <span />}
+              {next ? <PagerLink session={next} dir="next" /> : <span />}
             </nav>
           </div>
 
@@ -462,5 +434,31 @@ export default async function SeminairePage({ params }: Props) {
         </Container>
       </section>
     </>
+  );
+}
+
+function PagerLink({
+  session,
+  dir,
+}: {
+  session: NonNullable<ReturnType<typeof sessionBySlug>>;
+  dir: "prev" | "next";
+}) {
+  return (
+    <Link href={sessionHref(session)} className={`sem-pager__link is-${dir}`}>
+      <span className="sem-pager__thumb" aria-hidden>
+        <Image src={seminarImage(session.numero)} alt="" fill sizes="80px" />
+        <b>{sessionCode(session)}</b>
+      </span>
+      <span className="sem-pager__text">
+        <span className="sem-pager__dir">
+          {dir === "prev" ? "← Séance précédente" : "Séance suivante →"}
+        </span>
+        <strong>{plain(session.titre)}</strong>
+        <em>
+          {sessionLabel(session)} · {session.dates}
+        </em>
+      </span>
+    </Link>
   );
 }
