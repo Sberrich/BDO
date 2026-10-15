@@ -16044,3 +16044,19 @@ html:has(.iv-modal[open]) {
     height: 18rem;
   }
 }
+
+/* Speaker carousel: LinkedIn icon pinned beside the name */
+.faculty-card__body:has(> .faculty-card__li) .faculty-card__name,
+.faculty-card__body:has(> .faculty-card__li) .faculty-card__role {
+  padding-right: 2.75rem;
+}
+.faculty-card__body > a.li-icon.faculty-card__li {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.9rem;
+  margin: 0;
+}
+.faculty-card.is-featured .faculty-card__body > a.li-icon.faculty-card__li {
+  top: 1.1rem;
+  right: 1.1rem;
+}
