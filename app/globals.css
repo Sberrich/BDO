@@ -16758,3 +16758,53 @@ html:has(.iv-modal[open]) {
 .faq-item__link {
   margin-top: 1rem;
 }
+
+/* FAQ hero mosaic: contact tiles; the « Pas trouvé » panel stays for mobile */
+@media (min-width: 960px) {
+  .sem-hero:has(.iv-faces.is-faq) .faq-help {
+    display: none;
+  }
+}
+.iv-faces .iv-faces__stat.is-action {
+  text-decoration: none;
+}
+.iv-faces .iv-faces__stat.is-action strong {
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+.iv-faces .iv-faces__stat.is-action:hover,
+.iv-faces .iv-faces__stat.is-action:focus-visible {
+  border-color: var(--brand-navy) !important;
+}
+.iv-faces__stat.is-wa .iv-faces__stat-icon {
+  background: rgba(37, 211, 102, 0.14);
+  color: #128c4b !important;
+}
+.iv-faces__stat-go {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  color: var(--brand-navy) !important;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.iv-faces__stat-go svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+.iv-faces__stat-go svg,
+.iv-faces__stat-go svg * {
+  color: inherit !important;
+}
+.iv-faces__stat.is-action:hover .iv-faces__stat-go,
+.iv-faces__stat.is-action:focus-visible .iv-faces__stat-go {
+  border-color: var(--brand-navy);
+  background: var(--brand-navy);
+  color: #fff !important;
+}
+#questions { scroll-margin-top: 5rem; }
