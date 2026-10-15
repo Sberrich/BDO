@@ -16284,3 +16284,43 @@ html:has(.iv-modal[open]) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+@media (min-width: 760px) {
+  .iv-grid.sem-faculty__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sem-faculty__cards .iv-card {
+    flex-direction: row;
+  }
+  .sem-faculty__cards .iv-card__media {
+    flex: 0 0 15.5rem;
+    aspect-ratio: auto;
+    min-height: 16.5rem;
+  }
+  .sem-faculty__cards .iv-card__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 1.5rem 1.6rem 1.35rem;
+  }
+  .sem-faculty__cards .iv-card__name {
+    font-size: 1.25rem;
+  }
+  .sem-faculty__cards .iv-card__role {
+    font-size: 0.9rem;
+  }
+  .sem-faculty__cards .iv-card__bio {
+    -webkit-line-clamp: 4;
+  }
+  .sem-faculty__cards .iv-card__actions {
+    justify-content: space-between;
+  }
+  .sem-faculty__cards .iv-card__actions > .iv-card__more,
+  .sem-faculty__cards .iv-card__actions > a.li-btn {
+    flex: 0 0 auto;
+    min-height: 2.75rem;
+    padding: 0 1.15rem;
+    font-size: 0.875rem;
+  }
+  .sem-faculty__cards .iv-card__actions > .iv-card__more:only-child {
+    margin-left: auto;
+  }
+}
