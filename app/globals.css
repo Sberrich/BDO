@@ -16680,7 +16680,7 @@ html:has(.iv-modal[open]) {
 }
 
 /* ——— Card CTAs: same outline pill as « Voir toutes les questions » ——— */
-:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn) {
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .faq-item__link a) {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -16701,13 +16701,13 @@ html:has(.iv-modal[open]) {
   box-shadow: none !important;
   transition: border-color 0.2s ease;
 }
-:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn) svg {
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .faq-item__link a) svg {
   width: 0.9rem !important;
   height: 0.9rem !important;
   transform: none;
 }
-:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn) svg,
-:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn) svg * {
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .faq-item__link a) svg,
+:is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .faq-item__link a) svg * {
   color: inherit !important;
 }
 :is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link):is(:hover, :focus-visible)
@@ -16750,5 +16750,11 @@ html:has(.iv-modal[open]) {
   align-self: flex-start;
 }
 .pub-card .pub-card__more {
+  margin-top: 1rem;
+}
+.faq-item__link a:is(:hover, :focus-visible) {
+  border-color: var(--brand-navy) !important;
+}
+.faq-item__link {
   margin-top: 1rem;
 }
