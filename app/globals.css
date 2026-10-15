@@ -16246,8 +16246,6 @@ html:has(.iv-modal[open]) {
 
 /* Standalone « next » buttons (label + right arrow) sit on the right */
 @media (min-width: 641px) {
-  .prog__all,
-  .faculty__more,
   .doc-others__foot {
     justify-content: flex-end;
     text-align: right;
@@ -17035,4 +17033,18 @@ html:has(.iv-modal[open]) {
   .sem-pager__link.is-next .sem-pager__dir.card-btn {
     align-self: flex-start;
   }
+}
+
+/* Home carousels: full-width card CTA pinned to the bottom */
+#programme .prog-piece .prog-piece__more,
+.faculty-card .faculty-card__profile {
+  align-self: stretch !important;
+  width: 100%;
+  margin-top: auto;
+}
+#programme .prog-piece__out {
+  margin-bottom: 1.25rem;
+}
+.faculty-card__body > .faculty-card__role {
+  margin-bottom: 1.1rem;
 }
