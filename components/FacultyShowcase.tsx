@@ -72,7 +72,6 @@ function PersonCard({
           </a>
         ) : null}
         <SpeakerProfile
-          label="Voir le profil"
           className="iv-card__more faculty-card__profile"
           person={{
             slug: person.slug,
