@@ -16813,3 +16813,6 @@ html:has(.iv-modal[open]) {
 .pub-card .pub-card__visual {
   background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
 }
+.doc-pub .doc-pub__visual {
+  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
+}
