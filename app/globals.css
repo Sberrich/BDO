@@ -17187,21 +17187,7 @@ html:has(.iv-modal[open]) {
   padding: 1.5rem;
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
-  background: linear-gradient(180deg, #f6f7f9 0%, #eef1f4 100%);
-}
-.adm-faq__help-icon {
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  margin-bottom: 0.5rem;
-  border-radius: 12px;
-  background: var(--brand-navy);
-  color: #fff !important;
-}
-.adm-faq__help-icon svg,
-.adm-faq__help-icon svg * {
-  color: inherit !important;
+  background: #fff;
 }
 .adm-faq__help-title {
   margin: 0;

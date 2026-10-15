@@ -236,7 +236,7 @@ export default function AdmissionsPage() {
               Les réponses aux questions que l’on nous pose le plus sur l’admission et le financement.
             </p>
             <div className="adm-faq__help">
-              <span className="adm-faq__help-icon" aria-hidden>
+              <span className="rappel-contact__icon" aria-hidden="true">
                 <IconPhone />
               </span>
               <p className="adm-faq__help-title">Une autre question ?</p>
