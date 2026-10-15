@@ -16203,3 +16203,10 @@ html:has(.iv-modal[open]) {
     font-size: 0.8125rem;
   }
 }
+
+/* Séance cards: « Voir la séance » sits on the right */
+@media (min-width: 641px) {
+  .prog-piece__more {
+    align-self: flex-end;
+  }
+}
