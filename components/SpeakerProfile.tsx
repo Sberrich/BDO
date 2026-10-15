@@ -100,50 +100,65 @@ export function SpeakerProfile({ person }: { person: SpeakerProfileData }) {
             <header className="iv-modal__head">
               <h2 id={titleId} className="iv-modal__name">{person.name}</h2>
               <p className="iv-modal__role">{person.fonction}</p>
-              <ul className="iv-modal__chips">
-                {person.institution ? <li>{person.institution}</li> : null}
-                {n ? (
-                  <li className="is-count">
-                    <IconCal />
-                    {n} séance{n > 1 ? "s" : ""}
-                  </li>
+              <div className="iv-modal__meta">
+                <ul className="iv-modal__chips">
+                  {person.institution ? <li>{person.institution}</li> : null}
+                  {n ? (
+                    <li className="is-count">
+                      <IconCal />
+                      {n} séance{n > 1 ? "s" : ""}
+                    </li>
+                  ) : null}
+                </ul>
+                {person.linkedin ? (
+                  <a
+                    href={person.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="li-icon iv-modal__li"
+                    aria-label={`Profil LinkedIn de ${person.name} (nouvel onglet)`}
+                    title="LinkedIn"
+                  >
+                    <IconLinkedIn size={16} />
+                  </a>
                 ) : null}
-              </ul>
+              </div>
             </header>
 
-            {person.bio ? (
-              <section className="iv-modal__section">
-                <p className="iv-modal__label">Parcours</p>
-                <p className="iv-modal__bio">{person.bio}</p>
-              </section>
-            ) : null}
-
-            {n ? (
-              <section className="iv-modal__section">
-                <p className="iv-modal__label">Intervient sur</p>
-                <ul className="iv-modal__sessions">
-                  {person.sessions.map((s) => (
-                    <li key={s.href}>
-                      <Link href={s.href} className="iv-modal__session">
-                        <span className="iv-modal__thumb">
-                          <Image src={s.image} alt="" fill sizes="64px" />
-                          <span>{s.code}</span>
-                        </span>
-                        <span className="iv-modal__session-text">
-                          <span className="iv-modal__session-kicker">{s.label}</span>
-                          <span className="iv-modal__session-title">{s.titre}</span>
-                          {s.when ? <span className="iv-modal__session-date">{s.when}</span> : null}
-                        </span>
-                        <IconArrowRight />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ) : null}
+            <div className="iv-modal__scroll">
+              {person.bio ? (
+                <section className="iv-modal__section">
+                  <p className="iv-modal__label">Parcours</p>
+                  <p className="iv-modal__bio">{person.bio}</p>
+                </section>
+              ) : null}
+  
+              {n ? (
+                <section className="iv-modal__section">
+                  <p className="iv-modal__label">Intervient sur</p>
+                  <ul className="iv-modal__sessions">
+                    {person.sessions.map((s) => (
+                      <li key={s.href}>
+                        <Link href={s.href} className="iv-modal__session">
+                          <span className="iv-modal__thumb">
+                            <Image src={s.image} alt="" fill sizes="64px" />
+                            <span>{s.code}</span>
+                          </span>
+                          <span className="iv-modal__session-text">
+                            <span className="iv-modal__session-kicker">{s.label}</span>
+                            <span className="iv-modal__session-title">{s.titre}</span>
+                            {s.when ? <span className="iv-modal__session-date">{s.when}</span> : null}
+                          </span>
+                          <IconArrowRight />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+            </div>
 
             <footer className="iv-modal__foot">
-              {person.linkedin ? <LinkedInButton href={person.linkedin} name={person.name} /> : <span />}
               <Link href="/candidater" className="iv-modal__cta">
                 Candidater
                 <IconArrowRight />

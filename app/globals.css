@@ -16060,3 +16060,101 @@ html:has(.iv-modal[open]) {
   top: 1.1rem;
   right: 1.1rem;
 }
+
+/* Speaker dialog: photo, name and company stay put, only the text scrolls */
+.iv-modal__body {
+  overflow: hidden !important;
+}
+@media (min-width: 760px) {
+  .iv-modal__body {
+    max-height: calc(100dvh - 2rem);
+  }
+}
+.iv-modal__head {
+  flex: none;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.iv-modal__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 1.5rem;
+}
+.iv-modal__scroll > .iv-modal__section:first-child {
+  margin-top: 0;
+  border-top: 0;
+}
+.iv-modal__section:last-of-type {
+  margin-bottom: 0;
+}
+.iv-modal__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+.iv-modal__meta .iv-modal__chips {
+  margin: 0;
+}
+.iv-modal__meta > a.li-icon {
+  flex: none;
+}
+.iv-modal__foot {
+  position: static;
+  flex: none;
+  justify-content: flex-end;
+}
+
+@media (max-width: 759px) {
+  .iv-modal {
+    width: 100vw;
+    max-height: calc(100dvh - 1rem);
+    margin: auto 0 0;
+    border-radius: 24px 24px 0 0;
+  }
+  .iv-modal[open] {
+    animation-name: iv-sheet-in;
+  }
+  .iv-modal__panel {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: calc(100dvh - 1rem);
+    overflow: hidden;
+  }
+  .iv-modal__media {
+    flex: none;
+    height: clamp(11rem, 30dvh, 16rem);
+    min-height: 0;
+  }
+  .iv-modal__body {
+    flex: 1;
+    min-height: 0;
+  }
+  .iv-modal__head {
+    padding-top: 1.1rem;
+  }
+  .iv-modal__name {
+    font-size: 1.4rem;
+  }
+  .iv-modal__foot {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .iv-modal__cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 3.1875rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+}
+@keyframes iv-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
