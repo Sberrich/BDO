@@ -17106,3 +17106,14 @@ html:has(.iv-modal[open]) {
 .faq-item__link a:is(:hover, :focus-visible) :is(svg, svg *) {
   color: #fff !important;
 }
+
+/* Séminaire pager: both cards read image → text → button */
+.sem-pager__link.is-next .sem-pager__thumb {
+  order: 0;
+}
+.sem-pager__link.is-next .sem-pager__text {
+  order: 1;
+}
+.sem-pager__link.is-next .sem-pager__dir.card-btn {
+  align-self: flex-start;
+}
