@@ -205,12 +205,13 @@ export default async function IntervenantsPage() {
               </h2>
             </div>
             <div className="cta-band__actions">
+              <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
+                <IconCal />
+                Voir le programme
+              </ButtonLink>
               <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                 Candidater
                 <IconArrowRight />
-              </ButtonLink>
-              <ButtonLink href="/programme" variant="ghost" className="sem-hero__cta-secondary">
-                Voir le programme
               </ButtonLink>
             </div>
           </div>

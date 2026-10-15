@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PubCard } from "@/components/PubCard";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { IconArrowRight, IconPlay } from "@/components/icons";
+import { IconArrowRight, IconBook, IconPlay } from "@/components/icons";
 import { getVideos } from "@/lib/cms";
 import { groupPlaylists } from "@/lib/playlists";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
@@ -131,12 +131,13 @@ export default async function RessourcesPage() {
               </h2>
             </div>
             <div className="cta-band__actions">
+              <ButtonLink href="/faq" variant="ghost" className="sem-hero__cta-secondary">
+                <IconBook />
+                Consulter la FAQ
+              </ButtonLink>
               <ButtonLink href="/candidater" className="sem-hero__cta-primary">
                 Candidater
                 <IconArrowRight />
-              </ButtonLink>
-              <ButtonLink href="/faq" variant="ghost" className="sem-hero__cta-secondary">
-                Consulter la FAQ
               </ButtonLink>
             </div>
           </div>

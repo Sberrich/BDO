@@ -111,16 +111,17 @@ export default function FaqPage() {
               </h2>
             </div>
             <div className="cta-band__actions">
-              <ButtonLink href="/candidater" className="sem-hero__cta-primary">
-                Candidater
-                <IconArrowRight />
-              </ButtonLink>
               <ButtonLink
                 href="/admissions#rappel"
                 variant="ghost"
                 className="sem-hero__cta-secondary"
               >
+                <IconPhone />
                 Être rappelé
+              </ButtonLink>
+              <ButtonLink href="/candidater" className="sem-hero__cta-primary">
+                Candidater
+                <IconArrowRight />
               </ButtonLink>
             </div>
           </div>
