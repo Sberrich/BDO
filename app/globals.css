@@ -17048,3 +17048,30 @@ html:has(.iv-modal[open]) {
 .faculty-card__body > .faculty-card__role {
   margin-bottom: 1.1rem;
 }
+
+/* Hover system: standalone outline buttons fill their background;
+   buttons inside a card stay still and the card's border lights up instead */
+.btn-outline,
+.faq-item__link a {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:is(:hover, :focus-visible),
+.faq-item__link a:is(:hover, :focus-visible) {
+  border-color: #e4e9ee !important;
+  background: #eef2f6 !important;
+  color: var(--brand-navy) !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card) {
+  transition: border-color 0.2s ease, transform 0.25s var(--ease-out);
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(0, 55, 104, 0.45) !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile),
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile) {
+  border-color: #e4e9ee !important;
+  background: #fff !important;
+  color: var(--brand-navy) !important;
+}

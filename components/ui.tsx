@@ -23,7 +23,7 @@ import {
 /** Three button styles site-wide: primary (red), secondary (outline), text (link). "ghost" = secondary. */
 type Variant = "primary" | "secondary" | "ghost" | "text";
 
-const outline = "bg-white text-blue border-line hover:border-blue";
+const outline = "btn-outline bg-white text-blue border-line";
 
 const variants: Record<Variant, string> = {
   primary: "bg-red text-white border-red hover:bg-red-dark hover:border-red-dark",
