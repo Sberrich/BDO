@@ -17307,3 +17307,17 @@ html:has(.iv-modal[open]) {
     min-height: 15rem;
   }
 }
+
+/* Mobile: every card CTA uses the mobile button shape */
+@media (max-width: 640px) {
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .faq-item__link a) {
+    align-self: stretch !important;
+    width: 100% !important;
+    min-height: 3.1875rem !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.9375rem !important;
+  }
+  .faq-item__link {
+    display: block;
+  }
+}
