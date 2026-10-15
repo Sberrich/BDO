@@ -235,14 +235,24 @@ export default function AdmissionsPage() {
             <p className="adm-head__lead">
               Les réponses aux questions que l’on nous pose le plus sur l’admission et le financement.
             </p>
-            <div className="adm-faq__ctas">
-              <ButtonLink href="/faq" variant="ghost" className="adm-faq__all">
-                Voir toutes les questions
-                <IconArrowRight />
-              </ButtonLink>
-              <a href="#rappel" className="adm-faq__rappel">
-                Une autre question ? Être rappelé
-              </a>
+            <div className="adm-faq__help">
+              <span className="adm-faq__help-icon" aria-hidden>
+                <IconPhone />
+              </span>
+              <p className="adm-faq__help-title">Une autre question ?</p>
+              <p className="adm-faq__help-text">
+                Un conseiller vous rappelle sous 24 h ouvrées pour en parler, sans engagement.
+              </p>
+              <div className="adm-faq__help-ctas">
+                <ButtonLink href="/faq" variant="ghost">
+                  <IconBook />
+                  Toutes les questions
+                </ButtonLink>
+                <ButtonLink href="#rappel">
+                  Être rappelé
+                  <IconArrowRight />
+                </ButtonLink>
+              </div>
             </div>
           </header>
           <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} />

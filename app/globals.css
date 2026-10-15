@@ -17142,3 +17142,95 @@ html:has(.iv-modal[open]) {
 .faq-panel__inner > .faq-detail__body.faq-answer {
   padding: 0.6rem 1.35rem 0.25rem;
 }
+
+/* FAQ everywhere: one card per question, as on Admissions */
+.faq-explorer .faq-accordion {
+  display: grid;
+  gap: 0.6rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.faq-explorer .faq-item,
+.faq-explorer .faq-item:first-child {
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  background: #fff;
+  transition: border-color 0.25s ease;
+}
+.faq-explorer .faq-item:hover {
+  border-color: rgba(0, 32, 64, 0.2);
+}
+.faq-explorer .faq-item.is-open {
+  border-color: rgba(0, 55, 104, 0.45);
+  background: #fff;
+}
+.faq-explorer .faq-item__trigger {
+  align-items: center;
+}
+.faq-explorer .faq-item__icon {
+  margin-top: 0;
+}
+.faq-item.is-open .faq-item__icon,
+.faq-item.is-open .faq-item__trigger:hover .faq-item__icon {
+  transform: none;
+}
+
+/* Admissions FAQ: help panel beside the questions */
+.adm-faq__help {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f6f7f9 0%, #eef1f4 100%);
+}
+.adm-faq__help-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  background: var(--brand-navy);
+  color: #fff !important;
+}
+.adm-faq__help-icon svg,
+.adm-faq__help-icon svg * {
+  color: inherit !important;
+}
+.adm-faq__help-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+.adm-faq__help-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-muted, #5b6b7c);
+}
+.adm-faq__help-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+.adm-faq__help-ctas > a {
+  flex: 1 1 auto;
+  min-height: 3rem;
+  font-size: 0.875rem;
+}
+@media (max-width: 640px) {
+  .adm-faq__help-ctas > a {
+    flex-basis: 100%;
+    min-height: 3.1875rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+}
