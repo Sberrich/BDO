@@ -62,3 +62,31 @@ export function durationLabel(total: number) {
   if (!m) return `${s} s`;
   return s ? `${m} min ${String(s).padStart(2, "0")}` : `${m} min`;
 }
+
+export type VideoCategory = { id: string; titre: string; videos: PlaylistVideo[] };
+
+const CATEGORY_ORDER = ["Participants", "Groupe ISCAE", "BDO Maroc", "Intervenants"];
+
+/** « Participant · 2e cohorte » → « Participants », « Intervenant » → « Intervenants ». */
+export function videoCategory(v: PlaylistVideo) {
+  const head = (v.tag ?? "").split("·")[0].trim();
+  if (!head) return "Autres";
+  if (/^participant/i.test(head)) return "Participants";
+  if (/^intervenant/i.test(head)) return "Intervenants";
+  return head;
+}
+
+export function groupCategories(videos: readonly PlaylistVideo[]): VideoCategory[] {
+  const byName = new Map<string, PlaylistVideo[]>();
+  for (const v of videos) {
+    const name = videoCategory(v);
+    byName.set(name, [...(byName.get(name) ?? []), v]);
+  }
+  const rank = (name: string) => {
+    const i = CATEGORY_ORDER.indexOf(name);
+    return i === -1 ? CATEGORY_ORDER.length : i;
+  };
+  return [...byName.entries()]
+    .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b, "fr"))
+    .map(([titre, list]) => ({ id: playlistId(titre), titre, videos: list }));
+}
