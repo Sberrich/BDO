@@ -16964,3 +16964,19 @@ html:has(.iv-modal[open]) {
 .faculty-card__body > .faculty-card__role {
   margin-bottom: 1rem;
 }
+
+@media (min-width: 760px) {
+  .sem-faculty__cards .iv-card__actions > a.li-btn {
+    width: 2.75rem;
+    padding: 0;
+    justify-content: center;
+  }
+  .sem-faculty__cards .li-btn__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

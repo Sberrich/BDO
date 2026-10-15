@@ -38,7 +38,7 @@ export function LinkedInButton({ href, name }: { href: string; name: string }) {
       aria-label={`Profil LinkedIn de ${name} (nouvel onglet)`}
     >
       <IconLinkedIn size={15} />
-      LinkedIn
+      <span className="li-btn__label">LinkedIn</span>
     </a>
   );
 }
