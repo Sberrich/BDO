@@ -17292,3 +17292,18 @@ html:has(.iv-modal[open]) {
 :is(.trophy-card__perk-link, .about-card__link, .playlist__all):is(:hover, :focus-visible) :is(svg, svg *) {
   color: #fff !important;
 }
+
+/* Campus map: sized by its width, so the pin stays centred at any size */
+.rappel-map,
+.rappel-map {
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  min-height: 13rem;
+  max-height: 22rem;
+}
+@media (max-width: 640px) {
+  .rappel-map {
+    aspect-ratio: 4 / 3;
+    min-height: 15rem;
+  }
+}

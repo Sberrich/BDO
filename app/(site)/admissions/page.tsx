@@ -275,7 +275,7 @@ export default function AdmissionsPage() {
                   <iframe
                     className="rappel-map"
                     title="Plan d’accès au campus ISCAE Casablanca"
-                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=15&output=embed"
+                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=16&hl=fr&iwloc=near&output=embed"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
