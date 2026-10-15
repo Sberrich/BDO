@@ -21,8 +21,10 @@ import {
   IconCal,
   IconClock,
   IconDownload,
+  IconGauge,
   IconGrid,
   IconMap,
+  IconPin,
 } from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -251,7 +253,7 @@ export default async function SeminairePage({ params }: Props) {
         <Container className="sem-body__layout">
           <div className="sem-body__main">
             <div className="sem-objectif">
-              <p className="sem-kicker">Objectif</p>
+              <p className="sem-kicker sem-objectif__kicker"><KickerIcon label="Objectif" />Objectif</p>
               <p className="sem-objectif__text">{plain(detail.objectif)}</p>
             </div>
 
@@ -264,20 +266,23 @@ export default async function SeminairePage({ params }: Props) {
                     { n: "02", label: "Approfondissement", day: detail.jour2 },
                   ].map((part) => (
                     <li key={part.n} className="sem-part">
-                      <p className="sem-part__head">
+                      <header className="sem-part__head">
                         <span className="sem-part__num">{part.n}</span>
-                        Partie {Number(part.n)} · {part.label}
-                      </p>
-                      <dl className="sem-part__steps">
-                        <div>
-                          <dt>Premier temps</dt>
-                          <dd>{part.day.matin}</dd>
-                        </div>
-                        <div>
-                          <dt>Second temps</dt>
-                          <dd>{part.day.apresMidi}</dd>
-                        </div>
-                      </dl>
+                        <span className="sem-part__titles">
+                          <span className="sem-part__kicker">Partie {Number(part.n)}</span>
+                          <span className="sem-part__title">{part.label}</span>
+                        </span>
+                      </header>
+                      <ol className="sem-part__steps">
+                        <li>
+                          <span className="sem-part__step">Premier temps</span>
+                          <p>{part.day.matin}</p>
+                        </li>
+                        <li>
+                          <span className="sem-part__step">Second temps</span>
+                          <p>{part.day.apresMidi}</p>
+                        </li>
+                      </ol>
                     </li>
                   ))}
                 </ol>
@@ -346,26 +351,41 @@ export default async function SeminairePage({ params }: Props) {
 
           <section className="sem-side" aria-label="En bref">
             <div className="sem-side__card">
-              <p className="sem-side__title">En bref</p>
+              <header className="sem-side__head">
+                <p className="sem-side__title">En bref</p>
+                <span className="sem-side__code">{indexLabel}</span>
+              </header>
               <dl className="sem-side__facts">
                 <div>
-                  <dt>Date</dt>
+                  <dt>
+                    <IconCal />
+                    Date
+                  </dt>
                   <dd>{s.dates}</dd>
                 </div>
                 {s.horaire ? (
                   <div>
-                    <dt>Horaire</dt>
+                    <dt>
+                      <IconClock />
+                      Horaire
+                    </dt>
                     <dd>{s.horaire}</dd>
                   </div>
                 ) : null}
                 {s.heures ? (
                   <div>
-                    <dt>Durée</dt>
+                    <dt>
+                      <IconGauge />
+                      Durée
+                    </dt>
                     <dd>{s.heures}&nbsp;h</dd>
                   </div>
                 ) : null}
                 <div>
-                  <dt>Lieu</dt>
+                  <dt>
+                    <IconPin />
+                    Lieu
+                  </dt>
                   <dd>{lieu}</dd>
                 </div>
               </dl>
@@ -374,7 +394,7 @@ export default async function SeminairePage({ params }: Props) {
                   {people.map((p) => (
                     <li key={p.slug}>
                       <Link
-                        href={`/intervenants#${p.slug}`}
+                        href="#intervenants"
                         className="sem-side__person"
                       >
                         {facultyHasPhoto(p) ? (
@@ -394,11 +414,11 @@ export default async function SeminairePage({ params }: Props) {
                           </span>
                         )}
                         <span>
-                          <span className="sem-side__person-label">
-                            Intervenant
-                          </span>
                           <span className="sem-side__person-name">
                             {plain(p.nom)}
+                          </span>
+                          <span className="sem-side__person-label">
+                            {plain(p.fonction)}
                           </span>
                         </span>
                       </Link>
