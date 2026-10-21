@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PubCard } from "@/components/PubCard";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconBook, IconPlay } from "@/components/icons";
-import { getVideos } from "@/lib/cms";
+import { getResources, getVideos } from "@/lib/cms";
 import { groupPlaylists } from "@/lib/playlists";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
@@ -14,7 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default async function RessourcesPage() {
-  const docs = RESOURCES_MENU.filter((r) => r.cover);
+  const fromApi = await getResources();
+  const docs = fromApi?.length
+    ? fromApi
+        .filter((r) => r.cover && r.href)
+        .map((r) => ({
+          href: r.href,
+          label: r.titre,
+          desc: r.description,
+          icon: (r.icon || "brochure") as "brochure" | "barometre" | "livreblanc",
+          cover: r.cover || RESOURCE_COVERS.brochure,
+        }))
+    : RESOURCES_MENU.filter((r) => r.cover);
   const playlists = groupPlaylists(await getVideos());
 
   return (

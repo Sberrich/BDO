@@ -13,7 +13,8 @@ export async function pushToSheet(sub: Submission, siteUrl: string) {
   const row: Record<string, string> = { Date: date, Référence: sub.id };
   for (const f of readableFields(sub.type, sub.fields)) row[f.label] = f.value;
   for (const f of sub.files) {
-    row[f.label] = `${siteUrl}/api/admin/files/${sub.id}/${encodeURIComponent(f.filename)}`;
+    const django = (process.env.DJANGO_ADMIN_URL || `${siteUrl}/admin/`).replace(/\/?$/, "/");
+    row[f.label] = `${django}leads/submission/${sub.id}/change/`;
   }
 
   const res = await fetch(url, {

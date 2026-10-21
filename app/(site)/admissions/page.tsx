@@ -20,6 +20,7 @@ import {
   IconUsers,
   IconWhatsApp,
 } from "@/components/icons";
+import { filterFaqByTarif, getFaqGroups, type FaqGroupData } from "@/lib/cms";
 import { BRAND, data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
@@ -50,7 +51,11 @@ const ADM_TILES: (
 /** The tarif section above already answers this one. */
 const ADM_FAQ_EXCLUDE = ["faq-tarif-montant"];
 
-export default function AdmissionsPage() {
+export default async function AdmissionsPage() {
+  const fromApi = await getFaqGroups();
+  const faqGroupes: FaqGroupData[] | undefined = fromApi
+    ? filterFaqByTarif(fromApi, SHOW.tarif)
+    : undefined;
   const a = data.site.admission;
   const c = data.site.contact;
   const tarif = data.site.tarif;
@@ -255,7 +260,7 @@ export default function AdmissionsPage() {
               </div>
             </div>
           </header>
-          <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} />
+          <FaqList onlyHome exclude={ADM_FAQ_EXCLUDE} groupes={faqGroupes} />
         </Container>
       </section>
       <section id="rappel" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">

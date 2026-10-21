@@ -1,0 +1,43 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+<div class="cfo-dash">
+  <div class="cfo-dash__card is-accent">
+    <span class="cfo-dash__label">Demandes (7 j.)</span>
+    <span class="cfo-dash__value" id="cfo-stat-week">—</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Candidatures</span>
+    <span class="cfo-dash__value" id="cfo-stat-candidature">—</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Documents</span>
+    <span class="cfo-dash__value" id="cfo-stat-document">—</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Rappels</span>
+    <span class="cfo-dash__value" id="cfo-stat-rappel">—</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Nouveaux</span>
+    <span class="cfo-dash__value" id="cfo-stat-new">—</span>
+  </div>
+</div>
+{{ block.super }}
+<script>
+(async function () {
+  try {
+    const res = await fetch("{% url 'api-v1:dashboard-stats' %}", { credentials: "same-origin" });
+    if (!res.ok) return;
+    const d = await res.json();
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    set("cfo-stat-week", d.week ?? 0);
+    set("cfo-stat-candidature", d.candidature ?? 0);
+    set("cfo-stat-document", d.document ?? 0);
+    set("cfo-stat-rappel", d.rappel ?? 0);
+    set("cfo-stat-new", d.new ?? 0);
+  } catch (e) { /* dashboard optional */ }
+})();
+</script>
+{% endblock %}

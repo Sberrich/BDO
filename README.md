@@ -8,7 +8,7 @@ The site presents the programme (opening conference, 8 seminars, closing session
 |---|---|
 | **Production URL** | `https://iscae.bdomaroc.com` |
 | **Repository** | <https://github.com/Sberrich/BDO> (branch `main`) |
-| **Stack** | Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 + BEM CSS · Keystatic CMS |
+| **Stack** | Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 + BEM CSS · Django CMS/Admin + DRF |
 | **Runtime** | Node.js ≥ 20.9 (developed on Node 24) |
 | **Package manager** | pnpm 8.15.0, pinned in `package.json` (`packageManager`); lockfile format v6 — use `corepack enable` to get the right version |
 | **Language of the site** | French |
@@ -145,29 +145,25 @@ Content rules for the team:
 
 ---
 
-## 5. Content & CMS (Keystatic)
+## 5. Content & CMS (Django)
 
-The CMS is **[Keystatic](https://keystatic.com)** in **local mode**: it has no database and writes YAML files into `content/`, which are versioned with Git like the code.
+Editorial content and form inbox are managed in the **Django administration** (branded to the CFO 4.0 design system). See [`backend/README.md`](./backend/README.md) and [`docs/architecture.md`](./docs/architecture.md).
 
-- Admin UI: `/keystatic` → redirects to the login page `/cms-login`
-- Credentials: `KEYSTATIC_USER` / `KEYSTATIC_PASSWORD`; session cookie valid **8 hours**
-- Logout: the "Se déconnecter" button in the CMS toolbar (or `/api/cms-logout`)
+- Admin UI: `http://127.0.0.1:8000/admin/` (or `DJANGO_ADMIN_URL` in production)
+- Legacy URLs `/keystatic`, `/cms-login`, `/admin` on the Next app **redirect** to Django
+- Public content API: `GET /api/v1/videos|insights|speakers|…`
+- Next reads content from `DJANGO_API_URL` (YAML under `content/` is a fallback only)
 
 ### Recommended editorial workflow
 
-Pages are **pre-rendered at build time**. An edit only reaches the public site after a rebuild, so the official workflow is:
-
 ```
-pnpm dev  ──►  edit in http://localhost:3000/keystatic  ──►  git commit content/  ──►  push / PR  ──►  deploy
+python manage.py runserver   # Django :8000
+pnpm dev                     # Next :3000
+→ edit in http://127.0.0.1:8000/admin/
+→ site refreshes via API (revalidate 60s)
 ```
 
-1. Run the site locally (`pnpm dev`) and open `/keystatic`.
-2. Edit the article / speaker and save — Keystatic writes to `content/`.
-3. Check the result on the local site.
-4. Commit and push the `content/` changes (PR to `main`).
-5. The deployment rebuilds the site and the change goes live.
-
-> ⚠️ Edits made through `/keystatic` **on the production server** are written to that server's disk only. They are not in Git, won't appear until the next build, and are **lost on the next deployment**. On production, treat the CMS as read-only (or block `/keystatic` at the proxy, see §7.5).
+Create a staff user with `python manage.py createsuperuser`. Assign Django groups for admissions vs editorial as needed.
 
 ---
 

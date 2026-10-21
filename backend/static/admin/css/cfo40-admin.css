@@ -1,0 +1,334 @@
+/**
+ * CFO 4.0 Admin — mirrors site design tokens (ISCAE navy · BDO blue/red · Mulish)
+ */
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --brand-red: #e30613;
+  --brand-red-dark: #b8050f;
+  --brand-blue: #003768;
+  --brand-navy: #00264a;
+  --brand-navy-dark: #001a33;
+  --surface-0: #ffffff;
+  --surface-1: #f2f5f8;
+  --surface-2: #e7eef4;
+  --text-primary: #0f1c2e;
+  --text-secondary: #5a6b7d;
+  --border-subtle: #e4e9ee;
+  --border-strong: #c5d0db;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-sans: "Mulish", Helvetica, Arial, sans-serif;
+  --header-h: 64px;
+}
+
+html, body, input, textarea, select, button, .button, a {
+  font-family: var(--font-sans) !important;
+}
+
+body {
+  background: var(--surface-1) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ——— Header ——— */
+#header {
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+  min-height: var(--header-h);
+  padding: 0 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  border-bottom: 3px solid var(--brand-red) !important;
+}
+
+#branding {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#branding h1,
+#branding h1 a,
+#site-name {
+  color: #fff !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: -0.02em;
+}
+
+#branding .cfo-tagline {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+
+#user-tools {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 600;
+  font-size: 0.8125rem !important;
+}
+
+#user-tools a {
+  color: #fff !important;
+  border-bottom: 1px solid transparent;
+}
+
+#user-tools a:hover {
+  border-bottom-color: var(--brand-red);
+  color: #fff !important;
+}
+
+/* ——— Login ——— */
+.login {
+  background: linear-gradient(160deg, var(--brand-navy) 0%, var(--brand-blue) 55%, #001a33 100%) !important;
+}
+
+.login #header {
+  border-bottom: none !important;
+  background: transparent !important;
+  justify-content: center;
+}
+
+.login #container {
+  background: var(--surface-0) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.login #content {
+  padding: 2rem !important;
+}
+
+.login .form-row label {
+  color: var(--text-secondary) !important;
+  font-weight: 700 !important;
+}
+
+.login .submit-row {
+  background: transparent !important;
+  border: none !important;
+  padding: 1rem 0 0 !important;
+}
+
+.login input[type="submit"] {
+  background: var(--brand-red) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 800 !important;
+  padding: 0.75rem 1.75rem !important;
+  width: 100%;
+}
+
+.login input[type="submit"]:hover {
+  background: var(--brand-red-dark) !important;
+}
+
+/* ——— Breadcrumbs / content ——— */
+div.breadcrumbs {
+  background: var(--brand-blue) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  padding: 0.65rem 1.5rem !important;
+  font-weight: 600;
+}
+
+div.breadcrumbs a {
+  color: #fff !important;
+}
+
+#content {
+  padding: 1.5rem !important;
+}
+
+#content h1 {
+  color: var(--brand-navy) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  font-size: 1.65rem !important;
+}
+
+/* ——— Modules / cards ——— */
+.module,
+.module caption,
+.inline-group,
+#changelist,
+.dashboard .module {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: none !important;
+  background: var(--surface-0) !important;
+  overflow: hidden;
+}
+
+.module caption,
+.module h2,
+.inline-group h2,
+#changelist-filter h2 {
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+  border-radius: 0 !important;
+}
+
+/* ——— Tables ——— */
+#result_list thead th {
+  background: var(--surface-1) !important;
+  color: var(--brand-navy) !important;
+  font-weight: 800 !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+#result_list tbody tr:nth-child(even) {
+  background: var(--surface-1) !important;
+}
+
+#result_list tbody tr:hover {
+  background: rgba(0, 55, 104, 0.06) !important;
+}
+
+a:link, a:visited {
+  color: var(--brand-blue);
+}
+
+a:hover {
+  color: var(--brand-navy);
+}
+
+/* ——— Buttons ——— */
+.button, input[type="submit"], input[type="button"], .submit-row input,
+a.button, .object-tools a {
+  background: var(--brand-blue) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  padding: 0.55rem 1.15rem !important;
+}
+
+.button.default, input[type="submit"].default, .submit-row input.default {
+  background: var(--brand-red) !important;
+}
+
+.button:hover, input[type="submit"]:hover, .object-tools a:hover {
+  background: var(--brand-navy) !important;
+}
+
+.button.default:hover, input[type="submit"].default:hover {
+  background: var(--brand-red-dark) !important;
+}
+
+.object-tools {
+  margin-bottom: 1rem !important;
+}
+
+.object-tools a.addlink {
+  background: var(--brand-red) !important;
+}
+
+/* ——— Filters / search ——— */
+#changelist-filter {
+  background: var(--surface-0) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--brand-red) !important;
+  font-weight: 800;
+}
+
+#toolbar {
+  background: var(--surface-0) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+#searchbar {
+  border: 1px solid var(--border-strong) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.45rem 0.75rem !important;
+}
+
+/* ——— Forms ——— */
+input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+input[type="number"], input[type="date"], textarea, select {
+  border: 1px solid var(--border-strong) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.5rem 0.65rem !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: var(--brand-blue) !important;
+  box-shadow: 0 0 0 3px rgba(0, 55, 104, 0.15) !important;
+}
+
+/* ——— Dashboard stats ——— */
+.cfo-dash {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.cfo-dash__card {
+  background: var(--surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+}
+
+.cfo-dash__label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.cfo-dash__value {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cfo-dash__card.is-accent .cfo-dash__value {
+  color: var(--brand-red);
+}
+
+/* ——— Messages ——— */
+.messagelist li.success {
+  background: rgba(0, 55, 104, 0.08) !important;
+  color: var(--brand-navy) !important;
+  border-left: 4px solid var(--brand-blue) !important;
+}
+
+.messagelist li.error {
+  border-left: 4px solid var(--brand-red) !important;
+}
+
+/* ——— Delete ——— */
+.delete-confirmation form input[type="submit"] {
+  background: var(--brand-red) !important;
+}
+
+/* Hide Django default theme noise */
+#header a:link, #header a:visited {
+  color: #fff !important;
+}

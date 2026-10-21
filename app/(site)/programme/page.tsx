@@ -8,7 +8,7 @@ import { PriceBand } from "@/components/PriceBand";
 import { ProgrammeGrid } from "@/components/ProgrammeGrid";
 import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
 import { IconArrowRight, IconDownload } from "@/components/icons";
-import { allSessions, data, SHOW, sessionHref, type Seminaire } from "@/lib/content";
+import { data, fetchSessions, SHOW, sessionHref, type Seminaire } from "@/lib/content";
 import { plain, seminarImage, sessionCode } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -22,8 +22,8 @@ function calCode(s: Seminaire) {
   return /^\d+$/.test(code) ? `S${Number(code)}` : code;
 }
 
-export default function ProgrammePage() {
-  const sessions = allSessions();
+export default async function ProgrammePage() {
+  const sessions = await fetchSessions();
   const seminars = sessions.filter((s) => s.numero > 0);
 
   return (

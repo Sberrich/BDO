@@ -11,7 +11,7 @@ import {
   matchesSignature,
   safeFilename,
 } from "@/lib/candidature";
-import { publicUrl } from "@/lib/cms-session";
+import { publicUrl } from "@/lib/site-url";
 import { cleanName, nameError } from "@/lib/names";
 import { PHONE_ERROR, normalizePhone } from "@/lib/phone";
 import { pushToSheet } from "@/lib/sheets";
@@ -275,6 +275,23 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[submit] storage failed", { type, error: err instanceof Error ? err.message : String(err) });
   }
+
+  // Dual-write to Django CMS (source of truth for /admin). Failures are logged only.
+  after(() => {
+    const django = (process.env.DJANGO_API_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+    const fields: Record<string, string> = {};
+    for (const [k, v] of Object.entries(body)) {
+      if (typeof v === "string" && v.trim()) fields[k] = v.trim().slice(0, 2000);
+    }
+    fetch(`${django}/api/v1/leads/submit/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ type, fields }),
+    }).catch((err) =>
+      console.error("[submit] django sync failed", { error: err instanceof Error ? err.message : String(err) }),
+    );
+  });
+
   if (saved) {
     const record = saved;
     const site = publicUrl("/", req).origin;

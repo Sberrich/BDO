@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ CFO_SITE_NAME }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/cfo40-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">
+    {{ CFO_SITE_NAME|default:"CFO 4.0" }} · Administration
+    <span class="cfo-tagline">{{ CFO_SITE_TAGLINE|default:"Groupe ISCAE × BDO Maroc" }}</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block userlinks %}
+  <a href="{{ CFO_FRONTEND_ORIGIN|default:'/' }}" target="_blank" rel="noopener">Voir le site</a> /
+  {% if user.has_usable_password %}
+  <a href="{% url 'admin:password_change' %}">Mot de passe</a> /
+  {% endif %}
+  <form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline">
+    {% csrf_token %}
+    <button type="submit" style="background:none;border:none;color:#fff;font:inherit;font-weight:600;cursor:pointer;padding:0">Déconnexion</button>
+  </form>
+{% endblock %}

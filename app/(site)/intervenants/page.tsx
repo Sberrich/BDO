@@ -4,7 +4,7 @@ import Link from "next/link";
 import { IconArrowRight, IconCal } from "@/components/icons";
 import { SpeakerCard } from "@/components/SpeakerCard";
 import { ButtonLink, Container, KickerIcon } from "@/components/ui";
-import { allSessions, SHOW } from "@/lib/content";
+import { fetchSessions, SHOW } from "@/lib/content";
 import { getIntervenants, getIntervenantsPage } from "@/lib/cms";
 import {
   facultyHasPhoto,
@@ -22,9 +22,10 @@ export const metadata: Metadata = {
 };
 
 export default async function IntervenantsPage() {
-  const [{ chapeau }, cms] = await Promise.all([
+  const [{ chapeau }, cms, sessions] = await Promise.all([
     getIntervenantsPage(),
     getIntervenants(),
+    fetchSessions(),
   ]);
   const roster = facultyShowcase(cms);
   const featured = roster.find((p) => p.slug === SECOND_SLUG);
@@ -35,6 +36,7 @@ export default async function IntervenantsPage() {
   const withPhoto = intervenants.filter((p) => facultyHasPhoto(p));
   const faces = withPhoto.slice(0, 8);
   const hidden = intervenants.length - faces.length;
+  const sessionCount = sessions.length;
 
   return (
     <>
@@ -49,7 +51,7 @@ export default async function IntervenantsPage() {
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
                 <span className="sem-hero__badge"><KickerIcon label="Les intervenants" bare />Les intervenants</span>
-                {intervenants.length} experts · {allSessions().length} séances
+                {intervenants.length} experts · {sessionCount} séances
               </p>
               <h1 id="iv-title" className="sem-hero__title">
                 Ils animent les séminaires

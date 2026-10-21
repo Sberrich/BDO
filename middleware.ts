@@ -1,35 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import { CMS_COOKIE, cmsCredentials, publicUrl, verifySession } from "@/lib/cms-session";
+import { ADMIN_COOKIE } from "@/lib/admin-session";
 
-export async function middleware(request: NextRequest) {
-  if (!cmsCredentials().pass) {
-    if (process.env.NODE_ENV === "production") {
-      return new NextResponse("CMS password not configured.", { status: 503 });
-    }
-    return NextResponse.next();
-  }
-
-  if (await verifySession(request.cookies.get(CMS_COOKIE)?.value)) {
-    return NextResponse.next();
-  }
-
+/**
+ * Protect /admin (except login). Legacy Keystatic URLs redirect into this admin.
+ */
+export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
-  if (pathname.startsWith("/api/")) {
-    return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+
+  if (pathname.startsWith("/keystatic") || pathname.startsWith("/cms-login") || pathname.startsWith("/api/keystatic")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/admin/login";
+    url.search = "";
+    return NextResponse.redirect(url);
   }
 
-  const url = publicUrl("/cms-login", request);
-  url.searchParams.set("next", pathname + search);
-  return NextResponse.redirect(url);
+  if (pathname === "/admin/login" || pathname.startsWith("/admin/login/")) {
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/admin")) {
+    const token = request.cookies.get(ADMIN_COOKIE)?.value;
+    if (!token) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("next", pathname + search);
+      return NextResponse.redirect(url);
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
+    "/admin",
+    "/admin/:path*",
     "/keystatic",
     "/keystatic/:path*",
     "/api/keystatic/:path*",
-    "/admin",
-    "/admin/:path*",
-    "/api/admin/:path*",
+    "/cms-login",
+    "/cms-login/:path*",
   ],
 };

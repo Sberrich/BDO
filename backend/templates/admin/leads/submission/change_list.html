@@ -1,0 +1,37 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+{% if cfo_stats %}
+<div class="cfo-dash">
+  <div class="cfo-dash__card is-accent">
+    <span class="cfo-dash__label">Cette semaine</span>
+    <span class="cfo-dash__value">{{ cfo_stats.week }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Total</span>
+    <span class="cfo-dash__value">{{ cfo_stats.total }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Candidatures</span>
+    <span class="cfo-dash__value">{{ cfo_stats.candidature }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Documents</span>
+    <span class="cfo-dash__value">{{ cfo_stats.document }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Sessions</span>
+    <span class="cfo-dash__value">{{ cfo_stats.session }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Rappels</span>
+    <span class="cfo-dash__value">{{ cfo_stats.rappel }}</span>
+  </div>
+  <div class="cfo-dash__card">
+    <span class="cfo-dash__label">Nouveaux</span>
+    <span class="cfo-dash__value">{{ cfo_stats.new }}</span>
+  </div>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock %}

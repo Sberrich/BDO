@@ -1,180 +1,315 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { CMS_COOKIE, hasAdminSession } from "@/lib/cms-session";
-import { FORM_TYPES, formTypeLabel, readableFields } from "@/lib/emails";
-import { fullName } from "@/lib/names";
-import { listSubmissions, type Submission } from "@/lib/submissions";
-
-export const metadata: Metadata = {
-  title: "Inscriptions et demandes",
-  robots: { index: false, follow: false },
-};
-
-type Props = { searchParams: Promise<{ type?: string; q?: string }> };
-
-const SUMMARY_KEY: Record<string, string[]> = {
-  candidature: ["niveau", "participation"],
-  rappel: ["entreprise", "moment"],
-  session: ["entreprise", "creneau"],
-  document: ["entreprise", "document"],
-};
+import { type ComponentType, useEffect, useState } from "react";
+import { AdminShell } from "@/components/admin/AdminShell";
+import { StatusPill, TypePill } from "@/components/admin/AdminUi";
+import {
+  IconArrowRight,
+  IconBook,
+  IconCal,
+  IconFileText,
+  IconInbox,
+  IconPhone,
+  IconPlay,
+  IconUsers,
+} from "@/components/icons";
+import { CountUp, Reveal } from "@/components/motion";
+import { ButtonLink, KickerIcon } from "@/components/ui";
+import { adminFetch, type AdminStats, type Lead, type Paginated } from "@/lib/admin-client";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("fr-FR", {
     timeZone: "Africa/Casablanca",
     day: "2-digit",
     month: "short",
-    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   });
 }
 
-function countSince(list: Submission[], type: string, days: number) {
-  const since = Date.now() - days * 24 * 3600 * 1000;
-  return list.filter((s) => s.type === type && Date.parse(s.createdAt) > since).length;
-}
+const CONTENT: {
+  href: string;
+  label: string;
+  tip: string;
+  icon: ComponentType<{ size?: number }>;
+  key: "seminars" | "videos" | "insights" | "speakers";
+}[] = [
+  {
+    href: "/admin/seminars",
+    label: "Séminaires",
+    tip: "Programme du certificat",
+    icon: IconCal as ComponentType<{ size?: number }>,
+    key: "seminars",
+  },
+  {
+    href: "/admin/videos",
+    label: "Vidéos",
+    tip: "Playlists & témoignages",
+    icon: IconPlay as ComponentType<{ size?: number }>,
+    key: "videos",
+  },
+  {
+    href: "/admin/insights",
+    label: "Insights",
+    tip: "Articles & analyses",
+    icon: IconBook as ComponentType<{ size?: number }>,
+    key: "insights",
+  },
+  {
+    href: "/admin/speakers",
+    label: "Intervenants",
+    tip: "Fiches professeurs",
+    icon: IconUsers as ComponentType<{ size?: number }>,
+    key: "speakers",
+  },
+];
 
-function matches(s: Submission, q: string) {
-  if (!q) return true;
-  const hay = Object.values(s.fields).join(" ").toLowerCase();
-  return q
-    .toLowerCase()
-    .split(/\s+/)
-    .every((w) => hay.includes(w));
-}
+type MosaicTile =
+  | { kind: "photo"; src: string }
+  | {
+      kind: "stat";
+      href: string;
+      icon: ComponentType<{ size?: number }>;
+      num: string | number;
+      unit: string;
+      label: string;
+      dark?: boolean;
+    }
+  | { kind: "cta"; href: string; label: string };
 
-export default async function AdminPage({ searchParams }: Props) {
-  const jar = await cookies();
-  if (!(await hasAdminSession(jar.get(CMS_COOKIE)?.value))) redirect("/cms-login?next=/admin");
+export default function AdminDashboardPage() {
+  const [stats, setStats] = useState<AdminStats | null>(null);
+  const [recent, setRecent] = useState<Lead[]>([]);
+  const [error, setError] = useState("");
 
-  const { type: rawType, q: rawQ } = await searchParams;
-  const type = (FORM_TYPES as readonly string[]).includes(rawType ?? "") ? rawType! : "candidature";
-  const q = (rawQ ?? "").trim().slice(0, 100);
+  useEffect(() => {
+    Promise.all([
+      adminFetch<AdminStats>("dashboard/stats"),
+      adminFetch<Paginated<Lead>>("leads?status=new&page_size=5&ordering=-created_at"),
+    ])
+      .then(([s, leads]) => {
+        setStats(s);
+        setRecent(leads.results);
+      })
+      .catch((e) => setError(e instanceof Error ? e.message : "Erreur"));
+  }, []);
 
-  const all = await listSubmissions();
-  const counts = Object.fromEntries(FORM_TYPES.map((t) => [t, all.filter((s) => s.type === t).length]));
-  const rows = all.filter((s) => s.type === type && matches(s, q));
-  const thisWeek = countSince(all, type, 7);
+  const todo = stats?.new ?? 0;
+  const ready = Boolean(stats);
+
+  const mosaic: MosaicTile[] = [
+    { kind: "photo", src: "/images/home/campus.png" },
+    {
+      kind: "stat",
+      href: "/admin/leads?type=candidature",
+      icon: IconUsers,
+      num: ready ? stats!.candidature : "—",
+      unit: "dossiers",
+      label: "candidatures",
+    },
+    { kind: "photo", src: "/images/home/about.png" },
+    {
+      kind: "stat",
+      href: "/admin/leads",
+      icon: IconInbox,
+      num: ready ? todo : "—",
+      unit: todo === 1 ? "demande" : "demandes",
+      label: "à traiter maintenant",
+      dark: true,
+    },
+    { kind: "photo", src: "/images/home/conference.png" },
+    {
+      kind: "stat",
+      href: "/admin/leads?type=rappel",
+      icon: IconPhone,
+      num: ready ? stats!.rappel : "—",
+      unit: "rappels",
+      label: "à rappeler",
+    },
+    {
+      kind: "stat",
+      href: "/admin/leads?type=document",
+      icon: IconFileText,
+      num: ready ? stats!.document : "—",
+      unit: "docs",
+      label: "brochure & PDF",
+    },
+    {
+      kind: "stat",
+      href: "/admin/leads",
+      icon: IconCal,
+      num: ready ? stats!.week : "—",
+      unit: "reçus",
+      label: "cette semaine",
+      dark: true,
+    },
+    { kind: "cta", href: "/admin/leads", label: "Traiter" },
+  ];
 
   return (
-    <main className="adm">
-      <header className="adm__top">
-        <div className="adm__brand">
-          <Image src="/images/logo-iscae.png" alt="Groupe ISCAE" width={96} height={30} />
-          <span className="adm__sep" aria-hidden />
-          <Image src="/images/logo-bdo.png" alt="BDO" width={66} height={24} />
-          <span className="adm__app">CFO 4.0 · Administration</span>
-        </div>
-        <nav className="adm__links">
-          <Link href="/keystatic">CMS</Link>
-          <Link href="/">Voir le site</Link>
-          <a href="/api/cms-logout">Déconnexion</a>
-        </nav>
-      </header>
-
-      <section className="adm__body">
-        <div className="adm__head">
-          <div>
-            <h1 className="adm__title">Inscriptions et demandes</h1>
-            <p className="adm__lead">
-              Tous les formulaires envoyés depuis le site. {thisWeek > 0 ? `${thisWeek} cette semaine.` : ""}
-            </p>
-          </div>
-          <a className="adm__export" href={`/api/admin/export?type=${type}`}>
-            Exporter en Excel (CSV)
-          </a>
-        </div>
-
-        <nav className="adm__tabs" aria-label="Type de formulaire">
-          {FORM_TYPES.map((t) => (
-            <Link
-              key={t}
-              href={`/admin?type=${t}`}
-              className={`adm__tab${t === type ? " is-active" : ""}`}
-              aria-current={t === type ? "page" : undefined}
-            >
-              {formTypeLabel(t)}
-              <span>{counts[t]}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <form className="adm__search" action="/admin" method="get">
-          <input type="hidden" name="type" value={type} />
-          <input type="search" name="q" defaultValue={q} placeholder="Rechercher un nom, un e-mail, une entreprise…" />
-          <button type="submit">Rechercher</button>
-          {q ? <Link href={`/admin?type=${type}`}>Effacer</Link> : null}
-        </form>
-
-        {rows.length === 0 ? (
-          <p className="adm__empty">
-            {q ? "Aucun résultat pour cette recherche." : "Aucun formulaire reçu pour le moment."}
+    <AdminShell>
+      <section className="cms-hero sem-hero" aria-labelledby="cms-dash-title">
+        <div className="cms-hero__inner sem-hero__inner">
+          <p className="sem-hero__crumbs" aria-label="Fil d’Ariane">
+            <span>CFO 4.0</span>
+            <span aria-hidden="true">/</span>
+            <span>Administration</span>
           </p>
-        ) : (
-          <ul className="adm__list">
-            {rows.map((s) => {
-              const fields = readableFields(s.type, s.fields).filter((f) => f.value);
-              const by = Object.fromEntries(fields.map((f) => [f.key, f.value]));
-              const summary = (SUMMARY_KEY[s.type] ?? []).map((k) => by[k]).filter(Boolean).join(" · ");
+
+          <div className="sem-hero__grid-layout cms-hero__grid">
+            <div className="sem-hero__copy">
+              <p className="sem-hero__index">
+                <span className="sem-hero__badge">
+                  <KickerIcon label="Pilotage" bare className="text-white" />
+                  Pilotage
+                </span>
+                {ready
+                  ? `${todo} nouvelle${todo > 1 ? "s" : ""} · ${stats!.week} cette semaine`
+                  : "Chargement des indicateurs…"}
+              </p>
+              <h1 id="cms-dash-title" className="sem-hero__title">
+                Tableau de bord
+              </h1>
+              <p className="sem-hero__lead">
+                Ce qu’il faut traiter, et l’état du contenu géré ici — candidatures, rappels, documents et programme.
+              </p>
+              <ul className="sem-hero__meta" aria-label="Raccourcis">
+                <li>
+                  <IconInbox size={16} />
+                  {ready ? todo : "—"} à traiter
+                </li>
+                <li>
+                  <IconCal />
+                  {ready ? stats!.week : "—"} reçus / 7 j
+                </li>
+              </ul>
+              <div className="sem-hero__ctas">
+                <ButtonLink href="/admin/leads" variant="ghost" className="sem-hero__cta-secondary">
+                  <IconInbox size={18} />
+                  Boîte entrante
+                </ButtonLink>
+                <ButtonLink href="/admin/leads" className="sem-hero__cta-primary">
+                  Traiter les demandes
+                  <IconArrowRight />
+                </ButtonLink>
+              </div>
+            </div>
+
+            <ul className="iv-faces is-admissions cms-hero__faces" aria-label="Indicateurs">
+              {mosaic.map((tile, i) => {
+                if (tile.kind === "photo") {
+                  return (
+                    <li key={`photo-${i}`} className={`iv-faces__item is-${i + 1}`} aria-hidden>
+                      <span className="iv-faces__link">
+                        <Image
+                          src={tile.src}
+                          alt=""
+                          fill
+                          sizes="160px"
+                          className="iv-faces__img"
+                        />
+                      </span>
+                    </li>
+                  );
+                }
+                if (tile.kind === "cta") {
+                  return (
+                    <li key="cta" className="iv-faces__item">
+                      <Link href={tile.href} className="iv-faces__link iv-faces__more is-cta">
+                        <IconArrowRight />
+                        <span className="iv-faces__more-label">{tile.label}</span>
+                      </Link>
+                    </li>
+                  );
+                }
+                const Icon = tile.icon;
+                return (
+                  <li key={tile.label} className={`iv-faces__item is-${i + 1}`}>
+                    <Link
+                      href={tile.href}
+                      className={`iv-faces__link iv-faces__stat${tile.dark ? " is-dark" : ""}`}
+                    >
+                      <span className="iv-faces__stat-icon" aria-hidden>
+                        <Icon size={16} />
+                      </span>
+                      <strong>
+                        {typeof tile.num === "number" ? <CountUp value={tile.num} /> : tile.num}
+                        <small>{tile.unit}</small>
+                      </strong>
+                      <span>{tile.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {error ? <p className="cms-alert">{error}</p> : null}
+
+      <div className="cms-dash-grid cms-dash-grid--below-hero">
+        <Reveal as="section" className="cms-dash-panel">
+          <header className="cms-dash-panel__head">
+            <h2>Dernières demandes</h2>
+            <Link href="/admin/leads">Tout voir</Link>
+          </header>
+          {recent.length === 0 ? (
+            <p className="cms-dash-panel__empty">Pas de nouvelles demandes pour le moment.</p>
+          ) : (
+            <ul className="cms-dash-feed">
+              {recent.map((lead) => (
+                <li key={lead.id}>
+                  <Link href={`/admin/leads?type=${lead.type}`} className="cms-dash-lead">
+                    <span className="cms-dash-lead__meta">
+                      <TypePill type={lead.type} />
+                      <StatusPill status={lead.status} />
+                    </span>
+                    <strong className="cms-dash-lead__name">{lead.full_name || "Sans nom"}</strong>
+                    <span className="cms-dash-lead__sub">
+                      {lead.email}
+                      <span aria-hidden="true"> · </span>
+                      {formatDate(lead.created_at)}
+                    </span>
+                    <span className="cms-dash-lead__go" aria-hidden>
+                      <IconArrowRight />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Reveal>
+
+        <Reveal delay={80} as="section" className="cms-dash-panel">
+          <header className="cms-dash-panel__head">
+            <h2>Contenu</h2>
+            <span className="cms-dash-panel__hint">Géré dans l’admin</span>
+          </header>
+          <ul className="cms-stats__content iv-faces is-admissions">
+            {CONTENT.map((card) => {
+              const Icon = card.icon;
+              const value = stats ? stats[card.key] ?? 0 : "—";
               return (
-                <li key={s.id}>
-                  <details className="adm__item">
-                    <summary>
-                      <span className="adm__date">{formatDate(s.createdAt)}</span>
-                      <span className="adm__who">
-                        <strong>{fullName(s.fields) || "Sans nom"}</strong>
-                        <span>{by.email}</span>
-                      </span>
-                      <span className="adm__what">{summary}</span>
-                      <span className="adm__phone">{by.telephone ?? ""}</span>
-                      <span className="adm__files">
-                        {s.files.length ? `${s.files.length} fichier${s.files.length > 1 ? "s" : ""}` : ""}
-                      </span>
-                    </summary>
-                    <div className="adm__detail">
-                      <dl>
-                        {fields.map((f) => (
-                          <div key={f.key}>
-                            <dt>{f.label}</dt>
-                            <dd>
-                              {f.key === "email" ? (
-                                <a href={`mailto:${f.value}`}>{f.value}</a>
-                              ) : f.key === "telephone" ? (
-                                <a href={`tel:${f.value.replace(/\s/g, "")}`}>{f.value}</a>
-                              ) : (
-                                f.value
-                              )}
-                            </dd>
-                          </div>
-                        ))}
-                      </dl>
-                      {s.files.length ? (
-                        <div className="adm__downloads">
-                          {s.files.map((f) => (
-                            <a
-                              key={f.filename}
-                              href={`/api/admin/files/${s.id}/${encodeURIComponent(f.filename)}`}
-                              target="_blank"
-                              rel="noopener"
-                            >
-                              {f.label} · {f.filename}
-                            </a>
-                          ))}
-                        </div>
-                      ) : null}
-                      <p className="adm__ref">Référence {s.id}</p>
-                    </div>
-                  </details>
+                <li key={card.href} className="iv-faces__item">
+                  <Link href={card.href} className="iv-faces__link iv-faces__stat">
+                    <span className="iv-faces__stat-icon" aria-hidden>
+                      <Icon size={16} />
+                    </span>
+                    <strong>
+                      {typeof value === "number" ? <CountUp value={value} /> : value}
+                      <small>{card.label.toLowerCase()}</small>
+                    </strong>
+                    <span>{card.tip}</span>
+                  </Link>
                 </li>
               );
             })}
           </ul>
-        )}
-      </section>
-    </main>
+        </Reveal>
+      </div>
+    </AdminShell>
   );
 }

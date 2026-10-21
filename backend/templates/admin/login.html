@@ -1,0 +1,14 @@
+{% extends "admin/login.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/cfo40-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name" style="text-align:center;width:100%">
+  <strong style="font-size:1.25rem;font-weight:800">CFO 4.0</strong>
+  <span class="cfo-tagline" style="display:block;margin-top:0.35rem">Administration · ISCAE × BDO</span>
+</div>
+{% endblock %}

@@ -1,0 +1,614 @@
+{
+  "settings": {
+    "nom": "CFO 4.0",
+    "sous_titre_officiel": "Certificat Transformation Digitale et Leadership Financier",
+    "cosignature": "Certificat cosigné par le Groupe ISCAE et BDO Maroc",
+    "domaine": "iscae.bdomaroc.com",
+    "base_url": "https://iscae.bdomaroc.com",
+    "promesse_titre": "Construisez la feuille de route de transformation de votre direction financière.",
+    "promesse_sous_titre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné.",
+    "contact_nom": "{{PROV}}Prénom Nom{{/PROV}}",
+    "contact_fonction": "{{PROV}}Fonction à confirmer{{/PROV}}",
+    "contact_email": "gbounani@bdo.ma",
+    "contact_telephone": "+212 679 724 416",
+    "contact_linkedin": "",
+    "adresse_iscae": "Groupe ISCAE, Km 9,5 Route de Nouasseur, BP 8114, Casablanca, Maroc",
+    "lieu_formation": "Séminaires au campus ISCAE de Casablanca, conférence inaugurale au campus ISCAE de Rabat.",
+    "seo_title_template": "{page} · CFO 4.0 | ISCAE × BDO",
+    "seo_description_default": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné.",
+    "show_flags": {}
+  },
+  "sections": [
+    {
+      "key": "promesse",
+      "title": "Construisez la feuille de route de transformation de votre direction financière.",
+      "chapeau": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné.",
+      "body": {
+        "titre": "Construisez la feuille de route de transformation de votre direction financière.",
+        "sousTitre": "Certificat exécutif ISCAE × BDO. D’octobre à décembre 2026, à Casablanca, avec une conférence inaugurale au campus ISCAE de Rabat. Six séminaires et un workshop, un projet mené sur votre propre entreprise, un certificat cosigné."
+      },
+      "ordre": 10
+    },
+    {
+      "key": "constat",
+      "title": "Les directions financières savent qu’elles doivent se transformer. Peu savent par où commencer.",
+      "chapeau": "Deux études BDO le confirment : l’intention est là, la feuille de route manque.",
+      "body": {
+        "conclusion": "Ce certificat comble l’écart : une feuille de route construite sur votre entreprise.",
+        "source": "Sources : Baromètre BDO des DAF et des leaders financiers, 2024, 94 répondants ; La Fonction Financière Augmentée, livre blanc BDO × Maltem Africa, 2025."
+      },
+      "ordre": 20
+    },
+    {
+      "key": "livrable",
+      "title": "Ce que vous emportez à la fin du cycle",
+      "chapeau": "",
+      "body": {
+        "items": [
+          {
+            "titre": "Une feuille de route de transformation",
+            "texte": "Données, IA, système d’information, trésorerie, risques : une pièce par séminaire.",
+            "icone": "feuille-de-route"
+          },
+          {
+            "titre": "Un dossier d’investissement",
+            "texte": "Chiffrage, retour attendu et conduite du changement, présentés en clôture.",
+            "icone": "jury"
+          },
+          {
+            "titre": "Un certificat cosigné ISCAE × BDO",
+            "texte": "Avec 80 % d’assiduité et la réussite des évaluations.",
+            "icone": "certificat"
+          }
+        ]
+      },
+      "ordre": 30
+    },
+    {
+      "key": "profil",
+      "title": "À qui s’adresse le certificat",
+      "chapeau": "Le certificat s’adresse aux dirigeants et cadres qui décident des moyens de la fonction finance, et aux experts-comptables qui les accompagnent.",
+      "body": {
+        "profils": [
+          {
+            "titre": "Directions générales",
+            "texte": "DG et administrateurs qui arbitrent les investissements numériques.",
+            "icone": "direction"
+          },
+          {
+            "titre": "Directions administratives et financières",
+            "texte": "DAF de groupes et de filiales qui portent la transformation.",
+            "icone": "finance"
+          },
+          {
+            "titre": "Directions centrales et contrôle de gestion",
+            "texte": "Directeurs centraux et contrôleurs de gestion qui bâtissent le pilotage.",
+            "icone": "pilotage"
+          },
+          {
+            "titre": "Experts-comptables",
+            "texte": "Experts-comptables et commissaires aux comptes qui accompagnent leurs clients.",
+            "icone": "expertise"
+          }
+        ],
+        "prerequis": "Cinq ans d’expérience au minimum, secteur privé ou public."
+      },
+      "ordre": 40
+    },
+    {
+      "key": "dispositif",
+      "title": "Le dispositif BDO autour du certificat",
+      "chapeau": "",
+      "body": {
+        "items": [
+          {
+            "titre": "Le Baromètre BDO des DAF",
+            "texte": "L’enquête annuelle de BDO Maroc auprès des DAF. Édition 2024, 94 répondants.",
+            "lien": "/ressources/barometre",
+            "action": "Télécharger le baromètre",
+            "icone": "finance"
+          },
+          {
+            "titre": "La Fonction Financière Augmentée",
+            "texte": "BDO × Maltem Africa sur l’émergence du CFO 4.0.",
+            "lien": "/ressources/livre-blanc",
+            "action": "Télécharger le livre blanc",
+            "icone": "brochure"
+          },
+          {
+            "titre": "Le Trophée BDO des DAF",
+            "texte": "Le rendez-vous annuel qui distingue les directions financières les plus engagées.",
+            "lien": "a-propos.html#trophee",
+            "action": "Découvrir le Trophée",
+            "icone": "certificat"
+          }
+        ]
+      },
+      "ordre": 50
+    }
+  ],
+  "statistics": [
+    {
+      "group": "hero_faits",
+      "valeur": "20",
+      "unite": "jours",
+      "libelle": "de formation",
+      "icone": "duree",
+      "accent": false,
+      "ordre": 1
+    },
+    {
+      "group": "hero_faits",
+      "valeur": "5",
+      "unite": "mois",
+      "libelle": "d’octobre à avril",
+      "icone": "calendrier",
+      "accent": false,
+      "ordre": 2
+    },
+    {
+      "group": "hero_faits",
+      "valeur": "8",
+      "unite": "séminaires",
+      "libelle": "plus la conférence inaugurale",
+      "icone": "modules",
+      "accent": false,
+      "ordre": 3
+    },
+    {
+      "group": "hero_faits",
+      "valeur": "Casablanca",
+      "unite": "",
+      "libelle": "en présentiel",
+      "icone": "lieu",
+      "accent": false,
+      "ordre": 4
+    },
+    {
+      "group": "hero_faits",
+      "valeur": "24 000",
+      "unite": "DH HT",
+      "libelle": "tarif particulier · dès la promotion 1",
+      "icone": "tarif",
+      "accent": false,
+      "ordre": 5
+    },
+    {
+      "group": "hero_faits",
+      "valeur": "30 oct.",
+      "unite": "2026",
+      "libelle": "rentrée · dernier week-end d’octobre",
+      "icone": "depart",
+      "accent": false,
+      "ordre": 6
+    },
+    {
+      "group": "constat",
+      "valeur": "78",
+      "unite": "",
+      "libelle": "des directions financières se déclarent en transformation",
+      "icone": "",
+      "accent": true,
+      "ordre": 1
+    },
+    {
+      "group": "constat",
+      "valeur": "32",
+      "unite": "",
+      "libelle": "disposent d’une feuille de route de transformation",
+      "icone": "",
+      "accent": true,
+      "ordre": 2
+    },
+    {
+      "group": "constat",
+      "valeur": "67",
+      "unite": "",
+      "libelle": "jugent leurs outils insuffisants pour le pilotage prédictif",
+      "icone": "",
+      "accent": false,
+      "ordre": 3
+    },
+    {
+      "group": "constat",
+      "valeur": "97",
+      "unite": "",
+      "libelle": "estiment les indicateurs classiques insuffisants",
+      "icone": "",
+      "accent": false,
+      "ordre": 4
+    }
+  ],
+  "partners": [
+    {
+      "nom": "Ordre des Experts Comptables",
+      "role": "Partenaire institutionnel",
+      "logo": "/images/partenaires/oec.png",
+      "lien": "https://oec.ma/",
+      "ordre": 1
+    },
+    {
+      "nom": "Groupe ISCAE",
+      "role": "Cosignataire académique",
+      "logo": "/images/partenaires/iscae.png",
+      "lien": "https://www.groupeiscae.ma/",
+      "ordre": 2
+    },
+    {
+      "nom": "BDO Maroc",
+      "role": "Cosignataire professionnel",
+      "logo": "/images/partenaires/bdo.png",
+      "lien": "https://bdo.ma/",
+      "ordre": 3
+    },
+    {
+      "nom": "Maltem Africa",
+      "role": "Coauteur du livre blanc",
+      "logo": "/images/partenaires/maltem-africa.png",
+      "lien": "https://www.maltem.com/",
+      "ordre": 4
+    }
+  ],
+  "press": [
+    {
+      "nom": "Atlantic Radio",
+      "lien": "https://atlanticradio.ma/podcast/lancement-d-un-certificat-de-la-transformation-digitale-et-du-leadership-financier",
+      "logo": "/images/medias/atlantic-radio.png",
+      "domaine": "atlanticradio.ma",
+      "titre": "Lancement d’un certificat de la transformation digitale et du leadership financier",
+      "description": "Invité du matin : Zakaria Fahim, Président de BDO Maroc.",
+      "apercu": "/images/medias/previews/atlantic.jpg",
+      "ordre": 1
+    },
+    {
+      "nom": "Aujourd’hui le Maroc",
+      "lien": "https://aujourdhui.ma/emploi/lancement-de-la-2e-cohorte-du-certificat-en-transformation-digitale-et-leadership-financier",
+      "logo": "/images/medias/aujourdhui-le-maroc.png",
+      "domaine": "aujourdhui.ma",
+      "titre": "Lancement de la 2e cohorte du certificat en transformation digitale et leadership financier",
+      "description": "Le Groupe ISCAE et BDO Maroc ouvrent une nouvelle promotion du certificat.",
+      "apercu": "/images/medias/previews/aujourdhui.jpg",
+      "ordre": 2
+    },
+    {
+      "nom": "Finances News Hebdo",
+      "lien": "https://fnh.ma/article/actualite-entreprises/direction-administrative-et-financiere-bdo-lance-un-barometre",
+      "logo": "/images/medias/finances-news-hebdo.png",
+      "domaine": "fnh.ma",
+      "titre": "Direction administrative et financière : BDO lance un baromètre",
+      "description": "À l’ère du tout numérique, les DAF doivent allier expertise financière et compétences digitales.",
+      "apercu": "/images/medias/previews/fnh.jpg",
+      "ordre": 3
+    },
+    {
+      "nom": "Le Nouvelliste",
+      "lien": "https://www.lenouvelliste.ma/digital-et-finance-collaboration-unique-entre-bdo-et-iscae-casablanca/",
+      "logo": "/images/medias/le-nouvelliste.png",
+      "domaine": "lenouvelliste.ma",
+      "titre": "Digital et finance : collaboration unique entre BDO et ISCAE Casablanca",
+      "description": "BDO et ISCAE Casablanca lancent un programme de certification axé sur la transformation digitale.",
+      "apercu": "/images/medias/previews/nouvelliste.jpg",
+      "ordre": 4
+    },
+    {
+      "nom": "L’Économiste",
+      "lien": "https://www.leconomiste.com/",
+      "logo": "/images/medias/leconomiste.png",
+      "domaine": "leconomiste.com",
+      "titre": "L’Économiste, premier quotidien économique du Maroc",
+      "description": "Toute l’actualité économique, financière et business en continu.",
+      "apercu": "/images/medias/previews/leconomiste.jpg",
+      "ordre": 5
+    }
+  ],
+  "resources": [
+    {
+      "key": "brochure",
+      "titre": "La brochure du certificat",
+      "description": "Programme, calendrier, tarif et admissions",
+      "fichier": "assets/docs/CFO-4-0-brochure.pdf",
+      "cover": "/images/covers/brochure.jpg",
+      "href": "/ressources/brochure",
+      "icon": "brochure",
+      "poids": "",
+      "ordre": 1
+    },
+    {
+      "key": "barometre",
+      "titre": "Le Baromètre BDO des DAF 2024",
+      "description": "Enquête annuelle, 94 répondants",
+      "fichier": "assets/docs/Barometre-BDO-des-DAF-2024.pdf",
+      "cover": "/images/covers/barometre.jpg",
+      "href": "/ressources/barometre",
+      "icon": "barometre",
+      "poids": "",
+      "ordre": 2
+    },
+    {
+      "key": "livreblanc",
+      "titre": "La Fonction Financière Augmentée",
+      "description": "Livre blanc BDO × Maltem Africa",
+      "fichier": "assets/docs/presentation-BDO-ISCAE.pdf",
+      "cover": "/images/covers/livre-blanc.jpg",
+      "href": "/ressources/livre-blanc",
+      "icon": "livreblanc",
+      "poids": "",
+      "ordre": 3
+    }
+  ],
+  "faq_groups": [
+    {
+      "slug": "programme",
+      "titre": "Le programme",
+      "ordre": 1,
+      "questions": [
+        {
+          "external_id": "faq-programme-definition",
+          "question": "En quoi consiste le certificat CFO 4.0 ?",
+          "reponse_courte": "Un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc : 111 heures d’octobre à décembre 2026, autour d’un projet de transformation mené sur votre entreprise.",
+          "reponse_html": "<p>CFO 4.0 est un certificat exécutif cosigné par le Groupe ISCAE et BDO Maroc. Il se déroule d’octobre à décembre 2026, en présentiel : 111 heures de formation, dont 51 heures en présentiel.</p><p>Le cycle combine six séminaires thématiques, un workshop et un projet de transformation mené sur votre propre entreprise. Ce projet est présenté au dernier séminaire.</p><p>Vous en repartez avec une feuille de route de transformation chiffrée, et non avec une culture générale du digital.</p>",
+          "lien_texte": "Voir le programme complet",
+          "lien_href": "programme.html",
+          "accueil": true,
+          "hides_if_tarif": false,
+          "ordre": 1
+        },
+        {
+          "external_id": "faq-programme-seminaires",
+          "question": "Quels sont les séminaires ?",
+          "reponse_courte": "Six séminaires de six heures (data, I.A, cloud, cash management, blockchain, cybersécurité), encadrés par une conférence inaugurale, un workshop et une séance de clôture.",
+          "reponse_html": "<p>Big data &amp; data analytics ; I.A : boîte à outils pour le leader financier ; Cloud et automatisation des tâches ; Cash management : levier de performance ; Blockchain et crypto-actifs ; Cybersécurité décentralisée et souveraineté de la data.</p><p>Chaque séminaire est une séance de six heures, le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, et produit une pièce de votre projet de transformation. Une conférence inaugurale ouvre le cycle, un workshop de management digital lance les projets le 27 novembre, et le séminaire de clôture du 26 décembre est consacré à leur soutenance.</p>",
+          "lien_texte": "Le détail de chaque séminaire",
+          "lien_href": "programme.html",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 2
+        },
+        {
+          "external_id": "faq-programme-projet",
+          "question": "Qu’est-ce que le projet de transformation et comment se déroule-t-il ?",
+          "reponse_courte": "Le fil rouge du cycle : chaque séminaire ajoute une pièce à la feuille de route de votre entreprise, présentée le 26 décembre.",
+          "reponse_html": "<p>Le projet est le fil rouge du cycle. Vous le décrivez dès votre dossier de candidature, dans deux questions ouvertes.</p><p>Les sous-groupes sont constitués lors du workshop BDO du 27 novembre. Chaque séminaire suivant y ajoute une pièce : cartographie des données, cas d’usage d’intelligence artificielle, schéma cible du système d’information, diagnostic de trésorerie, matrice de risques.</p><p>Trois journées de coaching animées par BDO accompagnent les équipes entre les séminaires. Les projets sont présentés et évalués au séminaire de clôture du 26 décembre.</p>",
+          "lien_texte": "Le projet, pièce par pièce",
+          "lien_href": "programme.html#projet",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 3
+        },
+        {
+          "external_id": "faq-programme-animation",
+          "question": "Qui anime les séminaires ?",
+          "reponse_courte": "Des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités.",
+          "reponse_html": "<p>Des associés de BDO Maroc, des professeurs du Groupe ISCAE et des praticiens invités. Chaque intervenant enseigne sur son terrain d’exercice.</p><p>{{PROV}}La liste complète des intervenants de la promotion 1 est en cours de publication. Zakaria Fahim, Managing Partner de BDO Maroc, et Ismail Lahsini interviennent sur le workshop de management digital.{{/PROV}}</p>",
+          "lien_texte": "Voir les intervenants",
+          "lien_href": "intervenants.html",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 4
+        }
+      ]
+    },
+    {
+      "slug": "profil",
+      "titre": "Le profil et l’admission",
+      "ordre": 2,
+      "questions": [
+        {
+          "external_id": "faq-profil-cible",
+          "question": "À qui s’adresse le certificat ?",
+          "reponse_courte": "Aux DG, DAF, directeurs centraux, contrôleurs de gestion et experts-comptables qui portent la transformation de la fonction finance.",
+          "reponse_html": "<p>Aux dirigeants et cadres qui décident des moyens de la fonction finance : directeurs généraux et administrateurs en charge de la finance, directeurs administratifs et financiers, directeurs centraux et contrôleurs de gestion. Il s’adresse aussi aux experts-comptables et commissaires aux comptes qui accompagnent leurs clients dans cette transformation.</p><p>Le certificat suppose que vous soyez en position de porter un chantier de transformation dans votre organisation, ou d’y contribuer directement.</p>",
+          "lien_texte": "Le profil des participants",
+          "lien_href": "admissions.html#profil",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 1
+        },
+        {
+          "external_id": "faq-profil-prerequis",
+          "question": "Quels sont les prérequis ?",
+          "reponse_courte": "Cinq ans d’expérience professionnelle au minimum. Aucun prérequis technique.",
+          "reponse_html": "<p>Cinq ans d’expérience professionnelle au minimum, dans le secteur privé ou dans le secteur public.</p><p>Aucun prérequis technique n’est demandé. Le cycle part du métier financier, pas de l’informatique.</p>",
+          "lien_texte": "Les conditions d’admission",
+          "lien_href": "admissions.html",
+          "accueil": true,
+          "hides_if_tarif": false,
+          "ordre": 2
+        },
+        {
+          "external_id": "faq-profil-processus",
+          "question": "Comment se déroule l’admission ?",
+          "reponse_courte": "En trois étapes : inscription en ligne, envoi du CV et d’une photo, étude de l’éligibilité. Réponse sous deux jours ouvrés.",
+          "reponse_html": "<ol><li><strong>Inscription en ligne.</strong> Le candidat complète le formulaire d’inscription en ligne et renseigne les informations demandées.</li><li><strong>Envoi du dossier.</strong> Le candidat transmet son CV à jour ainsi qu’une photo professionnelle en haute définition afin de compléter son dossier.</li><li><strong>Étude de l’éligibilité et réponse.</strong> Notre équipe étudie l’éligibilité du candidat au programme sur la base des informations et documents transmis. Une réponse est communiquée dans un délai maximum de deux jours ouvrés après réception du dossier complet.</li></ol>",
+          "lien_texte": "Déposer une candidature",
+          "lien_href": "candidater.html",
+          "accueil": true,
+          "hides_if_tarif": false,
+          "ordre": 3
+        },
+        {
+          "external_id": "faq-profil-date-limite",
+          "question": "Quelle est la date limite de candidature ?",
+          "reponse_courte": "Le jeudi 22 octobre 2026 à 23 h 59.",
+          "reponse_html": "<p>Les candidatures pour la promotion 1 sont closes le jeudi 22 octobre 2026. Chaque dossier complet reçoit une réponse sous deux jours ouvrés.</p><p>Les dossiers déposés après cette date sont versés à la liste d’attente de la promotion 2.</p>",
+          "lien_texte": "Candidater maintenant",
+          "lien_href": "candidater.html",
+          "accueil": true,
+          "hides_if_tarif": false,
+          "ordre": 4
+        },
+        {
+          "external_id": "faq-profil-places",
+          "question": "Combien de places sont ouvertes ?",
+          "reponse_courte": "{{PROV}}Vingt-cinq participants{{/PROV}} pour la promotion 1.",
+          "reponse_html": "<p>{{PROV}}La promotion 1 est limitée à vingt-cinq participants.{{/PROV}} Le travail en sous-groupes sur des projets réels suppose un effectif contenu.</p><p>Les places sont attribuées après étude de l’éligibilité, dans l’ordre de réception des dossiers complets.</p>",
+          "lien_texte": "Être rappelé",
+          "lien_href": "admissions.html#rappel",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 5
+        }
+      ]
+    },
+    {
+      "slug": "calendrier",
+      "titre": "Le calendrier et le rythme",
+      "ordre": 3,
+      "questions": [
+        {
+          "external_id": "faq-calendrier-rentree",
+          "question": "Quand commence la promotion 1 ?",
+          "reponse_courte": "Le vendredi 30 octobre 2026. Le cycle se termine le samedi 26 décembre 2026.",
+          "reponse_html": "<p>La conférence inaugurale se tient le vendredi 30 octobre 2026, de 15 h à 21 h. Elle ouvre le cycle et présente le Baromètre BDO des DAF ainsi que le livre blanc « La Fonction Financière Augmentée ».</p><p>Le cycle s’achève le samedi 26 décembre 2026, par la présentation des projets et la remise des certificats.</p>",
+          "lien_texte": "Le calendrier complet",
+          "lien_href": "programme.html#seances",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 1
+        },
+        {
+          "external_id": "faq-calendrier-rythme",
+          "question": "Quel est le rythme des séminaires ?",
+          "reponse_courte": "Le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, compatible avec un poste à temps plein.",
+          "reponse_html": "<p>Les séances ont lieu le vendredi de 15 h à 21 h ou le samedi de 9 h à 16 h, souvent groupées sur un même week-end.</p><p>Le rythme est conçu pour une activité professionnelle à temps plein : la séance du vendredi commence en fin d’après-midi.</p><p>Chaque séminaire est complété par une journée de travaux personnels, et trois journées sont consacrées à la préparation du projet de fin de certificat.</p>",
+          "lien_texte": "Le calendrier complet",
+          "lien_href": "programme.html#seances",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 2
+        },
+        {
+          "external_id": "faq-calendrier-lieu",
+          "question": "Où se déroulent les séminaires ? Peut-on les suivre à distance ?",
+          "reponse_courte": "En présentiel uniquement, au campus ISCAE de Casablanca. La conférence inaugurale a lieu au campus ISCAE de Rabat.",
+          "reponse_html": "<p>En présentiel, au campus ISCAE de Casablanca. La conférence inaugurale du vendredi 30 octobre se tient au campus ISCAE de Rabat. Le plan d’accès est envoyé aux participants admis avec leur convocation.</p><p>La restauration des journées de séminaire est comprise dans le tarif.</p><p>Le cycle ne se suit pas à distance : les ateliers, le travail en sous-groupes et le coaching des équipes projet supposent la présence physique.</p><p>Seules les sessions d’information se tiennent en visioconférence. {{PROV}}Des supports d’apprentissage en ligne complètent les séminaires, selon les moyens mobilisés par les parties.{{/PROV}}</p>",
+          "lien_texte": "",
+          "lien_href": "",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 3
+        },
+        {
+          "external_id": "faq-calendrier-absence",
+          "question": "Que se passe-t-il si je manque un séminaire ?",
+          "reponse_courte": "Le certificat exige 80 % d’assiduité : une absence ponctuelle reste possible.",
+          "reponse_html": "<p>Le certificat est délivré à partir d’un taux d’assiduité d’au moins 80 % sur l’ensemble du cycle. Une absence ponctuelle reste donc compatible avec la certification.</p><p>{{PROV}}Les supports du séminaire manqué vous sont transmis et un point de rattrapage est organisé avec votre équipe projet, afin que votre contribution au projet ne soit pas interrompue.{{/PROV}}</p>",
+          "lien_texte": "",
+          "lien_href": "",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 4
+        },
+        {
+          "external_id": "faq-calendrier-travail-personnel",
+          "question": "Quel travail personnel est demandé entre les séminaires ?",
+          "reponse_courte": "{{PROV}}Trois à cinq heures par quinzaine{{/PROV}}, consacrées au projet de votre propre entreprise.",
+          "reponse_html": "<p>{{PROV}}Comptez trois à cinq heures par quinzaine : la collecte des données de votre propre entreprise, la rédaction du livrable du séminaire et les points de coordination avec votre sous-groupe.{{/PROV}}</p><p>Ce travail n’est pas un devoir scolaire : chaque livrable est une pièce de votre feuille de route, directement réutilisable dans votre organisation.</p>",
+          "lien_texte": "Les livrables de chaque séminaire",
+          "lien_href": "programme.html",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 5
+        }
+      ]
+    },
+    {
+      "slug": "tarif",
+      "titre": "Le tarif et le financement",
+      "ordre": 4,
+      "questions": [
+        {
+          "external_id": "faq-tarif-montant",
+          "question": "Quel est le tarif et que couvre-t-il ?",
+          "reponse_courte": "24 000 DH HT (particulier) ou 37 000 DH HT (entreprise), plus 1 200 DH HT de frais d’inscription.",
+          "reponse_html": "<p>Les frais d’inscription s’ajoutent au tarif de formation. Le tarif couvre :</p><ul><li>111 heures de formation, dont 51 heures en présentiel</li><li>Le coaching des équipes projet entre les séminaires</li><li>Les supports de séminaire et les publications BDO</li><li>La présentation du projet et le certificat cosigné</li><li>La restauration des journées de séminaire</li></ul><p>Les frais de déplacement et d’hébergement, à Casablanca comme à Rabat, restent à votre charge.</p>",
+          "lien_texte": "Le détail du tarif",
+          "lien_href": "admissions.html#tarif",
+          "accueil": true,
+          "hides_if_tarif": true,
+          "ordre": 1
+        },
+        {
+          "external_id": "faq-tarif-entreprise",
+          "question": "Mon entreprise peut-elle prendre en charge l’inscription ?",
+          "reponse_courte": "Oui. Une convention de formation et un devis sont adressés à votre entreprise.",
+          "reponse_html": "<p>Oui. La prise en charge par l’employeur est le mode de financement le plus fréquent sur ce type de cycle.</p><p>L’étape 4 du dossier de candidature vous permet d’indiquer le contact de votre direction des ressources humaines. Une convention de formation et un devis au nom de votre entreprise vous sont adressés.</p>",
+          "lien_texte": "Être rappelé pour en parler",
+          "lien_href": "admissions.html#rappel",
+          "accueil": true,
+          "hides_if_tarif": false,
+          "ordre": 2
+        },
+        {
+          "external_id": "faq-tarif-echelonnement",
+          "question": "Le paiement peut-il être échelonné ?",
+          "reponse_courte": "{{PROV}}Oui, en deux ou trois échéances sur la durée du cycle.{{/PROV}}",
+          "reponse_html": "<p>{{PROV}}Oui. Le règlement peut être échelonné en deux ou trois échéances sur la durée du cycle.{{/PROV}}</p>",
+          "lien_texte": "Être rappelé pour en parler",
+          "lien_href": "admissions.html#rappel",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 3
+        },
+        {
+          "external_id": "faq-tarif-groupe",
+          "question": "Existe-t-il un tarif pour plusieurs inscrits d’une même entreprise ?",
+          "reponse_courte": "{{PROV}}Oui, une remise s’applique à partir de trois inscrits d’une même entreprise.{{/PROV}}",
+          "reponse_html": "<p>{{PROV}}Oui. Une remise est prévue à partir de trois inscrits d’une même entreprise. Le barème est en cours d’arrêté et vous est communiqué sur simple demande.{{/PROV}}</p><p>{{PROV}}Des conditions particulières sont par ailleurs réservées aux membres du CFA Maroc et aux lauréats du Trophée BDO des DAF.{{/PROV}}</p>",
+          "lien_texte": "Être rappelé pour en parler",
+          "lien_href": "admissions.html#rappel",
+          "accueil": false,
+          "hides_if_tarif": true,
+          "ordre": 4
+        }
+      ]
+    },
+    {
+      "slug": "certification",
+      "titre": "La certification",
+      "ordre": 5,
+      "questions": [
+        {
+          "external_id": "faq-certification-diplomant",
+          "question": "Le certificat est-il diplômant, et qui le signe ?",
+          "reponse_courte": "C’est un certificat de formation exécutive cosigné par le Groupe ISCAE et BDO Maroc. Il n’a pas valeur de diplôme national.",
+          "reponse_html": "<p>Non. CFO 4.0 est un certificat de formation exécutive, délivré au titre de la formation continue. Il n’a pas valeur de diplôme national.</p><p>Il atteste d’un parcours de 111 heures, d’un projet de transformation mené sur votre entreprise et de sa présentation.</p><p>Le certificat est cosigné par le Groupe ISCAE et BDO Maroc.</p><p>Une attestation de formation est remise en complément à chaque participant.</p>",
+          "lien_texte": "Les deux institutions",
+          "lien_href": "a-propos.html",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 1
+        },
+        {
+          "external_id": "faq-certification-conditions",
+          "question": "Quelles sont les conditions de délivrance ?",
+          "reponse_courte": "80 % d’assiduité et la réussite des évaluations, présentation du projet comprise.",
+          "reponse_html": "<p>Deux conditions, cumulatives : un taux d’assiduité d’au moins 80 % sur l’ensemble du cycle, et la réussite des évaluations de mi-parcours et de fin de cycle, présentation du projet comprise.</p>",
+          "lien_texte": "",
+          "lien_href": "",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 2
+        }
+      ]
+    },
+    {
+      "slug": "donnees",
+      "titre": "Vos données",
+      "ordre": 6,
+      "questions": [
+        {
+          "external_id": "faq-donnees-traitement",
+          "question": "Comment mes données sont-elles traitées, et puis-je me désinscrire ?",
+          "reponse_courte": "Elles servent uniquement à traiter votre demande et sont conservées trois ans. Vous pouvez vous désinscrire à tout moment.",
+          "reponse_html": "<p>Les informations que vous transmettez par nos formulaires sont destinées au Groupe ISCAE et à BDO Maroc, aux seules fins d’instruire votre demande relative au certificat CFO 4.0. Elles sont conservées trois ans à compter de votre dernier contact.</p><p>Conformément à la loi n° 09-08 relative à la protection des personnes physiques à l’égard du traitement des données à caractère personnel, vous disposez d’un droit d’accès, de rectification et d’opposition.</p><p>Oui, à tout moment. Le consentement à recevoir nos communications est recueilli par une case distincte, non pré-cochée, séparée du traitement de votre demande.</p><p>Chaque courriel que nous envoyons comporte un lien de désinscription. Vous pouvez également écrire à l’adresse indiquée en pied de page.</p>",
+          "lien_texte": "La politique de confidentialité",
+          "lien_href": "confidentialite.html",
+          "accueil": false,
+          "hides_if_tarif": false,
+          "ordre": 1
+        }
+      ]
+    }
+  ]
+}

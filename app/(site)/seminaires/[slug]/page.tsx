@@ -8,7 +8,13 @@ import { SpeakerCard } from "@/components/SpeakerCard";
 import { LoopCarousel } from "@/components/LoopCarousel";
 import { getIntervenants } from "@/lib/cms";
 import { sessionsBySpeaker } from "@/lib/speakers";
-import { allSessions, sessionBySlug, sessionHref } from "@/lib/content";
+import {
+  allSessions,
+  fetchSessionBySlug,
+  fetchSessions,
+  sessionHref,
+  type Seminaire,
+} from "@/lib/content";
 import {
   facultyHasPhoto,
   facultyPhotoSrc,
@@ -48,16 +54,16 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const s = sessionBySlug(slug);
+  const s = await fetchSessionBySlug(slug);
   if (!s) return { title: "Séminaire" };
   return { title: plain(s.titre), description: plain(s.sousTitre) };
 }
 
 export default async function SeminairePage({ params }: Props) {
   const { slug } = await params;
-  const s = sessionBySlug(slug);
+  const s = await fetchSessionBySlug(slug);
   if (!s) notFound();
-  const seq = allSessions();
+  const seq = await fetchSessions();
   const i = seq.findIndex((x) => x.numero === s.numero);
   const prev = i > 0 ? seq[i - 1] : null;
   const next = i < seq.length - 1 ? seq[i + 1] : null;
@@ -477,7 +483,7 @@ function PagerLink({
   session,
   dir,
 }: {
-  session: NonNullable<ReturnType<typeof sessionBySlug>>;
+  session: Seminaire;
   dir: "prev" | "next";
 }) {
   return (

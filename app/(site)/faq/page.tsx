@@ -13,7 +13,8 @@ import {
   IconSearch,
   IconWhatsApp,
 } from "@/components/icons";
-import { BRAND, data } from "@/lib/content";
+import { filterFaqByTarif, getFaqGroups, type FaqGroupData } from "@/lib/cms";
+import { BRAND, data, SHOW } from "@/lib/content";
 import { plain } from "@/lib/text";
 
 export const metadata: Metadata = {
@@ -26,14 +27,31 @@ type Tile =
   | { icon: (props: { size?: number }) => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
   | { icon: (props: { size?: number }) => React.JSX.Element; title: string; label: string; href: string; external?: boolean; wa?: boolean };
 
-export default function FaqPage() {
-  const total = data.faq.groupes.reduce((n, g) => n + g.questions.length, 0);
+function staticFaqGroups(): FaqGroupData[] {
+  return data.faq.groupes.map((g) => ({
+    id: g.id,
+    titre: g.titre,
+    questions: g.questions.map((q) => ({
+      id: q.id,
+      q: q.q,
+      court: q.court,
+      r: q.r,
+      lien: q.lien ? { texte: q.lien.texte, href: q.lien.href } : null,
+      accueil: q.accueil,
+    })),
+  }));
+}
+
+export default async function FaqPage() {
+  const fromApi = await getFaqGroups();
+  const groupes = fromApi ? filterFaqByTarif(fromApi, SHOW.tarif) : staticFaqGroups();
+  const total = groupes.reduce((n, g) => n + g.questions.length, 0);
   const c = data.site.contact;
   const tiles: Tile[] = [
     { src: "/images/home/about.png" },
     { icon: IconSearch, num: String(total), unit: "questions", label: "réponses claires" },
     { src: "/images/home/campus.png" },
-    { icon: IconGrid, num: String(data.faq.groupes.length), unit: "thèmes", label: "du programme au financement" },
+    { icon: IconGrid, num: String(groupes.length), unit: "thèmes", label: "du programme au financement" },
     { icon: IconWhatsApp, title: "WhatsApp", label: "Réponse directe", href: BRAND.whatsapp, external: true, wa: true },
     { src: "/images/home/conference.png" },
     { icon: IconMail, title: "E-mail", label: "Écrire à l’équipe", href: `mailto:${plain(c.email)}` },
@@ -53,7 +71,7 @@ export default function FaqPage() {
             <div className="sem-hero__copy">
               <p className="sem-hero__index">
                 <span className="sem-hero__badge"><KickerIcon label="FAQ" bare />FAQ</span>
-                {total} questions · {data.faq.groupes.length} thèmes
+                {total} questions · {groupes.length} thèmes
               </p>
               <h1 id="faq-title" className="sem-hero__title">
                 Les questions que vous vous posez
@@ -160,7 +178,7 @@ export default function FaqPage() {
 
       <section id="questions" className="faq-page">
         <Container className="faq-page__inner">
-          <FaqList />
+          <FaqList groupes={groupes} />
         </Container>
       </section>
 

@@ -11,7 +11,13 @@ type Q = {
   court: string;
   r: string;
   accueil?: boolean;
-  lien?: { texte: string; href: string };
+  lien?: { texte: string; href: string } | null;
+};
+
+type FaqGroupProp = {
+  id: string;
+  titre: string;
+  questions: Q[];
 };
 
 const norm = (s: string) =>
@@ -55,9 +61,21 @@ function matches(hay: string, token: string) {
   return [token, ...(SYNONYMS[token] ?? [])].some((t) => hay.includes(` ${t}`));
 }
 
-export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclude?: string[] }) {
+export function FaqList({
+  onlyHome,
+  exclude = [],
+  groupes,
+}: {
+  onlyHome?: boolean;
+  exclude?: string[];
+  /** CMS/API payload — falls back to static `data.faq` when omitted. */
+  groupes?: FaqGroupProp[];
+}) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const source = groupes?.length
+    ? groupes
+    : (data.faq.groupes as unknown as FaqGroupProp[]);
 
   const { groups, approx } = useMemo(() => {
     const tokens = norm(query)
@@ -65,10 +83,10 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
       .split(" ")
       .filter((t) => t.length > 1 || /\d/.test(t));
     const run = (every: boolean) =>
-      data.faq.groupes
+      source
         .map((g) => ({
           ...g,
-          questions: (g.questions as unknown as Q[]).filter((item) => {
+          questions: g.questions.filter((item) => {
             if (onlyHome && !item.accueil) return false;
             if (exclude.includes(item.id)) return false;
             if (!tokens.length) return true;
@@ -82,7 +100,7 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
     const exact = run(true);
     if (exact.length || tokens.length < 2) return { groups: exact, approx: false };
     return { groups: run(false), approx: true };
-  }, [query, onlyHome, exclude]);
+  }, [query, onlyHome, exclude, source]);
 
   const sections = useMemo(
     () =>
@@ -106,13 +124,13 @@ export function FaqList({ onlyHome, exclude = [] }: { onlyHome?: boolean; exclud
   useEffect(() => {
     const openFromHash = () => {
       const id = decodeURIComponent(window.location.hash.slice(1));
-      const exists = data.faq.groupes.some((g) => g.questions.some((item) => item.id === id));
+      const exists = source.some((g) => g.questions.some((item) => item.id === id));
       if (exists) setOpen(id);
     };
     queueMicrotask(openFromHash);
     window.addEventListener("hashchange", openFromHash);
     return () => window.removeEventListener("hashchange", openFromHash);
-  }, []);
+  }, [source]);
 
   function onQueryChange(value: string) {
     setQuery(value);

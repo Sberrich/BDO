@@ -124,6 +124,67 @@ export function sessionBySlug(slug: string) {
     | undefined;
 }
 
+const API = (process.env.DJANGO_API_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+
+/** Prefer Django CMS when available; fall back to static payload. */
+export async function fetchSessions(): Promise<Seminaire[]> {
+  try {
+    const res = await fetch(`${API}/api/v1/seminars/?page_size=50&ordering=numero`, {
+      next: { revalidate: 60 },
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) return allSessions();
+    const data = (await res.json()) as {
+      results?: Array<{
+        numero: number;
+        slug: string;
+        code?: string;
+        titre: string;
+        sousTitre?: string;
+        objectif?: string;
+        dates?: string;
+        horaire?: string;
+        heures?: number;
+        lieu?: string;
+        jour1?: { matin: string; apresMidi: string } | null;
+        jour2?: { matin: string; apresMidi: string } | null;
+        livrable?: string;
+        actualisation?: string;
+        intervenants?: string[];
+      }>;
+    };
+    if (!data.results?.length) return allSessions();
+    return data.results.map((s) => ({
+      numero: s.numero,
+      slug: s.slug,
+      code: s.code,
+      titre: s.titre,
+      sousTitre: s.sousTitre || "",
+      objectif: s.objectif || "",
+      dates: s.dates || "",
+      horaire: s.horaire,
+      heures: s.heures,
+      lieu: s.lieu,
+      jour1: s.jour1 || undefined,
+      jour2: s.jour2 || undefined,
+      livrable: s.livrable,
+      actualisation: s.actualisation,
+      intervenants: s.intervenants || [],
+    }));
+  } catch {
+    return allSessions();
+  }
+}
+
+export async function fetchSessionBySlug(slug: string) {
+  const sessions = await fetchSessions();
+  if (slug === "conference-inaugurale" || slug === "0") {
+    return sessions.find((s) => s.numero === 0 || s.slug === "conference-inaugurale");
+  }
+  const n = Number(slug);
+  return sessions.find((s) => s.numero === n || s.slug === slug);
+}
+
 export function sessionHref(s: Seminaire) {
   return seminarPath(s);
 }

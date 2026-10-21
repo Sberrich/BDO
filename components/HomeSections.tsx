@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allSessions, data, RESOURCE_COVERS, SHOW, sessionHref } from "@/lib/content";
-import type { Intervenant } from "@/lib/cms";
+import { data, RESOURCE_COVERS, SHOW, sessionHref, type Seminaire } from "@/lib/content";
+import type { Intervenant, PartnerItem, PressMedia } from "@/lib/cms";
 import { CalendarTable } from "@/components/CalendarTable";
 import { LeadForm } from "@/components/LeadForm";
 import { MediaPressStrip } from "@/components/MediaPressStrip";
@@ -33,15 +33,20 @@ type Props = {
   speakers: Intervenant[];
   speakersLead?: string;
   playlists: Playlist[];
+  sessions: Seminaire[];
+  /** CMS overrides — when absent, static `data.site` is used (design unchanged). */
+  pressItems?: PressMedia[];
+  partners?: PartnerItem[];
 };
 
-export function HomeSections({ speakers, speakersLead, playlists }: Props) {
+export function HomeSections({ speakers, speakersLead, playlists, sessions, pressItems, partners }: Props) {
   const site = data.site;
+  const medias = pressItems?.length ? pressItems : site.medias;
+  const partenaires = partners?.length ? partners : site.partenaires;
   const c = site.constat;
   const haut = c.chiffres[0];
   const bas = c.chiffres[1];
   const extras = c.chiffres.slice(2);
-  const sessions = allSessions();
   const dispo = site.dispositif.items.slice(0, CAROUSEL_MAX);
   const profils = site.profil.profils.slice(0, CAROUSEL_MAX);
   const featured = sessions.filter((s) => s.numero > 0).slice(0, CAROUSEL_MAX);
@@ -312,7 +317,7 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
 
       <section id="medias" className="press-band" aria-labelledby="medias-title">
         <Container className="press-band__inner">
-          <MediaPressStrip items={site.medias}>
+          <MediaPressStrip items={medias}>
             <p className="press-band__kicker">
               <KickerIcon label="Revue de presse" />
               Revue de presse
@@ -321,7 +326,7 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
               Ils en ont parlé
             </h2>
             <p className="press-band__lead">
-              {site.medias.length} médias marocains ont couvert le lancement du certificat.
+              {medias.length} médias marocains ont couvert le lancement du certificat.
             </p>
           </MediaPressStrip>
         </Container>
@@ -517,7 +522,7 @@ export function HomeSections({ speakers, speakersLead, playlists }: Props) {
           <Kicker>Avec le concours de</Kicker>
           <div className="logo-marquee mt-6">
             <ul className="logo-marquee__track" style={{ animationDuration: "46s" }}>
-              {[...site.partenaires, ...site.partenaires].map((p, i) => (
+              {[...partenaires, ...partenaires].map((p, i) => (
                 <li key={`${p.nom}-${i}`} className="partner-marquee__item">
                   <a
                     href={p.lien}
