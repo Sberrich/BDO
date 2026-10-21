@@ -42,14 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.65,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-    ...playlists.map((p) => ({
-      url: `${BRAND.url}/playlists/${p.id}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.65,
     })),
   ];
 }
