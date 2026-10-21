@@ -35,7 +35,7 @@ export default config({
   ui: {
     brand: { name: "CFO 4.0 · Éditeur", mark: BrandMark },
     navigation: {
-      Contenu: ["videos", "insights", "intervenants"],
+      Contenu: ["videos", "avis", "insights", "intervenants"],
       "Textes de page": ["playlistsPage", "insightsPage", "intervenantsPage"],
     },
   },
@@ -94,8 +94,8 @@ export default config({
         playlist: fields.text({
           label: "Playlist",
           description:
-            "Nom de la playlist. Ex. « Témoignages ». Un nouveau nom crée automatiquement une nouvelle playlist sur le site.",
-          defaultValue: "Témoignages",
+            "Nom de la playlist. Ex. « Conférence ». Un nouveau nom crée automatiquement une nouvelle playlist sur le site.",
+          defaultValue: "Conférence",
           validation: { length: { min: 1, max: 60 } },
         }),
         ordre: fields.integer({
@@ -112,13 +112,15 @@ export default config({
           description: "Petit texte au-dessus du titre. Ex. « Participant · 2e cohorte ».",
         }),
         fichier: fields.text({
-          label: "Fichier vidéo",
-          description: "Chemin public du fichier .mp4. Ex. /videos/temoignages/zakaria-fahim.mp4",
+          label: "Fichier ou URL vidéo",
+          description:
+            "Chemin .mp4 (ex. /videos/temoignages/zakaria-fahim.mp4) ou URL YouTube (ex. https://www.youtube.com/watch?v=…).",
           validation: { length: { min: 1 } },
         }),
         poster: fields.text({
           label: "Image de couverture",
-          description: "Chemin public de l’image. Ex. /images/temoignages/mouad-laghiti-cover.jpg",
+          description:
+            "Chemin public ou URL YouTube (ex. https://i.ytimg.com/vi/ID/hqdefault.jpg).",
         }),
         duree: fields.text({ label: "Durée", description: "Ex. « 2 min 34 » ou « 45 s »." }),
         langue: fields.select({
@@ -233,6 +235,48 @@ export default config({
         seminaires: fields.array(fields.integer({ label: "N° séminaire" }), {
           label: "Séminaires animés",
           itemLabel: (props) => (props.value != null ? `Séminaire ${props.value}` : "Séminaire"),
+        }),
+      },
+    }),
+    avis: collection({
+      label: "Avis (playlists)",
+      slugField: "auteur",
+      path: "content/avis/*",
+      columns: ["playlist", "note"],
+      schema: {
+        auteur: fields.slug({
+          name: {
+            label: "Auteur",
+            description: "Prénom et nom, ou initiales. Ex. « Sara B. ».",
+            validation: { length: { min: 1, max: 80 } },
+          },
+        }),
+        fonction: fields.text({
+          label: "Fonction",
+          description: "Ex. « DAF · Industrie ».",
+          validation: { length: { max: 100 } },
+        }),
+        note: fields.integer({
+          label: "Note (/5)",
+          description: "Note de 1 à 5.",
+          defaultValue: 5,
+          validation: { min: 1, max: 5 },
+        }),
+        texte: fields.text({
+          label: "Avis",
+          description: "Citation courte affichée sous la playlist.",
+          multiline: true,
+          validation: { length: { min: 1, max: 400 } },
+        }),
+        playlist: fields.text({
+          label: "Playlist",
+          description: "Nom exact de la playlist (ex. « Conférence »). Laisser vide pour toutes les playlists.",
+          defaultValue: "Conférence",
+          validation: { length: { max: 60 } },
+        }),
+        date: fields.date({
+          label: "Date",
+          description: "Date de publication de l’avis.",
         }),
       },
     }),

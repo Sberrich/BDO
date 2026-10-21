@@ -32,7 +32,7 @@ const visibleFaq = SHOW.tarif
 export const data = { site, seminaires, faq: visibleFaq, calendrier };
 
 export const RESOURCE_COVERS = {
-  brochure: "/images/covers/brochure.jpg",
+  brochure: "/images/covers/brochure-cfo40.jpg",
   barometre: "/images/covers/barometre.jpg",
   livreblanc: "/images/covers/livre-blanc.jpg",
 } as const;
@@ -62,7 +62,7 @@ export const RESOURCES_MENU = [
   {
     href: "/playlists",
     label: "Playlists",
-    desc: "Témoignages et vidéos du certificat",
+    desc: "Playlists vidéo du certificat",
     icon: "playlists" as const,
     cover: null,
   },

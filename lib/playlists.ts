@@ -8,6 +8,7 @@ export type PlaylistVideo = {
   ordre: number;
   sousTitre?: string;
   tag?: string;
+  /** Local `/videos/….mp4` path or YouTube watch/embed URL. */
   video: string;
   poster: string;
   duree?: string;
@@ -15,6 +16,37 @@ export type PlaylistVideo = {
   date?: string;
   resume?: string;
 };
+
+/** Extract a YouTube video id from a URL, `youtube:ID`, or bare 11-char id. */
+export function youtubeIdFromSrc(src?: string): string | null {
+  if (!src) return null;
+  const trimmed = src.trim();
+  if (/^[A-Za-z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const prefixed = trimmed.match(/^youtube:([A-Za-z0-9_-]{11})$/i);
+  if (prefixed) return prefixed[1];
+  const m = trimmed.match(
+    /(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+  );
+  return m?.[1] ?? null;
+}
+
+export function isYouTubeVideo(v: Pick<PlaylistVideo, "video">) {
+  return Boolean(youtubeIdFromSrc(v.video));
+}
+
+export function youtubeEmbedUrl(id: string, autoplay = false) {
+  const params = new URLSearchParams({
+    rel: "0",
+    modestbranding: "1",
+    playsinline: "1",
+  });
+  if (autoplay) params.set("autoplay", "1");
+  return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+}
+
+export function youtubePoster(id: string) {
+  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
 
 export type Playlist = {
   id: string;
@@ -89,4 +121,60 @@ export function groupCategories(videos: readonly PlaylistVideo[]): VideoCategory
   return [...byName.entries()]
     .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b, "fr"))
     .map(([titre, list]) => ({ id: playlistId(titre), titre, videos: list }));
+}
+
+export type PlaylistSummary = Playlist & {
+  cover: string;
+  totalSeconds: number;
+  languages: string[];
+  categories: string[];
+  blurb: string;
+};
+
+/**
+ * Units shown as cards on `/playlists`.
+ * When CMS only defines one playlist name but several voice categories exist,
+ * list by category so the grid stays useful.
+ */
+export function listingPlaylists(videos: readonly PlaylistVideo[]): Playlist[] {
+  const playlists = groupPlaylists(videos);
+  const categories = groupCategories(videos);
+  if (playlists.length <= 1 && categories.length > 1) {
+    return categories.map((c) => ({
+      id: c.id,
+      titre: c.titre,
+      videos: [...c.videos].sort((a, b) => a.ordre - b.ordre || a.titre.localeCompare(b.titre, "fr")),
+    }));
+  }
+  return playlists;
+}
+
+/** Resolve a `/playlists/[slug]` page from playlist name or category id. */
+export function findPlaylistBySlug(videos: readonly PlaylistVideo[], slug: string): Playlist | undefined {
+  const fromListing = listingPlaylists(videos).find((p) => p.id === slug);
+  if (fromListing) return fromListing;
+  return groupPlaylists(videos).find((p) => p.id === slug);
+}
+
+/** Listing card data derived from a playlist (no invented metrics). */
+export function summarizePlaylist(p: Playlist): PlaylistSummary {
+  const totalSeconds = p.videos.reduce((n, v) => n + durationSeconds(v.duree), 0);
+  const languages = [...new Set(p.videos.map((v) => v.langue).filter(Boolean))];
+  const categories = [...new Set(p.videos.map(videoCategory))];
+  const fromResume = p.videos.map((v) => v.resume).find((r) => r?.trim());
+  const fromSub = p.videos.map((v) => v.sousTitre).find((s) => s?.trim());
+  const count = `${p.videos.length} vidéo${p.videos.length > 1 ? "s" : ""}`;
+  const blurb =
+    fromSub?.trim() ||
+    fromResume?.trim() ||
+    `${count}${totalSeconds ? ` · ${durationLabel(totalSeconds)}` : ""} pour découvrir le certificat CFO 4.0.`;
+
+  return {
+    ...p,
+    cover: p.videos[0]?.poster || "/images/home/iscae-entrance.png",
+    totalSeconds,
+    languages,
+    categories,
+    blurb,
+  };
 }

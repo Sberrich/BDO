@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 };
 
 const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number; role: string }> = {
-  "Groupe ISCAE": { src: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", w: 351, h: 184, role: "Excellence académique" },
-  "BDO Maroc": { src: "/images/logo-bdo-header.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
+  "Groupe ISCAE": { src: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", w: 110, h: 92, role: "Excellence académique" },
+  "BDO Maroc": { src: "/images/logo-bdo-lockup.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
 };
 
 /** Hero mosaic: each institution's logo (to its site), photos, key facts and a contact tile. */
@@ -24,14 +24,14 @@ const ABOUT_TILES: (
   | { logo: string; alt: string; href: string; w: number; h: number }
   | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
 )[] = [
-  { logo: "/images/logo-iscae-header.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 351, h: 184 },
+  { logo: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 110, h: 92 },
   { src: "/images/home/iscae-entrance.png" },
   { icon: IconBook, num: "1971", unit: "", label: "Groupe ISCAE, école pionnière" },
   { src: "/images/home/conference.png" },
   { icon: IconCert, num: "2", unit: "institutions", label: "une signature commune", dark: true },
   { src: "/images/home/about.png" },
   { icon: IconGlobe, num: "5e", unit: "réseau", label: "mondial d’audit · BDO" },
-  { logo: "/images/logo-bdo-header.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
+  { logo: "/images/logo-bdo-lockup.png", alt: "BDO Maroc", href: "https://www.bdo.ma", w: 418, h: 161 },
 ];
 
 const TROPHY_SLIDES = [

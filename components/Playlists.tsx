@@ -10,6 +10,8 @@ import { Reveal } from "@/components/motion";
 import {
   durationLabel,
   durationSeconds,
+  youtubeEmbedUrl,
+  youtubeIdFromSrc,
   type Playlist,
   type PlaylistVideo,
 } from "@/lib/playlists";
@@ -112,8 +114,8 @@ function PlaylistBlock({
         </div>
         {videos.length > CAROUSEL_MAX ? (
           <div className="prog__all">
-            <ButtonLink href={`/playlists?playlist=${id}#videos`} variant="ghost" aria-label={`Voir toutes les vidéos : ${titre}`}>
-              Voir tout
+            <ButtonLink href={`/playlists/${id}`} variant="ghost" aria-label={`Voir la playlist : ${titre}`}>
+              Voir la playlist
               <IconArrowRight />
             </ButtonLink>
           </div>
@@ -173,21 +175,33 @@ export function PlaylistPlayer({
           </svg>
         </button>
         <div className="videoband__embed">
-          <video
-            key={active.video}
-            className="h-full w-full bg-black"
-            controls
-            autoPlay
-            playsInline
-            preload="auto"
-            src={active.video}
-            onLoadedData={(e) => e.currentTarget.classList.add("is-ready")}
-            onEnded={() => {
-              if (index < videos.length - 1) go(1);
-            }}
-          >
-            Votre navigateur ne lit pas la vidéo.
-          </video>
+          {youtubeIdFromSrc(active.video) ? (
+            <iframe
+              key={active.video}
+              className="h-full w-full bg-black"
+              src={youtubeEmbedUrl(youtubeIdFromSrc(active.video)!, true)}
+              title={active.titre}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              key={active.video}
+              className="h-full w-full bg-black"
+              controls
+              autoPlay
+              playsInline
+              preload="auto"
+              src={active.video}
+              onLoadedData={(e) => e.currentTarget.classList.add("is-ready")}
+              onEnded={() => {
+                if (index < videos.length - 1) go(1);
+              }}
+            >
+              Votre navigateur ne lit pas la vidéo.
+            </video>
+          )}
         </div>
         <div className="voices-player__bar">
           <p className="voices-player__caption">

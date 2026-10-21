@@ -46,16 +46,16 @@ export function Footer() {
             <p className="foot__brand-kicker">Un certificat cosigné</p>
             <div className="foot__logos">
               <Image
-                src="/images/logo-iscae-header.png"
+                src="/images/logo-iscae-lockup.png"
                 alt="Groupe ISCAE"
-                width={351}
-                height={184}
+                width={110}
+                height={92}
                 sizes="96px"
                 className="foot__logo is-iscae"
               />
               <span className="foot__logo-rule" aria-hidden="true" />
               <Image
-                src="/images/logo-bdo-header.png"
+                src="/images/logo-bdo-lockup.png"
                 alt="BDO Maroc"
                 width={418}
                 height={161}

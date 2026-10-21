@@ -1,6 +1,6 @@
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../keystatic.config";
-import type { PlaylistVideo } from "@/lib/playlists";
+import { youtubeIdFromSrc, youtubePoster, type PlaylistVideo } from "@/lib/playlists";
 
 export const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -101,20 +101,24 @@ export async function getVideos(): Promise<PlaylistVideo[]> {
   const entries = await reader.collections.videos.all();
   return entries
     .filter(({ entry }) => entry.fichier)
-    .map(({ slug, entry }) => ({
-      id: slug,
-      titre: slugName(entry.titre, slug),
-      playlist: entry.playlist?.trim() || "Témoignages",
-      ordre: entry.ordre ?? 1,
-      sousTitre: entry.sousTitre || undefined,
-      tag: entry.etiquette || undefined,
-      video: entry.fichier,
-      poster: entry.poster || "/images/home/iscae-entrance.png",
-      duree: entry.duree || undefined,
-      langue: entry.langue || "FR",
-      date: entry.date || undefined,
-      resume: entry.resume || undefined,
-    }));
+    .map(({ slug, entry }) => {
+      const video = String(entry.fichier);
+      const yt = youtubeIdFromSrc(video);
+      return {
+        id: slug,
+        titre: slugName(entry.titre, slug),
+        playlist: entry.playlist?.trim() || "Conférence",
+        ordre: entry.ordre ?? 1,
+        sousTitre: entry.sousTitre || undefined,
+        tag: entry.etiquette || undefined,
+        video,
+        poster: entry.poster || (yt ? youtubePoster(yt) : "/images/home/iscae-entrance.png"),
+        duree: entry.duree || undefined,
+        langue: entry.langue || "FR",
+        date: entry.date || undefined,
+        resume: entry.resume || undefined,
+      };
+    });
 }
 
 export async function getIntervenantsPage() {
@@ -138,4 +142,33 @@ export async function getIntervenants(): Promise<Intervenant[]> {
     linkedin: entry.linkedin || "",
     seminaires: (entry.seminaires || []).filter((n): n is number => typeof n === "number"),
   }));
+}
+
+export type PlaylistAvis = {
+  id: string;
+  auteur: string;
+  fonction: string;
+  note: number;
+  texte: string;
+  playlist: string;
+  date?: string;
+};
+
+export async function getAvis(playlistName?: string): Promise<PlaylistAvis[]> {
+  const entries = await reader.collections.avis.all();
+  const list = entries.map(({ slug, entry }) => {
+    const note = typeof entry.note === "number" ? Math.min(5, Math.max(1, entry.note)) : 5;
+    return {
+      id: slug,
+      auteur: slugName(entry.auteur, slug),
+      fonction: entry.fonction || "",
+      note,
+      texte: entry.texte || "",
+      playlist: entry.playlist?.trim() || "",
+      date: entry.date || undefined,
+    };
+  });
+  if (!playlistName) return list;
+  const needle = playlistName.trim().toLowerCase();
+  return list.filter((a) => !a.playlist || a.playlist.toLowerCase() === needle);
 }
