@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getInsightArticles } from "@/lib/cms";
+import { getInsightArticles, getVideos } from "@/lib/cms";
 import { BRAND } from "@/lib/content";
+import { listingPlaylists } from "@/lib/playlists";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -21,7 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/cgu",
     "/confidentialite",
   ];
-  const insights = await getInsightArticles();
+  const [insights, videos] = await Promise.all([getInsightArticles(), getVideos()]);
+  const playlists = listingPlaylists(videos);
   return [
     ...pages.map((p) => ({
       url: `${BRAND.url}${p || "/"}`,
@@ -34,6 +36,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.6,
+    })),
+    ...playlists.map((p) => ({
+      url: `${BRAND.url}/playlists/${p.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...playlists.map((p) => ({
+      url: `${BRAND.url}/playlists/${p.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
   ];
 }

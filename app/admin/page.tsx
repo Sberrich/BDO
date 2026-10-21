@@ -64,7 +64,7 @@ export default async function AdminPage({ searchParams }: Props) {
     <main className="adm">
       <header className="adm__top">
         <div className="adm__brand">
-          <Image src="/images/logo-iscae.png" alt="Groupe ISCAE" width={96} height={30} />
+          <Image src="/images/logo-iscae.png" alt="Groupe ISCAE" width={110} height={92} />
           <span className="adm__sep" aria-hidden />
           <Image src="/images/logo-bdo.png" alt="BDO" width={66} height={24} />
           <span className="adm__app">CFO 4.0 · Administration</span>

@@ -300,17 +300,17 @@ export function Header() {
           onClick={closeMobile}
         >
           <Image
-            src="/images/logo-iscae-header.png"
+            src="/images/logo-iscae-lockup.png"
             alt="Groupe ISCAE"
-            width={351}
-            height={184}
+            width={110}
+            height={92}
             sizes="96px"
             className="site-header__logo site-header__logo--iscae"
             priority
           />
           <span className="site-header__rule" aria-hidden />
           <Image
-            src="/images/logo-bdo-header.png"
+            src="/images/logo-bdo-lockup.png"
             alt="BDO"
             width={418}
             height={161}

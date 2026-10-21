@@ -16,7 +16,7 @@ export default async function CmsLoginPage({ searchParams }: Props) {
     <main className="cms-login">
       <div className="cms-login__card">
         <div className="cms-login__brand">
-          <Image src="/images/logo-iscae.png" alt="Groupe ISCAE" width={120} height={38} priority />
+          <Image src="/images/logo-iscae.png" alt="Groupe ISCAE" width={110} height={92} priority />
           <span className="cms-login__sep" aria-hidden />
           <Image src="/images/logo-bdo.png" alt="BDO" width={84} height={30} priority />
         </div>
