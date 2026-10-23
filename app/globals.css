@@ -1098,9 +1098,9 @@ input[type="radio"] {
 }
 
 .site-header {
-  /* ISCAE height drives the lockup; BDO is ~0.72× so both wordmarks share a cap height. */
-  --logo-iscae: 2rem;
-  --logo-bdo: 1.45rem;
+  /* ISCAE lockup includes Arabic under the wordmark — taller so “ISCAE” matches BDO cap height. */
+  --logo-iscae: 2.55rem;
+  --logo-bdo: 1.55rem;
   --logo-gap: 0.85rem;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
@@ -1110,22 +1110,22 @@ input[type="radio"] {
 }
 @media (min-width: 400px) {
   .site-header {
-    --logo-iscae: 2.25rem;
-    --logo-bdo: 1.625rem;
+    --logo-iscae: 2.85rem;
+    --logo-bdo: 1.75rem;
     --logo-gap: 1rem;
   }
 }
 @media (min-width: 640px) {
   .site-header {
-    --logo-iscae: 2.6rem;
-    --logo-bdo: 1.875rem;
+    --logo-iscae: 3.15rem;
+    --logo-bdo: 1.95rem;
     --logo-gap: 1.25rem;
   }
 }
 @media (min-width: 1100px) {
   .site-header {
-    --logo-iscae: 2.9rem;
-    --logo-bdo: 2.1rem;
+    --logo-iscae: 3.45rem;
+    --logo-bdo: 2.15rem;
     --logo-gap: 1.4rem;
   }
 }
@@ -1134,13 +1134,13 @@ input[type="radio"] {
   background: #fff;
 }
 .site-header.is-scrolled {
-  --logo-iscae: 2rem;
-  --logo-bdo: 1.45rem;
+  --logo-iscae: 2.55rem;
+  --logo-bdo: 1.55rem;
 }
 @media (min-width: 640px) {
   .site-header.is-scrolled {
-    --logo-iscae: 2.35rem;
-    --logo-bdo: 1.7rem;
+    --logo-iscae: 2.85rem;
+    --logo-bdo: 1.75rem;
   }
 }
 .site-header__bar {
@@ -1166,7 +1166,7 @@ input[type="radio"] {
 }
 .site-header__rule {
   width: 1px;
-  height: calc(var(--logo-iscae) * 0.78);
+  height: calc(var(--logo-bdo) * 1.05);
   flex-shrink: 0;
   background: var(--border-strong);
   transition: height var(--duration-base) var(--ease-out);
@@ -2178,7 +2178,7 @@ body[data-nav="open"] .mobile-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3.5rem;
+  height: 4.25rem;
 }
 .hero-cosign__logo img {
   display: block;
@@ -2186,10 +2186,10 @@ body[data-nav="open"] .mobile-bar {
   max-width: 100%;
 }
 .hero-cosign__logo.is-iscae img {
-  height: 3.25rem;
+  height: 4rem;
 }
 .hero-cosign__logo.is-bdo img {
-  height: 2.25rem;
+  height: 2.4rem;
 }
 .hero-cosign__logo.is-oec img {
   height: 3.5rem;
@@ -2204,14 +2204,14 @@ body[data-nav="open"] .mobile-bar {
   .hero-cosign__item {
     padding-inline: 0.4rem;
   }
-    .hero-cosign__logo {
-    height: 2.5rem;
+  .hero-cosign__logo {
+    height: 3.25rem;
   }
   .hero-cosign__logo.is-iscae img {
-    height: 2.3rem;
+    height: 3rem;
   }
   .hero-cosign__logo.is-bdo img {
-    height: 1.55rem;
+    height: 1.7rem;
   }
   .hero-cosign__logo.is-oec img {
     height: 2.5rem;
@@ -10159,30 +10159,6 @@ body[data-form-page] #cmp-floating-icon {
   justify-content: center;
   margin-top: 2rem;
 }
-.doc-others__all {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 50px;
-  padding: 0 1.5rem;
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--brand-navy);
-  text-decoration: none;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-}
-.doc-others__all svg {
-  width: 0.85rem;
-  height: 0.85rem;
-}
-.doc-others__all:hover,
-.doc-others__all:focus-visible {
-  border-color: var(--brand-navy);
-  background: var(--brand-navy);
-  color: #fff;
-}
 .doc-others__grid {
   list-style: none;
   margin: 0;
@@ -12524,6 +12500,7 @@ img {
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding: 1.15rem;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
@@ -12537,43 +12514,47 @@ img {
 }
 .pub-card:hover,
 .pub-card:focus-visible {
-  transform: translateY(-4px);
-  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  border-color: rgba(0, 32, 64, 0.2);
   box-shadow: none;
 }
 .pub-card__visual {
   position: relative;
   display: grid;
   place-items: center;
-  height: 15rem;
-  padding: 1.5rem;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  margin: -1.15rem -1.15rem 0.9rem;
+  padding: 1.05rem 1.2rem;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 75% 15%, rgba(232, 0, 18, 0.28), transparent 50%),
-    radial-gradient(circle at 15% 100%, rgba(0, 55, 104, 0.45), transparent 55%),
-    var(--brand-navy);
+  border: 0;
+  border-radius: 19px 19px 0 0;
+  background: var(--surface-1);
   perspective: 1000px;
 }
 .pub-card__book {
   display: block;
-  width: 8.5rem;
+  width: min(56%, 9.75rem);
+  max-height: 100%;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   border-radius: 2px 6px 6px 2px;
-  transform: rotateY(-16deg) rotateZ(-1.5deg);
+  transform: rotateY(-12deg) rotateZ(-1deg);
   box-shadow: 3px 3px 0 -1px #eef1f5, 6px 6px 0 -2px #d4dae2;
   transition: transform 0.5s var(--ease-out);
 }
 .pub-card__book.is-landscape {
-  width: 14rem;
+  width: min(78%, 14rem);
 }
 .pub-card__book img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 100%;
+  object-fit: contain;
 }
 .pub-card:hover .pub-card__book {
-  transform: rotateY(-4deg) scale(1.04);
+  transform: rotateY(-3deg) scale(1.03);
 }
 .pub-card__emblem {
   display: flex;
@@ -12603,18 +12584,20 @@ img {
 .pub-card__logo {
   display: grid;
   place-items: center;
-  padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  max-width: min(78%, 12rem);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
   background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 20, 45, 0.08);
   transition: transform 0.5s var(--ease-out);
 }
 .pub-card__logo img {
   display: block;
-  width: 9.7rem;
+  width: 100%;
   height: auto;
 }
 .pub-card:hover .pub-card__logo {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 .pub-card__emblem-label {
   font-size: 0.75rem;
@@ -12625,9 +12608,11 @@ img {
 }
 .pub-card__body {
   display: flex;
-  flex: 1;
+  flex: 1 1 auto;
   flex-direction: column;
-  padding: 1.4rem 1.5rem 1.5rem;
+  gap: 0.4rem;
+  padding: 0;
+  min-width: 0;
 }
 .pub-card__type {
   align-self: flex-start;
@@ -12641,8 +12626,8 @@ img {
   color: var(--brand-red);
 }
 .pub-card__title {
-  margin-top: 0.85rem;
-  font-size: 1.2rem;
+  margin: 0;
+  font-size: 1.0625rem;
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -12652,16 +12637,17 @@ img {
   overflow: hidden;
 }
 .pub-card__title.has-type {
-  margin-top: 0.65rem;
+  margin-top: 0.15rem;
 }
 .pub-card__text {
-  margin-top: 0.5rem;
-  font-size: 0.9375rem;
-  line-height: 1.55;
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: var(--text-secondary);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
 }
 .pub-card__meta {
@@ -12755,7 +12741,8 @@ img {
 }
 /* Full-bleed cover (playlists / media cards) — same card shell, photo fills the stage */
 .pub-card.is-fill .pub-card__visual {
-  height: 13.5rem;
+  aspect-ratio: 16 / 10;
+  height: auto;
   padding: 0;
   background: var(--brand-navy) !important;
 }
@@ -12775,7 +12762,8 @@ img {
   transform: scale(1.05);
 }
 .pub-card--playlist.is-fill .pub-card__visual {
-  height: 14rem;
+  aspect-ratio: 16 / 10;
+  height: auto;
 }
 @media (prefers-reduced-motion: reduce) {
   .pub-card__cover-img {
@@ -12785,12 +12773,15 @@ img {
 .pub-card__more {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
+  align-self: stretch;
+  width: 100%;
   margin-top: auto;
-  padding-top: 1.25rem;
+  padding-top: 0.85rem;
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--brand-red);
+  color: var(--brand-navy);
 }
 .pub-card__more svg {
   width: 0.85rem;
@@ -15319,6 +15310,7 @@ input[type="checkbox"][aria-invalid="true"] {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.85rem;
   min-height: 4.25rem;
   margin-top: 0.35rem;
@@ -15337,6 +15329,7 @@ input[type="checkbox"][aria-invalid="true"] {
   box-shadow: 0 0 0 3px rgba(0, 85, 164, 0.15);
 }
 .file-field.has-file {
+  justify-content: flex-start;
   border-style: solid;
   border-color: var(--border-subtle);
   background: #fff;
@@ -15360,10 +15353,11 @@ input[type="checkbox"][aria-invalid="true"] {
   pointer-events: none;
 }
 .file-field__empty {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem 0.85rem;
+  justify-content: center;
+  gap: 0.45rem 0.85rem;
   pointer-events: none;
 }
 .file-field__pick {
@@ -15371,22 +15365,27 @@ input[type="checkbox"][aria-invalid="true"] {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1rem;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  background: rgba(0, 85, 164, 0.1);
+  background: var(--surface-1);
   color: var(--brand-navy);
   font-size: 0.9375rem;
   font-weight: 700;
+  line-height: 1.2;
 }
 .file-field__pick svg {
   width: 1.05rem;
   height: 1.05rem;
+  flex-shrink: 0;
 }
 .file-field:hover .file-field__pick {
-  background: rgba(0, 85, 164, 0.16);
+  background: #e8edf3;
+  border-color: var(--border-strong, #cfd8e3);
 }
 .file-field__hint {
   font-size: 0.8125rem;
   font-weight: 500;
+  line-height: 1.2;
   color: var(--text-secondary);
 }
 .file-field__thumb {
@@ -16375,10 +16374,6 @@ html:has(.iv-modal[open]) {
 
 /* Standalone « next » buttons (label + right arrow) sit on the right */
 @media (min-width: 641px) {
-  .doc-others__foot {
-    justify-content: flex-end;
-    text-align: right;
-  }
   .constat-resolve__cta,
   .prog-board__open-go {
     align-self: flex-end;
@@ -16840,8 +16835,13 @@ html:has(.iv-modal[open]) {
 :is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link):is(:hover, :focus-visible)
   :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn) {
   border-color: var(--brand-navy) !important;
-  background: #fff !important;
-  color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link):is(:hover, :focus-visible)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn)
+  :is(svg, svg *) {
+  color: #fff !important;
 }
 :is(.pub-card__more, .doc-pub__more) {
   align-self: flex-end;
@@ -16877,7 +16877,7 @@ html:has(.iv-modal[open]) {
   align-self: flex-start;
 }
 .pub-card .pub-card__more {
-  margin-top: 1rem;
+  margin-top: auto;
 }
 .faq-item__link a:is(:hover, :focus-visible) {
   border-color: var(--brand-navy) !important;
@@ -16936,12 +16936,20 @@ html:has(.iv-modal[open]) {
 }
 #questions { scroll-margin-top: 5rem; }
 
-/* Publication cards: same grey gradient stage as the speaker portraits */
+/* Publication cards: soft flush stage (same idea as .prog-piece__media) */
 .pub-card .pub-card__visual {
-  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
+  background: var(--surface-1) !important;
 }
 .doc-pub .doc-pub__visual {
-  background: linear-gradient(180deg, #f6f7f9 0%, #c8cdd4 100%) !important;
+  background: var(--surface-1) !important;
+}
+#dispositif .pub-card .pub-card__more,
+.doc-others .pub-card .pub-card__more,
+.res-list .pub-card .pub-card__more {
+  align-self: stretch !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  justify-content: center;
 }
 
 /* Admissions contacts: campus card with an embedded map */
@@ -17197,12 +17205,21 @@ html:has(.iv-modal[open]) {
   border-color: rgba(0, 55, 104, 0.45) !important;
 }
 :is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card)
-  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile),
-:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within)
   :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile) {
   border-color: #e4e9ee !important;
   background: #fff !important;
   color: var(--brand-navy) !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile) {
+  border-color: var(--brand-navy) !important;
+  background: var(--brand-navy) !important;
+  color: #fff !important;
+}
+:is(.prog-piece, .pub-card, .doc-pub, .res-insights, .sem-pager__link, .iv-card, .faculty-card):is(:hover, :focus-visible, :focus-within)
+  :is(.prog-piece__more, .pub-card__more, .doc-pub__more, .res-insights__go, .sem-pager__dir.card-btn, .iv-card__more, .faculty-card__profile)
+  :is(svg, svg *) {
+  color: #fff !important;
 }
 
 /* All card CTAs: full width, pinned to the bottom of the card */
@@ -17220,8 +17237,11 @@ html:has(.iv-modal[open]) {
   width: 100% !important;
   margin-top: auto !important;
 }
-:is(.prog-piece__out, .pub-card__text, .pub-card__desc, .doc-pub__text, .doc-pub__desc) {
-  margin-bottom: 1.25rem;
+:is(.prog-piece__out, .doc-pub__text, .doc-pub__desc) {
+  margin-bottom: 0.75rem;
+}
+.pub-card__text {
+  margin-bottom: 0 !important;
 }
 
 /* Standalone outline buttons fill navy on hover, like the hero « Recevoir la brochure » */

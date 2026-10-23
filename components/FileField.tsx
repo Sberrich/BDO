@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import type { UploadRule } from "@/lib/candidature";
+import { assignFileToInput } from "@/lib/candidature-draft-files";
 
 function formatSize(bytes: number) {
   if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} Ko`;
@@ -15,20 +16,23 @@ function extension(name: string) {
 /**
  * File picker with a light button, then a chip showing the chosen file (thumbnail for images)
  * with a single « Modifier » button that reopens the picker. The native input stays in the form for FormData
- * and constraint validation.
+ * and constraint validation. `restoredFile` rehydrates a draft from IndexedDB.
  */
 export function FileField({
   rule,
   error,
+  restoredFile,
   onFileChange,
 }: {
   rule: UploadRule;
   error?: string;
+  restoredFile?: File | null;
   onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [chosen, setChosen] = useState<{ file: File; url: string } | null>(null);
   const urlRef = useRef<string | null>(null);
+  const appliedRestore = useRef<File | null | undefined>(undefined);
   const describedBy = `cand-${rule.field}-error`;
   const file = chosen?.file ?? null;
   const url = chosen?.url ?? null;
@@ -36,6 +40,25 @@ export function FileField({
   useEffect(() => () => {
     if (urlRef.current) URL.revokeObjectURL(urlRef.current);
   }, []);
+
+  useEffect(() => {
+    if (restoredFile === undefined) return;
+    if (appliedRestore.current === restoredFile) return;
+    appliedRestore.current = restoredFile;
+    const input = inputRef.current;
+    if (!input) return;
+    if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+    if (!restoredFile) {
+      assignFileToInput(input, null);
+      urlRef.current = null;
+      setChosen(null);
+      return;
+    }
+    assignFileToInput(input, restoredFile);
+    urlRef.current = URL.createObjectURL(restoredFile);
+    setChosen({ file: restoredFile, url: urlRef.current });
+    input.setCustomValidity("");
+  }, [restoredFile]);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     if (urlRef.current) URL.revokeObjectURL(urlRef.current);

@@ -19,7 +19,7 @@ const PARTNERS = [
     role: "Cosignataire académique",
     src: "/images/logo-iscae-lockup.png",
     w: 110,
-    h: 92,
+    h: 54,
     size: "is-iscae",
   },
   {

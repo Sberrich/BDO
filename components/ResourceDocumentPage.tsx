@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
-import { Container, KickerIcon } from "@/components/ui";
+import { PubCard } from "@/components/PubCard";
+import { ButtonLink, Container, KickerIcon } from "@/components/ui";
 import { IconArrowRight, IconTick } from "@/components/icons";
 import { RESOURCE_COVERS, RESOURCES_MENU } from "@/lib/content";
 
@@ -164,31 +165,22 @@ export function ResourceDocumentPage({ kind }: { kind: DocKind }) {
             <ul className="doc-others__grid">
               {others.map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className="doc-pub">
-                    <span className="doc-pub__visual" aria-hidden>
-                      {r.cover ? (
-                        <span className="doc-pub__book">
-                          <Image src={r.cover} alt="" width={320} height={420} sizes="160px" />
-                        </span>
-                      ) : null}
-                    </span>
-                    <span className="doc-pub__body">
-                      <span className="doc-pub__title">{r.label}</span>
-                      <span className="doc-pub__desc">{r.desc}</span>
-                      <span className="doc-pub__more">
-                        Recevoir le document
-                        <IconArrowRight />
-                      </span>
-                    </span>
-                  </Link>
+                  <PubCard
+                    href={r.href}
+                    title={r.label}
+                    text={r.desc}
+                    action="Recevoir le document"
+                    cover={r.cover}
+                    landscape={r.icon === "barometre"}
+                  />
                 </li>
               ))}
             </ul>
             <div className="doc-others__foot">
-              <Link href="/ressources" className="doc-others__all">
+              <ButtonLink href="/ressources" variant="ghost" className="doc-others__all">
                 Toutes les ressources
                 <IconArrowRight />
-              </Link>
+              </ButtonLink>
             </div>
           </Container>
         </section>

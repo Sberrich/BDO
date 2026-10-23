@@ -49,7 +49,7 @@ export function Footer() {
                 src="/images/logo-iscae-lockup.png"
                 alt="Groupe ISCAE"
                 width={110}
-                height={92}
+                height={54}
                 sizes="96px"
                 className="foot__logo is-iscae"
               />

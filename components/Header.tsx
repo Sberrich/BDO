@@ -303,8 +303,8 @@ export function Header() {
             src="/images/logo-iscae-lockup.png"
             alt="Groupe ISCAE"
             width={110}
-            height={92}
-            sizes="96px"
+            height={54}
+            sizes="140px"
             className="site-header__logo site-header__logo--iscae"
             priority
           />
@@ -314,7 +314,7 @@ export function Header() {
             alt="BDO"
             width={418}
             height={161}
-            sizes="96px"
+            sizes="120px"
             className="site-header__logo site-header__logo--bdo"
             priority
           />

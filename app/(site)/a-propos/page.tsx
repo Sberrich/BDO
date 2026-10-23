@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { AdSlider } from "@/components/AdSlider";
 import { LeadForm } from "@/components/LeadForm";
-import { ButtonLink, Container, KickerIcon } from "@/components/ui";
+import { ButtonLink, Container, KickerIcon, SectionHeading } from "@/components/ui";
 import { BRAND, data } from "@/lib/content";
 import { plain } from "@/lib/text";
-import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconMail, IconMap, IconPhone, IconWhatsApp } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight, IconBook, IconCert, IconGlobe, IconMail, IconPhone, IconPin, IconWhatsApp } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const INST_LOGOS: Record<string, { src: string; alt: string; w: number; h: number; role: string }> = {
-  "Groupe ISCAE": { src: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", w: 110, h: 92, role: "Excellence académique" },
+  "Groupe ISCAE": { src: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", w: 110, h: 54, role: "Excellence académique" },
   "BDO Maroc": { src: "/images/logo-bdo-lockup.png", alt: "BDO", w: 418, h: 161, role: "Expertise terrain" },
 };
 
@@ -24,7 +24,7 @@ const ABOUT_TILES: (
   | { logo: string; alt: string; href: string; w: number; h: number }
   | { icon: () => React.JSX.Element; num: string; unit: string; label: string; dark?: boolean }
 )[] = [
-  { logo: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 110, h: 92 },
+  { logo: "/images/logo-iscae-lockup.png", alt: "Groupe ISCAE", href: "https://www.groupeiscae.ma", w: 110, h: 54 },
   { src: "/images/home/iscae-entrance.png" },
   { icon: IconBook, num: "1971", unit: "", label: "Groupe ISCAE, école pionnière" },
   { src: "/images/home/conference.png" },
@@ -215,83 +215,72 @@ export default function AProposPage() {
         </Container>
       </section>
 
-      <section id="contact" className="about-contact" aria-labelledby="contact-title">
-        <Container className="about-contact__inner">
-          <div className="about-contact__info">
-            <p className="about-contact__kicker"><KickerIcon label="Contact" />Contact</p>
-            <h2 id="contact-title" className="about-contact__title">
-              Écrire à l’équipe
-            </h2>
-            <p className="about-contact__lead">
-              Une question sur le cycle, le tarif ou votre dossier ? Laissez vos
-              coordonnées : rappel sous 24 h.
+      <section id="contact" className="rappel-band py-[clamp(2.5rem,6vw,4.5rem)]">
+        <Container className="grid gap-10 md:grid-cols-2">
+          <div className="rappel-band__intro">
+            <SectionHeading
+              kicker="Contact"
+              title="Être rappelé sous 24 heures ouvrées"
+            />
+            <p className="rappel-band__lead">
+              Une question sur le cycle, le tarif ou votre dossier ? Le financement,
+              l’éligibilité, la compatibilité avec votre agenda : certaines questions se
+              règlent mieux au téléphone.
             </p>
-
-            <ul className="about-contact__cards">
-              <li>
-                <a className="about-contact__card" href={`mailto:${plain(c.email)}`}>
-                  <span className="about-contact__icon" aria-hidden>
-                    <IconMail />
-                  </span>
-                  <span className="about-contact__card-body">
-                    <span className="about-contact__label">E-mail</span>
-                    <span className="about-contact__value">{plain(c.email)}</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a className="about-contact__card" href={BRAND.phoneHref}>
-                  <span className="about-contact__icon" aria-hidden>
-                    <IconPhone />
-                  </span>
-                  <span className="about-contact__card-body">
-                    <span className="about-contact__label">Téléphone</span>
-                    <span className="about-contact__value">{plain(c.telephone)}</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  className="about-contact__card is-wa"
-                  href={BRAND.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="about-contact__icon" aria-hidden>
-                    <IconWhatsApp />
-                  </span>
-                  <span className="about-contact__card-body">
-                    <span className="about-contact__label">WhatsApp</span>
-                    <span className="about-contact__value">Écrire maintenant</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div className="about-contact__card is-static">
-                  <span className="about-contact__icon" aria-hidden>
-                    <IconMap />
-                  </span>
-                  <span className="about-contact__card-body">
-                    <span className="about-contact__label">Lieu & adresse</span>
-                    <span className="about-contact__value">{plain(c.lieuFormation)}</span>
-                    <span className="about-contact__sub">{c.adresseIscae}</span>
-                  </span>
+            <ul className="rappel-contacts">
+              <li className="rappel-contacts__map">
+                <div className="rappel-contact is-map">
+                  <iframe
+                    className="rappel-map"
+                    title="Plan d’accès au campus ISCAE Casablanca"
+                    src="https://maps.google.com/maps?q=Groupe%20ISCAE%20Casablanca&z=16&hl=fr&iwloc=near&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  <div className="rappel-map__row">
+                    <span className="rappel-contact__icon" aria-hidden="true"><IconPin /></span>
+                    <span className="rappel-map__text">
+                      <span className="rappel-contact__label">Campus</span>
+                      <span className="rappel-contact__value">ISCAE Casablanca</span>
+                      <span className="rappel-map__addr">Km 9,5 Route de Nouasseur, Casablanca</span>
+                    </span>
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=Groupe%20ISCAE%20Casablanca"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rappel-map__go"
+                    >
+                      Itinéraire
+                      <IconArrowRight />
+                    </a>
+                  </div>
                 </div>
+              </li>
+              <li>
+                <a href={BRAND.phoneHref} className="rappel-contact is-row" aria-label={`Téléphone : ${BRAND.phone}`}>
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconPhone /></span>
+                  <span className="rappel-contact__value">{BRAND.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="rappel-contact is-row" aria-label="WhatsApp : écrire un message (nouvel onglet)">
+                  <span className="rappel-contact__icon is-wa" aria-hidden="true"><IconWhatsApp /></span>
+                  <span className="rappel-contact__value">Écrire un message</span>
+                </a>
+              </li>
+              <li className="rappel-contacts__wide">
+                <a href={`mailto:${plain(c.email)}`} className="rappel-contact is-row" aria-label={`E-mail : ${plain(c.email)}`}>
+                  <span className="rappel-contact__icon" aria-hidden="true"><IconMail /></span>
+                  <span className="rappel-contact__value">
+                    {plain(c.email).split("@")[0]}@<wbr />
+                    {plain(c.email).split("@")[1]}
+                  </span>
+                </a>
               </li>
             </ul>
           </div>
-
-          <div className="about-contact__form-wrap">
-            <div className="about-contact__form-head">
-              <p className="about-contact__form-kicker">Rappel</p>
-              <h3 className="about-contact__form-title">Être rappelé sous 24 h</h3>
-              <p className="about-contact__form-lead">
-                Indiquez vos coordonnées : un membre de l’équipe vous joint rapidement.
-              </p>
-            </div>
-            <div className="about-contact__form">
-              <LeadForm kind="rappel" prefix="p" />
-            </div>
+          <div className="rappel-band__card rounded-md bg-white p-6 sm:p-8">
+            <LeadForm kind="rappel" prefix="p" />
           </div>
         </Container>
       </section>
