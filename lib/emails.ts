@@ -449,3 +449,307 @@ export function buildFormEmail(type: string, body: FormPayload, extras?: EmailEx
     text: textFor(type, body, extras),
   };
 }
+
+export type InlineImage = {
+  cid: string;
+  filename: string;
+  content: Buffer;
+  contentType: string;
+};
+
+function emailAsset(path: string) {
+  const base = BRAND.url.replace(/\/$/, "");
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/** Load brand logos from /public for CID inline embedding (reliable in Gmail/Outlook). */
+export async function loadBrandLogoInlines(): Promise<InlineImage[]> {
+  const { readFile } = await import("fs/promises");
+  const { join } = await import("path");
+  const root = join(process.cwd(), "public", "images");
+  const files: { cid: string; file: string }[] = [
+    { cid: "logo-iscae", file: "logo-iscae-lockup.png" },
+    { cid: "logo-bdo", file: "logo-bdo-lockup.png" },
+  ];
+  const out: InlineImage[] = [];
+  for (const f of files) {
+    try {
+      out.push({
+        cid: f.cid,
+        filename: f.file,
+        content: await readFile(join(root, f.file)),
+        contentType: "image/png",
+      });
+    } catch {
+      /* missing asset — HTML falls back to hosted URL */
+    }
+  }
+  return out;
+}
+
+/** Shared branded shell: logo lockup + navy hero + body + footer. */
+function applicantEmailShell(opts: {
+  subject: string;
+  badge: string;
+  title: string;
+  lead: string;
+  bodyHtml: string;
+  hello: string;
+}) {
+  const site = BRAND.url.replace(/\/$/, "");
+  // Prefer CID (attached inline); hosted URL is the fallback if CID is stripped.
+  const logoIscae = "cid:logo-iscae";
+  const logoBdo = "cid:logo-bdo";
+  const logoIscaeHttp = emailAsset("/images/logo-iscae-lockup.png");
+  const logoBdoHttp = emailAsset("/images/logo-bdo-lockup.png");
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>${esc(opts.subject)}</title>
+  <!--[if mso]><style>body,table,td{font-family:Arial,sans-serif!important;}</style><![endif]-->
+</head>
+<body style="margin:0;padding:0;background:${WASH};">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${WASH};padding:28px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-collapse:collapse;border-radius:16px;overflow:hidden;">
+          <!-- Logo bar -->
+          <tr>
+            <td style="background:#ffffff;padding:22px 28px 18px;border-bottom:1px solid ${LINE};">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                <tr>
+                  <td style="vertical-align:middle;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                      <tr>
+                        <td style="vertical-align:middle;padding-right:14px;">
+                          <a href="${esc(BRAND.iscae)}" style="text-decoration:none;">
+                            <img src="${logoIscae}" width="100" height="49" alt="Groupe ISCAE" style="display:block;width:100px;height:auto;border:0;outline:none;" />
+                          </a>
+                        </td>
+                        <td style="width:1px;height:36px;background:${LINE};font-size:0;line-height:0;">&nbsp;</td>
+                        <td style="vertical-align:middle;padding-left:14px;">
+                          <a href="${esc(BRAND.bdo)}" style="text-decoration:none;">
+                            <img src="${logoBdo}" width="86" height="33" alt="BDO Maroc" style="display:block;width:86px;height:auto;border:0;outline:none;" />
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right" style="vertical-align:middle;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:${MUTED};">
+                    CFO&nbsp;4.0
+                  </td>
+                </tr>
+              </table>
+              <!-- Hosted fallback for clients that ignore CID -->
+              <div style="display:none;max-height:0;overflow:hidden;">
+                <img src="${esc(logoIscaeHttp)}" width="1" height="1" alt="" />
+                <img src="${esc(logoBdoHttp)}" width="1" height="1" alt="" />
+              </div>
+            </td>
+          </tr>
+          <!-- Hero -->
+          <tr>
+            <td style="background:${NAVY};padding:0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:${NAVY};">
+                <tr>
+                  <td style="padding:30px 32px 10px;">
+                    <span style="display:inline-block;padding:7px 12px;background:${RED};color:#ffffff;font:800 11px/1 Mulish,Segoe UI,Arial,sans-serif;letter-spacing:0.1em;text-transform:uppercase;border-radius:999px;">
+                      ${esc(opts.badge)}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 32px 12px;">
+                    <h1 style="margin:0;font:800 28px/1.18 Mulish,Segoe UI,Arial,sans-serif;color:#ffffff;letter-spacing:-0.03em;">
+                      ${esc(opts.title)}
+                    </h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 32px 30px;">
+                    <p style="margin:0;max-width:460px;font:400 15px/1.55 Mulish,Segoe UI,Arial,sans-serif;color:#d7e3ef;">
+                      ${esc(opts.lead)}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="height:4px;background:${RED};font-size:0;line-height:0;">&nbsp;</td>
+          </tr>
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px 32px 8px;font:400 16px/1.65 Mulish,Segoe UI,Arial,sans-serif;color:${NAVY};">
+              <p style="margin:0 0 18px;font:800 20px/1.3 Mulish,Segoe UI,Arial,sans-serif;color:${NAVY};">
+                Bonjour ${esc(opts.hello)}
+              </p>
+              ${opts.bodyHtml}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 32px 28px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${WASH};border-collapse:collapse;border-radius:12px;">
+                <tr>
+                  <td style="padding:16px 18px;font:400 13px/1.55 Mulish,Segoe UI,Arial,sans-serif;color:${MUTED};">
+                    <a href="${esc(site)}" style="color:${BLUE};font-weight:700;text-decoration:none;">${esc(site.replace(/^https?:\/\//, ""))}</a>
+                    &nbsp;·&nbsp;
+                    <a href="mailto:${esc(BRAND.email)}" style="color:${BLUE};font-weight:700;text-decoration:none;">${esc(BRAND.email)}</a>
+                    &nbsp;·&nbsp;
+                    <a href="tel:${esc(BRAND.phone.replace(/\s/g, ""))}" style="color:${BLUE};font-weight:700;text-decoration:none;">${esc(BRAND.phone)}</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="background:${NAVY};padding:18px 32px;">
+              <p style="margin:0;font:600 12px/1.5 Mulish,Segoe UI,Arial,sans-serif;color:rgba(255,255,255,0.72);">
+                Certificat exécutif CFO 4.0 · Transformation Digitale et Leadership Financier
+              </p>
+              <p style="margin:6px 0 0;font:600 11px/1.4 Mulish,Segoe UI,Arial,sans-serif;color:rgba(255,255,255,0.45);">
+                Groupe ISCAE × BDO Maroc
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/** Confirmation sent to the person who submitted the form (not the admin notify). */
+export function buildApplicantEmail(type: string, body: FormPayload, extras?: EmailExtras) {
+  const prenom = val(body, "prenom");
+  const nom = val(body, "nom");
+  const hello = prenom || nom || "Madame, Monsieur";
+  const cert = plain(data.site.sousTitreOfficiel);
+  const hasPhoto = (extras?.attachments ?? []).some((f) => /photo/i.test(f.label) || /photo/i.test(f.filename));
+  const hasCv = (extras?.attachments ?? []).some((f) => /^cv$/i.test(f.label) || /^cv\b/i.test(f.filename));
+  const site = BRAND.url.replace(/\/$/, "");
+
+  if (type === "candidature") {
+    const subject = `Réception de votre candidature · ${cert}`;
+    const docsLine = hasCv
+      ? hasPhoto
+        ? "Nous avons bien reçu votre dossier, y compris votre <strong>CV</strong> et votre <strong>photo</strong>."
+        : "Nous avons bien reçu votre dossier, y compris votre <strong>CV</strong>. Si vous le souhaitez, vous pouvez encore nous transmettre une <strong>photo numérique</strong> en répondant à cet e-mail."
+      : "Afin de finaliser votre dossier, merci de nous transmettre <strong>votre CV</strong> ainsi qu’une <strong>photo numérique</strong> en répondant à cet e-mail.";
+
+    const text = [
+      `Bonjour ${hello},`,
+      "",
+      `Nous avons le plaisir de vous confirmer la réception de votre candidature au ${cert}.`,
+      "",
+      hasCv
+        ? hasPhoto
+          ? "Nous avons bien reçu votre dossier, y compris votre CV et votre photo."
+          : "Nous avons bien reçu votre dossier, y compris votre CV. Si vous le souhaitez, vous pouvez encore nous transmettre une photo numérique en répondant à cet e-mail."
+        : "Afin de finaliser votre dossier, merci de nous transmettre votre CV ainsi qu’une photo numérique en répondant à cet e-mail.",
+      "",
+      "Une fois le dossier complet, notre équipe étudie votre éligibilité. La réponse vous est communiquée sous deux jours ouvrés.",
+      "",
+      "Un membre de notre équipe vous contactera prochainement par téléphone pour confirmer votre inscription et répondre à vos éventuelles questions.",
+      "",
+      "Nous restons à votre disposition pour toute information complémentaire.",
+      "",
+      "Cordialement,",
+      "Groupe ISCAE & BDO Maroc",
+      site,
+    ].join("\n");
+
+    const bodyHtml = `
+              <p style="margin:0 0 16px;">
+                Nous avons le plaisir de vous confirmer la réception de votre candidature au
+                <strong>${esc(cert)}</strong>.
+              </p>
+              <p style="margin:0 0 16px;">
+                ${docsLine}
+              </p>
+              <p style="margin:0 0 16px;">
+                Une fois le dossier complet, notre équipe étudie votre éligibilité.
+                La réponse vous est communiquée sous <strong>deux jours ouvrés</strong>.
+              </p>
+              <p style="margin:0 0 16px;">
+                Un membre de notre équipe vous <strong>contactera</strong> prochainement par
+                <strong>téléphone pour confirmer votre inscription</strong> et répondre à vos éventuelles questions.
+              </p>
+              <p style="margin:0 0 28px;">
+                Nous restons à votre disposition pour toute <strong>information complémentaire</strong>.
+              </p>
+              <p style="margin:0;line-height:1.55;">
+                Cordialement,<br />
+                <strong>Groupe ISCAE &amp; BDO Maroc</strong>
+              </p>`;
+
+    const html = applicantEmailShell({
+      subject,
+      badge: "Confirmation",
+      title: "Candidature bien reçue",
+      lead: "Votre dossier est entre les mains de l’équipe pédagogique ISCAE × BDO.",
+      bodyHtml,
+      hello,
+    });
+
+    return { subject, html, text };
+  }
+
+  // Shorter receipts for lead forms
+  const titles: Record<string, { subject: string; title: string; body: string; badge: string; lead: string }> = {
+    rappel: {
+      subject: "Votre demande de rappel est enregistrée",
+      title: "Demande de rappel reçue",
+      badge: "Rappel",
+      lead: "Nous vous rappelons sous 24 heures ouvrées.",
+      body: "Un membre de l’équipe vous appelle sous 24 heures ouvrées pour répondre à votre question.",
+    },
+    session: {
+      subject: "Votre place à la session d’information est réservée",
+      title: "Inscription confirmée",
+      badge: "Session",
+      lead: "Votre place à la session d’information est réservée.",
+      body: "Le lien de connexion vous sera envoyé la veille de la session.",
+    },
+    document: {
+      subject: "Votre document CFO 4.0",
+      title: "Document demandé",
+      badge: "Document",
+      lead: "Votre demande de document a bien été enregistrée.",
+      body: "Le document demandé est disponible depuis la page de confirmation. Pour toute question, répondez à cet e-mail.",
+    },
+  };
+  const copy = titles[type] ?? {
+    subject: "Votre demande est enregistrée",
+    title: "Demande reçue",
+    badge: "CFO 4.0",
+    lead: "Nous avons bien reçu votre message.",
+    body: "Nous revenons vers vous rapidement.",
+  };
+  const subject = `[CFO 4.0] ${copy.subject}`;
+  const text = [
+    `Bonjour ${hello},`,
+    "",
+    copy.body,
+    "",
+    "Cordialement,",
+    "Groupe ISCAE & BDO Maroc",
+    site,
+  ].join("\n");
+  const bodyHtml = `
+              <p style="margin:0 0 24px;">${esc(copy.body)}</p>
+              <p style="margin:0;">Cordialement,<br /><strong>Groupe ISCAE &amp; BDO Maroc</strong></p>`;
+  const html = applicantEmailShell({
+    subject,
+    badge: copy.badge,
+    title: copy.title,
+    lead: copy.lead,
+    bodyHtml,
+    hello,
+  });
+  return { subject, html, text };
+}

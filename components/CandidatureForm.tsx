@@ -18,10 +18,16 @@ import {
   PARTICIPATIONS,
   SECTEURS,
   UPLOADS,
-  checkUpload,
+  verifyUpload,
   type Option,
   type UploadRule,
 } from "@/lib/candidature";
+import {
+  clearDraftFiles,
+  loadDraftFiles,
+  removeDraftFile,
+  saveDraftFile,
+} from "@/lib/candidature-draft-files";
 
 const steps = ["Coordonnées", "Inscription", "Fonction et parcours", "Motivation"];
 const KEY = "cfo40-candidature";
@@ -38,6 +44,8 @@ export function CandidatureForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focusName, setFocusName] = useState<{ name: string } | null>(null);
   const [done, setDone] = useState(false);
+  /** Files rehydrated once from IndexedDB (`undefined` = still loading). */
+  const [restoredUploads, setRestoredUploads] = useState<Partial<Record<"cv" | "photo", File>> | undefined>(undefined);
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const inFlight = useRef(false);
@@ -49,32 +57,47 @@ export function CandidatureForm() {
   useEffect(() => {
     const form = formRef.current;
     if (!form) return;
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (!raw) return;
-      const saved = JSON.parse(raw) as Record<string, string>;
-      Object.entries(saved).forEach(([key, value]) => {
-        if (key === "_step") return;
-        const el = form.elements.namedItem(key);
-        if (el instanceof RadioNodeList) {
-          el.value = value;
-        } else if (el instanceof HTMLInputElement) {
-          if (el.type === "file") return;
-          if (el.type === "checkbox") el.checked = value === "oui";
-          else el.value = value;
-        } else if (el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
-          el.value = value;
+    let cancelled = false;
+    (async () => {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) {
+          const saved = JSON.parse(raw) as Record<string, string>;
+          Object.entries(saved).forEach(([key, value]) => {
+            if (key === "_step") return;
+            const el = form.elements.namedItem(key);
+            if (el instanceof RadioNodeList) {
+              el.value = value;
+            } else if (el instanceof HTMLInputElement) {
+              if (el.type === "file") return;
+              if (el.type === "checkbox") el.checked = value === "oui";
+              else el.value = value;
+            } else if (el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+              el.value = value;
+            }
+          });
+          const restored = Object.fromEntries(
+            Object.keys(EMPTY).map((k) => [k, saved[k] || ""]),
+          ) as Choices;
+          const next = saved._step ? Math.min(Number(saved._step) || 0, steps.length - 1) : 0;
+          if (!cancelled) {
+            setChoices(restored);
+            if (next) setStep(next);
+          }
         }
-      });
-      const restored = Object.fromEntries(
-        Object.keys(EMPTY).map((k) => [k, saved[k] || ""]),
-      ) as Choices;
-      const next = saved._step ? Math.min(Number(saved._step) || 0, steps.length - 1) : 0;
-      queueMicrotask(() => {
-        setChoices(restored);
-        if (next) setStep(next);
-      });
-    } catch {}
+      } catch {
+        /* ignore corrupt draft */
+      }
+      try {
+        const files = await loadDraftFiles(UPLOADS.map((u) => u.field));
+        if (!cancelled) setRestoredUploads(files);
+      } catch {
+        if (!cancelled) setRestoredUploads({});
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -119,22 +142,58 @@ export function CandidatureForm() {
     persist(form);
   }
 
+  async function applyUploadCheck(rule: UploadRule, input: HTMLInputElement, file: File | undefined) {
+    if (!file) {
+      input.setCustomValidity("");
+      setErrors((errs) => ({ ...errs, [rule.field]: "" }));
+      void removeDraftFile(rule.field);
+      return "";
+    }
+    const message = await verifyUpload(rule, file);
+    if (input.files?.[0] !== file) return null;
+    input.setCustomValidity(message);
+    setErrors((errs) => ({ ...errs, [rule.field]: message }));
+    if (!message) void saveDraftFile(rule.field, file);
+    else void removeDraftFile(rule.field);
+    return message;
+  }
+
   function onFile(rule: UploadRule) {
     return (e: ChangeEvent<HTMLInputElement>) => {
       const input = e.currentTarget;
       const file = input.files?.[0];
-      input.setCustomValidity(file ? checkUpload(rule, file) : "");
-      setErrors((errs) => (file || errs[rule.field] ? { ...errs, [rule.field]: fieldMessage(input) } : errs));
+      void applyUploadCheck(rule, input, file);
     };
   }
 
-  function next(e: FormEvent) {
+  /** Re-check CV/photo signatures on the current step so a bad file cannot reach the last step. */
+  async function verifyVisibleUploads(form: HTMLFormElement) {
+    const uploadErrors: Record<string, string> = {};
+    let firstBad: HTMLInputElement | null = null;
+    for (const rule of UPLOADS) {
+      const el = form.elements.namedItem(rule.field);
+      if (!(el instanceof HTMLInputElement) || el.closest("fieldset[hidden]")) continue;
+      const file = el.files?.[0];
+      if (!file) continue;
+      const message = await applyUploadCheck(rule, el, file);
+      if (message) {
+        uploadErrors[rule.field] = message;
+        firstBad ??= el;
+      }
+    }
+    return { uploadErrors, firstBad };
+  }
+
+  async function next(e: FormEvent) {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
+    const { uploadErrors, firstBad } = await verifyVisibleUploads(form);
     const { errors: found, first } = collectErrors(form);
-    setErrors(found);
-    if (first) {
-      focusField(first);
+    const merged = { ...found, ...uploadErrors };
+    setErrors(merged);
+    const focus = firstBad ?? first;
+    if (focus) {
+      focusField(focus);
       return;
     }
     setStatus("");
@@ -157,9 +216,24 @@ export function CandidatureForm() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (step < steps.length - 1) return next(e);
+    if (step < steps.length - 1) {
+      await next(e);
+      return;
+    }
     if (inFlight.current) return;
     const form = e.currentTarget;
+    // Final pass: validate every step, including file signatures, before sending.
+    for (const rule of UPLOADS) {
+      const el = form.elements.namedItem(rule.field);
+      if (!(el instanceof HTMLInputElement)) continue;
+      const file = el.files?.[0];
+      if (!file) {
+        if (rule.required) el.setCustomValidity(`Merci de joindre votre ${rule.label}.`);
+        else el.setCustomValidity("");
+        continue;
+      }
+      el.setCustomValidity(await verifyUpload(rule, file));
+    }
     const { errors: found, first } = collectErrors(form, { includeHidden: true });
     setErrors(found);
     if (first) {
@@ -192,6 +266,7 @@ export function CandidatureForm() {
       try {
         localStorage.removeItem(KEY);
       } catch {}
+      void clearDraftFiles();
       setDone(true);
     } catch {
       setStatus("L’envoi n’a pas abouti. Écrivez-nous à " + BRAND.email);
@@ -294,8 +369,8 @@ export function CandidatureForm() {
           ))}
         </ol>
         <p className="mt-4 text-xs text-muted">
-          Brouillon conservé dans ce navigateur, sur cet appareil uniquement. Vous pouvez
-          reprendre plus tard ; les fichiers (CV, photo) sont à joindre à nouveau.
+          Brouillon conservé dans ce navigateur, sur cet appareil uniquement — y compris le CV
+          et la photo. Vous pouvez fermer l’onglet et reprendre plus tard.
         </p>
       </div>
 
@@ -334,7 +409,13 @@ export function CandidatureForm() {
           {err("ville")}
         </label>
         {UPLOADS.map((rule) => (
-          <FileField key={rule.field} rule={rule} error={errors[rule.field]} onFileChange={onFile(rule)} />
+          <FileField
+            key={rule.field}
+            rule={rule}
+            error={errors[rule.field]}
+            restoredFile={restoredUploads ? restoredUploads[rule.field] ?? null : undefined}
+            onFileChange={onFile(rule)}
+          />
         ))}
       </fieldset>
 
@@ -408,37 +489,37 @@ export function CandidatureForm() {
         </div>
       </fieldset>
 
-      <div className="flex flex-wrap justify-between gap-3">
-        {step > 0 ? (
-          <Button type="button" variant="ghost" onClick={() => setStep((s) => s - 1)}>
-            <span className="inline-flex -scale-x-100">
-              <IconArrowRight />
-            </span>
-            Retour
+      {status ? <p className="text-sm text-red">{status}</p> : null}
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+        <p className="m-0 text-xs leading-none text-muted">
+          Clôture des candidatures le {plain(data.site.admission.dateLimite)}.
+        </p>
+        <div className="ml-auto flex flex-wrap items-center gap-3">
+          {step > 0 ? (
+            <Button type="button" variant="ghost" onClick={() => setStep((s) => s - 1)}>
+              <span className="inline-flex -scale-x-100">
+                <IconArrowRight />
+              </span>
+              Retour
+            </Button>
+          ) : null}
+          <Button type="submit" disabled={sending}>
+            {sending ? (
+              "Envoi…"
+            ) : step === steps.length - 1 ? (
+              <>
+                Envoyer
+                <IconSend size={17} />
+              </>
+            ) : (
+              <>
+                Suivant
+                <IconArrowRight />
+              </>
+            )}
           </Button>
-        ) : (
-          <span />
-        )}
-        <Button type="submit" disabled={sending}>
-          {sending ? (
-            "Envoi…"
-          ) : step === steps.length - 1 ? (
-            <>
-              Envoyer
-              <IconSend size={17} />
-            </>
-          ) : (
-            <>
-              Suivant
-              <IconArrowRight />
-            </>
-          )}
-        </Button>
+        </div>
       </div>
-      {status && <p className="text-sm text-red">{status}</p>}
-      <p className="text-xs text-muted">
-        Clôture des candidatures le {plain(data.site.admission.dateLimite)}.
-      </p>
       {done ? (
         <SuccessDialog type="candidature" closeLabel="Retour à l’accueil" onClose={() => router.push("/")} />
       ) : null}

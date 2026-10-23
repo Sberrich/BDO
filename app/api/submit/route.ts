@@ -2,7 +2,13 @@ import { NextResponse, after } from "next/server";
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
 import { BRAND } from "@/lib/content";
-import { buildFormEmail, type AttachmentInfo } from "@/lib/emails";
+import {
+  buildApplicantEmail,
+  buildFormEmail,
+  loadBrandLogoInlines,
+  type AttachmentInfo,
+  type InlineImage,
+} from "@/lib/emails";
 import {
   AUTRE_FIELDS,
   MAX_REQUEST_BYTES,
@@ -126,22 +132,30 @@ async function readUploads(form: FormData): Promise<{ files: Upload[]; error?: s
 async function deliverViaResend(
   key: string,
   from: string,
-  notify: string,
-  replyTo: string,
+  to: string,
+  replyTo: string | undefined,
   mail: { subject: string; text: string; html: string },
-  files: Upload[],
+  files: Upload[] = [],
+  inlines: InlineImage[] = [],
 ) {
   const resend = new Resend(key);
+  const attachments = [
+    ...files.map((f) => ({ filename: f.filename, content: f.content })),
+    ...inlines.map((img) => ({
+      filename: img.filename,
+      content: img.content,
+      contentId: img.cid,
+      contentType: img.contentType,
+    })),
+  ];
   const { error } = await resend.emails.send({
     from,
-    to: [notify],
+    to: [to],
     replyTo,
     subject: mail.subject,
     text: mail.text,
     html: mail.html,
-    attachments: files.length
-      ? files.map((f) => ({ filename: f.filename, content: f.content }))
-      : undefined,
+    attachments: attachments.length ? attachments : undefined,
   });
   if (error) {
     throw new Error(error.message || error.name || "resend_error");
@@ -150,10 +164,11 @@ async function deliverViaResend(
 
 async function deliverViaSmtp(
   from: string,
-  notify: string,
-  replyTo: string,
+  to: string,
+  replyTo: string | undefined,
   mail: { subject: string; text: string; html: string },
-  files: Upload[],
+  files: Upload[] = [],
+  inlines: InlineImage[] = [],
 ) {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
@@ -168,13 +183,47 @@ async function deliverViaSmtp(
   });
   await transport.sendMail({
     from,
-    to: notify,
+    to,
     replyTo,
     subject: mail.subject,
     text: mail.text,
     html: mail.html,
-    attachments: files.map((f) => ({ filename: f.filename, content: f.content })),
+    attachments: [
+      ...files.map((f) => ({ filename: f.filename, content: f.content })),
+      ...inlines.map((img) => ({
+        filename: img.filename,
+        content: img.content,
+        cid: img.cid,
+        contentType: img.contentType,
+        contentDisposition: "inline" as const,
+      })),
+    ],
   });
+}
+
+/** Receipt to the submitter. Skipped on FormSubmit (owner inbox only). */
+async function deliverApplicantReceipt(
+  provider: string,
+  from: string,
+  applicant: string,
+  notify: string,
+  key: string | undefined,
+  mail: { subject: string; text: string; html: string },
+) {
+  if (provider === "formsubmit") {
+    console.info("[submit] applicant receipt skipped: FormSubmit cannot mail the submitter");
+    return;
+  }
+  const logos = await loadBrandLogoInlines();
+  if (provider === "smtp") {
+    await deliverViaSmtp(from, applicant, notify, mail, [], logos);
+    return;
+  }
+  if (provider === "resend") {
+    if (!key) throw new Error("RESEND_API_KEY manquante");
+    await deliverViaResend(key, from, applicant, notify, mail, [], logos);
+    return;
+  }
 }
 
 export async function POST(req: Request) {
@@ -264,10 +313,12 @@ export async function POST(req: Request) {
     (provider === "smtp" ? `CFO 4.0 <${process.env.SMTP_USER}>` : "BDO Certificat <onboarding@resend.dev>");
   const key = process.env.RESEND_API_KEY;
   const canAttach = provider === "resend" || provider === "smtp";
+  const attachMeta = files.map(({ label, filename, size }) => ({ label, filename, size }));
   const mail = buildFormEmail(type, body, {
-    attachments: files.map(({ label, filename, size }) => ({ label, filename, size })),
+    attachments: attachMeta,
     attachmentsNotSent: files.length > 0 && !canAttach,
   });
+  const receipt = buildApplicantEmail(type, body, { attachments: attachMeta });
 
   let saved: Submission | null = null;
   try {
@@ -311,6 +362,17 @@ export async function POST(req: Request) {
       },
       { status: 502 },
     );
+  }
+
+  // Best-effort receipt to the submitter — never fail the request if this secondary send fails.
+  try {
+    await deliverApplicantReceipt(provider, from, email, notify, key, receipt);
+  } catch (err) {
+    console.error("[submit] applicant receipt failed", {
+      type,
+      provider,
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   return successResponse(type, body);

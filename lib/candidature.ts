@@ -81,7 +81,7 @@ export function extensionOf(name: string) {
   return m ? m[1].toLowerCase() : "";
 }
 
-/** Client-side check; the server re-checks size, extension and file signature. */
+/** Sync checks (extension / size); the server still re-checks on submit. */
 export function checkUpload(rule: UploadRule, file: { name: string; size: number }): string {
   if (!rule.extensions.includes(extensionOf(file.name))) {
     return `Format non accepté : ${rule.hint}.`;
@@ -106,6 +106,18 @@ export function matchesSignature(ext: string, bytes: Uint8Array) {
   const sigs = SIGNATURES[ext];
   if (!sigs) return false;
   return sigs.some((sig) => sig.every((b, i) => bytes[i] === b));
+}
+
+/** Full client check including magic-byte signature — use on pick and before leaving the step. */
+export async function verifyUpload(rule: UploadRule, file: File): Promise<string> {
+  const sync = checkUpload(rule, file);
+  if (sync) return sync;
+  const ext = extensionOf(file.name);
+  const head = new Uint8Array(await file.slice(0, 8).arrayBuffer());
+  if (!matchesSignature(ext, head)) {
+    return `${rule.label} : le fichier ne correspond pas à son format (${rule.hint}).`;
+  }
+  return "";
 }
 
 export function safeFilename(name: string, fallback: string) {
